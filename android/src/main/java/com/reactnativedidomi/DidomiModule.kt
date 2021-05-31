@@ -291,12 +291,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
   }
 
   //convert a data class to a map
-  fun <T> T.serializeToMap(): Map<String, Any> {
+  private fun <T> T.serializeToMap(): Map<String, Any> {
     return convert()
   }
 
   //convert a map to a data class
   inline fun <reified T> Map<String, Any>.toDataClass(): T {
+    return convert()
+  }
+
+  fun ReadableMap.toSet(): Set<String> {
     return convert()
   }
 
@@ -686,24 +690,24 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
   @ReactMethod
   @Deprecated("Deprecated in the Didomi API")
-  fun setUserConsentStatus(enabledPurposeIds: Set<String>,
-                           disabledPurposeIds: Set<String>,
-                           enabledLegitimatePurposeIds: Set<String>,
-                           disabledLegitimatePurposeIds: Set<String>,
-                           enabledVendorIds: Set<String>,
-                           disabledVendorIds: Set<String>,
-                           enabledLegIntVendorIds: Set<String>,
-                           disabledLegIntVendorIds: Set<String>,
+  fun setUserConsentStatus(enabledPurposeIds: ReadableMap,
+                           disabledPurposeIds: ReadableMap,
+                           enabledLegitimatePurposeIds: ReadableMap,
+                           disabledLegitimatePurposeIds: ReadableMap,
+                           enabledVendorIds: ReadableMap,
+                           disabledVendorIds: ReadableMap,
+                           enabledLegIntVendorIds: ReadableMap,
+                           disabledLegIntVendorIds: ReadableMap,
                            promise: Promise) {
     promise.resolve(Didomi.getInstance().setUserConsentStatus(
-      enabledPurposeIds,
-      disabledPurposeIds,
-      enabledLegitimatePurposeIds,
-      disabledLegitimatePurposeIds,
-      enabledVendorIds,
-      disabledVendorIds,
-      enabledLegIntVendorIds,
-      disabledLegIntVendorIds))
+      enabledPurposeIds.toSet(),
+      disabledPurposeIds.toSet(),
+      enabledLegitimatePurposeIds.toSet(),
+      disabledLegitimatePurposeIds.toSet(),
+      enabledVendorIds.toSet(),
+      disabledVendorIds.toSet(),
+      enabledLegIntVendorIds.toSet(),
+      disabledLegIntVendorIds.toSet()))
   }
 
   @ReactMethod
@@ -725,38 +729,38 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
   }
 
   @ReactMethod
-  fun setUserStatusSets(enabledConsentPurposeIds: Set<String>,
-                        disabledConsentPurposeIds: Set<String>,
-                        enabledLIPurposeIds: Set<String>,
-                        disabledLIPurposeIds: Set<String>,
-                        enabledConsentVendorIds: Set<String>,
-                        disabledConsentVendorIds: Set<String>,
-                        enabledLIVendorIds: Set<String>,
-                        disabledLIVendorIds: Set<String>,
+  fun setUserStatusSets(enabledConsentPurposeIds: ReadableMap,
+                        disabledConsentPurposeIds: ReadableMap,
+                        enabledLIPurposeIds: ReadableMap,
+                        disabledLIPurposeIds: ReadableMap,
+                        enabledConsentVendorIds: ReadableMap,
+                        disabledConsentVendorIds: ReadableMap,
+                        enabledLIVendorIds: ReadableMap,
+                        disabledLIVendorIds: ReadableMap,
                         sendAPIEvent: Boolean?,
                         promise: Promise) {
     sendAPIEvent?.let {
       promise.resolve(Didomi.getInstance().setUserStatus(
-        enabledConsentPurposeIds,
-        disabledConsentPurposeIds,
-        enabledLIPurposeIds,
-        disabledLIPurposeIds,
-        enabledConsentVendorIds,
-        disabledConsentVendorIds,
-        enabledLIVendorIds,
-        disabledLIVendorIds,
+        enabledConsentPurposeIds.toSet(),
+        disabledConsentPurposeIds.toSet(),
+        enabledLIPurposeIds.toSet(),
+        disabledLIPurposeIds.toSet(),
+        enabledConsentVendorIds.toSet(),
+        disabledConsentVendorIds.toSet(),
+        enabledLIVendorIds.toSet(),
+        disabledLIVendorIds.toSet(),
         it
       ))
     } ?: kotlin.run {
       promise.resolve(Didomi.getInstance().setUserStatus(
-        enabledConsentPurposeIds,
-        disabledConsentPurposeIds,
-        enabledLIPurposeIds,
-        disabledLIPurposeIds,
-        enabledConsentVendorIds,
-        disabledConsentVendorIds,
-        enabledLIVendorIds,
-        disabledLIVendorIds
+        enabledConsentPurposeIds.toSet(),
+        disabledConsentPurposeIds.toSet(),
+        enabledLIPurposeIds.toSet(),
+        disabledLIPurposeIds.toSet(),
+        enabledConsentVendorIds.toSet(),
+        disabledConsentVendorIds.toSet(),
+        enabledLIVendorIds.toSet(),
+        disabledLIVendorIds.toSet()
       ))
     }
   }

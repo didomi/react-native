@@ -1,4 +1,4 @@
-import { NativeModules, WritableArray, WritableMap } from 'react-native';
+import { NativeModules } from 'react-native';
 
 type DidomiType = {
   initialize(
@@ -13,22 +13,22 @@ type DidomiType = {
   setLogLevel(level: number): Promise<number>;
   addEventListener(eventKey: string): Promise<number>;
   removeEventListener(eventKey: string): Promise<number>;
-  getDisabledPurposes(): Promise<WritableArray>;
-  getDisabledPurposeIds(): Promise<WritableArray>;
-  getDisabledVendors(): Promise<WritableArray>;
-  getDisabledVendorIds(): Promise<WritableArray>;
-  getEnabledPurposes(): Promise<WritableArray>;
-  getEnabledPurposeIds(): Promise<WritableArray>;
-  getEnabledVendors(): Promise<WritableArray>;
-  getEnabledVendorIds(): Promise<WritableArray>;
+  getDisabledPurposes(): Promise<object>; //WritableArray
+  getDisabledPurposeIds(): Promise<object>; //WritableArray
+  getDisabledVendors(): Promise<object>; //WritableArray
+  getDisabledVendorIds(): Promise<object>; //WritableArray
+  getEnabledPurposes(): Promise<object>; //WritableArray
+  getEnabledPurposeIds(): Promise<object>; //WritableArray
+  getEnabledVendors(): Promise<object>; //WritableArray
+  getEnabledVendorIds(): Promise<object>; //WritableArray
   getJavaScriptForWebView(): Promise<string>;
   getQueryStringForWebView(): Promise<string>;
-  getPurpose(purposeId: string): Promise<WritableMap>;
-  getRequiredPurposes(): Promise<WritableArray>;
-  getRequiredPurposeIds(): Promise<WritableArray>;
-  getRequiredVendors(): Promise<WritableArray>;
-  getRequiredVendorIds(): Promise<WritableArray>;
-  getText(key: string): Promise<WritableMap>;
+  getPurpose(purposeId: string): Promise<object>; //WritableMap
+  getRequiredPurposes(): Promise<object>; //WritableArray
+  getRequiredPurposeIds(): Promise<object>; //WritableArray
+  getRequiredVendors(): Promise<object>; //WritableArray
+  getRequiredVendorIds(): Promise<object>; //WritableArray
+  getText(key: string): Promise<object>; //WritableMap
   getTranslatedText(key: string): Promise<string>;
   getUserConsentStatusForPurpose(purposeId: string): Promise<boolean>;
   getUserConsentStatusForVendor(vendorId: string): Promise<boolean>;
@@ -40,7 +40,7 @@ type DidomiType = {
   ): boolean;
 
   getUserStatusForVendor(vendorId: string): Promise<boolean>;
-  getVendor(vendorId: string): Promise<WritableMap>;
+  getVendor(vendorId: string): Promise<object>; //WritableMap
   hideNotice(): Promise<number>;
   hidePreferences(): Promise<number>;
   isConsentRequired(): Promise<boolean>;
