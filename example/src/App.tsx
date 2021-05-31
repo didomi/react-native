@@ -30,7 +30,6 @@ export default function App() {
           style={styles.input}
           onChangeText={setVendorId}
           value={vendorId}
-          accessibilityIdentifier='Test'
           placeholder={'vendorId'}
         />
 
