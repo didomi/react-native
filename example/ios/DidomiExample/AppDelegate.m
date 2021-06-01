@@ -52,7 +52,9 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [FIRApp configure];
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
   
   return YES;
 }
