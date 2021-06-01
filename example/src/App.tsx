@@ -1,24 +1,37 @@
-import * as React from 'react';
+import React, { useState } from 'react'
 
-import { StyleSheet, View, Text, Button, ScrollView, TextInput } from 'react-native';
-import Didomi from 'react-native-didomi';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  ScrollView,
+  TextInput,
+} from 'react-native'
+import { Didomi, DidomiEventType } from 'react-native-didomi'
 
-export default function App() {
-  const [result, setResult] = React.useState<string>('');
-  const [logLevel, setLogLevel] = React.useState<number>(0);
-  const [languageCode, setLanguageCode] = React.useState<string>('fr');
-  const [vendorId, setVendorId] = React.useState<string>('');
-  const [purposeId, setPurposeId] = React.useState<string>('');
-  const [key, setKey] = React.useState<string>('');
-  const [event, setEventKey] = React.useState<string>('');
+export default function App () {
+  const [result, setResult] = useState('')
+  const [logLevel, setLogLevel] = useState(0)
+  const [languageCode, setLanguageCode] = useState('fr')
+  const [vendorId, setVendorId] = useState('')
+  const [purposeId, setPurposeId] = useState('')
+  const [key, setKey] = useState('')
+  const [event, setEventKey] = useState('')
 
   React.useEffect(() => {
-    Didomi.initialize('', '', '', '', true).then(setResult);
+
+    Didomi.initialize('', '', '', '', true);
+
+    Didomi.addEventListener(DidomiEventType.READY, () => {
+      console.log("I'm ready");
+    });
+
     //var strCallback = () : void => { console.log('Didomi init OK'); };
     //Didomi.onReady(strCallback)
     //Didomi.onError(function () {Log.d("App", "KO");})
     //Didomi.initialize("465ca0b2-b96f-43b4-a864-f87e18d2fd38", null, null, null, false).then(setResult);
-  }, []);
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -59,32 +72,31 @@ export default function App() {
         />
       </View>
 
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-
+      <ScrollView contentInsetAdjustmentBehavior='automatic'>
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.showNotice();
+              Didomi.showNotice()
             }}
-            title="Show Notice"
+            title='Show Notice'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.setupUI();
+              Didomi.setupUI()
             }}
-            title="setupUI"
+            title='setupUI'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.setLogLevel(logLevel);
-              if (logLevel < 4) setLogLevel(logLevel + 1);
-              else setLogLevel(0);
+              Didomi.setLogLevel(logLevel)
+              if (logLevel < 4) setLogLevel(logLevel + 1)
+              else setLogLevel(0)
             }}
             title={'Set log level to ' + logLevel}
           />
@@ -94,9 +106,9 @@ export default function App() {
           <Button
             color={'#0a0'}
             onPress={() => {
-              Didomi.addEventListener(event);
+              Didomi.addEventListener(event)
             }}
-            title="Add event listener [NEED EVENT]"
+            title='Add event listener [NEED EVENT]'
           />
         </View>
 
@@ -104,145 +116,99 @@ export default function App() {
           <Button
             color={'#0a0'}
             onPress={() => {
-              Didomi.removeEventListener(event);
+              Didomi.removeEventListener(event)
             }}
-            title="Remove event listener [NEED EVENT]"
+            title='Remove event listener [NEED EVENT]'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getDisabledPurposes());
+              setResult(Didomi.getDisabledPurposes())
             }}
-            title="Get Disabled Purposes"
+            title='Get Disabled Purposes'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getDisabledPurposeIds());
+              setResult(Didomi.getDisabledPurposeIds())
             }}
-            title="Get Disabled PurposeIds"
+            title='Get Disabled PurposeIds'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getDisabledVendors());
+              setResult(Didomi.getDisabledVendors())
             }}
-            title="Get Disabled Vendors"
+            title='Get Disabled Vendors'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getDisabledVendorIds());
+              setResult(Didomi.getDisabledVendorIds())
             }}
-            title="Get Disabled VendorIds"
+            title='Get Disabled VendorIds'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getEnabledPurposes());
+              setResult(Didomi.getEnabledPurposes())
             }}
-            title="Get Enabled Purposes"
+            title='Get Enabled Purposes'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getEnabledPurposeIds());
+              setResult(Didomi.getEnabledPurposeIds())
             }}
-            title="Get Enabled PurposeIds"
+            title='Get Enabled PurposeIds'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getEnabledVendors());
+              setResult(Didomi.getEnabledVendors())
             }}
-            title="Get Enabled Vendors"
+            title='Get Enabled Vendors'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getEnabledVendorIds());
+              setResult(Didomi.getEnabledVendorIds())
             }}
-            title="Get Enabled VendorIds"
+            title='Get Enabled VendorIds'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              setResult(Didomi.getJavaScriptForWebView());
+              setResult(Didomi.getJavaScriptForWebView())
             }}
-            title="Get JavaScript For WebView"
+            title='Get JavaScript For WebView'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.getQueryStringForWebView();
+              Didomi.getQueryStringForWebView()
             }}
-            title="Get Query String For WebView"
-          />
-        </View>
-
-        <View style={{ margin: 10 }}>
-          <Button
-            color={'#f70'}
-            onPress={() => {
-              Didomi.getPurpose(purposeId);
-            }}
-            title="Get Purpose [NEED PURPOSEID]"
-          />
-        </View>
-
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              Didomi.getRequiredPurposes();
-            }}
-            title="Get Required Purposes"
-          />
-        </View>
-
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              Didomi.getRequiredPurposeIds();
-            }}
-            title="Get Required PurposeIds"
-          />
-        </View>
-
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              Didomi.getRequiredVendors();
-            }}
-            title="Get Required Vendors"
-          />
-        </View>
-
-        <View style={{ margin: 10 }}>
-          <Button
-            onPress={() => {
-              Didomi.getRequiredVendorIds();
-            }}
-            title="Get Required VendorIds"
+            title='Get Query String For WebView'
           />
         </View>
 
@@ -250,9 +216,45 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getText(key);
+              Didomi.getPurpose(purposeId)
             }}
-            title="Get Text [NEEDS KEY]"
+            title='Get Purpose [NEED PURPOSEID]'
+          />
+        </View>
+
+        <View style={{ margin: 10 }}>
+          <Button
+            onPress={() => {
+              Didomi.getRequiredPurposes()
+            }}
+            title='Get Required Purposes'
+          />
+        </View>
+
+        <View style={{ margin: 10 }}>
+          <Button
+            onPress={() => {
+              Didomi.getRequiredPurposeIds()
+            }}
+            title='Get Required PurposeIds'
+          />
+        </View>
+
+        <View style={{ margin: 10 }}>
+          <Button
+            onPress={() => {
+              Didomi.getRequiredVendors()
+            }}
+            title='Get Required Vendors'
+          />
+        </View>
+
+        <View style={{ margin: 10 }}>
+          <Button
+            onPress={() => {
+              Didomi.getRequiredVendorIds()
+            }}
+            title='Get Required VendorIds'
           />
         </View>
 
@@ -260,9 +262,9 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getTranslatedText(key);
+              Didomi.getText(key)
             }}
-            title="Get Translated Text [NEED KEY]"
+            title='Get Text [NEEDS KEY]'
           />
         </View>
 
@@ -270,9 +272,9 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getUserConsentStatusForPurpose(purposeId);
+              Didomi.getTranslatedText(key)
             }}
-            title="Get User Consent Status For Purpose [NEED PURPOSEID]"
+            title='Get Translated Text [NEED KEY]'
           />
         </View>
 
@@ -280,9 +282,9 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getUserConsentStatusForVendor(vendorId);
+              Didomi.getUserConsentStatusForPurpose(purposeId)
             }}
-            title="Get User Consent Status For Vendor [NEED VENDORID]"
+            title='Get User Consent Status For Purpose [NEED PURPOSEID]'
           />
         </View>
 
@@ -290,9 +292,9 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId);
+              Didomi.getUserConsentStatusForVendor(vendorId)
             }}
-            title="Get User Consent Status For Vendor And Required Purposes [NEED VENDORID]"
+            title='Get User Consent Status For Vendor [NEED VENDORID]'
           />
         </View>
 
@@ -300,9 +302,9 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getUserLegitimateInterestStatusForPurpose(purposeId);
+              Didomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId)
             }}
-            title="Get User Legitimate Interest Status For Purpose [NEED PURPOSEID]"
+            title='Get User Consent Status For Vendor And Required Purposes [NEED VENDORID]'
           />
         </View>
 
@@ -310,9 +312,19 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getUserLegitimateInterestForVendor(vendorId);
+              Didomi.getUserLegitimateInterestStatusForPurpose(purposeId)
             }}
-            title="Get User Legitimate Interest For Vendor [NEED VENDORID]"
+            title='Get User Legitimate Interest Status For Purpose [NEED PURPOSEID]'
+          />
+        </View>
+
+        <View style={{ margin: 10 }}>
+          <Button
+            color={'#f70'}
+            onPress={() => {
+              Didomi.getUserLegitimateInterestForVendor(vendorId)
+            }}
+            title='Get User Legitimate Interest For Vendor [NEED VENDORID]'
           />
         </View>
 
@@ -322,9 +334,9 @@ export default function App() {
             onPress={() => {
               Didomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(
                 vendorId
-              );
+              )
             }}
-            title="Get User Legitimate Interest Status For Vendor And Required Purposes [NEED VENDORID]"
+            title='Get User Legitimate Interest Status For Vendor And Required Purposes [NEED VENDORID]'
           />
         </View>
 
@@ -332,9 +344,9 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getUserStatusForVendor(vendorId);
+              Didomi.getUserStatusForVendor(vendorId)
             }}
-            title="Get User Status For Vendor [NEED VENDORID]"
+            title='Get User Status For Vendor [NEED VENDORID]'
           />
         </View>
 
@@ -342,91 +354,81 @@ export default function App() {
           <Button
             color={'#f70'}
             onPress={() => {
-              Didomi.getVendor(vendorId);
+              Didomi.getVendor(vendorId)
             }}
-            title="Get Vendor [NEED VENDORID]"
+            title='Get Vendor [NEED VENDORID]'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.hideNotice();
+              Didomi.hideNotice()
             }}
-            title="Hide Notice"
+            title='Hide Notice'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.hidePreferences();
+              Didomi.hidePreferences()
             }}
-            title="HidePreferences"
+            title='HidePreferences'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.isConsentRequired();
+              Didomi.isConsentRequired()
             }}
-            title="Is Consent Required"
+            title='Is Consent Required'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.isUserConsentStatusPartial();
+              Didomi.isUserConsentStatusPartial()
             }}
-            title="Is User Consent Status Partial"
+            title='Is User Consent Status Partial'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.isNoticeVisible();
+              Didomi.isNoticeVisible()
             }}
-            title="Is Notice Visible"
+            title='Is Notice Visible'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.isPreferencesVisible();
+              Didomi.isPreferencesVisible()
             }}
-            title="Is Preferences Visible"
+            title='Is Preferences Visible'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.isError();
+              Didomi.isError()
             }}
-            title="Is Error"
+            title='Is Error'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.isReady();
+              Didomi.isReady()
             }}
-            title="Is Ready"
-          />
-        </View>
-
-        <View style={{ margin: 10 }}>
-          <Button
-            color={'#f00'}
-            onPress={() => {
-              Didomi.onError(callable);
-            }}
-            title="On Error [NEED CALLABLE]"
+            title='Is Ready'
           />
         </View>
 
@@ -434,9 +436,19 @@ export default function App() {
           <Button
             color={'#f00'}
             onPress={() => {
-              Didomi.onReady(callable);
+              Didomi.onError(callable)
             }}
-            title="On Ready [NEED CALLABLE]"
+            title='On Error [NEED CALLABLE]'
+          />
+        </View>
+
+        <View style={{ margin: 10 }}>
+          <Button
+            color={'#f00'}
+            onPress={() => {
+              Didomi.onReady(callable)
+            }}
+            title='On Ready [NEED CALLABLE]'
           />
         </View>
 
@@ -450,37 +462,37 @@ export default function App() {
                 organizationUserIdAuthSid,
                 organizationUserIdAuthSalt,
                 organizationUserIdAuthDigest
-              );
+              )
             }}
-            title="Set User [NEED A LOT]"
-            />
+            title='Set User [NEED A LOT]'
+          />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             color={'#f00'}
             onPress={() => {
-              Didomi.showPreferences(view);
+              Didomi.showPreferences(view)
             }}
-            title="Show Preferences [NEED VIEW]"
+            title='Show Preferences [NEED VIEW]'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.reset();
+              Didomi.reset()
             }}
-            title="Reset"
+            title='Reset'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.setUserAgreeToAll();
+              Didomi.setUserAgreeToAll()
             }}
-            title="Set User Agree To All"
+            title='Set User Agree To All'
           />
         </View>
 
@@ -497,18 +509,18 @@ export default function App() {
                 disabledVendorIds,
                 enabledLegIntVendorIds,
                 disabledLegIntVendorIds
-              );
+              )
             }}
-            title="setUserConsentStatus [NEED A LOT]"
+            title='setUserConsentStatus [NEED A LOT]'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.setUserDisagreeToAll();
+              Didomi.setUserDisagreeToAll()
             }}
-            title="Set User Disagree To All"
+            title='Set User Disagree To All'
           />
         </View>
 
@@ -521,9 +533,9 @@ export default function App() {
                 purposesLIStatus,
                 vendorsConsentStatus,
                 vendorsLIStatus
-              );
+              )
             }}
-            title="Set User Status [NEED A LOT]"
+            title='Set User Status [NEED A LOT]'
           />
         </View>
 
@@ -541,35 +553,35 @@ export default function App() {
                 enabledLIVendorIds,
                 disabledLIVendorIds,
                 sendAPIEvent
-              );
+              )
             }}
-            title="Set User Status Sets [NEED A LOT]"
+            title='Set User Status Sets [NEED A LOT]'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.shouldConsentBeCollected();
+              Didomi.shouldConsentBeCollected()
             }}
-            title="Should Consent Be Collected"
+            title='Should Consent Be Collected'
           />
         </View>
 
         <View style={{ margin: 10 }}>
           <Button
             onPress={() => {
-              Didomi.updateSelectedLanguage(languageCode);
-              if (languageCode === 'fr') setLanguageCode('es');
-              else if (languageCode === 'es') setLanguageCode('en');
-              else setLanguageCode('fr');
+              Didomi.updateSelectedLanguage(languageCode)
+              if (languageCode === 'fr') setLanguageCode('es')
+              else if (languageCode === 'es') setLanguageCode('en')
+              else setLanguageCode('fr')
             }}
             title={'Update Selected Language to ' + languageCode}
           />
         </View>
       </ScrollView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -588,4 +600,4 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
   },
-});
+})
