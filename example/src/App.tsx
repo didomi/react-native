@@ -21,11 +21,7 @@ export default function App () {
 
   React.useEffect(() => {
 
-    async function init() {
-      await Didomi.initialize('', '', '', '', true); //.then(setResult);
-    }
-    init();
-
+    Didomi.initialize('', '', '', '', true);
 
     Didomi.addEventListener(DidomiEventType.READY, () => {
       console.log("I'm ready");

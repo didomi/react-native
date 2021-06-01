@@ -107,8 +107,11 @@ export const Didomi = {
   isPreferencesVisible: (): Promise<boolean> => RNDidomi.isPreferencesVisible(),
   isError: (): Promise<boolean> => RNDidomi.isError(),
   isReady: (): Promise<boolean> => RNDidomi.isReady(),
+
+  // TODO : should be removed (already on listener)
   onError: (): Promise<void> => RNDidomi.onError(),
   onReady: (): Promise<void> => RNDidomi.onReady(),
+  
   setUser: (
     organizationUserId: string,
     organizationUserIdAuthAlgorithm: string,
@@ -128,16 +131,15 @@ export const Didomi = {
     RNDidomi.showPreferences(view),
   reset: (): Promise<void> => RNDidomi.reset(),
   setUserAgreeToAll: (): Promise<boolean> => RNDidomi.setUserAgreeToAll(),
-  // FIX ME : remove sets ? (arrays should be enough)
   setUserConsentStatus: (
-    enabledPurposeIds: Set<String>,
-    disabledPurposeIds: Set<String>,
-    enabledLegitimatePurposeIds: Set<String>,
-    disabledLegitimatePurposeIds: Set<String>,
-    enabledVendorIds: Set<String>,
-    disabledVendorIds: Set<String>,
-    enabledLegIntVendorIds: Set<String>,
-    disabledLegIntVendorIds: Set<String>
+    enabledPurposeIds: string[],
+    disabledPurposeIds: string[],
+    enabledLegitimatePurposeIds: string[],
+    disabledLegitimatePurposeIds: string[],
+    enabledVendorIds: string[],
+    disabledVendorIds: string[],
+    enabledLegIntVendorIds: string[],
+    disabledLegIntVendorIds: string[]
   ): Promise<boolean> =>
     RNDidomi.setUserConsentStatus(
       enabledPurposeIds,
@@ -165,16 +167,15 @@ export const Didomi = {
       vendorsLIStatus
     ),
 
-  // FIX ME : remove sets ? (arrays should be enough)
   setUserStatusSets: (
-    enabledConsentPurposeIds: Set<string>,
-    disabledConsentPurposeIds: Set<string>,
-    enabledLIPurposeIds: Set<string>,
-    disabledLIPurposeIds: Set<string>,
-    enabledConsentVendorIds: Set<string>,
-    disabledConsentVendorIds: Set<string>,
-    enabledLIVendorIds: Set<string>,
-    disabledLIVendorIds: Set<string>,
+    enabledConsentPurposeIds: string[],
+    disabledConsentPurposeIds: string[],
+    enabledLIPurposeIds: string[],
+    disabledLIPurposeIds: string[],
+    enabledConsentVendorIds: string[],
+    disabledConsentVendorIds: string[],
+    enabledLIVendorIds: string[],
+    disabledLIVendorIds: string[],
     sendAPIEvent: boolean
   ): Promise<boolean> =>
     RNDidomi.setUserStatusSets(
@@ -191,6 +192,6 @@ export const Didomi = {
 
   shouldConsentBeCollected: (): Promise<boolean> =>
     RNDidomi.shouldConsentBeCollected(),
-  updateSelectedLanguage: (languageCode: String): Promise<void> =>
+  updateSelectedLanguage: (languageCode: string): Promise<void> =>
     RNDidomi.updateSelectedLanguage(languageCode),
 }
