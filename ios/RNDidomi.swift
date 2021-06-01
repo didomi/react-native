@@ -3,7 +3,7 @@ import AdSupport
 import AppTrackingTransparency
 
 @objc(Didomi)
-class RNDidomi: NSObject {
+class RNDidomi: RCTEventEmitter {
     
     @objc(multiply:withB:withResolver:withRejecter:)
     func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
@@ -13,6 +13,7 @@ class RNDidomi: NSObject {
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:)
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = true, languageCode: String? = nil) {
         Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
+        addEventListener()
     }
     
     //    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
@@ -348,132 +349,6 @@ class RNDidomi: NSObject {
         Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
     }
     
-    // MARK: Listeners
-    private func createListener() -> EventListener{
-        let didomiEventListener = EventListener()
-        let emiter = RCTEventEmitter()
-        
-        didomiEventListener.onConsentChanged = { event in
-            if #available(iOS 14, *) {
-                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
-                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
-                    ATTrackingManager.requestTrackingAuthorization { status in }
-                }
-            }
-            emiter.sendEvent(withName: "onConsentChanged", body: "")
-        }
-        
-        didomiEventListener.onHideNotice = { event in
-            emiter.sendEvent(withName: "onHideNotice", body: "")
-        }
-        
-        didomiEventListener.onReady = { event in
-            emiter.sendEvent(withName: "onReady", body: "")
-        }
-        
-        didomiEventListener.onError = { event in
-            emiter.sendEvent(withName: "onError", body: "")
-        }
-        
-        didomiEventListener.onShowNotice = { event in
-            emiter.sendEvent(withName: "onShowNotice", body: "")
-        }
-        
-        didomiEventListener.onNoticeClickAgree = { event in
-            emiter.sendEvent(withName: "onNoticeClickAgree", body: "")
-        }
-        
-        didomiEventListener.onNoticeClickDisagree = { event in
-            emiter.sendEvent(withName: "onNoticeClickDisagree", body: "")
-        }
-        
-        didomiEventListener.onNoticeClickMoreInfo = { event in
-            emiter.sendEvent(withName: "onNoticeClickMoreInfo", body: "")
-        }
-        
-        didomiEventListener.onNoticeClickViewVendors = { event in
-            emiter.sendEvent(withName: "onNoticeClickViewVendors", body: "")
-        }
-        
-        didomiEventListener.onNoticeClickPrivacyPolicy = { event in
-            emiter.sendEvent(withName: "onNoticeClickPrivacyPolicy", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickAgreeToAll = { event in
-            emiter.sendEvent(withName: "onPreferencesClickAgreeToAll", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickDisagreeToAll = { event in
-            emiter.sendEvent(withName: "onPreferencesClickDisagreeToAll", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickAgreeToAllPurposes = { event in
-            emiter.sendEvent(withName: "onPreferencesClickAgreeToAllPurposes", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickDisagreeToAllPurposes = { event in
-            emiter.sendEvent(withName: "onPreferencesClickDisagreeToAllPurposes", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickResetAllPurposes = { event in
-            emiter.sendEvent(withName: "onPreferencesClickResetAllPurposes", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickAgreeToAllVendors = { event in
-            emiter.sendEvent(withName: "onPreferencesClickAgreeToAllVendors", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickDisagreeToAllVendors = { event in
-            emiter.sendEvent(withName: "onPreferencesClickDisagreeToAllVendors", body: "")
-        }
-        
-        //        didomiEventListener.onPreferencesClickPurposeAgree = { event in
-        //            emiter.sendEvent(withName: "onPreferencesClickPurposeAgree", body: "")
-        //        }
-        //
-        //        didomiEventListener.onPreferencesClickPurposeDisagree = { event in
-        //            emiter.sendEvent(withName: "onPreferencesClickPurposeDisagree", body: "")
-        //        }
-        //
-        //        didomiEventListener.onPreferencesClickCategoryAgree = { event in
-        //            emiter.sendEvent(withName: "onPreferencesClickCategoryAgree", body: "")
-        //        }
-        //
-        //        didomiEventListener.onPreferencesClickCategoryDisagree = { event in
-        //            emiter.sendEvent(withName: "onPreferencesClickCategoryDisagree", body: "")
-        //        }
-        
-        didomiEventListener.onPreferencesClickViewVendors = { event in
-            emiter.sendEvent(withName: "onPreferencesClickViewVendors", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickViewPurposes = { event in
-            emiter.sendEvent(withName: "onPreferencesClickViewPurposes", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickSaveChoices = { event in
-            emiter.sendEvent(withName: "onPreferencesClickSaveChoices", body: "")
-        }
-        
-        //        didomiEventListener.onPreferencesClickVendorAgree = { event in
-        //            emiter.sendEvent(withName: "onPreferencesClickVendorAgree", body: "")
-        //        }
-        //
-        //        didomiEventListener.onPreferencesClickVendorDisagree = { event in
-        //            emiter.sendEvent(withName: "onPreferencesClickVendorDisagree", body: "")
-        //        }
-        
-        didomiEventListener.onPreferencesClickVendorSaveChoices = { event in
-            emiter.sendEvent(withName: "onPreferencesClickVendorSaveChoices", body: "")
-        }
-        
-        //        didomiEventListener.onSyncDone = { event in
-        //            emiter.sendEvent(withName: "onSyncDone", body: "")
-        //        }
-        
-        return didomiEventListener
-    }
-    
     @objc public enum Views : Int, RawRepresentable {
         
         case purposes = 0
@@ -529,4 +404,163 @@ public struct Vendor : Codable {
     
     /// IAB ID that the vendor should be mapped to (if vendor namespace is not **iab** and the vendor should be treated as an IAB vendor).
     public var iabId: String?
+}
+
+extension RNDidomi {
+    @objc(supportedEvents)
+    override func supportedEvents() -> [String]! {
+        return ["on_consent_changed",
+                "on_hide_notice",
+                "on_ready",
+                "on_error",
+                "on_show_notice",
+                "on_notice_click_agree",
+                "on_notice_click_disagree",
+                "on_notice_click_more_info",
+                "on_notice_click_view_vendors",
+                "on_notice_click_privacy_policy",
+                "on_preferences_click_agree_to_all",
+                "on_preferences_click_disagree_to_all",
+                "on_preferences_click_agree_to_all_purposes",
+                "on_preferences_click_disagree_to_all_purposes",
+                "on_preferences_click_reset_all_purposes",
+                "on_preferences_click_agree_to_all_vendors",
+                "on_preferences_click_disagree_to_all_vendors",
+                "on_preferences_click_purpose_agree",
+                "on_preferences_click_purpose_disagree",
+                "on_preferences_click_category_agree",
+                "on_preferences_click_category_disagree",
+                "on_preferences_click_view_vendors",
+                "on_preferences_click_view_purposes",
+                "on_preferences_click_save_choices",
+                "on_preferences_click_vendor_agree",
+                "on_preferences_click_vendor_disagree",
+                "on_preferences_click_vendor_save_choices",
+                "on_sync_done"
+        ]
+    }
+    
+    private func createListener() -> EventListener{
+        let didomiEventListener = EventListener()
+        
+        didomiEventListener.onConsentChanged = { event in
+            if #available(iOS 14, *) {
+                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
+                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
+                    ATTrackingManager.requestTrackingAuthorization { status in }
+                }
+            }
+            self.sendEvent(withName: "on_consent_changed", body: "")
+        }
+        
+        didomiEventListener.onHideNotice = { event in
+            self.sendEvent(withName: "on_hide_notice", body: "")
+        }
+        
+        didomiEventListener.onReady = { event in
+            self.sendEvent(withName: "on_ready", body: "")
+        }
+        
+        didomiEventListener.onError = { event in
+            self.sendEvent(withName: "on_error", body: "")
+        }
+        
+        didomiEventListener.onShowNotice = { event in
+            self.sendEvent(withName: "on_show_notice", body: "")
+        }
+        
+        didomiEventListener.onNoticeClickAgree = { event in
+            self.sendEvent(withName: "on_notice_click_agree", body: "")
+        }
+        
+        didomiEventListener.onNoticeClickDisagree = { event in
+            self.sendEvent(withName: "on_notice_click_disagree", body: "")
+        }
+        
+        didomiEventListener.onNoticeClickMoreInfo = { event in
+            self.sendEvent(withName: "on_notice_click_more_info", body: "")
+        }
+        
+        didomiEventListener.onNoticeClickViewVendors = { event in
+            self.sendEvent(withName: "on_notice_click_view_vendors", body: "")
+        }
+        
+        didomiEventListener.onNoticeClickPrivacyPolicy = { event in
+            self.sendEvent(withName: "on_notice_click_privacy_policy", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickAgreeToAll = { event in
+            self.sendEvent(withName: "on_preferences_click_agree_to_all", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickDisagreeToAll = { event in
+            self.sendEvent(withName: "on_preferences_click_disagree_to_all", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickAgreeToAllPurposes = { event in
+            self.sendEvent(withName: "on_preferences_click_agree_to_all_purposes", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickDisagreeToAllPurposes = { event in
+            self.sendEvent(withName: "on_preferences_click_disagree_to_all_purposes", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickResetAllPurposes = { event in
+            self.sendEvent(withName: "on_preferences_click_reset_all_purposes", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickAgreeToAllVendors = { event in
+            self.sendEvent(withName: "on_preferences_click_agree_to_all_vendors", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickDisagreeToAllVendors = { event in
+            self.sendEvent(withName: "on_preferences_click_disagree_to_all_vendors", body: "")
+        }
+        
+        //        didomiEventListener.onPreferencesClickPurposeAgree = { event in
+        //            self.sendEvent(withName: "on_preferences_click_purpose_agree", body: "")
+        //        }
+        //
+        //        didomiEventListener.onPreferencesClickPurposeDisagree = { event in
+        //            self.sendEvent(withName: "on_preferences_click_purpose_disagree", body: "")
+        //        }
+        //
+        //        didomiEventListener.onPreferencesClickCategoryAgree = { event in
+        //            self.sendEvent(withName: "on_preferences_click_category_agree", body: "")
+        //        }
+        //
+        //        didomiEventListener.onPreferencesClickCategoryDisagree = { event in
+        //            self.sendEvent(withName: "on_preferences_click_category_disagree", body: "")
+        //        }
+        
+        didomiEventListener.onPreferencesClickViewVendors = { event in
+            self.sendEvent(withName: "on_preferences_click_view_vendors", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickViewPurposes = { event in
+            self.sendEvent(withName: "on_preferences_click_view_purposes", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickSaveChoices = { event in
+            self.sendEvent(withName: "on_preferences_click_save_choices", body: "")
+        }
+        
+        //        didomiEventListener.onPreferencesClickVendorAgree = { event in
+        //            self.sendEvent(withName: "on_preferences_click_vendor_agree", body: "")
+        //        }
+        //
+        //        didomiEventListener.onPreferencesClickVendorDisagree = { event in
+        //            self.sendEvent(withName: "on_preferences_click_vendor_disagree", body: "")
+        //        }
+        
+        didomiEventListener.onPreferencesClickVendorSaveChoices = { event in
+            self.sendEvent(withName: "on_preferences_click_vendor_save_choices", body: "")
+        }
+        
+        //        didomiEventListener.onSyncDone = { event in
+        //            self.sendEvent(withName: "on_sync_done", body: "")
+        //        }
+        
+        return didomiEventListener
+    }
 }

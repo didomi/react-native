@@ -93,7 +93,7 @@ RCT_EXTERN_METHOD(getRequiredPurposeIds:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(getRequiredVendorIds:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(addEventListener)
+//RCT_EXTERN_METHOD(addListener)
 
 RCT_EXTERN_METHOD(isReady:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -193,5 +193,7 @@ RCT_EXTERN_METHOD(setUse:(NSString *)id
                   secretId:(NSString *)secretId
                   salt:(nullable NSString *)salt
                   digest:(NSString *)digest)
+
+RCT_EXTERN_METHOD(supportedEvents)
 
 @end
