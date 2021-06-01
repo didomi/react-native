@@ -9,5 +9,9 @@
         },
         "gdprAppliesGlobally": true,
         "gdprAppliesWhenUnknown": true
+    },
+    "languages": {
+      "enabled": ["fr", "en", "es"],
+      "default": "en"
     }
 }
