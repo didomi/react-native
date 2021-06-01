@@ -5,6 +5,10 @@ import AppTrackingTransparency
 @objc(Didomi)
 class RNDidomi: RCTEventEmitter {
     
+    override static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
+    
     @objc(multiply:withB:withResolver:withRejecter:)
     func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(a*b)
@@ -258,8 +262,11 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(setupUI)
     dynamic func setupUI() {
-        if let containerController = RCTPresentedViewController() {
-            Didomi.shared.setupUI(containerController: containerController)
+        
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                Didomi.shared.setupUI(containerController: containerController)
+            }
         }
     }
     
