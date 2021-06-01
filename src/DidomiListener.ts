@@ -8,21 +8,21 @@ export const DidomiListener = {
   eventEmitter: new NativeEventEmitter(RNDidomi),
 
   init: () => {
-    // Register native event listeners
-    DidomiListener.eventEmitter.addListener(
-      DidomiEventType.READY,
-      (_event: any) => {
-        // FIXME: event never received (missing declaration on native bridge)
-        let events = DidomiListener.listeners.get(DidomiEventType.READY);
+    // Reset listeners
+    DidomiListener.listeners = new Map();
+
+    // Register all native event listeners
+    Object.values(DidomiEventType).forEach((eventTypeValue) => {
+      DidomiListener.eventEmitter.addListener(eventTypeValue, (_event: any) => {
+        let events = DidomiListener.listeners.get(eventTypeValue);
         if (events) {
           events.forEach((el: any) => {
+            // TODO: switch on event type to pass parameters when necessary !
             el();
           });
         }
-      }
-    );
-
-    // TODO: register every event type !!!
+      });
+    });
   },
 
   addEventListener: (

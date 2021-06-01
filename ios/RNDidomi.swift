@@ -5,6 +5,9 @@ import AppTrackingTransparency
 @objc(Didomi)
 class RNDidomi: RCTEventEmitter {
     
+    var initialized = false
+    let didomiEventListener = EventListener()
+    
     override static func requiresMainQueueSetup() -> Bool {
         return true
     }
@@ -16,9 +19,14 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:)
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = true) {
-        let languageCode = Locale.current.languageCode ?? ""
-        Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
-        addEventListener()
+        
+        if (!initialized) {
+            let languageCode = Locale.current.languageCode ?? ""
+            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
+            addEventListener()
+        }
+        
+        initialized = true
     }
     
     //    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
@@ -421,6 +429,7 @@ public struct Vendor : Codable {
 }
 
 extension RNDidomi {
+    
     @objc(supportedEvents)
     override func supportedEvents() -> [String]! {
         return ["on_consent_changed",
@@ -455,7 +464,7 @@ extension RNDidomi {
     }
     
     private func createListener() -> EventListener{
-        let didomiEventListener = EventListener()
+        
         
         didomiEventListener.onConsentChanged = { event in
             if #available(iOS 14, *) {
@@ -464,7 +473,7 @@ extension RNDidomi {
                     ATTrackingManager.requestTrackingAuthorization { status in }
                 }
             }
-            self.sendEvent(withName: "on_consent_changed", body: "")
+            self.sendEvent(withName: "on_consent_changed", body:"")
         }
         
         didomiEventListener.onHideNotice = { event in
@@ -531,9 +540,9 @@ extension RNDidomi {
             self.sendEvent(withName: "on_preferences_click_disagree_to_all_vendors", body: "")
         }
         
-        //        didomiEventListener.onPreferencesClickPurposeAgree = { event in
-        //            self.sendEvent(withName: "on_preferences_click_purpose_agree", body: "")
-        //        }
+        didomiEventListener.onPreferencesClickPurposeAgree = { event, purposeId in
+            self.sendEvent(withName: "on_preferences_click_purpose_agree", body: purposeId)
+        }
         //
         //        didomiEventListener.onPreferencesClickPurposeDisagree = { event in
         //            self.sendEvent(withName: "on_preferences_click_purpose_disagree", body: "")

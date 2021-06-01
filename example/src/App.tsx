@@ -30,6 +30,14 @@ export default function App() {
       console.log("I'm ready");
     });
 
+    Didomi.addEventListener(DidomiEventType.SHOW_NOTICE, () => {
+      console.log('Show notice');
+    });
+
+    Didomi.addEventListener(DidomiEventType.CONSENT_CHANGED, () => {
+      console.log('Consent changed');
+    });
+
     //var strCallback = () : void => { console.log('Didomi init OK'); };
     //Didomi.onReady(strCallback)
     //Didomi.onError(function () {Log.d("App", "KO");})
