@@ -11,8 +11,7 @@ RCT_EXTERN_METHOD(initialize:(NSString *)apikey
                   localConfigurationPath:(nullable NSString *)localConfigurationPath
                   remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
                   providerId:(nullable NSString *)providerId
-                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig
-                  languageCode:(nullable NSString *)languageCode)
+                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig)
 
 //RCT_EXTERN_METHOD(initialize:(NSString *)apikey
 //                  localConfigurationPath:(nullable NSString *)localConfigurationPath
@@ -25,10 +24,10 @@ RCT_EXTERN_METHOD(initialize:(NSString *)apikey
 RCT_EXTERN_METHOD(setUserAgent:(NSString *)name
                   version:(NSString *)version)
 
-RCT_EXTERN_METHOD(setUserConsentStatus:(NSSet<NSString *> *)enabledPurposeIds
-                  disabledPurposeIds:(NSSet<NSString *> *)disabledPurposeIds
-                  enabledVendorIds:(NSSet<NSString *> *)enabledVendorIds
-                  disabledVendorIds:(NSSet<NSString *> *)disabledVendorIds
+RCT_EXTERN_METHOD(setUserConsentStatus:(NSArray<NSString *> *)enabledPurposeIds
+                  disabledPurposeIds:(NSArray<NSString *> *)disabledPurposeIds
+                  enabledVendorIds:(NSArray<NSString *> *)enabledVendorIds
+                  disabledVendorIds:(NSArray<NSString *> *)disabledVendorIds
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
@@ -57,14 +56,14 @@ RCT_EXTERN_METHOD(setUserStatus:(BOOL)purposesConsentStatus
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(setUserStatus:(NSSet<NSString *> *)enabledConsentPurposeIds
-                  disabledConsentPurposeIds:(NSSet<NSString *> *)disabledConsentPurposeIds
-                  enabledLIPurposeIds:(NSSet<NSString *> *)enabledLIPurposeIds
-                  disabledLIPurposeIds:(NSSet<NSString *> *)disabledLIPurposeIds
-                  enabledConsentVendorIds:(NSSet<NSString *> *)enabledConsentVendorIds
-                  disabledConsentVendorIds:(NSSet<NSString *> *)disabledConsentVendorIds
-                  enabledLIVendorIds:(NSSet<NSString *> *)enabledLIVendorIds
-                  disabledLIVendorIds:(NSSet<NSString *> *)disabledLIVendorIds
+RCT_EXTERN_METHOD(setUserStatus:(NSArray<NSString *> *)enabledConsentPurposeIds
+                  disabledConsentPurposeIds:(NSArray<NSString *> *)disabledConsentPurposeIds
+                  enabledLIPurposeIds:(NSArray<NSString *> *)enabledLIPurposeIds
+                  disabledLIPurposeIds:(NSArray<NSString *> *)disabledLIPurposeIds
+                  enabledConsentVendorIds:(NSArray<NSString *> *)enabledConsentVendorIds
+                  disabledConsentVendorIds:(NSArray<NSString *> *)disabledConsentVendorIds
+                  enabledLIVendorIds:(NSArray<NSString *> *)enabledLIVendorIds
+                  disabledLIVendorIds:(NSArray<NSString *> *)disabledLIVendorIds
                   sendAPIEvent:(BOOL)sendAPIEvent
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
