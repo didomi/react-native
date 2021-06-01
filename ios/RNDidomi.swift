@@ -1,4 +1,6 @@
 import Didomi
+import AdSupport
+import AppTrackingTransparency
 
 @objc(Didomi)
 class RNDidomi: NSObject {
@@ -121,8 +123,7 @@ class RNDidomi: NSObject {
             let encoder = JSONEncoder()
             let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]] ?? []
             resolve(purposes)
-        }
-        catch {
+        } catch {
             reject("error",error.localizedDescription,error)
         }
     }
@@ -253,9 +254,11 @@ class RNDidomi: NSObject {
     
     // MARK: Didomi extension
     
-    @objc(setupUI:)
-    dynamic func setupUI(containerController: UIViewController) {
-        Didomi.shared.setupUI(containerController: containerController)
+    @objc(setupUI)
+    dynamic func setupUI() {
+        if let containerController = RCTPresentedViewController() {
+            Didomi.shared.setupUI(containerController: containerController)
+        }
     }
     
     @objc(forceShowNotice)
@@ -283,10 +286,17 @@ class RNDidomi: NSObject {
         resolve(Didomi.shared.shouldConsentBeCollected())
     }
     
-    //    @objc(showPreferences:view:)
-    //    dynamic func showPreferences(controller: UIViewController? = nil, view: Didomi.Didomi.Views = .purposes) {
-    //        Didomi.shared.showPreferences(controller: controller, view: view)
-    //    }
+    @objc(showPreferences:)
+    dynamic func showPreferences(view: String) {
+        if let containerController = RCTPresentedViewController(){
+            if view == "vendors"{
+                Didomi.shared.showPreferences(controller: containerController, view: .vendors)
+            }
+            else {
+                Didomi.shared.showPreferences(controller: containerController)
+            }
+        }
+    }
     
     @objc(hidePreferences)
     dynamic func hidePreferences() {
@@ -344,6 +354,12 @@ class RNDidomi: NSObject {
         let emiter = RCTEventEmitter()
         
         didomiEventListener.onConsentChanged = { event in
+            if #available(iOS 14, *) {
+                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
+                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
+                    ATTrackingManager.requestTrackingAuthorization { status in }
+                }
+            }
             emiter.sendEvent(withName: "onConsentChanged", body: "")
         }
         
@@ -456,6 +472,13 @@ class RNDidomi: NSObject {
         //        }
         
         return didomiEventListener
+    }
+    
+    @objc public enum Views : Int, RawRepresentable {
+        
+        case purposes = 0
+        
+        case vendors
     }
     
 }

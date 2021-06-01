@@ -155,7 +155,7 @@ RCT_EXTERN_METHOD(getPreferencesViewController:(RCTPromiseResolveBlock)resolve
 
 // MARK: Didomi extension
 
-RCT_EXTERN_METHOD(setupUI:(UIViewController *)containerController)
+RCT_EXTERN_METHOD(setupUI)
 
 RCT_EXTERN_METHOD(forceShowNotice)
 
@@ -168,6 +168,8 @@ RCT_EXTERN_METHOD(isNoticeVisible:(RCTPromiseResolveBlock)resolve
 
 RCT_EXTERN_METHOD(shouldConsentBeCollected:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(showPreferences:(NSString *)view)
 
 RCT_EXTERN_METHOD(hidePreferences)
 
