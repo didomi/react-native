@@ -38,6 +38,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.button}>
+        <Button
+          onPress={() => {
+            Didomi.reset();
+          }}
+          title="Reset"
+        />
+      </View>
+
       <View>
         <Text>vendorId</Text>
         <TextInput
@@ -460,15 +469,6 @@ export default function App() {
               //Didomi.showPreferences(view)
             }}
             title="Show Preferences [NEED VIEW]"
-          />
-        </View>
-
-        <View style={styles.button}>
-          <Button
-            onPress={() => {
-              Didomi.reset();
-            }}
-            title="Reset"
           />
         </View>
 

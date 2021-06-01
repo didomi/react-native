@@ -272,17 +272,23 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(forceShowNotice)
     dynamic func forceShowNotice() {
-        Didomi.shared.forceShowNotice()
+        DispatchQueue.main.async {
+            Didomi.shared.forceShowNotice()
+        }
     }
     
     @objc(showNotice)
     dynamic func showNotice() {
-        Didomi.shared.showNotice()
+        DispatchQueue.main.async {
+            Didomi.shared.showNotice()
+        }
     }
     
     @objc(hideNotice)
     dynamic func hideNotice() {
-        Didomi.shared.hideNotice()
+        DispatchQueue.main.async {
+            Didomi.shared.hideNotice()
+        }
     }
     
     @objc(isNoticeVisible:reject:)
