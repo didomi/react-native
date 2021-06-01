@@ -7,7 +7,6 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": ["esnext"],
@@ -23,14 +22,5 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "max-line-length": [
-      true,
-      {
-        "limit": 120,
-        "ignore-pattern": "^import |^export {(.*?)}",
-        "check-strings": true,
-        "check-regex": true
-      }
-    ]
   }
 }

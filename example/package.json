@@ -2,6 +2,7 @@
   "name": "react-native-didomi-example",
   "description": "Example app for react-native-didomi",
   "version": "0.0.1",
+  "license": "BSD-3",
   "private": true,
   "scripts": {
     "android": "react-native run-android",

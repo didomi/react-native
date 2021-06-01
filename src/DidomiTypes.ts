@@ -31,46 +31,46 @@ export enum DidomiEventType {
 }
 
 export interface Vendor {
-  id: string
-  name: string
-  privacyPolicyUrl: string
-  namespace: string
-  namespaces: VendorNamespaces
-  iabVendor: boolean
-  purposeId: string[]
-  legIntPurposeIds: string[]
-  essentialPurposeIds: string[]
+  id: string;
+  name: string;
+  privacyPolicyUrl: string;
+  namespace: string;
+  namespaces: VendorNamespaces;
+  iabVendor: boolean;
+  purposeId: string[];
+  legIntPurposeIds: string[];
+  essentialPurposeIds: string[];
 }
 
 export interface VendorNamespaces {
-  iab2: string
+  iab2: string;
 }
 
 export interface Purpose {
-  id : string
-  iAbId : string
-  name : string
-  description : string
-  descriptionLegal : string
-  custom : boolean
-  essential : boolean
-  specialFeature : boolean
-  legitimateInterest : boolean
-  consent : boolean
-  category : PurposeCategory
+  id: string;
+  iAbId: string;
+  name: string;
+  description: string;
+  descriptionLegal: string;
+  custom: boolean;
+  essential: boolean;
+  specialFeature: boolean;
+  legitimateInterest: boolean;
+  consent: boolean;
+  category: PurposeCategory;
 }
 
 export interface PurposeCategory {
-  id: string
-  idpurposeId: string
-  icon: string
-  type: string
-  name: Map<string>
-  namedescription: Map<string>
-  children: PurposeCategory[]
+  id: string;
+  idpurposeId: string;
+  icon: string;
+  type: string;
+  name: Map<string>;
+  namedescription: Map<string>;
+  children: PurposeCategory[];
 }
 
 export interface Map<T> {
-    [index: string]: T;
-    [index: number]: T;
+  [index: string]: T;
+  [index: number]: T;
 }

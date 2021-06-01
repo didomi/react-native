@@ -38,7 +38,7 @@
   ],
   "repository": "https://todo",
   "author": "inside|app <gilles.grousset@insideapp.fr> (https://www.insideapp.fr)",
-  "license": "MIT",
+  "license": "BSD-3",
   "bugs": {
     "url": "https://todo/issues"
   },

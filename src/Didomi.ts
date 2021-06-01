@@ -1,8 +1,8 @@
-import { NativeModules } from 'react-native'
-import { DidomiListener } from './DidomiListener'
-import type { DidomiEventType } from './DidomiTypes'
+import { NativeModules } from 'react-native';
+import { DidomiListener } from './DidomiListener';
+import { DidomiEventType } from './DidomiTypes';
 
-const { Didomi: RNDidomi } = NativeModules
+const { Didomi: RNDidomi } = NativeModules;
 
 export const Didomi = {
   initialize: (
@@ -13,7 +13,7 @@ export const Didomi = {
     disableDidomiRemoteConfig: boolean
   ) => {
     // Init listener
-    DidomiListener.init()
+    DidomiListener.init();
 
     // Trigger native SDK init
     RNDidomi.initialize(
@@ -22,7 +22,7 @@ export const Didomi = {
       remoteConfigurationUrl,
       providerId,
       disableDidomiRemoteConfig
-    )
+    );
   },
   setupUI: (): Promise<void> => RNDidomi.setupUI(),
   setLogLevel: (level: number): Promise<number> => RNDidomi.setLogLevel(level),
@@ -71,22 +71,29 @@ export const Didomi = {
   getRequiredVendorIds: (): Promise<any[]> => RNDidomi.getRequiredVendorIds(),
 
   getText: (key: string): Promise<any[]> => RNDidomi.getText(key),
+
   getTranslatedText: (key: string): Promise<string> =>
     RNDidomi.getTranslatedText(key),
+
   getUserConsentStatusForPurpose: (purposeId: string): Promise<boolean> =>
     RNDidomi.getUserConsentStatusForPurpose(purposeId),
+
   getUserConsentStatusForVendor: (vendorId: string): Promise<boolean> =>
     RNDidomi.getUserConsentStatusForVendor(vendorId),
+
   getUserConsentStatusForVendorAndRequiredPurposes: (
     vendorId: string
   ): Promise<boolean> =>
     RNDidomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId),
+
   getUserLegitimateInterestStatusForPurpose: (
     purposeId: string
   ): Promise<boolean> =>
     RNDidomi.getUserLegitimateInterestStatusForPurpose(purposeId),
+
   getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> =>
     RNDidomi.getUserLegitimateInterestForVendor(vendorId),
+
   getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (
     vendorId: string
   ): boolean =>
@@ -98,20 +105,27 @@ export const Didomi = {
     RNDidomi.getUserStatusForVendor(vendorId),
 
   getVendor: (vendorId: string): Promise<any[]> => RNDidomi.getVendor(vendorId),
+
   hideNotice: (): Promise<void> => RNDidomi.hideNotice(),
+
   hidePreferences: (): Promise<void> => RNDidomi.hidePreferences(),
+
   isConsentRequired: (): Promise<boolean> => RNDidomi.isConsentRequired(),
+
   isUserConsentStatusPartial: (): Promise<boolean> =>
     RNDidomi.isUserConsentStatusPartial(),
   isNoticeVisible: (): Promise<boolean> => RNDidomi.isNoticeVisible(),
+
   isPreferencesVisible: (): Promise<boolean> => RNDidomi.isPreferencesVisible(),
+
   isError: (): Promise<boolean> => RNDidomi.isError(),
+
   isReady: (): Promise<boolean> => RNDidomi.isReady(),
 
   // TODO : should be removed (already on listener)
   onError: (): Promise<void> => RNDidomi.onError(),
   onReady: (): Promise<void> => RNDidomi.onReady(),
-  
+
   setUser: (
     organizationUserId: string,
     organizationUserIdAuthAlgorithm: string,
@@ -126,11 +140,16 @@ export const Didomi = {
       organizationUserIdAuthSalt,
       organizationUserIdAuthDigest
     ),
+
   showNotice: (): Promise<void> => RNDidomi.showNotice(),
+
   showPreferences: (view: string): Promise<number> =>
     RNDidomi.showPreferences(view),
+
   reset: (): Promise<void> => RNDidomi.reset(),
+
   setUserAgreeToAll: (): Promise<boolean> => RNDidomi.setUserAgreeToAll(),
+
   setUserConsentStatus: (
     enabledPurposeIds: string[],
     disabledPurposeIds: string[],
@@ -192,6 +211,7 @@ export const Didomi = {
 
   shouldConsentBeCollected: (): Promise<boolean> =>
     RNDidomi.shouldConsentBeCollected(),
+
   updateSelectedLanguage: (languageCode: string): Promise<void> =>
     RNDidomi.updateSelectedLanguage(languageCode),
-}
+};
