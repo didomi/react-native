@@ -23,12 +23,112 @@ export default function App() {
       console.log("I'm ready");
     });
 
+    Didomi.addEventListener(DidomiEventType.ERROR, (error: string) => {
+      console.log('Error durring initialization : ' + error);
+    });
+
     Didomi.addEventListener(DidomiEventType.SHOW_NOTICE, () => {
       console.log('Show notice');
     });
 
+    Didomi.addEventListener(DidomiEventType.HIDE_NOTICE, () => {
+      console.log('Hide notice');
+    });
+
     Didomi.addEventListener(DidomiEventType.CONSENT_CHANGED, () => {
       console.log('Consent changed');
+    });
+
+    Didomi.addEventListener(DidomiEventType.NOTICE_CLICK_AGREE, () => {
+      console.log('Agree with the notice');
+    });
+
+    Didomi.addEventListener(DidomiEventType.NOTICE_CLICK_DISAGREE, () => {
+      console.log('Disagree with the notice');
+    });
+
+    Didomi.addEventListener(DidomiEventType.NOTICE_CLICK_MORE_INFO, () => {
+      console.log('More info clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.NOTICE_CLICK_VIEW_VENDORS, () => {
+      console.log('View vendors clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.NOTICE_CLICK_PRIVACY_POLICY, () => {
+      console.log('Privacy policy clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_AGREE_TO_ALL, () => {
+      console.log('Agree to all clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL, () => {
+      console.log('Disagree to all clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_PURPOSE_AGREE, (purposeId: string) => {
+      console.log('Agree purpose clicked : ' + purposeId);
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_PURPOSE_DISAGREE, (purposeId: string) => {
+      console.log('Disagree purpose clicked : ' + purposeId);
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_VIEW_VENDORS, () => {
+      console.log('View vendors clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_SAVE_CHOICES, () => {
+      console.log('Save choices clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_VENDOR_AGREE, (vendorId: string) => {
+      console.log('Vendor agree clicked : ' + vendorId);
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_VENDOR_DISAGREE, (vendorId: string) => {
+      console.log('Vendor disagree clicked : ' + vendorId);
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_CATEGORY_AGREE, (categoryId: string) => {
+      console.log('Category agree clicked : ' + categoryId);
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_CATEGORY_DISAGREE, (categoryId: string) => {
+      console.log('Category disagree clicked : ' + categoryId);
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS, () => {
+      console.log('All vendors agree clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS, () => {
+      console.log('All vendors disagree clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES, () => {
+      console.log('Vendor save choices clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_VIEW_PURPOSES, () => {
+      console.log('View purposes clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES, () => {
+      console.log('Agree all purposes clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES, () => {
+      console.log('Disagree all purposes clicked');
+    });
+
+    Didomi.addEventListener(DidomiEventType.PREFERENCES_CLICK_RESET_ALL_PURPOSES, () => {
+      console.log('Reset purposes');
+    });
+
+    Didomi.addEventListener(DidomiEventType.SYNC_DONE, (organizationUserId: string) => {
+      console.log('Sync done : ' + organizationUserId);
     });
 
     async function init() {
@@ -602,6 +702,6 @@ const styles = StyleSheet.create({
   },
   reset: {
     marginTop: 50,
-    marginBottom: 10,
+    margin: 10,
   },
 });

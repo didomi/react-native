@@ -8,7 +8,7 @@ export enum DidomiEventType {
   NOTICE_CLICK_AGREE = 'on_notice_click_agree',
   NOTICE_CLICK_DISAGREE = 'on_notice_click_disagree',
   NOTICE_CLICK_MORE_INFO = 'on_notice_click_more_info',
-  NOTICE_CLICK_VIEW_VENDOR = 'on_notice_click_view_vendors',
+  NOTICE_CLICK_VIEW_VENDORS = 'on_notice_click_view_vendors',
   NOTICE_CLICK_PRIVACY_POLICY = 'on_notice_click_privacy_policy',
   PREFERENCES_CLICK_AGREE_TO_ALL = 'on_preferences_click_agree_to_all',
   PREFERENCES_CLICK_DISAGREE_TO_ALL = 'on_preferences_click_disagree_to_all',
