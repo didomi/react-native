@@ -21,233 +21,203 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private val reactContext: ReactContext = reactContext
     private val eventListener = object : EventListener() {
 
-        val activatedEvents = mutableMapOf<String, Boolean>()
-
-        init {
-            EventTypes.values().forEach {
-                activatedEvents[it.name] = false
-            }
-        }
-
         /**
          * SDK has been successfully initialized
          */
         override fun ready(event: ReadyEvent?) {
-            if (activatedEvents.getValue(EventTypes.READY.name))
-                prepareEvent(EventTypes.READY.name, objectToWritableMap(event))
+            Log.v("App", "----------------OK------------------")
+            prepareEvent(EventTypes.READY.event, objectToWritableMap(event))
         }
 
         /**
          * An error occurred during the SDK initialization
          */
         override fun error(event: ErrorEvent?) {
-            if (activatedEvents.getValue(EventTypes.ERROR.name))
-                prepareEvent(EventTypes.ERROR.name, objectToWritableMap(event))
+            Log.v("App", "----------------ERROR------------------")
+            prepareEvent(EventTypes.ERROR.event, objectToWritableMap(event))
         }
 
         /**
          * The consent status of the user has changed
          */
         override fun consentChanged(event: ConsentChangedEvent) {
-            if (activatedEvents.getValue(EventTypes.CONSENT_CHANGED.name))
-                prepareEvent(EventTypes.CONSENT_CHANGED.name, objectToWritableMap(event))
+            Log.v("App", "----------------consentChanged------------------")
+            prepareEvent(EventTypes.CONSENT_CHANGED.event, objectToWritableMap(event))
         }
 
         /**
          * The notice is being hidden
          */
         override fun hideNotice(event: HideNoticeEvent) {
-            if (activatedEvents.getValue(EventTypes.HIDE_NOTICE.name))
-                prepareEvent(EventTypes.HIDE_NOTICE.name, objectToWritableMap(event))
+            Log.v("App", "----------------hideNotice------------------")
+            prepareEvent(EventTypes.HIDE_NOTICE.event, objectToWritableMap(event))
         }
 
         /**
          * The notice is being shown
          */
         override fun showNotice(event: ShowNoticeEvent) {
-            if (activatedEvents.getValue(EventTypes.SHOW_NOTICE.name))
-                prepareEvent(EventTypes.SHOW_NOTICE.name, objectToWritableMap(event))
+            Log.v("App", "----------------showNotice------------------")
+            prepareEvent(EventTypes.SHOW_NOTICE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on agree on notice
          */
         override fun noticeClickAgree(event: NoticeClickAgreeEvent) {
-            if (activatedEvents.getValue(EventTypes.NOTICE_CLICK_AGREE.name))
-                prepareEvent(EventTypes.NOTICE_CLICK_AGREE.name, objectToWritableMap(event))
+            Log.v("App", "----------------noticeClickAgree------------------")
+            prepareEvent(EventTypes.NOTICE_CLICK_AGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on disagree on the notice
          */
         override fun noticeClickDisagree(event: NoticeClickDisagreeEvent) {
-            if (activatedEvents.getValue(EventTypes.NOTICE_CLICK_DISAGREE.name))
-                prepareEvent(EventTypes.NOTICE_CLICK_DISAGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.NOTICE_CLICK_DISAGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on learn more on notice
          */
         override fun noticeClickMoreInfo(event: NoticeClickMoreInfoEvent) {
-            if (activatedEvents.getValue(EventTypes.NOTICE_CLICK_MORE_INFO.name))
-                prepareEvent(EventTypes.NOTICE_CLICK_MORE_INFO.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.NOTICE_CLICK_MORE_INFO.event, objectToWritableMap(event))
         }
 
         /**
          * Click on partners on the notice
          */
         override fun noticeClickViewVendors(event: NoticeClickViewVendorsEvent) {
-            if (activatedEvents.getValue(EventTypes.NOTICE_CLICK_VIEW_VENDORS.name))
-                prepareEvent(EventTypes.NOTICE_CLICK_VIEW_VENDORS.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.NOTICE_CLICK_VIEW_VENDORS.event, objectToWritableMap(event))
         }
 
         /**
          * Click on privacy policy on the notice
          */
         override fun noticeClickPrivacyPolicy(event: NoticeClickPrivacyPolicyEvent) {
-            if (activatedEvents.getValue(EventTypes.NOTICE_CLICK_PRIVACY_POLICY.name))
-                prepareEvent(EventTypes.NOTICE_CLICK_PRIVACY_POLICY.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.NOTICE_CLICK_PRIVACY_POLICY.event, objectToWritableMap(event))
         }
 
         /**
          * Click on agree to all on preferences popup
          */
         override fun preferencesClickAgreeToAll(event: PreferencesClickAgreeToAllEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL.event, objectToWritableMap(event))
         }
 
         /**
          * Click on disagree to all on preferences popup
          */
         override fun preferencesClickDisagreeToAll(event: PreferencesClickDisagreeToAllEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL.event, objectToWritableMap(event))
         }
 
         /**
          * Click on agree to a purpose on preferences popup
          */
         override fun preferencesClickPurposeAgree(event: PreferencesClickPurposeAgreeEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_PURPOSE_AGREE.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_AGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_AGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on disagree to a purpose on preferences popup
          */
         override fun preferencesClickPurposeDisagree(event: PreferencesClickPurposeDisagreeEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_PURPOSE_DISAGREE.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_DISAGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_DISAGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click view vendors on purposes view on preferences popup
          */
         override fun preferencesClickViewVendors(event: PreferencesClickViewVendorsEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_VIEW_VENDORS.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_VENDORS.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_VENDORS.event, objectToWritableMap(event))
         }
 
         /**
          * Click on save on the purposes view on preferences popup
          */
         override fun preferencesClickSaveChoices(event: PreferencesClickSaveChoicesEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_SAVE_CHOICES.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_SAVE_CHOICES.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_SAVE_CHOICES.event, objectToWritableMap(event))
         }
 
         /**
          * Click on agree to a vendor on preferences popup
          */
         override fun preferencesClickVendorAgree(event: PreferencesClickVendorAgreeEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_VENDOR_AGREE.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_AGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_AGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on disagree to a vendor on preferences popup
          */
         override fun preferencesClickVendorDisagree(event: PreferencesClickVendorDisagreeEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_VENDOR_DISAGREE.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_DISAGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_DISAGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on agree to a category on preferences popup
          */
         override fun preferencesClickCategoryAgree(event: PreferencesClickCategoryAgreeEvent?) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_CATEGORY_AGREE.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_AGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_AGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on disagree to a category on preferences popup
          */
         override fun preferencesClickCategoryDisagree(event: PreferencesClickCategoryDisagreeEvent?) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_CATEGORY_DISAGREE.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_DISAGREE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_DISAGREE.event, objectToWritableMap(event))
         }
 
         /**
          * Click on agree to all vendors on preferences popup
          */
         override fun preferencesClickAgreeToAllVendors(event: PreferencesClickAgreeToAllVendorsEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS.event, objectToWritableMap(event))
         }
 
         /**
          * Click on disagree to all vendors on preferences popup
          */
         override fun preferencesClickDisagreeToAllVendors(event: PreferencesClickDisagreeToAllVendorsEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS.event, objectToWritableMap(event))
         }
 
         /**
          * Click on save on the vendors view on preferences popup
          */
         override fun preferencesClickVendorSaveChoices(event: PreferencesClickVendorSaveChoicesEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES.event, objectToWritableMap(event))
         }
 
         /**
          * Click on view purposes on the preferences popup
          */
         override fun preferencesClickViewPurposes(event: PreferencesClickViewPurposesEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_VIEW_PURPOSES.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_PURPOSES.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_PURPOSES.event, objectToWritableMap(event))
         }
 
         /**
          * Flip ON all purposes switch on the preferences popup
          */
         override fun preferencesClickAgreeToAllPurposes(event: PreferencesClickAgreeToAllPurposesEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES.event, objectToWritableMap(event))
         }
 
         /**
          * Flip OFF all purposes switch on the preferences popup
          */
         override fun preferencesClickDisagreeToAllPurposes(event: PreferencesClickDisagreeToAllPurposesEvent) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES.event, objectToWritableMap(event))
         }
 
         /**
          * Click on reset purposes on the preferences popup
          */
         override fun preferencesClickResetAllPurposes(event: PreferencesClickResetAllPurposesEvent?) {
-            if (activatedEvents.getValue(EventTypes.PREFERENCES_CLICK_RESET_ALL_PURPOSES.name))
-                prepareEvent(EventTypes.PREFERENCES_CLICK_RESET_ALL_PURPOSES.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.PREFERENCES_CLICK_RESET_ALL_PURPOSES.event, objectToWritableMap(event))
         }
 
         override fun syncDone(event: SyncDoneEvent) {
-            if (activatedEvents.getValue(EventTypes.SYNC_DONE.name))
-                prepareEvent(EventTypes.SYNC_DONE.name, objectToWritableMap(event))
+            prepareEvent(EventTypes.SYNC_DONE.event, objectToWritableMap(event))
         }
 
 //      override fun preferencesClickAgreeToAllVendors(event: PreferencesClickAgreeToAllVendorsEvent) {
@@ -265,7 +235,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val map = mutableMapOf<String, Any>()
 
         EventTypes.values().forEach {
-            map[it.name] = MapBuilder.of("registrationName", it.name)
+            map[it.event] = MapBuilder.of("registrationName", it.event)
         }
 
         return map
@@ -319,14 +289,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             // Do not use the Didomi.getInstance() object here for anything else than registering your ready listener
             // The SDK might not be ready yet
 
-            Didomi.getInstance().onReady {
-                Log.d("App", "----------------OK------------------")
-                promise.resolve(0)
-            }
-            Didomi.getInstance().onError {
-                Log.d("App", "----------------ERROR------------------")
-                promise.reject("-2", "error")
-            }
+//            Didomi.getInstance().onReady {
+//                Log.d("App", "----------------OK------------------")
+//                prepareEvent(EventTypes.READY.event, null)
+//            }
+//            Didomi.getInstance().onError {
+//                Log.d("App", "----------------ERROR------------------")
+//                prepareEvent(EventTypes.ERROR.event, null)
+//                promise.reject("-2", "error")
+//            }
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e);
             promise.reject("-1", "error")
@@ -367,6 +338,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     )
                 }
 
+//            Didomi.getInstance().onReady {
+//                Log.d("App", "----------------OK------------------")
+//                prepareEvent(EventTypes.READY.event, null)
+//            }
+//            Didomi.getInstance().onError {
+//                Log.d("App", "----------------ERROR------------------")
+//                prepareEvent(EventTypes.ERROR.event, null)
+//            }
+
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e);
             promise.reject(e)
@@ -403,18 +383,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             4 -> Log.VERBOSE
             else -> Log.WARN
         })
-        promise.resolve(0)
-    }
-
-    @ReactMethod
-    fun addEventListener(eventKey: String, promise: Promise) {
-        eventListener.activatedEvents[eventKey] = true
-        promise.resolve(0)
-    }
-
-    @ReactMethod
-    fun removeEventListener(eventKey: String, promise: Promise) {
-        eventListener.activatedEvents[eventKey] = false
         promise.resolve(0)
     }
 
@@ -712,18 +680,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun isReady(promise: Promise) {
         promise.resolve(Didomi.getInstance().isReady)
-    }
-
-    @ReactMethod
-    fun onError(promise: Promise) {
-        eventListener.activatedEvents[EventTypes.ERROR.name] = true
-        promise.resolve(0)
-    }
-
-    @ReactMethod
-    fun onReady(promise: Promise) {
-        eventListener.activatedEvents[EventTypes.READY.name] = true
-        promise.resolve(0)
     }
 
     @ReactMethod

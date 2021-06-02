@@ -19,13 +19,6 @@ export default function App() {
   const [event, setEventKey] = useState('');
 
   React.useEffect(() => {
-    async function init() {
-      await Didomi.initialize('', '', '', '', true);
-      await Didomi.setupUI();
-      console.log('Finished init');
-    }
-    init();
-
     Didomi.addEventListener(DidomiEventType.READY, () => {
       console.log("I'm ready");
     });
@@ -38,6 +31,13 @@ export default function App() {
       console.log('Consent changed');
     });
 
+    async function init() {
+      await Didomi.initialize('', '', '', '', true);
+      await Didomi.setupUI();
+      console.log('Finished init');
+    }
+    init();
+
     //var strCallback = () : void => { console.log('Didomi init OK'); };
     //Didomi.onReady(strCallback)
     //Didomi.onError(function () {Log.d("App", "KO");})
@@ -46,7 +46,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.button}>
+      <View style={styles.reset}>
         <Button
           onPress={() => {
             Didomi.reset();
@@ -599,5 +599,8 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10,
+  },
+  reset: {
+    margin: 50,
   },
 });

@@ -1,6 +1,6 @@
 package com.reactnativedidomi
 
-enum class EventTypes(event: String) {
+enum class EventTypes(val event: String) {
     READY("on_ready"),
     ERROR("on_error"),
     CONSENT_CHANGED("on_consent_changed"),
@@ -28,5 +28,5 @@ enum class EventTypes(event: String) {
     PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES("on_preferences_click_agree_to_all_purposes"),
     PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES("on_preferences_click_disagree_to_all_purposes"),
     PREFERENCES_CLICK_RESET_ALL_PURPOSES("on_preferences_click_reset_all_purposes"),
-    SYNC_DONE("on_sync_done")
+    SYNC_DONE("on_sync_done");
 }
