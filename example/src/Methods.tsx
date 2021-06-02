@@ -68,7 +68,7 @@ export default function Methods() {
       <MethodCall
         name="showPreferences"
         call={() => {
-          Didomi.showPreferences();
+          Didomi.showPreferences('vendors');
         }}
         test={() => {
           return true;

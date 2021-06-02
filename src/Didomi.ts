@@ -141,7 +141,8 @@ export const Didomi = {
 
   showNotice: (): Promise<void> => RNDidomi.showNotice(),
 
-  showPreferences: (): Promise<void> => RNDidomi.showPreferences(),
+  showPreferences: (view: string): Promise<void> =>
+    RNDidomi.showPreferences(view),
 
   reset: (): Promise<void> => RNDidomi.reset(),
 
