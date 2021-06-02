@@ -163,7 +163,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getEnabledPurposeIds:reject:)
     func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Array(Didomi.shared.getEnabledVendorIds()))
+        resolve(Array(Didomi.shared.getEnabledPurposeIds()))
     }
     
     @objc(getDisabledPurposes:reject:)
@@ -211,7 +211,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledVendorIds:reject:)
     func getDisabledVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Array(Didomi.shared.getEnabledVendorIds()))
+        resolve(Array(Didomi.shared.getDisabledVendorIds()))
     }
     
     @objc(getPurpose:resolve:reject:)
