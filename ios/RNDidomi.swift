@@ -94,15 +94,15 @@ class RNDidomi: RCTEventEmitter {
         resolve(Didomi.shared.setUserDisagreeToAll())
     }
     
-//        @objc(onReady:)
-//        func onReady(callback: @escaping RCTResponseSenderBlock) {
-//            Didomi.shared.onReady(callback: callback)
-//        }
-    
-    //    @objc(onError:)
-    //    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
-    //        Didomi.shared.onError(callback: callback)
-    //    }
+//    @objc(onReady:)
+//    func onReady(callback: @escaping RCTResponseSenderBlock) {
+//        Didomi.shared.onReady(callback: callback)
+//    }
+//    
+//    @objc(onError:)
+//    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
+//        Didomi.shared.onError(callback: callback)
+//    }
     
     @objc(reset)
     func reset() {
@@ -574,9 +574,9 @@ extension RNDidomi {
             self.sendEvent(withName: "on_preferences_click_vendor_save_choices", body: "")
         }
         
-        //        didomiEventListener.onSyncDone = { event in
-        //            self.sendEvent(withName: "on_sync_done", body: "")
-        //        }
+        didomiEventListener.onSyncDone = { event, organizationUserId in
+            self.sendEvent(withName: "on_sync_done", body: organizationUserId)
+        }
         
         Didomi.shared.addEventListener(listener: didomiEventListener)
     }
