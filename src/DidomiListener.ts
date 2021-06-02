@@ -14,8 +14,7 @@ export const DidomiListener = {
         let events = DidomiListener.listeners.get(eventTypeValue);
         if (events) {
           events.forEach((el: any) => {
-            // TODO: switch on event type to pass parameters when necessary !
-            el();
+            el(_event);
           });
         }
       });

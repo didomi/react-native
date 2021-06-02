@@ -37,6 +37,8 @@ export const Didomi = {
     callback: (data: any) => void
   ) => DidomiListener.removeEventListener(eventType, callback),
 
+  removeAllEventListeners: () => DidomiListener.reset(),
+
   getDisabledPurposes: (): Promise<any[]> => RNDidomi.getDisabledPurposes(),
 
   getDisabledPurposeIds: (): Promise<any[]> => RNDidomi.getDisabledPurposeIds(),
@@ -122,10 +124,6 @@ export const Didomi = {
 
   isReady: (): Promise<boolean> => RNDidomi.isReady(),
 
-  // TODO : should be removed (already on listener)
-  onError: (): Promise<void> => RNDidomi.onError(),
-  onReady: (): Promise<void> => RNDidomi.onReady(),
-
   setUser: (
     organizationUserId: string,
     organizationUserIdAuthAlgorithm: string,
@@ -143,8 +141,7 @@ export const Didomi = {
 
   showNotice: (): Promise<void> => RNDidomi.showNotice(),
 
-  showPreferences: (view: string): Promise<number> =>
-    RNDidomi.showPreferences(view),
+  showPreferences: (): Promise<void> => RNDidomi.showPreferences(),
 
   reset: (): Promise<void> => RNDidomi.reset(),
 
