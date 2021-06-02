@@ -46,7 +46,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.button}>
+      <View style={styles.reset}>
         <Button
           onPress={() => {
             Didomi.reset();
@@ -599,5 +599,8 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10,
+  },
+  reset: {
+    margin: 50,
   },
 });
