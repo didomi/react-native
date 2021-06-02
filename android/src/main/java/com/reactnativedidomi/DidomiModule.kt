@@ -628,10 +628,12 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         currentActivity?.let {
             if (currentActivity is FragmentActivity) {
                 try {
-                    view?.let {
-                        Didomi.getInstance().showPreferences(currentActivity as FragmentActivity, view)
-                    } ?: kotlin.run {
-                        Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
+                    runOnUiThread {
+                        view?.let {
+                            Didomi.getInstance().showPreferences(currentActivity as FragmentActivity, view)
+                        } ?: kotlin.run {
+                            Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
+                        }
                     }
                     promise.resolve(0)
                 } catch (e: DidomiNotReadyException) {
