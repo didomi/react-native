@@ -3,7 +3,11 @@
         "name": "Didomi Example App",
         "privacyPolicyURL": "http://www.website.com/privacy",
         "vendors": {
+            "didomi": [
+                "google", "amazon", "facebook", "twitter"
+            ],
             "iab": {
+                "version": 2,
                 "all": true
             }
         },
