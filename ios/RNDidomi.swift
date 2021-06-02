@@ -21,9 +21,9 @@ class RNDidomi: RCTEventEmitter {
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = true) {
         
         if (!initialized) {
+            initEventListener()
             let languageCode = Locale.current.languageCode ?? ""
             Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
-            addEventListener()
         }
         
         initialized = true
@@ -94,10 +94,10 @@ class RNDidomi: RCTEventEmitter {
         resolve(Didomi.shared.setUserDisagreeToAll())
     }
     
-    //    @objc(onReady:)
-    //    func onReady(callback: @escaping RCTResponseSenderBlock) {
-    //        Didomi.shared.onReady(callback: callback)
-    //    }
+//        @objc(onReady:)
+//        func onReady(callback: @escaping RCTResponseSenderBlock) {
+//            Didomi.shared.onReady(callback: callback)
+//        }
     
     //    @objc(onError:)
     //    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
@@ -118,13 +118,7 @@ class RNDidomi: RCTEventEmitter {
     func getRequiredVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getRequiredVendorIds())
     }
-    
-    @objc(addEventListener)
-    func addEventListener() {
-        let listener = createListener()
-        
-        Didomi.shared.addEventListener(listener: listener)
-    }
+
     
     @objc(isReady:reject:)
     func isReady(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
@@ -462,17 +456,17 @@ extension RNDidomi {
                 "on_sync_done"
         ]
     }
+
     
-    private func createListener() -> EventListener{
-        
+    private func initEventListener(){
         
         didomiEventListener.onConsentChanged = { event in
-            if #available(iOS 14, *) {
-                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
-                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
-                    ATTrackingManager.requestTrackingAuthorization { status in }
-                }
-            }
+//            if #available(iOS 14, *) {
+//                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
+//                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
+//                    ATTrackingManager.requestTrackingAuthorization { status in }
+//                }
+//            }
             self.sendEvent(withName: "on_consent_changed", body:"")
         }
         
@@ -584,6 +578,6 @@ extension RNDidomi {
         //            self.sendEvent(withName: "on_sync_done", body: "")
         //        }
         
-        return didomiEventListener
+        Didomi.shared.addEventListener(listener: didomiEventListener)
     }
 }
