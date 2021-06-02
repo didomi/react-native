@@ -75,7 +75,7 @@ export default function Methods() {
         }}
       />
 
-<MethodCall
+      <MethodCall
         name="showPreferences Vendors"
         call={() => {
           Didomi.showPreferences('vendors');
@@ -85,7 +85,7 @@ export default function Methods() {
         }}
       />
 
-      {/*  
+      {/*
 setUser
 setUserConsentStatus
 setUserDisagreeToAll
