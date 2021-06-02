@@ -601,6 +601,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   reset: {
-    margin: 50,
+    marginTop: 50,
+    marginBottom: 10,
   },
 });
