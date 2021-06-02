@@ -210,40 +210,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     private fun objectToWritableMap(obj: Any?): WritableMap {
-        var map = WritableNativeMap()
+        val map = WritableNativeMap()
         obj.serializeToMap().entries.forEach { entry -> map.putString(entry.key, entry.value.toString()) }
         return map
-    }
-
-    private fun initialize(promise: Promise) {
-        try {
-
-            Didomi.getInstance().initialize(
-                    currentActivity?.application,
-                    "465ca0b2-b96f-43b4-a864-f87e18d2fd38",
-                    null,
-                    null,
-                    null,
-                    true
-            )
-
-            // Do not use the Didomi.getInstance() object here for anything else than registering your ready listener
-            // The SDK might not be ready yet
-
-//            Didomi.getInstance().onReady {
-//                Log.d("App", "----------------OK------------------")
-//                prepareEvent(EventTypes.READY.event, null)
-//            }
-//            Didomi.getInstance().onError {
-//                Log.d("App", "----------------ERROR------------------")
-//                prepareEvent(EventTypes.ERROR.event, null)
-//                promise.reject("-2", "error")
-//            }
-        } catch (e: Exception) {
-            Log.e("initialize", "Error while initializing the Didomi SDK", e);
-            promise.reject("-1", "error")
-        }
-        promise.resolve(currentActivity?.application.toString())
     }
 
     @ReactMethod
@@ -256,37 +225,25 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         try {
             Didomi.getInstance().addEventListener(eventListener)
 
-            if (apiKey.isEmpty())
-                initialize(promise)
-            else
-                disableDidomiRemoteConfig?.let {
-                    Didomi.getInstance().initialize(
-                            currentActivity?.application,
-                            apiKey,
-                            localConfigurationPath,
-                            remoteConfigurationUrl,
-                            providerId,
-                            disableDidomiRemoteConfig
-                    )
-                } ?: kotlin.run {
-                    Didomi.getInstance().initialize(
-                            currentActivity?.application,
-                            apiKey,
-                            localConfigurationPath,
-                            remoteConfigurationUrl,
-                            providerId,
-                            true
-                    )
-                }
-
-//            Didomi.getInstance().onReady {
-//                Log.d("App", "----------------OK------------------")
-//                prepareEvent(EventTypes.READY.event, null)
-//            }
-//            Didomi.getInstance().onError {
-//                Log.d("App", "----------------ERROR------------------")
-//                prepareEvent(EventTypes.ERROR.event, null)
-//            }
+            disableDidomiRemoteConfig?.let {
+                Didomi.getInstance().initialize(
+                        currentActivity?.application,
+                        apiKey,
+                        if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
+                        if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
+                        if (providerId.isNullOrEmpty()) null else providerId,
+                        disableDidomiRemoteConfig
+                )
+            } ?: kotlin.run {
+                Didomi.getInstance().initialize(
+                        currentActivity?.application,
+                        apiKey,
+                        if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
+                        if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
+                        if (providerId.isNullOrEmpty()) null else providerId,
+                        true
+                )
+            }
 
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e);
