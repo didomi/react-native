@@ -8,7 +8,8 @@
             }
         },
         "gdprAppliesGlobally": true,
-        "gdprAppliesWhenUnknown": true
+        "gdprAppliesWhenUnknown": true,
+        "country" : "fr"
     },
     "languages": {
       "enabled": ["fr", "en", "es"],
