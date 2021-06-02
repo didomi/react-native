@@ -8,9 +8,6 @@ export const DidomiListener = {
   eventEmitter: new NativeEventEmitter(RNDidomi),
 
   init: () => {
-    // Reset listeners
-    DidomiListener.listeners = new Map();
-
     // Register all native event listeners
     Object.values(DidomiEventType).forEach((eventTypeValue) => {
       DidomiListener.eventEmitter.addListener(eventTypeValue, (_event: any) => {
@@ -23,6 +20,11 @@ export const DidomiListener = {
         }
       });
     });
+  },
+
+  reset: () => {
+    // Reset listeners
+    DidomiListener.listeners = new Map();
   },
 
   addEventListener: (
