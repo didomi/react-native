@@ -111,12 +111,12 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getRequiredPurposeIds:reject:)
     func getRequiredPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getRequiredPurposeIds())
+        resolve(Array(Didomi.shared.getRequiredPurposeIds()))
     }
     
     @objc(getRequiredVendorIds:reject:)
     func getRequiredVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getRequiredVendorIds())
+        resolve(Array(Didomi.shared.getRequiredVendorIds()))
     }
 
     
@@ -163,7 +163,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getEnabledPurposeIds:reject:)
     func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getEnabledVendorIds())
+        resolve(Array(Didomi.shared.getEnabledVendorIds()))
     }
     
     @objc(getDisabledPurposes:reject:)
@@ -179,7 +179,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledPurposeIds:reject:)
     func getDisabledPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getDisabledPurposeIds())
+        resolve(Array(Didomi.shared.getDisabledPurposeIds()))
     }
     
     @objc(getEnabledVendors:reject:)
@@ -195,7 +195,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getEnabledVendorIds:reject:)
     func getEnabledVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getEnabledVendorIds())
+        resolve(Array(Didomi.shared.getEnabledVendorIds()))
     }
     
     @objc(getDisabledVendors:reject:)
@@ -211,7 +211,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledVendorIds:reject:)
     func getDisabledVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getEnabledVendorIds())
+        resolve(Array(Didomi.shared.getEnabledVendorIds()))
     }
     
     @objc(getPurpose:resolve:reject:)
