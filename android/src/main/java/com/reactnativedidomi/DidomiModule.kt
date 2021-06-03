@@ -202,6 +202,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         return gson.fromJson(json, object : TypeToken<O>() {}.type)
     }
 
+    private fun setOfStringToWritableArray(set: Set<String?>?): WritableArray {
+        val array = WritableNativeArray()
+
+        set?.forEach { array.pushString(it) }
+        return array
+    }
+
     private fun setToWritableArray(set: Set<Any?>?): WritableArray {
         val array = WritableNativeArray()
 
@@ -296,7 +303,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getDisabledPurposeIds(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().disabledPurposeIds))
+            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().disabledPurposeIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -314,7 +321,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getDisabledVendorIds(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().disabledVendorIds))
+            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().disabledVendorIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -332,7 +339,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getEnabledPurposeIds(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().enabledPurposeIds))
+            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().enabledPurposeIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -350,7 +357,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getEnabledVendorIds(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().enabledVendorIds))
+            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().enabledVendorIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -395,7 +402,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getRequiredPurposeIds(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().requiredPurposeIds))
+            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().requiredPurposeIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -413,7 +420,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getRequiredVendorIds(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().requiredVendorIds))
+            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().requiredVendorIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

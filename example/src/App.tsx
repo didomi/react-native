@@ -83,18 +83,18 @@ export default function App() {
 
   return (
     <SafeAreaView>
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.title}>
-          LAST RECEIVED EVENT: {receivedEvent.name}
-          {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
-        </Text>
-        <Text style={styles.title}>METHODS</Text>
-        <Methods />
-        <Text style={styles.title}>GETTERS</Text>
-        <Getters />
-      </View>
-    </ScrollView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.title}>
+            LAST RECEIVED EVENT: {receivedEvent.name}
+            {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
+          </Text>
+          <Text style={styles.title}>METHODS</Text>
+          <Methods />
+          <Text style={styles.title}>GETTERS</Text>
+          <Getters />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
