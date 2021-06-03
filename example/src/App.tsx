@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Didomi, DidomiEventType } from 'react-native-didomi';
 import Methods from './Methods';
 import Getters from './Getters';
@@ -82,6 +82,7 @@ export default function App() {
   }, []);
 
   return (
+    <SafeAreaView>
     <ScrollView>
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -94,6 +95,7 @@ export default function App() {
         <Getters />
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 }
 

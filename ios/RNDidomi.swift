@@ -216,7 +216,7 @@ class RNDidomi: RCTEventEmitter {
     
     
     // MARK: ViewProviderDelegate
-    // TODO: check if needed
+    
     @objc(getNoticeViewController:resolve:reject:)
     dynamic func getNoticeViewController(position: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getNoticeViewController(position: position))
