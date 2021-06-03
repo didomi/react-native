@@ -50,6 +50,18 @@
             ReferencedContainer = "container:DidomiExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5782FC4A2668DAA9009F822D"
+               BuildableName = "DidomiExampleUITests.xctest"
+               BlueprintName = "DidomiExampleUITests"
+               ReferencedContainer = "container:DidomiExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

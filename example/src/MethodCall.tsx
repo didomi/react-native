@@ -18,9 +18,12 @@ export default function MethodCall(props: MethodCallProps) {
           setCalled(true);
         }}
         title={props.name}
+        testID={props.name}
       />
       {called && (
-        <Text style={[styles.result]}>{props.test() ? 'OK' : 'KO'}</Text>
+        <Text style={[styles.result]}>
+          {props.name + '-' + (props.test() ? 'OK' : 'KO')}
+        </Text>
       )}
     </View>
   );

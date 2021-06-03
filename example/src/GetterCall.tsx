@@ -19,9 +19,12 @@ export default function Getter(props: GetterCallProps) {
           setCalled(true);
         }}
         title={props.name}
+        testID={props.name}
       />
       {called && (
-        <Text style={styles.result}>{props.test(result) ? 'OK' : 'KO'}</Text>
+        <Text testID={props.name + '-result'} style={styles.result}>
+          {props.name + '-' + (props.test(result) ? 'OK' : 'KO')}
+        </Text>
       )}
       {result && <Text style={styles.result}>{JSON.stringify(result)}</Text>}
     </View>
