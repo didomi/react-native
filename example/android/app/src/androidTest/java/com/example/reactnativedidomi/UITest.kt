@@ -14,27 +14,25 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
-class ChangeTextBehaviorTest {
+class UITest {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun init() {
-        testMethodCall("Reset")
+
     }
 
     private fun testMethodCall(method: String) {
-        onView(withText(method))
-                .perform(click())
-
-        onView(withText("$method-OK"))
-                .check(matches(isDisplayed()))
+        EspressoViewFinder.waitForDisplayed(withText(method.toUpperCase()))
+        onView(withText(method.toUpperCase())).perform(click())
+        EspressoViewFinder.waitForDisplayed(withText("$method-OK"))
     }
 
     private fun testLastEvent(event: String) {
-        onView(withText("LAST RECEIVED EVENT: $event"))
-                .check(matches(isDisplayed()))
+
+        EspressoViewFinder.waitForDisplayed(withText("LAST RECEIVED EVENT: $event"))
     }
 
     @Test
@@ -42,6 +40,7 @@ class ChangeTextBehaviorTest {
         testLastEvent("on_ready")
     }
 
+    @Test
     fun test_Reset() {
         testMethodCall("reset")
     }
@@ -62,11 +61,9 @@ class ChangeTextBehaviorTest {
         testLastEvent("on_hide_notice")
     }
 
+    @Test
     fun test_SetLogLevel() {
         testMethodCall("setLogLevel")
     }
 
-    @Test
-    fun test() {
-    }
 }
