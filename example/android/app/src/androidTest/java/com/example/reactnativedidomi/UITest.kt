@@ -45,6 +45,7 @@ class UITest {
         testMethodCall("reset")
     }
 
+    @Test
     fun test_SetupUI() {
         testMethodCall("setupUI")
 

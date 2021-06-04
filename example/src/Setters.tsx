@@ -3,21 +3,22 @@ import { StyleSheet, View } from 'react-native';
 import { Didomi } from 'react-native-didomi';
 import Setter from './SetterCall';
 
-export default function Getters() {
+export default function Setters() {
   return (
     <View style={styles.container}>
       <Setter
         name="setUserConsentStatus"
         call={async () => {
-          return await Didomi.setUserConsentStatus(
-            ['analytics', 'advertising_personalization'],
+          return await Didomi.setUserStatusSets(
+            ['cookies', 'advertising_personalization', 'analytics'],
+            ['ad_delivery', 'content_personalization'],
             [],
             [],
             [],
             [],
             [],
             [],
-            []
+            false
           );
         }}
         test={() => {
@@ -25,6 +26,25 @@ export default function Getters() {
         }}
       />
 
+      <Setter
+        name="setUserAgreeToAll"
+        call={async () => {
+          return await Didomi.setUserAgreeToAll();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Setter
+        name="setUserDisagreeToAll"
+        call={async () => {
+          return await Didomi.setUserDisagreeToAll();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
       {/*
       setUserConsentStatus
  */}
