@@ -11,9 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.util.HumanReadables
-import androidx.test.espresso.util.TreeIterables
-import androidx.test.espresso.util.TreeIterables.*
-import com.facebook.react.uimanager.RootView
+import androidx.test.espresso.util.TreeIterables.breadthFirstViewTraversal
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
