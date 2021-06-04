@@ -82,7 +82,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app-debug.apk 
-        path: android/app/build/outputs/apk/debug/app-debug.apk 
+        path: example/android/app/build/outputs/apk/debug/app-debug.apk 
         
     - name: Build Android Test
       run: |
@@ -92,4 +92,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app-debug-androidTest.apk 
-        path: android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+        path: example/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
