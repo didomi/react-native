@@ -211,6 +211,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val array = WritableNativeArray()
 
         set?.forEach { array.pushString(it) }
+
         return array
     }
 
@@ -218,12 +219,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val array = WritableNativeArray()
 
         set?.forEach { array.pushMap(objectToWritableMap(it)) }
+
         return array
     }
 
     private fun objectToWritableMap(obj: Any?): WritableMap {
         val map = WritableNativeMap()
-        obj.serializeToMap().entries.forEach { entry -> map.putString(entry.key, entry.value.toString()) }
+        obj?.serializeToMap()?.entries?.forEach { entry -> map.putString(entry.key, entry.value.toString()) }
         return map
     }
 
@@ -437,7 +439,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             val map = Didomi.getInstance().getText(textKey)
             val writableMap = WritableNativeMap()
 
-            for (elem in map) writableMap.putString(elem.key, elem.value)
+            map?.let {
+                for (elem in it) writableMap.putString(elem.key, elem.value)
+            }
 
             promise.resolve(writableMap)
         } catch (e: DidomiNotReadyException) {

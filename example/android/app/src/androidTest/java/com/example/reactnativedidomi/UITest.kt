@@ -1,5 +1,6 @@
 package com.example.reactnativedidomi
 
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -12,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
+import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
@@ -22,7 +24,12 @@ class UITest {
 
     @Before
     fun init() {
+//        testMethodCall("reset")
+    }
 
+    @After
+    fun tearDown() {
+        testMethodCall("reset")
     }
 
     private fun testMethodCall(method: String) {
@@ -31,12 +38,15 @@ class UITest {
         waitForDisplayed(withText("$method-OK"))
     }
 
-    private fun testLastEvent(event: String) {
+    private fun methodCall(method: String) {
+        waitForDisplayed(withText(method.toUpperCase()))
+        onView(withText(method.toUpperCase())).perform(click())
+    }
 
+    private fun testLastEvent(event: String) {
         waitForDisplayed(withText("LAST RECEIVED EVENT: $event"))
     }
 
-    @Test
     fun test_SDKInitOK() {
         testLastEvent("on_ready")
     }
@@ -46,28 +56,63 @@ class UITest {
         testMethodCall("reset")
     }
 
-    //@Test
+    @Test
     fun test_SetupUI() {
-        testMethodCall("setupUI")
+        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
+        Thread.sleep(5000L)
+
+        methodCall("setupUI")
 
         // Check opening of notice
-        // FIXME : cannot find agree button 
-        val agreeButtonText = "AGREE & CLOSE"
+        val agreeButtonText = "Agree & Close"
+
+        Thread.sleep(3000L)
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
-
-        testLastEvent("on_show_notice")
 
         // Close notice
         agreeButton.perform(click())
 
         testLastEvent("on_notice_click_agree")
+        waitForDisplayed(withText("setupUI-OK"))
+
     }
 
     @Test
     fun test_SetLogLevel() {
         testMethodCall("setLogLevel")
+    }
+
+    @Test
+    fun test_HideNotice() {
+        testMethodCall("hideNotice")
+        testLastEvent("on_hide_notice")
+    }
+
+    @Test
+    fun test_HidePreferences() {
+        testMethodCall("hidePreferences")
+    }
+
+    @Test
+    fun test_ShowNotice() {
+        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
+        Thread.sleep(5000L)
+
+        methodCall("showNotice")
+
+        val agreeButtonText = "Agree & Close"
+
+        Thread.sleep(3000L)
+        waitForDisplayed(withText(agreeButtonText))
+        val agreeButton = onView(withText(agreeButtonText))
+        agreeButton.check(matches(isDisplayed()))
+
+        // Close notice
+        agreeButton.perform(click())
+
+        testLastEvent("on_notice_click_agree")
     }
 
 }
