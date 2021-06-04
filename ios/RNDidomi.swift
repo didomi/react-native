@@ -128,7 +128,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(getRequiredPurposes:reject:)
     func getRequiredPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as! [[String: Any]]
+            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]]
             resolve(purposes)
     }
     
@@ -137,14 +137,14 @@ class RNDidomi: RCTEventEmitter {
     @objc(getRequiredVendors:reject:)
     func getRequiredVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as! [[String: Any]]
+            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as? [[String: Any]]
             resolve(vendors)
     }
     
     @objc(getEnabledPurposes:reject:)
     func getEnabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as! [[String: Any]]
+            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
             resolve(purposes)
     }
     
@@ -157,7 +157,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(getDisabledPurposes:reject:)
     func getDisabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as! [[String: Any]]
+            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as? [[String: Any]]
             resolve(purposes)
     }
     
@@ -169,7 +169,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(getEnabledVendors:reject:)
     func getEnabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as! [[String: Any]]
+            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as? [[String: Any]]
             resolve(vendors)
     }
     
@@ -181,7 +181,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(getDisabledVendors:reject:)
     func getDisabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as! [[String: Any]]
+            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as? [[String: Any]]
             resolve(vendors)
     }
     
@@ -193,14 +193,14 @@ class RNDidomi: RCTEventEmitter {
     @objc(getPurpose:resolve:reject:)
     func getPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as! [[String: Any]]
+            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [[String: Any]]
             resolve(purposes)
     }
     
     @objc(getVendor:resolve:reject:)
     func getVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as! [[String: Any]]
+            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [[String: Any]]
             resolve(vendors)
     }
     
