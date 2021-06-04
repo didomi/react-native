@@ -193,7 +193,12 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     private fun ReadableArray.toSet(): Set<String> {
-        return convert()
+        val set = mutableSetOf<String>()
+
+        for (i in 0 until size())
+            set.add(getString(i) ?: "")
+
+        return set
     }
 
     //convert an object of type I to type O
@@ -684,7 +689,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                              disabledLegIntVendorIds: ReadableArray,
                              promise: Promise) {
         try {
-            promise.resolve(Didomi.getInstance().setUserConsentStatus(
+            promise.resolve(Didomi.getInstance().setUserStatus(
                     enabledPurposeIds.toSet(),
                     disabledPurposeIds.toSet(),
                     enabledLegitimatePurposeIds.toSet(),
@@ -701,7 +706,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun setUserDisagreeToAll(promise: Promise) {
         try {
-            promise.resolve(Didomi.getInstance().setUserAgreeToAll())
+            promise.resolve(Didomi.getInstance().setUserDisagreeToAll())
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

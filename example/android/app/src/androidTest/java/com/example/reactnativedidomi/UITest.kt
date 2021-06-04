@@ -42,10 +42,12 @@ class ChangeTextBehaviorTest {
         testLastEvent("on_ready")
     }
 
+    @Test
     fun test_Reset() {
         testMethodCall("reset")
     }
 
+    @Test
     fun test_SetupUI() {
         testMethodCall("setupUI")
 
@@ -62,6 +64,7 @@ class ChangeTextBehaviorTest {
         testLastEvent("on_hide_notice")
     }
 
+    @Test
     fun test_SetLogLevel() {
         testMethodCall("setLogLevel")
     }

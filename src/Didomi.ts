@@ -152,7 +152,7 @@ export const Didomi = {
     enabledPurposeIds: string[],
     disabledPurposeIds: string[],
     enabledVendorIds: string[],
-    disabledVendorIds: string[],
+    disabledVendorIds: string[]
   ): Promise<boolean> =>
     RNDidomi.setUserConsentStatus(
       enabledPurposeIds,
