@@ -86,7 +86,7 @@ jobs:
         
     - name: Build Android Test
       run: |
-        cd android && ./gradlew :app:assembleDebugAndroidTest
+        cd android && ./gradlew :app:assembleDebugAndroidTest --no-daemon
     
     - name: Upload Android Test APK
       uses: actions/upload-artifact@v1
