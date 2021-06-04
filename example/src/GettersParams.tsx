@@ -27,16 +27,6 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getDisabledVendors"
-        call={async () => {
-          return await Didomi.getDisabledVendors();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <GetterParams
         name="getTranslatedText [Key '0']"
         call={async () => {
           return await Didomi.getTranslatedText('0');
@@ -47,7 +37,7 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForPurpose [ID = '0']"
+        name="getUserConsentStatusForPurpose [ID '0']"
         call={async () => {
           return await Didomi.getUserConsentStatusForPurpose('0');
         }}
@@ -57,7 +47,7 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForVendor [ID = '0']"
+        name="getUserConsentStatusForVendor [ID '0']"
         call={async () => {
           return await Didomi.getUserConsentStatusForVendor('0');
         }}
@@ -67,7 +57,7 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForVendorAndRequiredPurposes [ID = '0']"
+        name="getUserConsentStatusForVendorAndRequiredPurposes [ID '0']"
         call={async () => {
           return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes(
             '0'
@@ -79,7 +69,7 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserLegitimateInterestStatusForPurpose [ID = '0']"
+        name="getUserLegitimateInterestStatusForPurpose [ID '0']"
         call={async () => {
           return await Didomi.getUserLegitimateInterestStatusForPurpose('0');
         }}

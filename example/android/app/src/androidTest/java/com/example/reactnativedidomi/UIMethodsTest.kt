@@ -17,14 +17,18 @@ import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
-class UITest {
+class UIMethodsTest {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun init() {
-//        testMethodCall("reset")
+        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
+        Thread.sleep(5000L)
+
+        //testLastEvent("on_ready")
+        testMethodCall("reset")
     }
 
     @After
@@ -58,9 +62,6 @@ class UITest {
 
     @Test
     fun test_SetupUI() {
-        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
-        Thread.sleep(5000L)
-
         methodCall("setupUI")
 
         // Check opening of notice
@@ -97,9 +98,6 @@ class UITest {
 
     @Test
     fun test_ShowNotice() {
-        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
-        Thread.sleep(5000L)
-
         methodCall("showNotice")
 
         val agreeButtonText = "Agree & Close"
@@ -113,6 +111,47 @@ class UITest {
         agreeButton.perform(click())
 
         testLastEvent("on_notice_click_agree")
+    }
+
+    @Test
+    fun test_ShowPreferencesPurposes() {
+        methodCall("showPreferences Purposes")
+
+        val agreeButtonText = "Save"
+
+        Thread.sleep(3000L)
+        waitForDisplayed(withText(agreeButtonText))
+        val agreeButton = onView(withText(agreeButtonText))
+        agreeButton.check(matches(isDisplayed()))
+
+        // Close notice
+        agreeButton.perform(click())
+
+        testLastEvent("on_hide_notice")
+    }
+
+    @Test
+    fun test_ShowPreferencesVendors() {
+        methodCall("showPreferences Vendors")
+
+        var agreeButtonText = "Save"
+
+        Thread.sleep(3000L)
+        waitForDisplayed(withText(agreeButtonText))
+        var agreeButton = onView(withText(agreeButtonText))
+        agreeButton.check(matches(isDisplayed()))
+
+        // Close notice
+        agreeButton.perform(click())
+
+        // Close the purpose notice
+        agreeButtonText = "Agree to all"
+        waitForDisplayed(withText(agreeButtonText))
+        agreeButton = onView(withText(agreeButtonText))
+        agreeButton.check(matches(isDisplayed()))
+        agreeButton.perform(click())
+
+        testLastEvent("on_hide_notice")
     }
 
 }
