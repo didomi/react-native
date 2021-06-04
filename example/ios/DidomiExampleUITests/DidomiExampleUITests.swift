@@ -27,7 +27,7 @@ class DidomiExampleUITests: XCTestCase {
     let resultLabel = app.staticTexts[name + "-OK"]
     let exists = NSPredicate(format: "exists == 1")
     expectation(for: exists, evaluatedWith: resultLabel, handler: nil)
-    waitForExpectations(timeout: 5, handler: nil)
+    waitForExpectations(timeout: 10, handler: nil)
   }
   
   private func testLastEvent(app: XCUIApplication, name: String) {
@@ -74,6 +74,41 @@ class DidomiExampleUITests: XCTestCase {
   func testSetLogLevel() throws {
     let app = XCUIApplication()
     testMethodCall(app: app, name: "setLogLevel")
+  }
+  
+  func testShowPreferencesPurposes() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "showPreferences Purposes")
+    
+    // Check opening of Purposes
+    let noticeButton = app.staticTexts["Save"]
+    let exists = NSPredicate(format: "exists == 1")
+    expectation(for: exists, evaluatedWith: noticeButton, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
+    
+    // Close notice
+    noticeButton.tap()
+    
+    testLastEvent(app: app, name:"on_hide_notice")
+  }
+  
+  func testShowPreferencesVendors() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "showPreferences Vendors")
+    
+    // Check opening of Vendors
+    let noticeButton = app.staticTexts["Save"]
+    let closeButton = app.buttons.element(boundBy: 4)
+    let text = app.staticTexts["Select partners"]
+    let exists = NSPredicate(format: "exists == 1")
+    expectation(for: exists, evaluatedWith: text, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
+    
+    // Close notice
+    closeButton.tap()
+    noticeButton.tap()
+    
+    testLastEvent(app: app, name:"on_hide_notice")
   }
   
 
