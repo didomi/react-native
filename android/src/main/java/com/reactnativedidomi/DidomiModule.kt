@@ -192,7 +192,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         return convert()
     }
 
-    private fun ReadableMap.toSet(): Set<String> {
+    private fun ReadableArray.toSet(): Set<String> {
         return convert()
     }
 
@@ -674,14 +674,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     @Deprecated("Deprecated in the Didomi API")
-    fun setUserConsentStatus(enabledPurposeIds: ReadableMap,
-                             disabledPurposeIds: ReadableMap,
-                             enabledLegitimatePurposeIds: ReadableMap,
-                             disabledLegitimatePurposeIds: ReadableMap,
-                             enabledVendorIds: ReadableMap,
-                             disabledVendorIds: ReadableMap,
-                             enabledLegIntVendorIds: ReadableMap,
-                             disabledLegIntVendorIds: ReadableMap,
+    fun setUserConsentStatus(enabledPurposeIds: ReadableArray,
+                             disabledPurposeIds: ReadableArray,
+                             enabledLegitimatePurposeIds: ReadableArray,
+                             disabledLegitimatePurposeIds: ReadableArray,
+                             enabledVendorIds: ReadableArray,
+                             disabledVendorIds: ReadableArray,
+                             enabledLegIntVendorIds: ReadableArray,
+                             disabledLegIntVendorIds: ReadableArray,
                              promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().setUserConsentStatus(
@@ -725,14 +725,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserStatusSets(enabledConsentPurposeIds: ReadableMap,
-                          disabledConsentPurposeIds: ReadableMap,
-                          enabledLIPurposeIds: ReadableMap,
-                          disabledLIPurposeIds: ReadableMap,
-                          enabledConsentVendorIds: ReadableMap,
-                          disabledConsentVendorIds: ReadableMap,
-                          enabledLIVendorIds: ReadableMap,
-                          disabledLIVendorIds: ReadableMap,
+    fun setUserStatusSets(enabledConsentPurposeIds: ReadableArray,
+                          disabledConsentPurposeIds: ReadableArray,
+                          enabledLIPurposeIds: ReadableArray,
+                          disabledLIPurposeIds: ReadableArray,
+                          enabledConsentVendorIds: ReadableArray,
+                          disabledConsentVendorIds: ReadableArray,
+                          enabledLIVendorIds: ReadableArray,
+                          disabledLIVendorIds: ReadableArray,
                           sendAPIEvent: Boolean?,
                           promise: Promise) {
         try {

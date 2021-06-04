@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Didomi Example</string>
+
+    <!-- Text buttons -->
+    <string name="reset">Reset</string>
+    <string name="setup_ui">SetupUi</string>
+    <string name="set_log_level">SetLogLevel</string>
+    <string name="hide_notice">HideNotice</string>
+    <string name="hide_preferences">HidePreferences</string>
+    <string name="show_notice">ShowNotice</string>
+    <string name="show_preferences_purposes">ShowPreferences Purposes</string>
+    <string name="show_preferences_vendors">ShowPreferences Vendors</string>
+
+    <string name="get_disabled_purposes">GetDisabledPurposes</string>
+    <string name="get_disabled_purpose_ids">GetDisabledPurposeIds</string>
+    <string name="get_disabled_vendors">GetDisabledVendors</string>
+    <string name="get_disabled_vendor_ids">GetDisabledVendorIds</string>
+    <string name="get_enabled_purposes">GetEnabledPurposes</string>
+    <string name="get_enabled_purpose_ids">GetEnabledPurposeId</string>
+    <string name="get_enabled_vendors">GetEnabledVendors</string>
+    <string name="get_enabled_vendor_ids">GetEnabledVendorIds</string>
+
+    <!-- Text button validation -->
+
 </resources>

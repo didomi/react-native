@@ -151,14 +151,22 @@ export const Didomi = {
   setUserConsentStatus: (
     enabledPurposeIds: string[],
     disabledPurposeIds: string[],
+    enabledLegitimatePurposeIds: string[],
+    disabledLegitimatePurposeIds: string[],
     enabledVendorIds: string[],
     disabledVendorIds: string[],
+    enabledLegIntVendorIds: string[],
+    disabledLegIntVendorIds: string[]
   ): Promise<boolean> =>
     RNDidomi.setUserConsentStatus(
       enabledPurposeIds,
       disabledPurposeIds,
+      enabledLegitimatePurposeIds,
+      disabledLegitimatePurposeIds,
       enabledVendorIds,
-      disabledVendorIds
+      disabledVendorIds,
+      enabledLegIntVendorIds,
+      disabledLegIntVendorIds
     ),
 
   setUserDisagreeToAll: (): Promise<boolean> => RNDidomi.setUserDisagreeToAll(),
