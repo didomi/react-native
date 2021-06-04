@@ -9,16 +9,7 @@ export default function Getters() {
       <Setter
         name="setUserConsentStatus"
         call={async () => {
-          return await Didomi.setUserConsentStatus(
-            ['analytics', 'advertising_personalization'],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
-          );
+          return await Didomi.setUserConsentStatus(["analytics", "advertising_personalization"], [], [], []);
         }}
         test={() => {
           return true;
