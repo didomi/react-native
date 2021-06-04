@@ -11,6 +11,7 @@ export default function Getters() {
         call={async () => {
           return await Didomi.setUserConsentStatus(["analytics", "advertising_personalization"], [], [], []);
 
+
           
         }}
         test={() => {
