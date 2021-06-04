@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-18.04
     defaults:
       run:
-      working-directory: example
+        working-directory: example
     steps:
 
     - name: Checkout
