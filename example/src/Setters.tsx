@@ -7,7 +7,7 @@ export default function Setters() {
   return (
     <View style={styles.container}>
       <Setter
-        name="setUserConsentStatus"
+        name="setUserStatusSets"
         call={async () => {
           return await Didomi.setUserStatusSets(
             ['cookies', 'advertising_personalization', 'analytics'],
