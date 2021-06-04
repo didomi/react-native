@@ -73,8 +73,23 @@ jobs:
     - name: Make Gradlew Executable
       run: cd android && chmod +x ./gradlew
 
-    - name: Build Android App Bundle
+    - name: Build Android App
       run: |
         npx react-native bundle --platform android --dev false --entry-file index.tsx --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
         cd android && ./gradlew assembleDebug --no-daemon
+
+    - name: Upload Android App APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-debug.apk 
+          path: android/app/build/outputs/apk/debug/app-debug.apk 
         
+    - name: Build Android Test
+      run: |
+        cd android && ./gradlew .:app:assembleDebugAndroidTest
+    
+    - name: Upload Android Test APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-debug-androidTest.apk 
+          path: android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
