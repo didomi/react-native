@@ -41,7 +41,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(setUserConsentStatus:disabledPurposeIds:enabledVendorIds:disabledVendorIds:resolve:reject:)
     func setUserConsentStatus(enabledPurposeIds: Set<String>, disabledPurposeIds: Set<String>, enabledVendorIds: Set<String>, disabledVendorIds: Set<String>, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.setUserConsentStatus(enabledPurposeIds: enabledPurposeIds, disabledPurposeIds: disabledPurposeIds, enabledVendorIds: enabledVendorIds, disabledVendorIds: disabledVendorIds))
+        resolve(Didomi.shared.setUserConsentStatus(enabledPurposeIds: Set(enabledPurposeIds), disabledPurposeIds: Set(disabledPurposeIds), enabledVendorIds: Set(enabledVendorIds), disabledVendorIds: Set(disabledVendorIds)))
     }
     
     @objc(isConsentRequired:reject:)
@@ -81,7 +81,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(setUserStatus:disabledConsentPurposeIds:enabledLIPurposeIds:disabledLIPurposeIds:enabledConsentVendorIds:disabledConsentVendorIds:enabledLIVendorIds:disabledLIVendorIds:sendAPIEvent:resolve:reject:)
     func setUserStatus(enabledConsentPurposeIds: Set<String>, disabledConsentPurposeIds: Set<String>, enabledLIPurposeIds: Set<String>, disabledLIPurposeIds: Set<String>, enabledConsentVendorIds: Set<String>, disabledConsentVendorIds: Set<String>, enabledLIVendorIds: Set<String>, disabledLIVendorIds: Set<String>, sendAPIEvent: Bool, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.setUserStatus(enabledConsentPurposeIds: enabledConsentPurposeIds, disabledConsentPurposeIds: disabledConsentPurposeIds, enabledLIPurposeIds: enabledLIPurposeIds, disabledLIPurposeIds: disabledLIPurposeIds, enabledConsentVendorIds: enabledConsentVendorIds, disabledConsentVendorIds: disabledConsentVendorIds, enabledLIVendorIds: enabledLIVendorIds, disabledLIVendorIds: disabledLIVendorIds, sendAPIEvent: sendAPIEvent))
+        resolve(Didomi.shared.setUserStatus(enabledConsentPurposeIds: Set(enabledConsentPurposeIds), disabledConsentPurposeIds: Set(disabledConsentPurposeIds), enabledLIPurposeIds: Set(enabledLIPurposeIds), disabledLIPurposeIds: Set(disabledLIPurposeIds), enabledConsentVendorIds: Set(enabledConsentVendorIds), disabledConsentVendorIds: Set(disabledConsentVendorIds), enabledLIVendorIds: Set(enabledLIVendorIds), disabledLIVendorIds: Set(disabledLIVendorIds), sendAPIEvent: sendAPIEvent))
     }
     
     @objc(setUserAgreeToAll:reject:)
@@ -94,15 +94,15 @@ class RNDidomi: RCTEventEmitter {
         resolve(Didomi.shared.setUserDisagreeToAll())
     }
     
-//    @objc(onReady:)
-//    func onReady(callback: @escaping RCTResponseSenderBlock) {
-//        Didomi.shared.onReady(callback: callback)
-//    }
-//    
-//    @objc(onError:)
-//    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
-//        Didomi.shared.onError(callback: callback)
-//    }
+    //    @objc(onReady:)
+    //    func onReady(callback: @escaping RCTResponseSenderBlock) {
+    //        Didomi.shared.onReady(callback: callback)
+    //    }
+    //
+    //    @objc(onError:)
+    //    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
+    //        Didomi.shared.onError(callback: callback)
+    //    }
     
     @objc(reset)
     func reset() {
@@ -118,7 +118,7 @@ class RNDidomi: RCTEventEmitter {
     func getRequiredVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Array(Didomi.shared.getRequiredVendorIds()))
     }
-
+    
     
     @objc(isReady:reject:)
     func isReady(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
@@ -127,25 +127,40 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getRequiredPurposes:reject:)
     func getRequiredPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]] ?? []
+            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as! [[String: Any]]
             resolve(purposes)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     
     
     @objc(getRequiredVendors:reject:)
     func getRequiredVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as? [[String: Any]] ?? []
+            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as! [[String: Any]]
             resolve(vendors)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     @objc(getEnabledPurposes:reject:)
     func getEnabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]] ?? []
+            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as! [[String: Any]]
             resolve(purposes)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     
@@ -156,9 +171,14 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledPurposes:reject:)
     func getDisabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as? [[String: Any]] ?? []
+            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as! [[String: Any]]
             resolve(purposes)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     @objc(getDisabledPurposeIds:reject:)
@@ -168,9 +188,14 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getEnabledVendors:reject:)
     func getEnabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as? [[String: Any]] ?? []
+            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as! [[String: Any]]
             resolve(vendors)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     @objc(getEnabledVendorIds:reject:)
@@ -180,9 +205,14 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledVendors:reject:)
     func getDisabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as? [[String: Any]] ?? []
+            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as! [[String: Any]]
             resolve(vendors)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     @objc(getDisabledVendorIds:reject:)
@@ -192,16 +222,26 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getPurpose:resolve:reject:)
     func getPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [[String: Any]] ?? []
+            let purposes = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as! [[String: Any]]
             resolve(purposes)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     @objc(getVendor:resolve:reject:)
     func getVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        do {
             let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [String: Any] ?? [:]
+            let vendors = try JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as! [[String: Any]]
             resolve(vendors)
+        } catch {
+            let error: NSError = NSError()
+            reject("SDK not ready", "SDK not ready", error)
+        }
     }
     
     @objc(getJavaScriptForWebView:resolve:reject:)
@@ -424,17 +464,17 @@ extension RNDidomi {
                 "on_sync_done"
         ]
     }
-
-
+    
+    
     private func initEventListener(){
         
         didomiEventListener.onConsentChanged = { event in
-//            if #available(iOS 14, *) {
-//                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
-//                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
-//                    ATTrackingManager.requestTrackingAuthorization { status in }
-//                }
-//            }
+            //            if #available(iOS 14, *) {
+            //                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
+            //                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
+            //                    ATTrackingManager.requestTrackingAuthorization { status in }
+            //                }
+            //            }
             self.sendEvent(withName: "on_consent_changed", body:"")
         }
         
@@ -505,15 +545,15 @@ extension RNDidomi {
         didomiEventListener.onPreferencesClickPurposeAgree = { event, purposeId in
             self.sendEvent(withName: "on_preferences_click_purpose_agree", body: purposeId)
         }
-
+        
         didomiEventListener.onPreferencesClickPurposeDisagree = { event, purposeId in
             self.sendEvent(withName: "on_preferences_click_purpose_disagree", body: purposeId)
         }
-
+        
         didomiEventListener.onPreferencesClickCategoryAgree = { event, categoryId in
             self.sendEvent(withName: "on_preferences_click_category_agree", body: categoryId)
         }
-
+        
         didomiEventListener.onPreferencesClickCategoryDisagree = { event, categoryId in
             self.sendEvent(withName: "on_preferences_click_category_disagree", body: categoryId)
         }
@@ -533,7 +573,7 @@ extension RNDidomi {
         didomiEventListener.onPreferencesClickVendorAgree = { event, vendorId in
             self.sendEvent(withName: "on_preferences_click_vendor_agree", body: vendorId)
         }
-
+        
         didomiEventListener.onPreferencesClickVendorDisagree = { event, vendorId in
             self.sendEvent(withName: "on_preferences_click_vendor_disagree", body: vendorId)
         }
