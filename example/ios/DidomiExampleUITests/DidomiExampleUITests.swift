@@ -88,6 +88,29 @@ class DidomiExampleUITests: XCTestCase {
     testMethodCall(app: app, name: "setLogLevel")
   }
   
+  func testShowNotice() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "showNotice")
+    
+    // Check opening of notice
+    let noticeButton = app.staticTexts["Agree & Close"]
+    let exists = NSPredicate(format: "exists == 1")
+    expectation(for: exists, evaluatedWith: noticeButton, handler: nil)
+    waitForExpectations(timeout: 5, handler: nil)
+    
+    testLastEvent(app: app, name:"on_show_notice")
+    
+    // Close notice
+    noticeButton.tap()
+    
+    testLastEvent(app: app, name:"on_notice_click_agree")
+  }
+  
+  func testHideNotice() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "hideNotice")
+  }
+  
   func testShowPreferencesPurposes() throws {
     let app = XCUIApplication()
     testMethodCall(app: app, name: "showPreferences Purposes")
@@ -121,6 +144,11 @@ class DidomiExampleUITests: XCTestCase {
     noticeButton.tap()
     
     testLastEvent(app: app, name:"on_hide_notice")
+  }
+  
+  func testHidePreferences() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "hidePreferences")
   }
   
   
