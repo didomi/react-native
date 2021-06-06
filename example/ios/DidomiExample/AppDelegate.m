@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+#import <React/RCTDevLoadingView.h>
+
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
@@ -40,6 +42,11 @@ static void InitializeFlipper(UIApplication *application) {
     InitializeFlipper(application);
   #endif
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  
+#if RCT_DEV
+  [bridge moduleForClass:[RCTDevLoadingView class]];
+#endif
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"DidomiExample"
                                             initialProperties:nil];
@@ -52,7 +59,7 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  if ([FIRApp defaultApp] == nil) {
+  if (![FIRApp defaultApp]) {
     [FIRApp configure];
   }
   

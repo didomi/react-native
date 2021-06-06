@@ -61,17 +61,20 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getUserConsentStatusForPurpose:resolve:reject:)
     func getUserConsentStatusForPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getUserConsentStatusForPurpose(purposeId: purposeId))
+        let consentStatus = Didomi.shared.getUserConsentStatusForPurpose(purposeId: purposeId)
+        resolve(consentStatus)
     }
     
     @objc(getUserConsentStatusForVendor:resolve:reject:)
     func getUserConsentStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getUserConsentStatusForVendor(vendorId: vendorId))
+        let consentStatus = Didomi.shared.getUserConsentStatusForVendor(vendorId: vendorId).rawValue
+        resolve(consentStatus)
     }
     
     @objc(getUserConsentStatusForVendorAndRequiredPurposes:resolve:reject:)
     func getUserConsentStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getUserConsentStatusForVendorAndRequiredPurposes(vendorId: vendorId))
+        let consentStatus = Bool(Didomi.shared.getUserConsentStatusForVendorAndRequiredPurposes(vendorId: vendorId).rawValue as NSNumber)
+        resolve(consentStatus)
     }
     
     @objc(setUserStatus:purposesLIStatus:vendorsConsentStatus:vendorsLIStatus:resolve:reject:)
@@ -193,14 +196,14 @@ class RNDidomi: RCTEventEmitter {
     @objc(getPurpose:resolve:reject:)
     func getPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [[String: Any]]
+            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [String: Any]
             resolve(purposes)
     }
     
     @objc(getVendor:resolve:reject:)
     func getVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
             let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [[String: Any]]
+            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [String: Any]
             resolve(vendors)
     }
     
@@ -388,6 +391,23 @@ public struct Vendor : Codable {
     
     /// IAB ID that the vendor should be mapped to (if vendor namespace is not **iab** and the vendor should be treated as an IAB vendor).
     public var iabId: String?
+}
+
+@objc public enum ConsentStatus : Int {
+
+    case enable
+
+    case disable
+
+    case unknown
+
+    /// The raw type that can be used to represent all values of the conforming
+    /// type.
+    ///
+    /// Every distinct value of the conforming type has a corresponding unique
+    /// value of the `RawValue` type, but there may be values of the `RawValue`
+    /// type that don't have a corresponding value of the conforming type.
+    public typealias RawValue = Int
 }
 
 extension RNDidomi {

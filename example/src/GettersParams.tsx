@@ -7,9 +7,9 @@ export default function GettersParams() {
   return (
     <View style={styles.container}>
       <GetterParams
-        name="getPurpose [ID '0']"
+        name="getPurpose [ID 'analytics']"
         call={async () => {
-          return await Didomi.getPurpose('0');
+          return await Didomi.getPurpose('analytics');
         }}
         test={() => {
           return true;
@@ -27,16 +27,6 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getDisabledVendors"
-        call={async () => {
-          return await Didomi.getDisabledVendors();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <GetterParams
         name="getTranslatedText [Key '0']"
         call={async () => {
           return await Didomi.getTranslatedText('0');
@@ -47,9 +37,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForPurpose [ID = '0']"
+        name="getUserConsentStatusForPurpose [ID = 'analytics']"
         call={async () => {
-          return await Didomi.getUserConsentStatusForPurpose('0');
+          return await Didomi.getUserConsentStatusForPurpose('analytics');
         }}
         test={() => {
           return true;
@@ -67,11 +57,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForVendorAndRequiredPurposes [ID = '0']"
+        name="getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']"
         call={async () => {
-          return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes(
-            '0'
-          );
+          return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes('1');
         }}
         test={() => {
           return true;
@@ -79,9 +67,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserLegitimateInterestStatusForPurpose [ID = '0']"
+        name="getUserLegitimateInterestStatusForPurpose [ID = 'analytics']"
         call={async () => {
-          return await Didomi.getUserLegitimateInterestStatusForPurpose('0');
+          return await Didomi.getUserLegitimateInterestStatusForPurpose('analytics');
         }}
         test={() => {
           return true;
