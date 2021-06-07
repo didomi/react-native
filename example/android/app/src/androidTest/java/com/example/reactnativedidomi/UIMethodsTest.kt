@@ -67,7 +67,7 @@ class UIMethodsTest {
         // Check opening of notice
         val agreeButtonText = "Agree & Close"
 
-        Thread.sleep(3000L)
+        
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -102,7 +102,7 @@ class UIMethodsTest {
 
         val agreeButtonText = "Agree & Close"
 
-        Thread.sleep(3000L)
+        
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -117,9 +117,9 @@ class UIMethodsTest {
     fun test_ShowPreferencesPurposes() {
         methodCall("showPreferences Purposes")
 
-        val agreeButtonText = "Save"
+        val agreeButtonText = "Agree to all"
 
-        Thread.sleep(3000L)
+        
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -136,7 +136,7 @@ class UIMethodsTest {
 
         var agreeButtonText = "Save"
 
-        Thread.sleep(3000L)
+        
         waitForDisplayed(withText(agreeButtonText))
         var agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
