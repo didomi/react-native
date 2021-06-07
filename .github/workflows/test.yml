@@ -94,49 +94,19 @@ jobs:
         name: app-debug-androidTest.apk 
         path: example/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
-  ios:
-    needs: js
-    runs-on: macos-10.15
-    defaults:
-      run:
-        working-directory: example
-    steps:
+    - name: Login to Google Cloud
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with: 
+        version: `270.0.0` 
+        service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
-    - name: Checkout
-      uses: actions/checkout@v2
+    - name: Set current project
+      run: gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
 
-    - name: Setup Node
-      uses: actions/setup-node@v2
-      with:
-        node-version: "14.x"
-
-    - name: Cache node dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
-    - name: Install dependencies
-      run: yarn install
-
-    - name: Cache Gradle Wrapper
-      uses: actions/cache@v2
-      with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
-
-    - name: Make Gradlew Executable
-      run: cd android && chmod +x ./gradlew
-
-    - name: Build iOS Tests
+    - name: Run Instrumentation Tests in Firebase Test Lab
       run: |
-        cd ios && xcodebuild \
-        -workspace DidomiExample.xcworkspace \
-        -scheme DidomiExample \
-        -derivedDataPath DerivedData \
-        -sdk iphoneos build-for-testing
-
+        gcloud firebase test android run --type instrumentation \
+        --app example/android/app/build/outputs/apk/debug/app-debug.apk \
+        --test example/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+        --device model=Pixel2,version=28,locale=pl,orientation=portrait
+  
