@@ -1,6 +1,7 @@
 package com.example.reactnativedidomi
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -27,31 +28,34 @@ class UISettersTest {
         Thread.sleep(5000L)
 
         //testLastEvent("on_ready")
-        testMethodCall("reset")
+        testMethodCall("reset", false)
     }
 
     @After
     fun tearDown() {
-        testMethodCall("reset")
+        testMethodCall("reset", false)
     }
 
-    private fun testMethodCall(method: String) {
+    private fun testMethodCall(method: String, needToScroll: Boolean) {
         onView(withText(method.toUpperCase())).perform(scrollTo(), click())
+
+        if (needToScroll)
+            onView(withText(method.toUpperCase())).perform(ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp())
         waitForDisplayed(withText("$method-OK"))
     }
 
     @Test
     fun test_SetUserStatusSets() {
-        testMethodCall("setUserStatusSets")
+        testMethodCall("setUserStatusSets", true)
     }
 
     @Test
     fun test_SetUserAgreeToAll() {
-        testMethodCall("setUserAgreeToAll")
+        testMethodCall("setUserAgreeToAll", true)
     }
 
     @Test
     fun test_SetUserDisagreeToAll() {
-        testMethodCall("setUserDisagreeToAll")
+        testMethodCall("setUserDisagreeToAll", true)
     }
 }

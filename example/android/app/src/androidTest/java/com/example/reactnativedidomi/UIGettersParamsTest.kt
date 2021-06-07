@@ -1,8 +1,7 @@
 package com.example.reactnativedidomi
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -27,52 +26,55 @@ class UIGettersParamsTest {
         Thread.sleep(5000L)
 
         //testLastEvent("on_ready")
-        testMethodCall("reset")
+        testMethodCall("reset", false)
     }
 
     @After
     fun tearDown() {
-        testMethodCall("reset")
+        testMethodCall("reset", false)
     }
 
-    private fun testMethodCall(method: String) {
+    private fun testMethodCall(method: String, needToScroll: Boolean) {
         onView(withText(method.toUpperCase())).perform(scrollTo(), click())
+
+        if (needToScroll)
+            onView(withText(method.toUpperCase())).perform(swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp())
         waitForDisplayed(withText("$method-OK"))
     }
 
     //TODO FIND A WAY TO CHECK WITHOUT THE ID HARD SET
     @Test
     fun test_GetPurpose() {
-        testMethodCall("getPurpose [ID '0']")
+        testMethodCall("getPurpose [ID = 'analytics']", true)
     }
 
     @Test
     fun test_GetText() {
-        testMethodCall("getText [Key '0']")
+        testMethodCall("getText [Key = '0']", true)
     }
 
     @Test
     fun test_GetTranslatedText() {
-        testMethodCall("getTranslatedText [Key '0']")
+        testMethodCall("getTranslatedText [Key = '0']", true)
     }
 
     @Test
     fun test_GetUserConsentStatusForPurpose() {
-        testMethodCall("getUserConsentStatusForPurpose [ID '0']")
+        testMethodCall("getUserConsentStatusForPurpose [ID = 'analytics']", true)
     }
 
     @Test
     fun test_GetUserConsentStatusForVendor() {
-        testMethodCall("getUserConsentStatusForVendor [ID '0']")
+        testMethodCall("getUserConsentStatusForVendor [ID = '0']", true)
     }
 
     @Test
     fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
-        testMethodCall("getUserConsentStatusForVendorAndRequiredPurposes [ID '0']")
+        testMethodCall("getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']", true)
     }
 
     @Test
     fun test_GetEnabledVendors() {
-        testMethodCall("getUserLegitimateInterestStatusForPurpose [ID '0']")
+        testMethodCall("getUserLegitimateInterestStatusForPurpose [ID = 'analytics']", true)
     }
 }

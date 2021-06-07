@@ -7,7 +7,7 @@ export default function GettersParams() {
   return (
     <View style={styles.container}>
       <GetterParams
-        name="getPurpose [ID 'analytics']"
+        name="getPurpose [ID = 'analytics']"
         call={async () => {
           return await Didomi.getPurpose('analytics');
         }}
@@ -17,7 +17,7 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getText [Key '0']"
+        name="getText [Key = '0']"
         call={async () => {
           return await Didomi.getText('0');
         }}
@@ -27,7 +27,7 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getTranslatedText [Key '0']"
+        name="getTranslatedText [Key = '0']"
         call={async () => {
           return await Didomi.getTranslatedText('0');
         }}
@@ -59,7 +59,9 @@ export default function GettersParams() {
       <GetterParams
         name="getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']"
         call={async () => {
-          return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes('1');
+          return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes(
+            '1'
+          );
         }}
         test={() => {
           return true;
@@ -69,7 +71,9 @@ export default function GettersParams() {
       <GetterParams
         name="getUserLegitimateInterestStatusForPurpose [ID = 'analytics']"
         call={async () => {
-          return await Didomi.getUserLegitimateInterestStatusForPurpose('analytics');
+          return await Didomi.getUserLegitimateInterestStatusForPurpose(
+            'analytics'
+          );
         }}
         test={() => {
           return true;

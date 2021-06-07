@@ -1,6 +1,7 @@
 package com.example.reactnativedidomi
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -27,56 +28,59 @@ class UIGettersTest {
         Thread.sleep(5000L)
 
         //testLastEvent("on_ready")
-        testMethodCall("reset")
+        testMethodCall("reset", false)
     }
 
     @After
     fun tearDown() {
-        testMethodCall("reset")
+        testMethodCall("reset", false)
     }
 
-    private fun testMethodCall(method: String) {
+    private fun testMethodCall(method: String, needToScroll: Boolean) {
         onView(withText(method.toUpperCase())).perform(scrollTo(), click())
+
+        if (needToScroll)
+            onView(withText(method.toUpperCase())).perform(ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp())
         waitForDisplayed(withText("$method-OK"))
     }
 
     @Test
     fun test_GetDisabledPurposes() {
-        testMethodCall("getDisabledPurposes")
+        testMethodCall("getDisabledPurposes", true)
     }
 
     @Test
     fun test_GetDisabledPurposeIds() {
-        testMethodCall("getDisabledPurposeIds")
+        testMethodCall("getDisabledPurposeIds", true)
     }
 
     @Test
     fun test_GetDisabledVendors() {
-        testMethodCall("getDisabledVendors")
+        testMethodCall("getDisabledVendors", true)
     }
 
     @Test
     fun test_GetDisabledVendorIds() {
-        testMethodCall("getDisabledVendorIds")
+        testMethodCall("getDisabledVendorIds", true)
     }
 
     @Test
     fun test_GetEnabledPurposes() {
-        testMethodCall("getEnabledPurposes")
+        testMethodCall("getEnabledPurposes", true)
     }
 
     @Test
     fun test_GetEnabledPurposeIds() {
-        testMethodCall("getEnabledPurposeIds")
+        testMethodCall("getEnabledPurposeIds", true)
     }
 
     @Test
     fun test_GetEnabledVendors() {
-        testMethodCall("getEnabledVendors")
+        testMethodCall("getEnabledVendors", true)
     }
 
     @Test
     fun test_GetEnabledVendorIds() {
-        testMethodCall("getEnabledVendorIds")
+        testMethodCall("getEnabledVendorIds", true)
     }
 }
