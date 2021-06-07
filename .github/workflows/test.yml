@@ -93,3 +93,50 @@ jobs:
       with:
         name: app-debug-androidTest.apk 
         path: example/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+
+  ios:
+    needs: js
+    runs-on: macos-10.15
+    defaults:
+      run:
+        working-directory: example
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: "14.x"
+
+    - name: Cache node dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Cache Gradle Wrapper
+      uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Make Gradlew Executable
+      run: cd android && chmod +x ./gradlew
+
+    - name: Build iOS Tests
+      run: |
+        cd ios && xcodebuild \
+        -workspace DidomiExample.xcworkspace \
+        -scheme DidomiExample \
+        -derivedDataPath DerivedData \
+        -sdk iphoneos build-for-testing
+

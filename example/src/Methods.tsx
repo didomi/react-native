@@ -45,7 +45,7 @@ export default function Methods() {
         }}
       />
 
-<MethodCall
+      <MethodCall
         name="showNotice"
         call={() => {
           Didomi.showNotice();
