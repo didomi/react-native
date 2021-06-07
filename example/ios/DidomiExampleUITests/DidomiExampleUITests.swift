@@ -88,6 +88,11 @@ class DidomiExampleUITests: XCTestCase {
     testMethodCall(app: app, name: "setLogLevel")
   }
   
+  func testUpdateSelectedLanguage() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "updateSelectedLanguage")
+  }
+  
   func testShowNotice() throws {
     let app = XCUIApplication()
     testMethodCall(app: app, name: "showNotice")
