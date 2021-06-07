@@ -36,6 +36,16 @@ export default function Methods() {
       />
 
       <MethodCall
+        name="updateSelectedLanguage"
+        call={() => {
+          Didomi.updateSelectedLanguage('fr');
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
         name="hideNotice"
         call={() => {
           Didomi.hideNotice();
