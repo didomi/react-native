@@ -25,6 +25,9 @@ class UIGettersParamsTest {
         //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
         Thread.sleep(5000L)
 
+        // Make sure view is ready before starting test
+        waitForDisplayed(withText("RESET"))
+
         //testLastEvent("on_ready")
         testMethodCall("reset", false)
     }
