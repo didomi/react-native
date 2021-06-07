@@ -204,17 +204,17 @@ class DidomiExampleUITests: XCTestCase {
   
   func testGetPurposeWithId() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getPurpose [ID 'analytics']")
+    testMethodCall(app: app, name: "getPurpose [ID = 'analytics']")
   }
   
   func testGetText() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getText [Key '0']")
+    testMethodCall(app: app, name: "getText [Key = '0']")
   }
   
   func testGetTranslatedText() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getTranslatedText [Key '0']")
+    testMethodCall(app: app, name: "getTranslatedText [Key = '0']")
   }
   
   func testGetUserConsentStatusForPurpose() throws {
