@@ -45,6 +45,16 @@ export default function Methods() {
         }}
       />
 
+<MethodCall
+        name="showNotice"
+        call={() => {
+          Didomi.showNotice();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
       <MethodCall
         name="hideNotice"
         call={() => {
@@ -59,16 +69,6 @@ export default function Methods() {
         name="hidePreferences"
         call={() => {
           Didomi.hidePreferences();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <MethodCall
-        name="showNotice"
-        call={() => {
-          Didomi.showNotice();
         }}
         test={() => {
           return true;
