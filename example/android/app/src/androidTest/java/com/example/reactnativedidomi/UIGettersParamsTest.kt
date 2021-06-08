@@ -22,19 +22,16 @@ class UIGettersParamsTest {
 
     @Before
     fun init() {
-        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
+        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
+        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
         Thread.sleep(5000L)
 
         // Make sure view is ready before starting test
         waitForDisplayed(withText("RESET"))
-
-        //testLastEvent("on_ready")
-        testMethodCall("reset", false)
     }
 
     @After
     fun tearDown() {
-        testMethodCall("reset", false)
     }
 
     private fun testMethodCall(method: String, needToScroll: Boolean) {
@@ -61,8 +58,7 @@ class UIGettersParamsTest {
         testMethodCall("getTranslatedText [Key = '0']", true)
     }
 
-    // Not working with test lab
-    //@Test
+    @Test
     fun test_GetUserConsentStatusForPurpose() {
         testMethodCall("getUserConsentStatusForPurpose [ID = 'analytics']", true)
     }

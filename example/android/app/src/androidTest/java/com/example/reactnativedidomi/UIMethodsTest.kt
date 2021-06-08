@@ -1,6 +1,5 @@
 package com.example.reactnativedidomi
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -24,16 +23,16 @@ class UIMethodsTest {
 
     @Before
     fun init() {
-        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
+        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
+        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
         Thread.sleep(5000L)
 
-        //testLastEvent("on_ready")
-        testMethodCall("reset")
+        // Make sure view is ready before starting test
+        waitForDisplayed(withText("RESET"))
     }
 
     @After
     fun tearDown() {
-        testMethodCall("reset")
     }
 
     private fun testMethodCall(method: String) {
@@ -62,12 +61,13 @@ class UIMethodsTest {
 
     @Test
     fun test_SetupUI() {
+        testMethodCall("reset")
         methodCall("setupUI")
 
         // Check opening of notice
         val agreeButtonText = "Agree & Close"
 
-        
+
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -98,11 +98,12 @@ class UIMethodsTest {
 
     @Test
     fun test_ShowNotice() {
+        testMethodCall("reset")
         methodCall("showNotice")
 
         val agreeButtonText = "Agree & Close"
 
-        
+
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -115,11 +116,12 @@ class UIMethodsTest {
 
     @Test
     fun test_ShowPreferencesPurposes() {
+        testMethodCall("reset")
         methodCall("showPreferences Purposes")
 
         val agreeButtonText = "Agree to all"
 
-        
+
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -132,11 +134,12 @@ class UIMethodsTest {
 
     @Test
     fun test_ShowPreferencesVendors() {
+        testMethodCall("reset")
         methodCall("showPreferences Vendors")
 
         var agreeButtonText = "Save"
 
-        
+
         waitForDisplayed(withText(agreeButtonText))
         var agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
