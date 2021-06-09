@@ -24,16 +24,16 @@ class UIGettersTest {
 
     @Before
     fun init() {
-        //TODO EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS
+        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
+        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
         Thread.sleep(5000L)
 
-        //testLastEvent("on_ready")
-        testMethodCall("reset", false)
+        // Make sure view is ready before starting test
+        waitForDisplayed(withText("RESET"))
     }
 
     @After
     fun tearDown() {
-        testMethodCall("reset", false)
     }
 
     private fun testMethodCall(method: String, needToScroll: Boolean) {
