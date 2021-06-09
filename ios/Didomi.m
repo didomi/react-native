@@ -41,11 +41,27 @@ RCT_EXTERN_METHOD(getUserConsentStatusForPurpose:(NSString *)purposeId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getUserLegitimateInterestStatusForPurpose:(NSString *)purposeId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getUserStatusForVendor:(NSString *)vendorId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getUserConsentStatusForVendor:(NSString *)vendorId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getUserLegitimateInterestStatusForVendor:(NSString *)vendorId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getUserConsentStatusForVendorAndRequiredPurposes:(NSString *)vendorId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getUserLegitimateInterestStatusForVendorAndRequiredPurposes:(NSString *)vendorId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
@@ -64,7 +80,6 @@ RCT_EXTERN_METHOD(setUserStatusSets:(NSArray<NSString *> *)enabledConsentPurpose
                   disabledConsentVendorIds:(NSArray<NSString *> *)disabledConsentVendorIds
                   enabledLIVendorIds:(NSArray<NSString *> *)enabledLIVendorIds
                   disabledLIVendorIds:(NSArray<NSString *> *)disabledLIVendorIds
-                  sendAPIEvent:(BOOL)sendAPIEvent
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

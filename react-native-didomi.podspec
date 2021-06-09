@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.dependency "React-Core"
-  s.dependency "Didomi-XCFramework", "1.50.1"
+  s.dependency "Didomi-XCFramework", "1.54.0"
 end

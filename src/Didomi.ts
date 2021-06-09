@@ -94,7 +94,7 @@ export const Didomi = {
     RNDidomi.getUserLegitimateInterestStatusForPurpose(purposeId),
 
   getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> =>
-    RNDidomi.getUserLegitimateInterestForVendor(vendorId),
+    RNDidomi.getUserLegitimateInterestStatusForVendor(vendorId),
 
   getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (
     vendorId: string
@@ -184,8 +184,7 @@ export const Didomi = {
     enabledConsentVendorIds: string[],
     disabledConsentVendorIds: string[],
     enabledLIVendorIds: string[],
-    disabledLIVendorIds: string[],
-    sendAPIEvent: boolean
+    disabledLIVendorIds: string[]
   ): Promise<boolean> =>
     RNDidomi.setUserStatusSets(
       enabledConsentPurposeIds,
@@ -195,8 +194,7 @@ export const Didomi = {
       enabledConsentVendorIds,
       disabledConsentVendorIds,
       enabledLIVendorIds,
-      disabledLIVendorIds,
-      sendAPIEvent
+      disabledLIVendorIds
     ),
 
   shouldConsentBeCollected: (): Promise<boolean> =>

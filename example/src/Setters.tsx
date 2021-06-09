@@ -17,8 +17,7 @@ export default function Setters() {
             [],
             [],
             [],
-            [],
-            false
+            []
           );
         }}
         test={() => {

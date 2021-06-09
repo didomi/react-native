@@ -79,8 +79,7 @@ class DidomiExampleUITests: XCTestCase {
     
     // Close notice
     noticeButton.tap()
-    
-    testLastEvent(app: app, name:"on_notice_click_agree")
+    testLastEvent(app: app, name:"on_hide_notice")
   }
   
   func testSetLogLevel() throws {
@@ -108,7 +107,7 @@ class DidomiExampleUITests: XCTestCase {
     // Close notice
     noticeButton.tap()
     
-    testLastEvent(app: app, name:"on_notice_click_agree")
+    testLastEvent(app: app, name:"on_hide_notice")
   }
   
   func testHideNotice() throws {
@@ -138,7 +137,7 @@ class DidomiExampleUITests: XCTestCase {
     
     // Check opening of Vendors
     let noticeButton = app.staticTexts["Save"]
-    let closeButton = app.buttons.element(boundBy: 4)
+    let closeButton = app.buttons.element(boundBy: 5)
     let text = app.staticTexts["Select partners"]
     let exists = NSPredicate(format: "exists == 1")
     expectation(for: exists, evaluatedWith: text, handler: nil)
@@ -227,9 +226,29 @@ class DidomiExampleUITests: XCTestCase {
     testMethodCall(app: app, name: "getUserConsentStatusForVendor [ID = '0']")
   }
   
+  func testGetUserStatusForVendor() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "getUserStatusForVendor [ID = '0']")
+  }
+  
   func testGetUserConsentStatusForVendorAndRequiredPurpose() throws {
     let app = XCUIApplication()
     testMethodCall(app: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']")
+  }
+  
+  func testGetUserLegitimateInterestStatusForPurpose() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'analytics']")
+  }
+  
+  func testGetUserLegitimateInterestStatusForVendor() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "getUserLegitimateInterestStatusForVendor [ID = '1']")
+  }
+  
+  func testGetUserLegitimateInterestStatusForVendorAndRequiredPurposes() throws {
+    let app = XCUIApplication()
+    testMethodCall(app: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '1']")
   }
   
   

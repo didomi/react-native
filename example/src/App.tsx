@@ -85,12 +85,14 @@ export default function App() {
 
   return (
     <SafeAreaView>
+      <View style={styles.title}>
+        <Text style={styles.title}>
+          LAST RECEIVED EVENT: {receivedEvent.name}
+          {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
+        </Text>
+      </View>
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.title}>
-            LAST RECEIVED EVENT: {receivedEvent.name}
-            {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
-          </Text>
           <Text style={styles.title}>METHODS</Text>
           <Methods />
           <Text style={styles.title}>GETTERS</Text>
@@ -114,5 +116,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     marginTop: 20,
+    marginBottom: 5,
+    alignItems: 'center',
   },
 });

@@ -65,15 +65,39 @@ class RNDidomi: RCTEventEmitter {
         resolve(consentStatus)
     }
     
+    @objc(getUserLegitimateInterestStatusForPurpose:resolve:reject:)
+    func getUserLegitimateInterestStatusForPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForPurpose(purposeId: purposeId)
+        resolve(consentStatus)
+    }
+    
+    @objc(getUserStatusForVendor:resolve:reject:)
+    func getUserStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        let userStatus = Didomi.shared.getUserStatusForVendor(vendorId: vendorId)
+        resolve(userStatus)
+    }
+    
     @objc(getUserConsentStatusForVendor:resolve:reject:)
     func getUserConsentStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserConsentStatusForVendor(vendorId: vendorId).rawValue
+        let consentStatus = Didomi.shared.getUserConsentStatusForVendor(vendorId: vendorId)
+        resolve(consentStatus)
+    }
+    
+    @objc(getUserLegitimateInterestStatusForVendor:resolve:reject:)
+    func getUserLegitimateInterestStatusForPurpose(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForVendor(vendorId: vendorId)
         resolve(consentStatus)
     }
     
     @objc(getUserConsentStatusForVendorAndRequiredPurposes:resolve:reject:)
     func getUserConsentStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        let consentStatus = Bool(Didomi.shared.getUserConsentStatusForVendorAndRequiredPurposes(vendorId: vendorId).rawValue as NSNumber)
+        let consentStatus = Didomi.shared.getUserConsentStatusForVendorAndRequiredPurposes(vendorId: vendorId)
+        resolve(consentStatus)
+    }
+    
+    @objc(getUserLegitimateInterestStatusForVendorAndRequiredPurposes:resolve:reject:)
+    func getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: vendorId)
         resolve(consentStatus)
     }
     
@@ -82,9 +106,9 @@ class RNDidomi: RCTEventEmitter {
         resolve(Didomi.shared.setUserStatus(purposesConsentStatus: purposesConsentStatus, purposesLIStatus: purposesLIStatus, vendorsConsentStatus: vendorsConsentStatus, vendorsLIStatus: vendorsLIStatus))
     }
     
-    @objc(setUserStatusSets:disabledConsentPurposeIds:enabledLIPurposeIds:disabledLIPurposeIds:enabledConsentVendorIds:disabledConsentVendorIds:enabledLIVendorIds:disabledLIVendorIds:sendAPIEvent:resolve:reject:)
-    func setUserStatusSets(enabledConsentPurposeIds: Set<String>, disabledConsentPurposeIds: Set<String>, enabledLIPurposeIds: Set<String>, disabledLIPurposeIds: Set<String>, enabledConsentVendorIds: Set<String>, disabledConsentVendorIds: Set<String>, enabledLIVendorIds: Set<String>, disabledLIVendorIds: Set<String>, sendAPIEvent: Bool, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.setUserStatus(enabledConsentPurposeIds: Set(enabledConsentPurposeIds), disabledConsentPurposeIds: Set(disabledConsentPurposeIds), enabledLIPurposeIds: Set(enabledLIPurposeIds), disabledLIPurposeIds: Set(disabledLIPurposeIds), enabledConsentVendorIds: Set(enabledConsentVendorIds), disabledConsentVendorIds: Set(disabledConsentVendorIds), enabledLIVendorIds: Set(enabledLIVendorIds), disabledLIVendorIds: Set(disabledLIVendorIds), sendAPIEvent: sendAPIEvent))
+    @objc(setUserStatusSets:disabledConsentPurposeIds:enabledLIPurposeIds:disabledLIPurposeIds:enabledConsentVendorIds:disabledConsentVendorIds:enabledLIVendorIds:disabledLIVendorIds:resolve:reject:)
+    func setUserStatusSets(enabledConsentPurposeIds: Set<String>, disabledConsentPurposeIds: Set<String>, enabledLIPurposeIds: Set<String>, disabledLIPurposeIds: Set<String>, enabledConsentVendorIds: Set<String>, disabledConsentVendorIds: Set<String>, enabledLIVendorIds: Set<String>, disabledLIVendorIds: Set<String>, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.setUserStatus(enabledConsentPurposeIds: Set(enabledConsentPurposeIds), disabledConsentPurposeIds: Set(disabledConsentPurposeIds), enabledLIPurposeIds: Set(enabledLIPurposeIds), disabledLIPurposeIds: Set(disabledLIPurposeIds), enabledConsentVendorIds: Set(enabledConsentVendorIds), disabledConsentVendorIds: Set(disabledConsentVendorIds), enabledLIVendorIds: Set(enabledLIVendorIds), disabledLIVendorIds: Set(disabledLIVendorIds)))
     }
     
     @objc(setUserAgreeToAll:reject:)
@@ -278,17 +302,23 @@ class RNDidomi: RCTEventEmitter {
     dynamic func showPreferences(view: String) {
         if let containerController = RCTPresentedViewController(){
             if view == "vendors"{
-                Didomi.shared.showPreferences(controller: containerController, view: .vendors)
+                DispatchQueue.main.async {
+                    Didomi.shared.showPreferences(controller: containerController, view: .vendors)
+                }
             }
             else {
-                Didomi.shared.showPreferences(controller: containerController)
+                DispatchQueue.main.async {
+                    Didomi.shared.showPreferences(controller: containerController)
+                }
             }
         }
     }
     
     @objc(hidePreferences)
     dynamic func hidePreferences() {
-        Didomi.shared.hidePreferences()
+        DispatchQueue.main.async {
+            Didomi.shared.hidePreferences()
+        }
     }
     
     @objc(isPreferencesVisible:reject:)
@@ -303,7 +333,8 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getText:resolve:reject:)
     dynamic func getText(key: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getText(key: key))
+        let text = Didomi.shared.getText(key: key)
+        resolve(text)
     }
     
     @objc(setLogLevel:)
