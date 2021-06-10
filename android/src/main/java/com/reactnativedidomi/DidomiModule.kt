@@ -741,33 +741,18 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                           disabledConsentVendorIds: ReadableArray,
                           enabledLIVendorIds: ReadableArray,
                           disabledLIVendorIds: ReadableArray,
-                          sendAPIEvent: Boolean?,
                           promise: Promise) {
         try {
-            sendAPIEvent?.let {
-                promise.resolve(Didomi.getInstance().setUserStatus(
-                        enabledConsentPurposeIds.toSet(),
-                        disabledConsentPurposeIds.toSet(),
-                        enabledLIPurposeIds.toSet(),
-                        disabledLIPurposeIds.toSet(),
-                        enabledConsentVendorIds.toSet(),
-                        disabledConsentVendorIds.toSet(),
-                        enabledLIVendorIds.toSet(),
-                        disabledLIVendorIds.toSet(),
-                        it
-                ))
-            } ?: kotlin.run {
-                promise.resolve(Didomi.getInstance().setUserStatus(
-                        enabledConsentPurposeIds.toSet(),
-                        disabledConsentPurposeIds.toSet(),
-                        enabledLIPurposeIds.toSet(),
-                        disabledLIPurposeIds.toSet(),
-                        enabledConsentVendorIds.toSet(),
-                        disabledConsentVendorIds.toSet(),
-                        enabledLIVendorIds.toSet(),
-                        disabledLIVendorIds.toSet()
-                ))
-            }
+            promise.resolve(Didomi.getInstance().setUserStatus(
+                    enabledConsentPurposeIds.toSet(),
+                    disabledConsentPurposeIds.toSet(),
+                    enabledLIPurposeIds.toSet(),
+                    disabledLIPurposeIds.toSet(),
+                    enabledConsentVendorIds.toSet(),
+                    disabledConsentVendorIds.toSet(),
+                    enabledLIVendorIds.toSet(),
+                    disabledLIVendorIds.toSet()
+            ))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

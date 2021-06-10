@@ -21,8 +21,12 @@ class UIMethodsTest {
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
+    init {
+        Thread.sleep(5000L)
+    }
+
     @Before
-    fun init() {
+    fun before() {
         // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
         // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
         Thread.sleep(5000L)
@@ -67,7 +71,7 @@ class UIMethodsTest {
         // Check opening of notice
         val agreeButtonText = "Agree & Close"
 
-
+        Thread.sleep(1000L)
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
