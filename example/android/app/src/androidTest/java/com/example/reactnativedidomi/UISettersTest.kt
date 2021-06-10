@@ -1,5 +1,6 @@
 package com.example.reactnativedidomi
 
+import android.util.Log
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
@@ -13,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
+import io.didomi.sdk.exceptions.DidomiNotReadyException
 import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
@@ -37,11 +39,16 @@ class UISettersTest {
     }
 
     private fun testMethodCall(method: String, needToScroll: Boolean) {
-        onView(withText(method.toUpperCase())).perform(scrollTo(), click())
+        Log.d("Didomi Test", "Testing $method")
+        try {
+            onView(withText(method.toUpperCase())).perform(scrollTo(), click())
 
-        if (needToScroll)
-            onView(withText(method.toUpperCase())).perform(ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp())
-        waitForDisplayed(withText("$method-OK"))
+            if (needToScroll)
+                onView(withText(method.toUpperCase())).perform(ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp())
+            waitForDisplayed(withText("$method-OK"))
+        } catch (e: DidomiNotReadyException) {
+            e.printStackTrace()
+        }
     }
 
     @Test

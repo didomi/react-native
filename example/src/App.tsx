@@ -8,7 +8,7 @@ import GettersParams from './GettersParams';
 import Setters from './Setters';
 import { TestEvent } from './Types';
 
-export default function App() {
+function App() {
   const [receivedEvent, setReceivedEvent] = useState<TestEvent>({
     name: 'NONE',
   });
@@ -84,7 +84,7 @@ export default function App() {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.title}>
         <Text style={styles.title}>
           LAST RECEIVED EVENT: {receivedEvent.name}
@@ -120,3 +120,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default App;

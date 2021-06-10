@@ -9,7 +9,6 @@ import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.didomi.sdk.Didomi
-import io.didomi.sdk.Purpose
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 
