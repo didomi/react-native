@@ -11,7 +11,7 @@ RCT_EXTERN_METHOD(initialize:(NSString *)apikey
                   localConfigurationPath:(nullable NSString *)localConfigurationPath
                   remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
                   providerId:(nullable NSString *)providerId
-                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig)
+                  disableDidomiRemoteConfig:(nullable BOOL)disableDidomiRemoteConfig)
 
 //RCT_EXTERN_METHOD(initialize:(NSString *)apikey
 //                  localConfigurationPath:(nullable NSString *)localConfigurationPath
@@ -183,7 +183,7 @@ RCT_EXTERN_METHOD(isNoticeVisible:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(shouldConsentBeCollected:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(showPreferences:(NSString *)view)
+RCT_EXTERN_METHOD(showPreferences:(nullable NSString *)view)
 
 RCT_EXTERN_METHOD(hidePreferences)
 

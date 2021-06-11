@@ -294,7 +294,7 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(showPreferences:)
-    dynamic func showPreferences(view: String) {
+    dynamic func showPreferences(view: String?) {
         if let containerController = RCTPresentedViewController(){
             if view == "vendors"{
                 DispatchQueue.main.async {
