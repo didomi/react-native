@@ -12,11 +12,6 @@ class RNDidomi: RCTEventEmitter {
         return true
     }
     
-    @objc(multiply:withB:withResolver:withRejecter:)
-    func multiply(a: Float, b: Float, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(a*b)
-    }
-    
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:)
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = true) {
         
