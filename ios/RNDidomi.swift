@@ -13,7 +13,7 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:)
-    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = true) {
+    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false) {
         
         if (!initialized) {
             initEventListener()
