@@ -420,7 +420,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             val map = Didomi.getInstance().getText(textKey)
             val writableMap = WritableNativeMap()
 
-            map?.let {
+            map?.also {
                 for (elem in it) writableMap.putString(elem.key, elem.value)
             }
 
@@ -618,11 +618,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun showPreferences(view: String?, promise: Promise) {
         try {
             runOnUiThread {
-                view?.let {
+                view?.also {
                     Didomi.getInstance().showPreferences(currentActivity as FragmentActivity, view)
-                } ?: kotlin.run {
-                    Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
-                }
+                } ?: Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
