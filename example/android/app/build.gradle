@@ -1,6 +1,6 @@
 apply plugin: "com.android.application"
-apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: "kotlin-android"
+apply plugin: "com.google.gms.google-services"
 
 import com.android.build.OutputFile
 
@@ -110,7 +110,7 @@ def enableProguardInReleaseBuilds = false
  * give correct results when using with locales other than en-US.  Note that
  * this variant is about 6MiB larger per architecture than default.
  */
-def jscFlavor = 'org.webkit:android-jsc:+'
+def jscFlavor = "org.webkit:android-jsc:+"
 
 /**
  * Whether to enable the Hermes VM.
@@ -119,7 +119,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
  * and the benefits of using Hermes will therefore be sharply reduced.
  */
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", false)
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -137,7 +137,7 @@ android {
         versionName "1.0"
 
         multiDexEnabled true
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     splits {
         abi {
@@ -149,10 +149,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
     }
     buildTypes {
@@ -191,18 +191,18 @@ dependencies {
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.multidex:multidex:2.0.1"
 
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-      exclude group:'com.facebook.fbjni'
+      exclude group:"com.facebook.fbjni"
     }
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
+        exclude group:"com.facebook.flipper"
+        exclude group:"com.squareup.okhttp3", module:"okhttp"
     }
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group:"com.facebook.flipper"
     }
 
     if (enableHermes) {
@@ -213,15 +213,15 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation project(':reactnativedidomi')
-    implementation 'io.didomi.sdk:android:1.40.0'
+    implementation project(":reactnativedidomi")
+    implementation "io.didomi.sdk:android:1.40.0"
 
-    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation platform("com.google.firebase:firebase-bom:28.0.1")
 
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.2'
-    androidTestImplementation 'androidx.test:rules:1.3.0'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
+    androidTestImplementation "androidx.test.ext:junit-ktx:1.1.2"
+    androidTestImplementation "androidx.test:rules:1.3.0"
+    androidTestImplementation "androidx.test:runner:1.3.0"
 
 }
 
@@ -229,7 +229,7 @@ dependencies {
 // puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
-    into 'libs'
+    into "libs"
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

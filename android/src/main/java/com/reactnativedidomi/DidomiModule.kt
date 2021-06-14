@@ -233,30 +233,19 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                    localConfigurationPath: String?,
                    remoteConfigurationUrl: String?,
                    providerId: String?,
-                   disableDidomiRemoteConfig: Boolean?,
+                   disableDidomiRemoteConfig: Boolean,
                    promise: Promise) {
         try {
             Didomi.getInstance().addEventListener(eventListener)
 
-            disableDidomiRemoteConfig?.let {
-                Didomi.getInstance().initialize(
-                        currentActivity?.application,
-                        apiKey,
-                        if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
-                        if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
-                        if (providerId.isNullOrEmpty()) null else providerId,
-                        disableDidomiRemoteConfig
-                )
-            } ?: kotlin.run {
-                Didomi.getInstance().initialize(
-                        currentActivity?.application,
-                        apiKey,
-                        if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
-                        if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
-                        if (providerId.isNullOrEmpty()) null else providerId,
-                        true
-                )
-            }
+            Didomi.getInstance().initialize(
+                    currentActivity?.application,
+                    apiKey,
+                    if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
+                    if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
+                    if (providerId.isNullOrEmpty()) null else providerId,
+                    disableDidomiRemoteConfig
+            )
 
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e);
@@ -266,21 +255,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun setupUI(promise: Promise) {
-        currentActivity?.let {
-            if (currentActivity is FragmentActivity) {
-                try {
-                    runOnUiThread {
-                        Didomi.getInstance().setupUI(currentActivity as FragmentActivity)
-                    }
-                    promise.resolve(0)
-                } catch (e: DidomiNotReadyException) {
-                    Log.e("setupUI", "Didomi is not ready", e)
-                    promise.reject(e)
-                }
-            } else
-                promise.reject("2", "The current activity must be a FragmentActivity")
-        } ?: kotlin.run {
-            promise.reject("1", "The current activity is NULL")
+        try {
+            runOnUiThread {
+                Didomi.getInstance().setupUI(currentActivity as FragmentActivity)
+            }
+            promise.resolve(0)
+        } catch (e: Exception) {
+            Log.e("setupUI", "An error occurred while setting up the UI", e)
+            promise.reject(e)
         }
     }
 
@@ -621,43 +603,31 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun showNotice(promise: Promise) {
-        currentActivity?.let {
-            if (currentActivity is FragmentActivity) {
-                try {
-                    runOnUiThread {
-                        Didomi.getInstance().showNotice(currentActivity as FragmentActivity)
-                    }
-                    promise.resolve(0)
-                } catch (e: DidomiNotReadyException) {
-                    promise.reject(e)
-                }
-            } else
-                promise.reject("2", "The current activity must be a FragmentActivity")
-        } ?: kotlin.run {
-            promise.reject("1", "The current activity is NULL")
+        try {
+            runOnUiThread {
+                Didomi.getInstance().showNotice(currentActivity as FragmentActivity)
+            }
+            promise.resolve(0)
+        } catch (e: Exception) {
+            Log.e("showNotice", "An error occurred while showing the notice", e)
+            promise.reject(e)
         }
     }
 
     @ReactMethod
     fun showPreferences(view: String?, promise: Promise) {
-        currentActivity?.let {
-            if (currentActivity is FragmentActivity) {
-                try {
-                    runOnUiThread {
-                        view?.let {
-                            Didomi.getInstance().showPreferences(currentActivity as FragmentActivity, view)
-                        } ?: kotlin.run {
-                            Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
-                        }
-                    }
-                    promise.resolve(0)
-                } catch (e: DidomiNotReadyException) {
-                    promise.reject(e)
+        try {
+            runOnUiThread {
+                view?.let {
+                    Didomi.getInstance().showPreferences(currentActivity as FragmentActivity, view)
+                } ?: kotlin.run {
+                    Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
                 }
-            } else
-                promise.reject("2", "The current activity must be a FragmentActivity")
-        } ?: kotlin.run {
-            promise.reject("1", "The current activity is NULL")
+            }
+            promise.resolve(0)
+        } catch (e: Exception) {
+            Log.e("showPreferences", "An error occurred while showing the notice", e)
+            promise.reject(e)
         }
     }
 
