@@ -355,7 +355,7 @@ export const Didomi = {
     - Parameter controller: view controller from where preferences will be presented.
     - Parameter view: a value from `Didomi.Views`. It can be `.purposes` or `.vendors` (`ViewsPurposes` or `ViewsVendors` in Objective-C)
   */
-  showPreferences: (view: string): Promise<void> =>
+  showPreferences: (view?: string): Promise<void> =>
     RNDidomi.showPreferences(view),
 
   /**
