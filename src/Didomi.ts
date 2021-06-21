@@ -17,10 +17,10 @@ export const Didomi = {
   */
   initialize: (
     apiKey: string,
-    localConfigurationPath: string,
-    remoteConfigurationUrl: string,
-    providerId: string,
-    disableDidomiRemoteConfig: boolean
+    localConfigurationPath?: string,
+    remoteConfigurationUrl?: string,
+    providerId?: string,
+    disableDidomiRemoteConfig: boolean = false
   ) => {
     // Init listener
     DidomiListener.init();
