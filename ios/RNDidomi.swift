@@ -18,7 +18,7 @@ class RNDidomi: RCTEventEmitter {
         if (!initialized) {
             initEventListener()
             let languageCode = Locale.current.languageCode ?? ""
-            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
+            Didomi.shared.initialize(apiKey: "", localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
         }
         
         initialized = true
@@ -296,7 +296,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(showPreferences:)
     dynamic func showPreferences(view: String?) {
         if let containerController = RCTPresentedViewController(){
-            if view == "vendors"{
+            if view?.lowercased() == "vendors"{
                 DispatchQueue.main.async {
                     Didomi.shared.showPreferences(controller: containerController, view: .vendors)
                 }

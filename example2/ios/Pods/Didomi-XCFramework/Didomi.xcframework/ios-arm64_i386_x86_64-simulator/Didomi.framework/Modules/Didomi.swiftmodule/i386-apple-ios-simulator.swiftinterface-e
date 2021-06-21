@@ -1,0 +1,232 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 effective-4.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target i386-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 4.2 -enforce-exclusivity=checked -O -module-name Didomi
+import CoreLocation
+@_exported import Didomi
+import Foundation
+import Swift
+import SystemConfiguration
+import UIKit
+import os
+@objc(DDMEventType) public enum EventType : Swift.Int {
+  case consentChanged
+  case hideNotice
+  case ready
+  case showNotice
+  case noticeClickAgree
+  case noticeClickDisagree
+  case noticeClickMoreInfo
+  case noticeClickViewVendors
+  case noticeClickPrivacyPolicy
+  case preferencesClickAgreeToAll
+  case preferencesClickDisagreeToAll
+  case preferencesClickAgreeToAllPurposes
+  case preferencesClickDisagreeToAllPurposes
+  case preferencesClickResetAllPurposes
+  case preferencesClickAgreeToAllVendors
+  case preferencesClickDisagreeToAllVendors
+  case preferencesClickPurposeAgree
+  case preferencesClickPurposeDisagree
+  case preferencesClickCategoryAgree
+  case preferencesClickCategoryDisagree
+  case preferencesClickViewVendors
+  case preferencesClickViewPurposes
+  case preferencesClickSaveChoices
+  case preferencesClickVendorAgree
+  case preferencesClickVendorDisagree
+  case preferencesClickVendorSaveChoices
+  case syncDone
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol ViewProviderDelegate {
+  @objc func getNoticeViewController(position: Swift.String) -> UIKit.UIViewController
+  @objc func getPreferencesViewController() -> UIKit.UIViewController
+}
+public struct Vendor : Swift.Codable {
+  public var id: Swift.String?
+  public var name: Swift.String?
+  public var privacyPolicyUrl: Swift.String?
+  public var namespace: Swift.String?
+  public var namespaces: [Swift.String : Swift.String]?
+  public var purposeIds: Swift.Set<Swift.String>?
+  public var legIntPurposeIds: Swift.Set<Swift.String>?
+  public var iabId: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension Vendor : Swift.Equatable {
+  public static func == (lhs: Didomi.Vendor, rhs: Didomi.Vendor) -> Swift.Bool
+}
+extension Vendor : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc(DDMErrorEventType) public enum DidomiErrorEventType : Swift.Int {
+  case nilProperty
+  case notReady
+  case failedAlready
+  case configFileError
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc(DDMErrorEvent) public class DidomiErrorEvent : ObjectiveC.NSObject, Swift.Error {
+  @objc final public let descriptionText: Swift.String
+  @objc final public let type: Didomi.DidomiErrorEventType
+  public init(descriptionText: Swift.String, type: Didomi.DidomiErrorEventType)
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct Purpose {
+  public var id: Swift.String?
+  public var iabId: Swift.String?
+  public var name: Swift.String?
+  public var description: Swift.String?
+  public var descriptionLegal: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension Purpose : Swift.Equatable {
+  public static func == (lhs: Didomi.Purpose, rhs: Didomi.Purpose) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class Didomi : ObjectiveC.NSObject {
+  @objc public enum Views : Swift.Int, Swift.RawRepresentable {
+    case purposes = 0
+    case vendors
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc public static var shared: Didomi.Didomi
+  @objc weak public var viewProviderDelegate: Didomi.ViewProviderDelegate?
+  @objc override dynamic public init()
+  @objc public func initialize(apiKey: Swift.String, localConfigurationPath: Swift.String?, remoteConfigurationURL: Swift.String?, providerId: Swift.String?, disableDidomiRemoteConfig: Swift.Bool = true, languageCode: Swift.String? = nil)
+  @objc public func initialize(apiKey: Swift.String, localConfigurationPath: Swift.String?, remoteConfigurationURL: Swift.String?, providerId: Swift.String?, disableDidomiRemoteConfig: Swift.Bool = true, languageCode: Swift.String? = nil, noticeId: Swift.String? = nil)
+  @objc public func setUserAgent(name: Swift.String, version: Swift.String)
+  @objc public func setUserConsentStatus(enabledPurposeIds: Swift.Set<Swift.String>, disabledPurposeIds: Swift.Set<Swift.String>, enabledVendorIds: Swift.Set<Swift.String>, disabledVendorIds: Swift.Set<Swift.String>) -> Swift.Bool
+  @objc public func isConsentRequired() -> Swift.Bool
+  @objc public func isUserConsentStatusPartial() -> Swift.Bool
+  @objc public func isUserLegitimateInterestStatusPartial() -> Swift.Bool
+  @objc public func getUserConsentStatusForPurpose(purposeId: Swift.String) -> Didomi.ConsentStatus
+  @objc public func getUserLegitimateInterestStatusForPurpose(purposeId: Swift.String) -> Didomi.ConsentStatus
+  @objc public func getUserStatusForVendor(vendorId: Swift.String) -> Didomi.ConsentStatus
+  @objc public func getUserConsentStatusForVendor(vendorId: Swift.String) -> Didomi.ConsentStatus
+  @objc public func getUserLegitimateInterestStatusForVendor(vendorId: Swift.String) -> Didomi.ConsentStatus
+  @objc public func getUserConsentStatusForVendorAndRequiredPurposes(vendorId: Swift.String) -> Didomi.ConsentStatus
+  @objc public func getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: Swift.String) -> Didomi.ConsentStatus
+  @discardableResult
+  @objc public func setUserStatus(purposesConsentStatus: Swift.Bool, purposesLIStatus: Swift.Bool, vendorsConsentStatus: Swift.Bool, vendorsLIStatus: Swift.Bool) -> Swift.Bool
+  @discardableResult
+  @objc public func setUserStatus(enabledConsentPurposeIds: Swift.Set<Swift.String>, disabledConsentPurposeIds: Swift.Set<Swift.String>, enabledLIPurposeIds: Swift.Set<Swift.String>, disabledLIPurposeIds: Swift.Set<Swift.String>, enabledConsentVendorIds: Swift.Set<Swift.String>, disabledConsentVendorIds: Swift.Set<Swift.String>, enabledLIVendorIds: Swift.Set<Swift.String>, disabledLIVendorIds: Swift.Set<Swift.String>) -> Swift.Bool
+  @discardableResult
+  @objc public func setUserAgreeToAll() -> Swift.Bool
+  @discardableResult
+  @objc public func setUserDisagreeToAll() -> Swift.Bool
+  @objc public func onReady(callback: @escaping () -> Swift.Void)
+  @objc public func onError(callback: @escaping (Didomi.DidomiErrorEvent) -> Swift.Void)
+  @objc public func reset()
+  @objc public func getRequiredPurposeIds() -> Swift.Set<Swift.String>
+  @objc public func getRequiredVendorIds() -> Swift.Set<Swift.String>
+  @objc public func addEventListener(listener: Didomi.EventListener)
+  @objc public func isReady() -> Swift.Bool
+  public func getRequiredPurposes() -> [Didomi.Purpose]
+  public func getRequiredVendors() -> [Didomi.Vendor]
+  public func getEnabledPurposes() -> [Didomi.Purpose]
+  @objc public func getEnabledPurposeIds() -> Swift.Set<Swift.String>
+  public func getDisabledPurposes() -> [Didomi.Purpose]
+  @objc public func getDisabledPurposeIds() -> Swift.Set<Swift.String>
+  public func getEnabledVendors() -> [Didomi.Vendor]
+  @objc public func getEnabledVendorIds() -> Swift.Set<Swift.String>
+  public func getDisabledVendors() -> [Didomi.Vendor]
+  @objc public func getDisabledVendorIds() -> Swift.Set<Swift.String>
+  public func getPurpose(purposeId: Swift.String) -> Didomi.Purpose?
+  public func getVendor(vendorId: Swift.String) -> Didomi.Vendor?
+  @objc public func getJavaScriptForWebView(extra: Swift.String = "") -> Swift.String
+  @objc public func updateSelectedLanguage(languageCode: Swift.String)
+  @objc deinit
+}
+extension Didomi : Didomi.ViewProviderDelegate {
+  @objc dynamic public func getNoticeViewController(position: Swift.String) -> UIKit.UIViewController
+  @objc dynamic public func getPreferencesViewController() -> UIKit.UIViewController
+}
+extension Didomi {
+  @objc dynamic public func setupUI(containerController: UIKit.UIViewController)
+  @objc dynamic public func forceShowNotice()
+  @objc dynamic public func showNotice()
+  @objc dynamic public func hideNotice()
+  @objc dynamic public func isNoticeVisible() -> Swift.Bool
+  @objc dynamic public func shouldConsentBeCollected() -> Swift.Bool
+  @objc dynamic public func showPreferences(controller: UIKit.UIViewController? = nil, view: Didomi.Didomi.Views = .purposes)
+  @objc dynamic public func hidePreferences()
+  @objc dynamic public func isPreferencesVisible() -> Swift.Bool
+  @objc dynamic public func getTranslatedText(key: Swift.String) -> Swift.String
+  @objc dynamic public func getText(key: Swift.String) -> [Swift.String : Swift.String]?
+  @objc dynamic public func setLogLevel(minLevel: Swift.UInt8)
+  @objc dynamic public func setUser(id: Swift.String)
+  @objc dynamic public func setUser(id: Swift.String, algorithm: Swift.String, secretId: Swift.String, salt: Swift.String?, digest: Swift.String)
+}
+@_inheritsConvenienceInitializers @objc(DDMEventListener) public class EventListener : ObjectiveC.NSObject {
+  @objc public var onConsentChanged: (Didomi.EventType) -> Swift.Void
+  @objc public var onHideNotice: (Didomi.EventType) -> Swift.Void
+  @objc public var onReady: (Didomi.EventType) -> Swift.Void
+  @objc public var onError: (Didomi.DidomiErrorEvent) -> Swift.Void
+  @objc public var onShowNotice: (Didomi.EventType) -> Swift.Void
+  @objc public var onNoticeClickAgree: (Didomi.EventType) -> Swift.Void
+  @objc public var onNoticeClickDisagree: (Didomi.EventType) -> Swift.Void
+  @objc public var onNoticeClickMoreInfo: (Didomi.EventType) -> Swift.Void
+  @objc public var onNoticeClickViewVendors: (Didomi.EventType) -> Swift.Void
+  @objc public var onNoticeClickPrivacyPolicy: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickAgreeToAll: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickDisagreeToAll: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickAgreeToAllPurposes: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickDisagreeToAllPurposes: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickResetAllPurposes: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickAgreeToAllVendors: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickDisagreeToAllVendors: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickPurposeAgree: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc public var onPreferencesClickPurposeDisagree: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc public var onPreferencesClickCategoryAgree: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc public var onPreferencesClickCategoryDisagree: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc public var onPreferencesClickViewVendors: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickViewPurposes: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickSaveChoices: (Didomi.EventType) -> Swift.Void
+  @objc public var onPreferencesClickVendorAgree: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc public var onPreferencesClickVendorDisagree: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc public var onPreferencesClickVendorSaveChoices: (Didomi.EventType) -> Swift.Void
+  @objc public var onSyncDone: (Didomi.EventType, Swift.String?) -> Swift.Void
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum ConsentStatus : Swift.Int {
+  case enable
+  case disable
+  case unknown
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Didomi.EventType : Swift.Equatable {}
+extension Didomi.EventType : Swift.Hashable {}
+extension Didomi.EventType : Swift.RawRepresentable {}
+extension Didomi.DidomiErrorEventType : Swift.Equatable {}
+extension Didomi.DidomiErrorEventType : Swift.Hashable {}
+extension Didomi.DidomiErrorEventType : Swift.RawRepresentable {}
+extension Didomi.Purpose : Swift.Encodable {}
+extension Didomi.Purpose : Swift.Decodable {}
+extension Didomi.Didomi.Views : Swift.Equatable {}
+extension Didomi.Didomi.Views : Swift.Hashable {}
+extension Didomi.ConsentStatus : Swift.Equatable {}
+extension Didomi.ConsentStatus : Swift.Hashable {}
+extension Didomi.ConsentStatus : Swift.RawRepresentable {}

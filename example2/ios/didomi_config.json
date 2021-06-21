@@ -1,0 +1,18 @@
+{
+    "app": {
+        "name": "Didomi Example",
+        "privacyPolicyURL": "http://www.website.com/privacy",
+        "vendors": {
+            "iab": {
+                "all": true
+            }
+        },
+        "gdprAppliesGlobally": true,
+        "gdprAppliesWhenUnknown": true,
+        "country" : "fr"
+    },
+    "languages": {
+      "enabled": ["fr", "en", "es"],
+      "default": "en"
+    }
+}

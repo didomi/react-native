@@ -1,0 +1,6 @@
+module react_native_didomi {
+  umbrella header "react-native-didomi-umbrella.h"
+
+  export *
+  module * { export * }
+}
