@@ -1,6 +1,6 @@
 {
-  "name": "react-native-didomi",
-  "version": "0.1.0",
+  "name": "@didomi/react-native",
+  "version": "1.0.0",
   "description": "React Native Didomi SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -37,13 +37,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://todo",
-  "author": "inside|app <gilles.grousset@insideapp.fr> (https://www.insideapp.fr)",
-  "license": "BSD-3",
-  "bugs": {
-    "url": "https://todo/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/didomi/react-native"
   },
-  "homepage": "https://todo#readme",
+  "author": "Didomi",
+  "license": "BSD-3",
+  "homepage": "https://www.didomi.io/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
