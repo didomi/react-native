@@ -75,7 +75,7 @@ jobs:
 
     - name: Build Android App
       run: |
-        npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+        npx react-native bundle --platform android --dev false --entry-file index.tsx --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
         cd android && ./gradlew assembleDebug --no-daemon
 
     - name: Upload Android App APK
@@ -144,5 +144,5 @@ jobs:
         -workspace DidomiExample.xcworkspace \
         -scheme DidomiExample \
         -sdk iphonesimulator \
-        -destination "platform=iOS Simulator,name=iPhone 11,OS=14.5" \
+        -destination "platform=iOS Simulator,name=iPhone 11,OS=14.4" \
         clean test
