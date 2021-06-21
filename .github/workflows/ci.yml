@@ -1,4 +1,4 @@
-name: test
+name: ci
 
 on: push
 
@@ -123,6 +123,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: "14.x"
+        registry-url: 'https://registry.npmjs.org'
 
     - name: Cache node dependencies
       uses: actions/cache@v2

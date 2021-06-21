@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Didomi, DidomiEventType } from 'react-native-didomi';
+import { Didomi, DidomiEventType } from '@didomi/react-native';
 import Methods from './Methods';
 import { TestEvent } from './Types';
 

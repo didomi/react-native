@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Didomi } from 'react-native-didomi';
+import { Didomi } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
 export default function Methods() {

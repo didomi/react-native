@@ -16,7 +16,7 @@ Then install required pods for iOS with ``cd ios && pod install``
 ## Usage
 
 ```js
-import { Didomi, DidomiEventType } from '@didomi/react-native-didomi';
+import { Didomi, DidomiEventType } from '@didomi/react-native';
 
 
 // ...
