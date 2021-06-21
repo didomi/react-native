@@ -17,6 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4C39C56BAD484C67AA576FFA /* libPods-DidomiExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E69C5B9553B26FBA2DF04 /* libPods-DidomiExample.a */; };
 		5782FC4E2668DAA9009F822D /* DidomiExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782FC4D2668DAA9009F822D /* DidomiExampleUITests.swift */; };
+		57881F082680777B0021B71C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -353,6 +354,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57881F082680777B0021B71C /* main.jsbundle in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				14DA1BCC26656AFE006D8990 /* GoogleService-Info.plist in Resources */,
 				1416C51B265E47DC00C8B95E /* didomi_config.json in Resources */,
@@ -634,7 +636,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = fr.insideapp.didomirn;
+				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnativeapp;
 				PRODUCT_NAME = DidomiExample;
 				PROVISIONING_PROFILE_SPECIFIER = "Didomi RN dev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -660,7 +662,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = fr.insideapp.didomirn;
+				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnativeapp;
 				PRODUCT_NAME = DidomiExample;
 				PROVISIONING_PROFILE_SPECIFIER = "Didomi RN dev";
 				SWIFT_VERSION = 5.0;
