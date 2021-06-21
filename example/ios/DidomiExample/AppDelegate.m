@@ -32,7 +32,7 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 
 @import UIKit;
-@import Firebase;
+//@import Firebase;
 
 @implementation AppDelegate
 
@@ -59,9 +59,9 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  if (![FIRApp defaultApp]) {
+  /*if (![FIRApp defaultApp]) {
     [FIRApp configure];
-  }
+  }*/
   
   return YES;
 }
