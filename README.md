@@ -11,7 +11,7 @@ Or ``npm i @didomi/react-native``
 
 Then install required pods for iOS with ``cd ios && pod install``
 
-
+As Didomi requires Swift runtime for iOS, you may need to add an empty Swift file (to create a briding header) into Xcode project. 
 
 ## Usage
 
