@@ -12,22 +12,24 @@ class RNDidomi: RCTEventEmitter {
         return true
     }
     
-    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:)
-    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false) {
-        
-        if (!initialized) {
-            initEventListener()
-            let languageCode = Locale.current.languageCode ?? ""
-            Didomi.shared.initialize(apiKey: "", localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
+    //    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:)
+    //    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false) {
+    //
+    //        if (!initialized) {
+    //            initEventListener()
+    //            let languageCode = Locale.current.languageCode ?? ""
+    //            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
+    //        }
+    //        initialized = true
+    //    }
+    
+    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
+    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = Locale.current.languageCode, noticeId: String? = nil) {
+        if !initialized {
+            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode, noticeId: noticeId)
         }
-        
         initialized = true
     }
-    
-    //    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
-    //    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = true, languageCode: String? = nil, noticeId: String? = nil) {
-    //        Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode, noticeId: noticeId)
-    //    }
     
     @objc(setUserAgent:version:)
     func setUserAgent(name: String, version: String) {
@@ -149,25 +151,25 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getRequiredPurposes:reject:)
     func getRequiredPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]]
-            resolve(purposes)
+        let encoder = JSONEncoder()
+        let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]]
+        resolve(purposes)
     }
     
     
     
     @objc(getRequiredVendors:reject:)
     func getRequiredVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as? [[String: Any]]
-            resolve(vendors)
+        let encoder = JSONEncoder()
+        let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as? [[String: Any]]
+        resolve(vendors)
     }
     
     @objc(getEnabledPurposes:reject:)
     func getEnabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
-            resolve(purposes)
+        let encoder = JSONEncoder()
+        let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
+        resolve(purposes)
     }
     
     
@@ -178,9 +180,9 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledPurposes:reject:)
     func getDisabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as? [[String: Any]]
-            resolve(purposes)
+        let encoder = JSONEncoder()
+        let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as? [[String: Any]]
+        resolve(purposes)
     }
     
     @objc(getDisabledPurposeIds:reject:)
@@ -190,9 +192,9 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getEnabledVendors:reject:)
     func getEnabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as? [[String: Any]]
-            resolve(vendors)
+        let encoder = JSONEncoder()
+        let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as? [[String: Any]]
+        resolve(vendors)
     }
     
     @objc(getEnabledVendorIds:reject:)
@@ -202,9 +204,9 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getDisabledVendors:reject:)
     func getDisabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as? [[String: Any]]
-            resolve(vendors)
+        let encoder = JSONEncoder()
+        let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as? [[String: Any]]
+        resolve(vendors)
     }
     
     @objc(getDisabledVendorIds:reject:)
@@ -214,16 +216,16 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getPurpose:resolve:reject:)
     func getPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [String: Any]
-            resolve(purposes)
+        let encoder = JSONEncoder()
+        let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [String: Any]
+        resolve(purposes)
     }
     
     @objc(getVendor:resolve:reject:)
     func getVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-            let encoder = JSONEncoder()
-            let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [String: Any]
-            resolve(vendors)
+        let encoder = JSONEncoder()
+        let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [String: Any]
+        resolve(vendors)
     }
     
     @objc(getJavaScriptForWebView:resolve:reject:)
@@ -420,13 +422,13 @@ public struct Vendor : Codable {
 }
 
 @objc public enum ConsentStatus : Int {
-
+    
     case enable
-
+    
     case disable
-
+    
     case unknown
-
+    
     /// The raw type that can be used to represent all values of the conforming
     /// type.
     ///

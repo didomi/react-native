@@ -7,19 +7,19 @@ RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
                  withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(initialize:(NSString *)apikey
-                  localConfigurationPath:(nullable NSString *)localConfigurationPath
-                  remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
-                  providerId:(nullable NSString *)providerId
-                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig)
-
 //RCT_EXTERN_METHOD(initialize:(NSString *)apikey
 //                  localConfigurationPath:(nullable NSString *)localConfigurationPath
 //                  remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
 //                  providerId:(nullable NSString *)providerId
-//                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig
-//                  languageCode:(nullable NSString *)languageCode
-//                  noticeId:(nullable NSString *)noticeId)
+//                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig)
+
+RCT_EXTERN_METHOD(initialize:(NSString *)apikey
+                  localConfigurationPath:(nullable NSString *)localConfigurationPath
+                  remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
+                  providerId:(nullable NSString *)providerId
+                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig
+                  languageCode:(nullable NSString *)languageCode
+                  noticeId:(nullable NSString *)noticeId)
 
 RCT_EXTERN_METHOD(setUserAgent:(NSString *)name
                   version:(NSString *)version)
