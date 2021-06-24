@@ -234,6 +234,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                    remoteConfigurationUrl: String?,
                    providerId: String?,
                    disableDidomiRemoteConfig: Boolean,
+                   languageCode: String?,
+                   noticeId: String?,
                    promise: Promise) {
         try {
             Didomi.getInstance().addEventListener(eventListener)
@@ -244,8 +246,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
                     if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
                     if (providerId.isNullOrEmpty()) null else providerId,
-                    disableDidomiRemoteConfig
+                    disableDidomiRemoteConfig,
+                    languageCode,
+                    noticeId
             )
+            promise.resolve(0)
 
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e);
