@@ -15,32 +15,47 @@ As Didomi requires Swift runtime for iOS, you may need to add an empty Swift fil
 
 ## Usage
 
+
 ```js
 import { Didomi, DidomiEventType } from '@didomi/react-native';
-
 
 // ...
 
 // Initialize and setup UI
-await Didomi.initialize('YOUR_API_KEY', '', '', '', true);
+Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, true, undefined, 'YOUR_NOTICE_ID');
 Didomi.setupUI();
 
-// ...
+// Retrieve data
+const purposes = await Didomi.getEnabledPurposes();
+const status = await Didomi.getUserStatusForVendor('vendorId');
+
+//...
 
 // Register an event listener
 Didomi.addEventListener(DidomiEventType.SHOW_NOTICE, () => {
   console.log('Show notice');
 });
 
+//...
+
 ```
 
 For a complete overview of available methods and events, have a look at the [online documentation](https://developers.didomi.io/cmp/react-native).
+
+## Configuration with local file
+
+
+In case you need to use a local configuration. The ``didomi_config.json`` must be added to native iOS and Android projects.
+
+On iOS, drag and drop the file to Xcode files.
+
+On Android, copy it to the ``src/main/assets` folder.
 
 ## Documentation
 
 For complete instructions on installing and using the plugin, please read our documentation:
 
-[Developer guide](https://developers.didomi.io/cmp/react-native).
+[Developer guide](https://developers.didomi.io/cmp/react-native)
 
 [API reference](https://developers.didomi.io/cmp/react-native/reference)
 
@@ -51,13 +66,12 @@ Sources contain 2 applications: ``/example`` (an app designed mostly for UI test
 They can be run with:
 
 ```bash
-# example or exmaple2
+# example or example2
 cd example
 cd ios && pod install
 yarn ios
 # or yarn android
 ```
-
 
 
 ## Suggesting improvements

@@ -20,7 +20,9 @@ export const Didomi = {
     localConfigurationPath?: string,
     remoteConfigurationUrl?: string,
     providerId?: string,
-    disableDidomiRemoteConfig: boolean = false
+    disableDidomiRemoteConfig: boolean = false,
+    languageCode?: string,
+    noticeId?: string
   ) => {
     // Init listener
     DidomiListener.init();
@@ -31,7 +33,9 @@ export const Didomi = {
       localConfigurationPath,
       remoteConfigurationUrl,
       providerId,
-      disableDidomiRemoteConfig
+      disableDidomiRemoteConfig,
+      languageCode,
+      noticeId
     );
   },
 
