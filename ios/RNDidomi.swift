@@ -25,7 +25,9 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = Locale.current.languageCode, noticeId: String? = nil) {
+        
         if !initialized {
+            initEventListener()
             Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode, noticeId: noticeId)
         }
         initialized = true
