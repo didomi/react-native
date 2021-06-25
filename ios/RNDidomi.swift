@@ -12,17 +12,6 @@ class RNDidomi: RCTEventEmitter {
         return true
     }
     
-    //    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:)
-    //    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false) {
-    //
-    //        if (!initialized) {
-    //            initEventListener()
-    //            let languageCode = Locale.current.languageCode ?? ""
-    //            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode)
-    //        }
-    //        initialized = true
-    //    }
-    
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
         if !initialized {
@@ -119,16 +108,6 @@ class RNDidomi: RCTEventEmitter {
     func setUserDisagreeToAll(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.setUserDisagreeToAll())
     }
-    
-    //    @objc(onReady:)
-    //    func onReady(callback: @escaping RCTResponseSenderBlock) {
-    //        Didomi.shared.onReady(callback: callback)
-    //    }
-    //
-    //    @objc(onError:)
-    //    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
-    //        Didomi.shared.onError(callback: callback)
-    //    }
     
     @objc(reset)
     func reset() {
@@ -479,12 +458,6 @@ extension RNDidomi {
     private func initEventListener(){
         
         didomiEventListener.onConsentChanged = { event in
-            //            if #available(iOS 14, *) {
-            //                if ATTrackingManager.trackingAuthorizationStatus == .notDetermined && !Didomi.shared.getEnabledPurposes().isEmpty {
-            //                    // Show the ATT permission request if the user has not made an ATT choice before AND the user gave consent to at least one purpose in the Didomi CMP
-            //                    ATTrackingManager.requestTrackingAuthorization { status in }
-            //                }
-            //            }
             self.sendEvent(withName: "on_consent_changed", body:"")
         }
         
