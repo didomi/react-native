@@ -159,14 +159,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          * Sync finished
          */
         override fun syncDone(event: SyncDoneEvent) = prepareEvent(EventTypes.SYNC_DONE.event, event.organizationUserId)
-
-//      override fun preferencesClickAgreeToAllVendors(event: PreferencesClickAgreeToAllVendorsEvent) {
-//        // Flip ON all vendors switch on the preferences popup
-//      }
-//
-//      override fun preferencesClickDisagreeToAllVendors(event: PreferencesClickDisagreeToAllVendorsEvent) {
-//        // Flip OFF all vendors switch on the preferences popup
-//      }
     }
 
     override fun getName() = "Didomi"
