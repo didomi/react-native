@@ -22,7 +22,7 @@ import { Didomi, DidomiEventType } from '@didomi/react-native';
 // ...
 
 // Initialize and setup UI
-Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, true, undefined, 'YOUR_NOTICE_ID');
+Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, false, undefined, 'YOUR_NOTICE_ID');
 Didomi.setupUI();
 
 // Retrieve data
