@@ -1,6 +1,6 @@
 {
     "app": {
-        "name": "Didomi Example",
+        "name": "Didomi Test App",
         "privacyPolicyURL": "http://www.website.com/privacy",
         "vendors": {
             "iab": {
