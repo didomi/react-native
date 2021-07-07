@@ -22,6 +22,20 @@ class RNDidomi: RCTEventEmitter {
         initialized = true
     }
     
+    @objc(onReady)
+    func onReady() {
+        Didomi.shared.onReady {
+            self.sendEvent(withName: "on_ready_callback", body: nil)
+        }
+    }
+    
+    @objc(onError)
+    func onError() {
+        Didomi.shared.onError { error in
+            self.sendEvent(withName: "on_error_callback", body: error.descriptionText)
+        }
+    }
+    
     @objc(setUserAgent:version:)
     func setUserAgent(name: String, version: String) {
         Didomi.shared.setUserAgent(name: name, version: version)
