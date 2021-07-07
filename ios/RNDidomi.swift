@@ -437,7 +437,9 @@ extension RNDidomi {
     
     @objc(supportedEvents)
     override func supportedEvents() -> [String]! {
-        return ["on_consent_changed",
+        return ["on_ready_callback",
+                "on_error_callback",
+                "on_consent_changed",
                 "on_hide_notice",
                 "on_ready",
                 "on_error",
