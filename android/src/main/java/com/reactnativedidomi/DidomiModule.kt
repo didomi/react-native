@@ -242,6 +242,10 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     languageCode,
                     noticeId
             )
+
+            Didomi.getInstance().onReady { prepareEvent(EventTypes.READY_CALLBACK.event, null) }
+            Didomi.getInstance().onError { prepareEvent(EventTypes.ERROR_CALLBACK.event, null) }
+
             promise.resolve(0)
 
         } catch (e: Exception) {
@@ -743,6 +747,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     private fun prepareEvent(eventName: String, params: String?) {
+        Log.d("prepareEvent", "Sending $eventName")
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
                 .emit(eventName, params)

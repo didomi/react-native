@@ -66,6 +66,10 @@ function App() {
       console.log('Consent changed');
     });*/
 
+    Didomi.onReady(() => {
+      console.log('ONREADY CALLBACK');
+    });
+
     async function init() {
       // await Didomi.initialize(
       //   '465ca0b2-b96f-43b4-a864-f87e18d2fd38',
@@ -74,6 +78,8 @@ function App() {
       //   '',
       //   true
       // );
+
+      Didomi.initialize;
       console.log('Finished init');
     }
     init();
