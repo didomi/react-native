@@ -1,6 +1,0 @@
-module Pods_DidomiExample {
-  umbrella header "Pods-DidomiExample-umbrella.h"
-
-  export *
-  module * { export * }
-}

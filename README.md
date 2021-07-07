@@ -64,13 +64,13 @@ For complete instructions on installing and using the plugin, please read our do
 
 ## Example applications
 
-Sources contain 2 applications: ``/example`` (an app designed mostly for UI testing ) and ``/example2`` (more human friendly app).
+Sources contain 2 applications: ``/testApp`` (an app designed mostly for UI testing ) and ``/sampleApp`` (more human friendly app).
 
 They can be run with:
 
 ```bash
-# example or example2
-cd example
+# testApp or sampleApp
+cd testApp
 cd ios && pod install
 yarn ios
 # or yarn android

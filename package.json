@@ -14,7 +14,8 @@
     "ios",
     "cpp",
     "react-native-didomi.podspec",
-    "!lib/typescript/example",
+    "!lib/typescript/testApp",
+    "!lib/typescript/sampleApp",
     "!android/build",
     "!ios/build",
     "!**/__tests__",
@@ -27,10 +28,10 @@
     "lint": "eslint --quiet \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it",
-    "example": "yarn --cwd example",
-    "example2": "yarn --cwd example2",
-    "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn example2 && yarn && yarn && yarn pods"
+    "testApp": "yarn --cwd testApp",
+    "sampleApp": "yarn --cwd sampleApp",
+    "pods": "cd testApp && pod-install --quiet",
+    "bootstrap": "yarn testApp && yarn sampleApp && yarn && yarn && yarn pods"
   },
   "keywords": [
     "react-native",
@@ -75,7 +76,7 @@
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
+      "<rootDir>/testApp/node_modules",
       "<rootDir>/lib/"
     ]
   },
