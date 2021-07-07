@@ -1,6 +1,6 @@
 # Didomi React Native
 
-Didomi is a leading Consent Management Platform that allows companies to collect, store, and leverage user consent under GDPR, CCPA, and other data privacy regulations. This plugin enables Flutter developers to get in compliance and optimize their consent rate and monetization on native mobile apps.
+Didomi is a leading Consent Management Platform that allows companies to collect, store, and leverage user consent under GDPR, CCPA, and other data privacy regulations. This plugin enables React Native developers to get in compliance and optimize their consent rate and monetization on native mobile apps.
 
 This repository contains the source code and a sample app for the Didomi React Native plugin. This plugin enables React Native developers to easily use Didomi's Consent Management Platform on Android and iOS apps.
 
