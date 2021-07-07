@@ -22,7 +22,10 @@ import { Didomi, DidomiEventType } from '@didomi/react-native';
 // ...
 
 // Initialize and setup UI
+// The initialize function need to be called only once and as early as possible to give time for the SDK initialization
 Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, false, undefined, 'YOUR_NOTICE_ID');
+
+// The setupUI displays the popup and is only available once the SDK sent the onReady events
 Didomi.setupUI();
 
 // Retrieve data
