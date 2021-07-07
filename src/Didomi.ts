@@ -4,6 +4,11 @@ import { DidomiEventType } from './DidomiTypes';
 
 const { Didomi: RNDidomi } = NativeModules;
 
+enum InternalEventType {
+  READY_CALLBACK = 'on_ready_callback',
+  ERROR_CALLBACK = 'on_error_callback',
+}
+
 export const Didomi = {
   /**
     Initialize the Didomi SDK
@@ -39,6 +44,18 @@ export const Didomi = {
       noticeId
     );
   },
+
+  onReady: (callback: (data: any) => void) =>
+    DidomiListener.addInternalEventListener(
+      InternalEventType.READY_CALLBACK,
+      callback
+    ),
+
+  onError: (callback: (data: any) => void) =>
+    DidomiListener.addInternalEventListener(
+      InternalEventType.ERROR_CALLBACK,
+      callback
+    ),
 
   /**
     -Provide the objects required to display UI elements
