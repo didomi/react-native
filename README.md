@@ -52,7 +52,7 @@ In case you need to use a local configuration. The ``didomi_config.json`` must b
 
 On iOS, drag and drop the file to Xcode files.
 
-On Android, copy it to the ``src/main/assets` folder.
+On Android, copy it to the ``src/main/assets`` folder.
 
 ## Documentation
 
