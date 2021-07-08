@@ -15,6 +15,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
         onReady()
+        onError()
         if !initialized {
             initEventListener()
             let newLanguageCode = Locale.current.languageCode ?? ""
@@ -29,8 +30,7 @@ class RNDidomi: RCTEventEmitter {
         }
     }
     
-    @objc(onError)
-    func onError() {
+    private func onError() {
         Didomi.shared.onError { error in
             self.sendEvent(withName: "on_error_callback", body: error.descriptionText)
         }
