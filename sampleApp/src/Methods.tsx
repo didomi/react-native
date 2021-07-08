@@ -4,7 +4,9 @@ import { Didomi } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
 export default function Methods() {
-  const [apiKey, onChangeApiKey] = React.useState('');
+  const [apiKey, onChangeApiKey] = React.useState(
+    '465ca0b2-b96f-43b4-a864-f87e18d2fd38'
+  );
   const [language, onChangeLanguage] = React.useState('');
   const [preferenceType, onChangePreferences] = React.useState('');
   return (

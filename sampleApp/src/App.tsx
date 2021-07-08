@@ -51,6 +51,14 @@ function App() {
     registerListener(DidomiEventType.SHOW_NOTICE);
     registerListener(DidomiEventType.SYNC_DONE);
 
+    Didomi.onReady().then(() => {
+      console.log('ready');
+    });
+
+    Didomi.onError().then((err: any) => {
+      console.log('error: ' + err);
+    });
+
     /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
       setReceivedEvent({ name: DidomiEventType.READY, data });
       console.log("I'm ready");
@@ -66,23 +74,6 @@ function App() {
       console.log('Consent changed');
     });*/
 
-    Didomi.onReady(() => {
-      console.log('ONREADY CALLBACK');
-    });
-
-    async function init() {
-      // await Didomi.initialize(
-      //   '465ca0b2-b96f-43b4-a864-f87e18d2fd38',
-      //   '',
-      //   '',
-      //   '',
-      //   true
-      // );
-
-      Didomi.initialize;
-      console.log('Finished init');
-    }
-    init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
