@@ -18,15 +18,26 @@ As Didomi requires Swift runtime for iOS, you may need to add an empty Swift fil
 
 ```js
 import { Didomi, DidomiEventType } from '@didomi/react-native';
+import { useEffect } from 'react';
 
 // ...
+function App() {
+  useEffect(() => {
+    // Initialize and setup UI
+    // The initialize function need to be called only once and as early as possible to give time for the SDK initialization
+    Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, false, undefined, 'YOUR_NOTICE_ID');
 
-// Initialize and setup UI
-// The initialize function need to be called only once and as early as possible to give time for the SDK initialization
-Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, false, undefined, 'YOUR_NOTICE_ID');
+    // The setupUI displays the popup and is only available once the SDK sent the onReady events
+    Didomi.setupUI();
+  }, [])
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      // ...
+    </SafeAreaView>
+  );
+}
 
-// The setupUI displays the popup and is only available once the SDK sent the onReady events
-Didomi.setupUI();
+//...
 
 // Retrieve data
 const purposes = await Didomi.getEnabledPurposes();
