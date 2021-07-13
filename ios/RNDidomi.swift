@@ -36,7 +36,7 @@ class RNDidomi: RCTEventEmitter {
         }
     }
     
-    @objc(getQueryStringForWebView)
+    @objc(getQueryStringForWebView:reject:)
     func getQueryStringForWebView(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve("")
     }
