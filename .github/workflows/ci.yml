@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-18.04
     defaults:
       run:
-        working-directory: example
+        working-directory: testApp
     steps:
 
     - name: Checkout
@@ -82,7 +82,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app-debug.apk 
-        path: example/android/app/build/outputs/apk/debug/app-debug.apk 
+        path: testApp/android/app/build/outputs/apk/debug/app-debug.apk 
         
     - name: Build Android Test
       run: |
@@ -92,7 +92,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app-debug-androidTest.apk 
-        path: example/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+        path: testApp/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@master
@@ -113,7 +113,7 @@ jobs:
     runs-on: macos-10.15
     defaults:
       run:
-        working-directory: example
+        working-directory: testApp
     steps:
 
     - name: Checkout

@@ -18,12 +18,26 @@ As Didomi requires Swift runtime for iOS, you may need to add an empty Swift fil
 
 ```js
 import { Didomi, DidomiEventType } from '@didomi/react-native';
+import { useEffect } from 'react';
 
 // ...
+function App() {
+  useEffect(() => {
+    // Initialize and setup UI
+    // The initialize function need to be called only once and as early as possible to give time for the SDK initialization
+    Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, false, undefined, 'YOUR_NOTICE_ID');
 
-// Initialize and setup UI
-Didomi.initialize('YOUR_API_KEY', undefined, undefined, undefined, false, undefined, 'YOUR_NOTICE_ID');
-Didomi.setupUI();
+    // The setupUI displays the popup and is only available once the SDK sent the onReady events
+    Didomi.setupUI();
+  }, [])
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      // ...
+    </SafeAreaView>
+  );
+}
+
+//...
 
 // Retrieve data
 const purposes = await Didomi.getEnabledPurposes();
@@ -49,7 +63,7 @@ In case you need to use a local configuration. The ``didomi_config.json`` must b
 
 On iOS, drag and drop the file to Xcode files.
 
-On Android, copy it to the ``src/main/assets` folder.
+On Android, copy it to the ``src/main/assets`` folder.
 
 ## Documentation
 
@@ -61,13 +75,13 @@ For complete instructions on installing and using the plugin, please read our do
 
 ## Example applications
 
-Sources contain 2 applications: ``/example`` (an app designed mostly for UI testing ) and ``/example2`` (more human friendly app).
+Sources contain 2 applications: ``/testApp`` (an app designed mostly for UI testing ) and ``/sampleApp`` (more human friendly app).
 
 They can be run with:
 
 ```bash
-# example or example2
-cd example
+# testApp or sampleApp
+cd testApp
 cd ios && pod install
 yarn ios
 # or yarn android

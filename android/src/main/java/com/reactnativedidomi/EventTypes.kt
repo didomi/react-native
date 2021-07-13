@@ -2,7 +2,9 @@ package com.reactnativedidomi
 
 enum class EventTypes(val event: String) {
     READY("on_ready"),
+    READY_CALLBACK("on_ready_callback"),
     ERROR("on_error"),
+    ERROR_CALLBACK("on_error_callback"),
     CONSENT_CHANGED("on_consent_changed"),
     HIDE_NOTICE("on_hide_notice"),
     SHOW_NOTICE("on_show_notice"),

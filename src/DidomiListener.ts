@@ -3,6 +3,11 @@ import { DidomiEventType } from './DidomiTypes';
 
 const { Didomi: RNDidomi } = NativeModules;
 
+enum InternalEventType {
+  READY_CALLBACK = 'on_ready_callback',
+  ERROR_CALLBACK = 'on_error_callback',
+}
+
 export const DidomiListener = {
   listeners: new Map(),
   eventEmitter: new NativeEventEmitter(RNDidomi),
@@ -49,5 +54,37 @@ export const DidomiListener = {
         events.splice(index, 1);
       }
     }
+  },
+
+  onReady: (): Promise<void> => {
+    return new Promise<void>((resolve) => {
+      const listener = (_event: any) => {
+        resolve();
+        DidomiListener.eventEmitter.removeListener(
+          InternalEventType.READY_CALLBACK,
+          listener
+        );
+      };
+      DidomiListener.eventEmitter.addListener(
+        InternalEventType.READY_CALLBACK,
+        listener
+      );
+    });
+  },
+
+  onError: (): Promise<any> => {
+    return new Promise<any>((resolve) => {
+      const listener = (_event: any) => {
+        resolve(_event);
+        DidomiListener.eventEmitter.removeListener(
+          InternalEventType.ERROR_CALLBACK,
+          listener
+        );
+      };
+      DidomiListener.eventEmitter.addListener(
+        InternalEventType.ERROR_CALLBACK,
+        listener
+      );
+    });
   },
 };

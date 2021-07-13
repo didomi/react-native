@@ -6,16 +6,16 @@ const { Didomi: RNDidomi } = NativeModules;
 
 export const Didomi = {
   /**
-    Initialize the Didomi SDK
-     
-    @param apiKey: Public API key of the organization from the Didomi Console.
-    @param localConfigurationPath: Path to your local config file. Defaults to didomi_config.json if null.
-    @param remoteConfigurationURL: URL to a remote configuration file to load during initialization. This parameter is not used yet. Set it to null for now.
-    @param providerId: Your provider ID (if any).
-    @param disableDidomiRemoteConfig: Whether to disable loading the remove configuration from the Didomi config. Keep this to "false" for loading configuration from the Didomi Console.
-    @param languageCode: Language in which the consent UI should be displayed. By default, the consent UI is displayed in the language configured in the device settings. This property allows you to override the default setting and specify a language to display the UI in. String containing the language code e.g.: "es", "fr", etc.
-    @param noticeId: Notice id for the remote configuration.
-  */
+   *  Initialize the Didomi SDK
+   *
+   *  @param apiKey: Public API key of the organization from the Didomi Console.
+   *  @param localConfigurationPath: Path to your local config file. Defaults to didomi_config.json if null.
+   *  @param remoteConfigurationURL: URL to a remote configuration file to load during initialization. This parameter is not used yet. Set it to null for now.
+   *  @param providerId: Your provider ID (if any).
+   *  @param disableDidomiRemoteConfig: Whether to disable loading the remove configuration from the Didomi config. Keep this to "false" for loading configuration from the Didomi Console.
+   *  @param languageCode: Language in which the consent UI should be displayed. By default, the consent UI is displayed in the language configured in the device settings. This property allows you to override the default setting and specify a language to display the UI in. String containing the language code e.g.: "es", "fr", etc.
+   *  @param noticeId: Notice id for the remote configuration.
+   */
   initialize: (
     apiKey: string,
     localConfigurationPath?: string,
@@ -41,104 +41,122 @@ export const Didomi = {
   },
 
   /**
-    -Provide the objects required to display UI elements
+   * Listen to SDK ready state
+   * */
+  onReady: (): Promise<void> => DidomiListener.onReady(),
+
+  /**
+   * Listen to SDK errors
+   * */
+  onError: (): Promise<any> => DidomiListener.onError(),
+
+  /**
+    Provide the objects required to display UI elements
   */
   setupUI: (): Promise<void> => RNDidomi.setupUI(),
 
   /**
-    Set the minimum level of messages to log
-    
-    Messages with a level below `minLevel` will not be logged.
-    Levels are standard levels from `OSLogType` (https://developer.apple.com/documentation/os/logging/choosing_the_log_level_for_a_message):
-    - OSLogType.info (1)
-    - OSLogType.debug (2)
-    - OSLogType.error (16)
-    - OSLogType.fault (17)
-    
-    We recommend setting `OSLogType.error` (16) in production
-    
-    @param minLevel: Minimum level of messages to log
-  */
+   *  Set the minimum level of messages to log
+   *
+   *  Messages with a level below `minLevel` will not be logged.
+   *
+   * For iOS:
+   *  Levels are standard levels from `OSLogType` (https://developer.apple.com/documentation/os/logging/choosing_the_log_level_for_a_message):
+   *  - OSLogType.info (1)
+   *  - OSLogType.debug (2)
+   *  - OSLogType.error (16)
+   *  - OSLogType.fault (17)
+   *
+   *  We recommend setting `OSLogType.error` (16) in production
+   *
+   *  @param minLevel: Minimum level of messages to log
+   *
+   * For Android:
+   * use the standard log levels supported by android.util.Log: DEBUG, ERROR, INFO, VERBOSE, and WARN.
+   * (https://developer.android.com/reference/android/util/Log#constants_1)
+   *
+   * You can decide what level of messages should be logged by the SDK by calling the setLogLevel function before initialize
+   */
   setLogLevel: (level: number): Promise<number> => RNDidomi.setLogLevel(level),
 
   /**
-    Add an event listener
-    @param listener:
-  */
+   *  Add an event listener
+   *  @param listener:
+   */
   addEventListener: (
     eventType: DidomiEventType,
     callback: (data: any) => void
   ) => DidomiListener.addEventListener(eventType, callback),
 
   /**
-    Remove an event listener
-    @param listener:
-  */
+   *  Remove an event listener
+   *  @param listener:
+   */
   removeEventListener: (
     eventType: DidomiEventType,
     callback: (data: any) => void
   ) => DidomiListener.removeEventListener(eventType, callback),
 
   /**
-    Remove all event listeners
-  */
+   *  Remove all event listeners
+   */
   removeAllEventListeners: () => DidomiListener.reset(),
 
   /**
-    Method used to get an array of disabled purposes.
-    @returns: array of disabled purposes.
-  */
+   *  Method used to get an array of disabled purposes.
+   *  @returns: array of disabled purposes.
+   */
   getDisabledPurposes: (): Promise<any[]> => RNDidomi.getDisabledPurposes(),
 
   /**
-    Method used to get a set of disabled purpose IDs.
-    @returns: set that contains the IDs of disabled purposes.
-  */
+   *  Method used to get a set of disabled purpose IDs.
+   *  @returns: set that contains the IDs of disabled purposes.
+   */
   getDisabledPurposeIds: (): Promise<any[]> => RNDidomi.getDisabledPurposeIds(),
 
   /**
-    Method used to get an array of disabled vendors.
-    @returns: array of disabled vendors.
-  */
+   *  Method used to get an array of disabled vendors.
+   *  @returns: array of disabled vendors.
+   */
   getDisabledVendors: (): Promise<any[]> => RNDidomi.getDisabledVendors(),
 
   /**
-    Method used to get a set of disabled vendor IDs.
-    @returns: set that contains the IDs of disabled vendors.
-  */
+   *  Method used to get a set of disabled vendor IDs.
+   *  @returns: set that contains the IDs of disabled vendors.
+   */
   getDisabledVendorIds: (): Promise<any[]> => RNDidomi.getDisabledVendorIds(),
 
   /**
-    Method used to get an array of enabled purposes.
-    @returns: array of enabled purposes.
-  */
+   *  Method used to get an array of enabled purposes.
+   *  @returns: array of enabled purposes.
+   */
   getEnabledPurposes: (): Promise<any[]> => RNDidomi.getEnabledPurposes(),
 
   /**
-    Method used to get a set of enabled purpose IDs.
-    @returns: set that contains the IDs of enabled purposes.
-  */
+   *  Method used to get a set of enabled purpose IDs.
+   *  @returns: set that contains the IDs of enabled purposes.
+   */
   getEnabledPurposeIds: (): Promise<any[]> => RNDidomi.getEnabledPurposeIds(),
 
   /**
-    Method used to get an array of enabled vendors.
-    @returns: array of enabled vendors.
-  */
+   *  Method used to get an array of enabled vendors.
+   *  @returns: array of enabled vendors.
+   */
   getEnabledVendors: (): Promise<any[]> => RNDidomi.getEnabledVendors(),
 
   /**
-    Method used to get a set of enabled vendor IDs.
-    @returns: set that contains the IDs of enabled vendors.
-  */
+   *  Method used to get a set of enabled vendor IDs.
+   *  @returns: set that contains the IDs of enabled vendors.
+   */
   getEnabledVendorIds: (): Promise<any[]> => RNDidomi.getEnabledVendorIds(),
 
   /**
-    Get JavaScript to embed into a WebView to pass the consent status from the app
-    to the Didomi Web SDK embedded into the WebView
-    Inject the returned JavaScript into a WebView
-    @param extra: Extra JavaScript to inject in the returned code
-    @returns: JavaScript code to inject in a WebView
-  */
+   *  Get JavaScript to embed into a WebView to pass the consent status from the app
+   *  to the Didomi Web SDK embedded into the WebView
+   *  Inject the returned JavaScript into a WebView
+   *  @param extra: Extra JavaScript to inject in the returned code
+   *  @returns: JavaScript code to inject in a WebView
+   */
   getJavaScriptForWebView: (): Promise<string> =>
     RNDidomi.getJavaScriptForWebView(),
 
@@ -146,119 +164,119 @@ export const Didomi = {
     RNDidomi.getQueryStringForWebView(),
 
   /**
-    Method used to get a Purpose based on its ID.
-    @param purposeId: purpose ID used in the search.
-    @returns: purpose found in the array.
-  */
-  getPurpose: (purposeId: string): Promise<any[]> =>
+   *  Method used to get a Purpose based on its ID.
+   *  @param purposeId: purpose ID used in the search.
+   *  @returns: purpose found in the array.
+   */
+  getPurpose: (purposeId: string): Promise<any> =>
     RNDidomi.getPurpose(purposeId),
 
   /**
-    Method used to get an array of required purposes.
-    
-    @returns: array of required purposes.
-  */
+   *  Method used to get an array of required purposes.
+   *
+   *  @returns: array of required purposes.
+   */
   getRequiredPurposes: (): Promise<any[]> => RNDidomi.getRequiredPurposes(),
 
   /**
-    Get the configured purpose IDs
-    @returns: set of purpose IDs.
-  */
+   *  Get the configured purpose IDs
+   *  @returns: set of purpose IDs.
+   */
   getRequiredPurposeIds: (): Promise<any[]> => RNDidomi.getRequiredPurposeIds(),
 
   /**
-    Method used to get an array of required vendors.
-    @returns: array of required vendors.
-  */
+   *  Method used to get an array of required vendors.
+   *  @returns: array of required vendors.
+   */
   getRequiredVendors: (): Promise<any[]> => RNDidomi.getRequiredVendors(),
 
   /**
-    Get the configured vendor IDs
-    @returns: set of vendor IDs.
-  */
+   *  Get the configured vendor IDs
+   *  @returns: set of vendor IDs.
+   */
   getRequiredVendorIds: (): Promise<any[]> => RNDidomi.getRequiredVendorIds(),
 
   /**
-    Method used to get a dictionary/map in the form of { "en": "Key in English", "fr": "Key in French." }
-    for a given key.
-    @param key: used to find its corresponding value in the dictionary/map.
-    @returns: dictionary containing the different translations for a given key.
-  */
+   *  Method used to get a dictionary/map in the form of { "en": "Key in English", "fr": "Key in French." }
+   *  for a given key.
+   *  @param key: used to find its corresponding value in the dictionary/map.
+   *  @returns: dictionary containing the different translations for a given key.
+   */
   getText: (key: string): Promise<any[]> => RNDidomi.getText(key),
 
   /**
-    Method used to get a translated text based on the key being passed.
-    The language and the source of this translated text will depend on the availability of the translation for the specific key.
-    The language being used will be either the selected language of the SDK (based on device Locale and other parameters) or the language specified by app developers as the default language being used by the SDK. The source can be either the `didomi_config.json` file which can be either local or remote, or the `didomi_master_config.json` file which is bundled within the SDK.
-     
-    These are the attempts performed by the SDK to try to find a translation for the specific key:
-    - Get translated value in user locale (selected language) from `didomi_config.json` (either local or remote).
-    - Get translated value in default locale (from the config) from `didomi_config.json` (either local or remote).
-    - Get translated value in user locale (selected language) from `didomi_master_config.json` (bundled within the Didomi SDK).
-    - Get translated value in default locale (from the config) from `didomi_master_config.json` (bundled within the Didomi SDK).
-     
-    If no translation can be found after these 4 attempts, the key will be returned.
-     
-    App developers can provide these translated texts through the `didomi_config.json` file (locally or remotely) in 3 different ways:
-    - Custom texts for the consent notice: https://developers.didomi.io/cmp/mobile-sdk/consent-notice/customize-the-notice#texts
-    - Custom texts for the preferences: https://developers.didomi.io/cmp/mobile-sdk/consent-notice/customize-the-preferences-popup#text
-    - Custom texts for custom notices: https://developers.didomi.io/cmp/mobile-sdk/consent-notice/customize-the-theme#translatable-texts-for-custom-notices
-     
-    @param key: used to find its corresponding value in one of the different sources.
-    @returns: a translated string if a translation was found, the same key that was passed otherwise.
-  */
+   *  Method used to get a translated text based on the key being passed.
+   *  The language and the source of this translated text will depend on the availability of the translation for the specific key.
+   *  The language being used will be either the selected language of the SDK (based on device Locale and other parameters) or the language specified by app developers as the default language being used by the SDK. The source can be either the `didomi_config.json` file which can be either local or remote, or the `didomi_master_config.json` file which is bundled within the SDK.
+   *
+   *  These are the attempts performed by the SDK to try to find a translation for the specific key:
+   *  - Get translated value in user locale (selected language) from `didomi_config.json` (either local or remote).
+   *  - Get translated value in default locale (from the config) from `didomi_config.json` (either local or remote).
+   *  - Get translated value in user locale (selected language) from `didomi_master_config.json` (bundled within the Didomi SDK).
+   *  - Get translated value in default locale (from the config) from `didomi_master_config.json` (bundled within the Didomi SDK).
+   *
+   *  If no translation can be found after these 4 attempts, the key will be returned.
+   *
+   *  App developers can provide these translated texts through the `didomi_config.json` file (locally or remotely) in 3 different ways:
+   *  - Custom texts for the consent notice: https://developers.didomi.io/cmp/mobile-sdk/consent-notice/customize-the-notice#texts
+   *  - Custom texts for the preferences: https://developers.didomi.io/cmp/mobile-sdk/consent-notice/customize-the-preferences-popup#text
+   *  - Custom texts for custom notices: https://developers.didomi.io/cmp/mobile-sdk/consent-notice/customize-the-theme#translatable-texts-for-custom-notices
+   *
+   *  @param key: used to find its corresponding value in one of the different sources.
+   *  @returns: a translated string if a translation was found, the same key that was passed otherwise.
+   */
   getTranslatedText: (key: string): Promise<string> =>
     RNDidomi.getTranslatedText(key),
 
   /**
-    Get the user consent status for a specific purpose
-    @param purposeId: The purpose ID to check consent for
-    @returns: The user consent status for the specified purpose
-  */
+   *  Get the user consent status for a specific purpose
+   *  @param purposeId: The purpose ID to check consent for
+   *  @returns: The user consent status for the specified purpose
+   */
   getUserConsentStatusForPurpose: (purposeId: string): Promise<boolean> =>
     RNDidomi.getUserConsentStatusForPurpose(purposeId),
 
   /**
-    Get the user consent status for a specific vendor
-    @param vendorId: The vendor ID to check consent for
-    @returns: The user consent status for the specified vendor
-  */
+   *  Get the user consent status for a specific vendor
+   *  @param vendorId: The vendor ID to check consent for
+   *  @returns: The user consent status for the specified vendor
+   */
   getUserConsentStatusForVendor: (vendorId: string): Promise<boolean> =>
     RNDidomi.getUserConsentStatusForVendor(vendorId),
 
   /**
-    Get the user consent status for a specific vendor and all its purposes
-    @param vendorId: The ID of the vendor
-    @returns: The user consent status corresponding to the specified vendor and all its required purposes.
-  */
+   *  Get the user consent status for a specific vendor and all its purposes
+   *  @param vendorId: The ID of the vendor
+   *  @returns: The user consent status corresponding to the specified vendor and all its required purposes.
+   */
   getUserConsentStatusForVendorAndRequiredPurposes: (
     vendorId: string
   ): Promise<boolean> =>
     RNDidomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId),
 
   /**
-    Get the user legitimate interest status for a specific purpose.
-    @param purposeId: purpose ID.
-    @returns: LI status of a purpose.
-  */
+   *  Get the user legitimate interest status for a specific purpose.
+   *  @param purposeId: purpose ID.
+   *  @returns: LI status of a purpose.
+   */
   getUserLegitimateInterestStatusForPurpose: (
     purposeId: string
   ): Promise<boolean> =>
     RNDidomi.getUserLegitimateInterestStatusForPurpose(purposeId),
 
   /**
-    Get the user legitimate interest status for a specific vendor.
-    @param vendorId: vendor ID.
-    @returns: LI status of a vendor.
-  */
+   *  Get the user legitimate interest status for a specific vendor.
+   *  @param vendorId: vendor ID.
+   *  @returns: LI status of a vendor.
+   */
   getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> =>
     RNDidomi.getUserLegitimateInterestStatusForVendor(vendorId),
 
   /**
-    Get the user LI status for a specific vendor and all its purposes.
-    @param vendorId: vendor ID.
-    @returns: The user LI status corresponding to the specified vendor and all its required purposes.
-  */
+   *  Get the user LI status for a specific vendor and all its purposes.
+   *  @param vendorId: vendor ID.
+   *  @returns: The user LI status corresponding to the specified vendor and all its required purposes.
+   */
   getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (
     vendorId: string
   ): boolean =>
@@ -267,74 +285,74 @@ export const Didomi = {
     ),
 
   /**
-    Get the user consent and legitimate interest status for a specific vendor.
-    @param vendorId: vendor ID.
-    @returns: status that represents both consent and legitimate interest status of a vendor.
-  */
+   *  Get the user consent and legitimate interest status for a specific vendor.
+   *  @param vendorId: vendor ID.
+   *  @returns: status that represents both consent and legitimate interest status of a vendor.
+   */
   getUserStatusForVendor: (vendorId: string): Promise<boolean> =>
     RNDidomi.getUserStatusForVendor(vendorId),
 
   /**
-    Method used to get a Vendor based on its ID.
-    @param vendorId: vendor ID used in the search.
-    @returns: vendor found in the array.
-  */
-  getVendor: (vendorId: string): Promise<any[]> => RNDidomi.getVendor(vendorId),
+   *  Method used to get a Vendor based on its ID.
+   *  @param vendorId: vendor ID used in the search.
+   *  @returns: vendor found in the array.
+   */
+  getVendor: (vendorId: string): Promise<any> => RNDidomi.getVendor(vendorId),
 
   /**
-    - Hide the notice if it is currently displayed
-  */
+   *  Hide the notice if it is currently displayed
+   */
   hideNotice: (): Promise<void> => RNDidomi.hideNotice(),
 
   /**
-    - Hide the preferences popup for purposes
-  */
+   * Hide the preferences popup for purposes
+   */
   hidePreferences: (): Promise<void> => RNDidomi.hidePreferences(),
 
   /**
-    Determine if consent is required for the user. The rules are (OR):
-    - The user country is in the EU.
-    - The company is from the EU.
-    - The user country is unknown and the app has chosen to collect consent when unknown.
-    @returns: **true** if consent is required, **false** if it is not required.
-  */
+   *  Determine if consent is required for the user. The rules are (OR):
+   *  - The user country is in the EU.
+   *  - The company is from the EU.
+   *  - The user country is unknown and the app has chosen to collect consent when unknown.
+   *  @returns: **true** if consent is required, **false** if it is not required.
+   */
   isConsentRequired: (): Promise<boolean> => RNDidomi.isConsentRequired(),
 
   /**
-    Determine if consent information is available for all purposes and vendors that are required
-    @returns: **true** if consent is required and consent information is available, **false** otherwise.
-  */
+   *  Determine if consent information is available for all purposes and vendors that are required
+   *  @returns: **true** if consent is required and consent information is available, **false** otherwise.
+   */
   isUserConsentStatusPartial: (): Promise<boolean> =>
     RNDidomi.isUserConsentStatusPartial(),
 
   /**
-    Check if the consent notice is currently displayed
-    @returns: **true** if the notice is displayed, **false** if is not.
-  */
+   *  Check if the consent notice is currently displayed
+   *  @returns: **true** if the notice is displayed, **false** if is not.
+   */
   isNoticeVisible: (): Promise<boolean> => RNDidomi.isNoticeVisible(),
 
   /**
-    Method used to check if the Preferences view is visible.
-    @returns: **true** if Preferences view is visible, **false** otherwise.
-  */
+   *  Method used to check if the Preferences view is visible.
+   *  @returns: **true** if Preferences view is visible, **false** otherwise.
+   */
   isPreferencesVisible: (): Promise<boolean> => RNDidomi.isPreferencesVisible(),
 
   isError: (): Promise<boolean> => RNDidomi.isError(),
 
   /**
-    Is the Didomi SDK ready?
-  */
+   *  Is the Didomi SDK ready?
+   */
   isReady: (): Promise<boolean> => RNDidomi.isReady(),
 
   /**
-    Set user information with authentication
-     
-    @param id Organization user ID
-    @param algorithm Algorithm used for computing the digest
-    @param secretId ID of the secret used for computing the digest
-    @param salt Salt used for computing the digest (optional)
-    @param digest Digest of the organization user ID and secret
-  */
+   *  Set user information with authentication
+   *
+   *  @param id Organization user ID
+   *  @param algorithm Algorithm used for computing the digest
+   *  @param secretId ID of the secret used for computing the digest
+   *  @param salt Salt used for computing the digest (optional)
+   *  @param digest Digest of the organization user ID and secret
+   */
   setUser: (
     organizationUserId: string,
     organizationUserIdAuthAlgorithm: string,
@@ -351,37 +369,36 @@ export const Didomi = {
     ),
 
   /**
-    - Show the consent notice (if required, not disabled in the config and not already displayed)
-  */
+   * Show the consent notice (if required, not disabled in the config and not already displayed)
+   */
   showNotice: (): Promise<void> => RNDidomi.showNotice(),
 
   /**
-    Show the preferences screen when/if the SDK is ready. By default the purposes list will be displayed.
-    @param controller: view controller from where preferences will be presented.
-    @param view: a value from `Didomi.Views`. It can be `.purposes` or `.vendors` (`ViewsPurposes` or `ViewsVendors` in Objective-C)
-  */
+   *  Show the preferences screen when/if the SDK is ready. By default the purposes list will be displayed.
+   *  @param view: It can be `purposes` or `vendors`
+   */
   showPreferences: (view?: string): Promise<void> =>
     RNDidomi.showPreferences(view),
 
   /**
-    Remove all consents for the user
-  */
+   *  Remove all consents for the user
+   */
   reset: (): Promise<void> => RNDidomi.reset(),
 
   /**
-    Method that allows to enable consent and legitimate interest for all the required purposes.
-    @returns: **true** if consent status has been updated, **false** otherwise.
-  */
+   *  Method that allows to enable consent and legitimate interest for all the required purposes.
+   *  @returns: **true** if consent status has been updated, **false** otherwise.
+   */
   setUserAgreeToAll: (): Promise<boolean> => RNDidomi.setUserAgreeToAll(),
 
   /**
-    Set the user consent status.
-    @param enabledPurposeIds: set containing **enabled purpose ids**
-    @param disabledPurposeIds: set containing **disabled purpose ids**
-    @param enabledVendorIds: set containing **enabled vendor ids**
-    @param disabledVendorIds: set containing **disabled purpose ids**  
-    @returns: **true** if consent status has been updated, **false** otherwise.
-  */
+   *  Set the user consent status.
+   *  @param enabledPurposeIds: set containing **enabled purpose ids**
+   *  @param disabledPurposeIds: set containing **disabled purpose ids**
+   *  @param enabledVendorIds: set containing **enabled vendor ids**
+   *  @param disabledVendorIds: set containing **disabled purpose ids**
+   *  @returns: **true** if consent status has been updated, **false** otherwise.
+   */
   setUserConsentStatus: (
     enabledPurposeIds: string[],
     disabledPurposeIds: string[],
@@ -396,19 +413,19 @@ export const Didomi = {
     ),
 
   /**
-    Method that allows to disable consent and legitimate interest for all the required purposes and vendors.
-    @returns: **true** if consent status has been updated, **false** otherwise.
-  */
+   * Method that allows to disable consent and legitimate interest for all the required purposes and vendors.
+   * @returns: **true** if consent status has been updated, **false** otherwise.
+   */
   setUserDisagreeToAll: (): Promise<boolean> => RNDidomi.setUserDisagreeToAll(),
 
   /**
-    Set the user status for purposes and vendors for consent and legitimate interest.
-    @params purposesConsentStatus: boolean used to determine if consent will be enabled or disabled for all purposes.
-    @params purposesLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all purposes.
-    @params vendorsConsentStatus: boolean used to determine if consent will be enabled or disabled for all vendors.
-    @params vendorsLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all vendors.
-    @returns: **true** if consent status has been updated, **false** otherwise.
-  */
+   *  Set the user status for purposes and vendors for consent and legitimate interest.
+   *  @param purposesConsentStatus: boolean used to determine if consent will be enabled or disabled for all purposes.
+   *  @param purposesLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all purposes.
+   *  @param vendorsConsentStatus: boolean used to determine if consent will be enabled or disabled for all vendors.
+   *  @param vendorsLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all vendors.
+   *  @returns: **true** if consent status has been updated, **false** otherwise.
+   */
   setUserStatus: (
     purposesConsentStatus: boolean,
     purposesLIStatus: boolean,
@@ -423,17 +440,16 @@ export const Didomi = {
     ),
 
   /**
-    Set the user status for purposes and vendors for consent and legitimate interest.
-
-    @param enabledConsentPurposeIds: List of purpose IDs to enable for consent.
-    @param disabledConsentPurposeIds: List of purpose IDs to disable for consent.
-    @param enabledLIPurposeIds: List of purpose IDs to enable for LI.
-    @param disabledLIPurposeIds: List of purpose IDs to disable for LI.
-    @param enabledConsentVendorIds: List of vendor IDs to enable for consent.
-    @param disabledConsentVendorIds: List of vendor IDs to disable for consent.
-    @param enabledLIVendorIds: List of vendor IDs to enable for LI.
-    @param disabledLIVendorIds: List of vendor IDs to disable for LI.
-  */
+   *  Set the user status for purposes and vendors for consent and legitimate interest.
+   *  @param enabledConsentPurposeIds: List of purpose IDs to enable for consent.
+   *  @param disabledConsentPurposeIds: List of purpose IDs to disable for consent.
+   *  @param enabledLIPurposeIds: List of purpose IDs to enable for LI.
+   *  @param disabledLIPurposeIds: List of purpose IDs to disable for LI.
+   *  @param enabledConsentVendorIds: List of vendor IDs to enable for consent.
+   *  @param disabledConsentVendorIds: List of vendor IDs to disable for consent.
+   *  @param enabledLIVendorIds: List of vendor IDs to enable for LI.
+   *  @param disabledLIVendorIds: List of vendor IDs to disable for LI.
+   */
   setUserStatusSets: (
     enabledConsentPurposeIds: string[],
     disabledConsentPurposeIds: string[],
@@ -456,19 +472,18 @@ export const Didomi = {
     ),
 
   /**
-    Check if the consent should be collected depending on if we have any consents or if we have some consents but the number of days before displaying the notice again has not expired yet
-    @returns: A boolean depending if the consent should be collected or not
-  */
+   *  Check if the consent should be collected depending on if we have any consents or if we have some consents but the number of days before displaying the notice again has not expired yet
+   *  @returns: A boolean depending if the consent should be collected or not
+   */
   shouldConsentBeCollected: (): Promise<boolean> =>
     RNDidomi.shouldConsentBeCollected(),
 
   /**
-    Method used to update the selected language of the Didomi SDK and any property that depends on it.
-    In most cases this method doesn't need to be called. It would only be required for those apps that allow language change on-the-fly, i.e.: from within the app rather than from the device settings.
-    In order to update the language of the views displayed by the Didomi SDK, this method needs to be called before these views are displayed.
-     
-    @param languageCode: string containing the language code e.g.: "es", "fr", etc.
-  */
+   *  Method used to update the selected language of the Didomi SDK and any property that depends on it.
+   *  In most cases this method doesn't need to be called. It would only be required for those apps that allow language change on-the-fly, i.e.: from within the app rather than from the device settings.
+   *  In order to update the language of the views displayed by the Didomi SDK, this method needs to be called before these views are displayed.
+   *  @param languageCode: string containing the language code e.g.: "es", "fr", etc.
+   */
   updateSelectedLanguage: (languageCode: string): Promise<void> =>
     RNDidomi.updateSelectedLanguage(languageCode),
 };

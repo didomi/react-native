@@ -12,24 +12,24 @@ yarn
 
 > While it's possible to use [`npm`](https://github.com/npm/cli), the tooling is built around [`yarn`](https://classic.yarnpkg.com/), so you'll have an easier time if you use `yarn` for development.
 
-While developing, you can run the [example app](/example/) to test your changes. Any changes you make in your library's JavaScript code will be reflected in the example app without a rebuild. If you change any native code, then you'll need to rebuild the example app.
+While developing, you can run the [testApp app](/testApp/) to test your changes. Any changes you make in your library's JavaScript code will be reflected in the testApp app without a rebuild. If you change any native code, then you'll need to rebuild the testApp app.
 
 To start the packager:
 
 ```sh
-yarn example start
+yarn testApp start
 ```
 
-To run the example app on Android:
+To run the testApp app on Android:
 
 ```sh
-yarn example android
+yarn testApp android
 ```
 
-To run the example app on iOS:
+To run the testApp app on iOS:
 
 ```sh
-yarn example ios
+yarn testApp ios
 ```
 
 Make sure your code passes TypeScript and ESLint. Run the following to verify:
@@ -51,9 +51,9 @@ Remember to add tests for your change if possible. Run the unit tests by:
 yarn test
 ```
 
-To edit the Objective-C files, open `example/ios/DidomiExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-didomi`.
+To edit the Objective-C files, open `testApp/ios/DidomiExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-didomi`.
 
-To edit the Kotlin files, open `example/android` in Android studio and find the source files at `reactnativedidomi` under `Android`.
+To edit the Kotlin files, open `testApp/android` in Android studio and find the source files at `reactnativedidomi` under `Android`.
 
 ### Commit message convention
 
@@ -94,9 +94,9 @@ The `package.json` file contains various scripts for common tasks:
 - `yarn typescript`: type-check files with TypeScript.
 - `yarn lint`: lint files with ESLint.
 - `yarn test`: run unit tests with Jest.
-- `yarn example start`: start the Metro server for the example app.
-- `yarn example android`: run the example app on Android.
-- `yarn example ios`: run the example app on iOS.
+- `yarn testApp start`: start the Metro server for the testApp app.
+- `yarn testApp android`: run the testApp app on Android.
+- `yarn testApp ios`: run the testApp app on iOS.
 
 ### Sending a pull request
 

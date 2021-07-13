@@ -21,6 +21,13 @@ RCT_EXTERN_METHOD(initialize:(NSString *)apikey
                   languageCode:(nullable NSString *)languageCode
                   noticeId:(nullable NSString *)noticeId)
 
+RCT_EXTERN_METHOD(onReady)
+
+RCT_EXTERN_METHOD(onError)
+
+RCT_EXTERN_METHOD(getQueryStringForWebView:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(setUserAgent:(NSString *)name
                   version:(NSString *)version)
 

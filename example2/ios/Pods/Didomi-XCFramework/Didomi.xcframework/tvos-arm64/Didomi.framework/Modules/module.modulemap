@@ -1,4 +1,0 @@
-framework module Didomi {
-  header "Didomi-Swift.h"
-  requires objc
-}
