@@ -36,6 +36,11 @@ class RNDidomi: RCTEventEmitter {
         }
     }
     
+    @objc(getQueryStringForWebView)
+    func getQueryStringForWebView(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        resolve("")
+    }
+    
     @objc(setUserAgent:version:)
     func setUserAgent(name: String, version: String) {
         Didomi.shared.setUserAgent(name: name, version: version)
@@ -64,43 +69,43 @@ class RNDidomi: RCTEventEmitter {
     @objc(getUserConsentStatusForPurpose:resolve:reject:)
     func getUserConsentStatusForPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let consentStatus = Didomi.shared.getUserConsentStatusForPurpose(purposeId: purposeId)
-        resolve(consentStatus)
+        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(getUserLegitimateInterestStatusForPurpose:resolve:reject:)
     func getUserLegitimateInterestStatusForPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForPurpose(purposeId: purposeId)
-        resolve(consentStatus)
+        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(getUserStatusForVendor:resolve:reject:)
     func getUserStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let userStatus = Didomi.shared.getUserStatusForVendor(vendorId: vendorId)
-        resolve(userStatus)
+        resolve(userStatus.rawValue.consentStatusBool)
     }
     
     @objc(getUserConsentStatusForVendor:resolve:reject:)
     func getUserConsentStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let consentStatus = Didomi.shared.getUserConsentStatusForVendor(vendorId: vendorId)
-        resolve(consentStatus)
+        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(getUserLegitimateInterestStatusForVendor:resolve:reject:)
     func getUserLegitimateInterestStatusForPurpose(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForVendor(vendorId: vendorId)
-        resolve(consentStatus)
+        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(getUserConsentStatusForVendorAndRequiredPurposes:resolve:reject:)
     func getUserConsentStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let consentStatus = Didomi.shared.getUserConsentStatusForVendorAndRequiredPurposes(vendorId: vendorId)
-        resolve(consentStatus)
+        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(getUserLegitimateInterestStatusForVendorAndRequiredPurposes:resolve:reject:)
     func getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: vendorId)
-        resolve(consentStatus)
+        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(setUserStatus:purposesLIStatus:vendorsConsentStatus:vendorsLIStatus:resolve:reject:)
@@ -589,3 +594,6 @@ extension RNDidomi {
     }
 }
 
+extension Int {
+    var consentStatusBool: Bool { return self == 0 }
+}

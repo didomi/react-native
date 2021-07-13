@@ -59,6 +59,8 @@ export const Didomi = {
    *  Set the minimum level of messages to log
    *
    *  Messages with a level below `minLevel` will not be logged.
+   *
+   * For iOS:
    *  Levels are standard levels from `OSLogType` (https://developer.apple.com/documentation/os/logging/choosing_the_log_level_for_a_message):
    *  - OSLogType.info (1)
    *  - OSLogType.debug (2)
@@ -68,6 +70,12 @@ export const Didomi = {
    *  We recommend setting `OSLogType.error` (16) in production
    *
    *  @param minLevel: Minimum level of messages to log
+   *
+   * For Android:
+   * use the standard log levels supported by android.util.Log: DEBUG, ERROR, INFO, VERBOSE, and WARN.
+   * (https://developer.android.com/reference/android/util/Log#constants_1)
+   *
+   * You can decide what level of messages should be logged by the SDK by calling the setLogLevel function before initialize
    */
   setLogLevel: (level: number): Promise<number> => RNDidomi.setLogLevel(level),
 
@@ -160,7 +168,7 @@ export const Didomi = {
    *  @param purposeId: purpose ID used in the search.
    *  @returns: purpose found in the array.
    */
-  getPurpose: (purposeId: string): Promise<any[]> =>
+  getPurpose: (purposeId: string): Promise<any> =>
     RNDidomi.getPurpose(purposeId),
 
   /**
@@ -289,7 +297,7 @@ export const Didomi = {
    *  @param vendorId: vendor ID used in the search.
    *  @returns: vendor found in the array.
    */
-  getVendor: (vendorId: string): Promise<any[]> => RNDidomi.getVendor(vendorId),
+  getVendor: (vendorId: string): Promise<any> => RNDidomi.getVendor(vendorId),
 
   /**
    *  Hide the notice if it is currently displayed
@@ -367,8 +375,7 @@ export const Didomi = {
 
   /**
    *  Show the preferences screen when/if the SDK is ready. By default the purposes list will be displayed.
-   *  @param controller: view controller from where preferences will be presented.
-   *  @param view: a value from `Didomi.Views`. It can be `.purposes` or `.vendors` (`ViewsPurposes` or `ViewsVendors` in Objective-C)
+   *  @param view: It can be `purposes` or `vendors`
    */
   showPreferences: (view?: string): Promise<void> =>
     RNDidomi.showPreferences(view),
