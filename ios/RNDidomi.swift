@@ -595,5 +595,11 @@ extension RNDidomi {
 }
 
 extension Int {
-    var consentStatusBool: Bool { return self == 0 }
+    var consentStatusBool: Bool? {
+        if self == 2 {
+            return nil
+        } else {
+            return self == 0
+        }
+    }
 }
