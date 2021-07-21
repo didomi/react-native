@@ -56,9 +56,10 @@ export const Didomi = {
   setupUI: (): Promise<void> => RNDidomi.setupUI(),
 
   /**
-   *  Set the minimum level of messages to log
+   * Set the minimum level of messages to log
+   * You can decide what level of messages should be logged by the SDK by calling the setLogLevel function before initialize
    *
-   *  Messages with a level below `minLevel` will not be logged.
+   * Messages with a level below `minLevel` will not be logged.
    *
    * For iOS:
    *  Levels are standard levels from `OSLogType` (https://developer.apple.com/documentation/os/logging/choosing_the_log_level_for_a_message):
@@ -69,13 +70,13 @@ export const Didomi = {
    *
    *  We recommend setting `OSLogType.error` (16) in production
    *
-   *  @param minLevel: Minimum level of messages to log
-   *
    * For Android:
-   * use the standard log levels supported by android.util.Log: DEBUG, ERROR, INFO, VERBOSE, and WARN.
-   * (https://developer.android.com/reference/android/util/Log#constants_1)
+   *  Use the standard log levels supported by android.util.Log: VERBOSE, DEBUG, INFO, WARN and ERROR.
+   *  (https://developer.android.com/reference/android/util/Log#constants_1)
    *
-   * You can decide what level of messages should be logged by the SDK by calling the setLogLevel function before initialize
+   *  We recommend setting `Log.INFO` (4) in production
+   *
+   * @param minLevel: Minimum level of messages to log
    */
   setLogLevel: (level: number): Promise<number> => RNDidomi.setLogLevel(level),
 
