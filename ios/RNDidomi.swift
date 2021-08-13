@@ -38,7 +38,7 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getQueryStringForWebView:reject:)
     func getQueryStringForWebView(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve("")
+        resolve(Didomi.shared.getQueryStringForWebView())
     }
     
     @objc(setUserAgent:version:)
@@ -229,8 +229,12 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(getJavaScriptForWebView:resolve:reject:)
-    func getJavaScriptForWebView(extra: String = "", resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
+    func getJavaScriptForWebView(_ extra: String? = "", resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        if let extra = extra {
+            resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
+        } else {
+            resolve(Didomi.shared.getJavaScriptForWebView())
+        }
     }
     
     @objc(updateSelectedLanguage:)

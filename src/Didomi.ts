@@ -158,8 +158,8 @@ export const Didomi = {
    *  @param extra: Extra JavaScript to inject in the returned code
    *  @returns: JavaScript code to inject in a WebView
    */
-  getJavaScriptForWebView: (): Promise<string> =>
-    RNDidomi.getJavaScriptForWebView(),
+  getJavaScriptForWebView: (extra?: string | null): Promise<string> =>
+    RNDidomi.getJavaScriptForWebView(extra),
 
   getQueryStringForWebView: (): Promise<string> =>
     RNDidomi.getQueryStringForWebView(),

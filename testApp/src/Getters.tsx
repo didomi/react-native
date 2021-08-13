@@ -86,6 +86,16 @@ export default function Getters() {
         }}
       />
 
+      <Getter
+        name="getJavaScriptForWebView"
+        call={async () => {
+          return await Didomi.getJavaScriptForWebView();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
       {/* 
   getJavaScriptForWebView
   getQueryStringForWebView

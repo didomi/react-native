@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { convertResultToString } from './helpers/ResultHelper';
 
 interface GetterCallProps {
   name: string;
@@ -21,12 +22,11 @@ export default function Getter(props: GetterCallProps) {
         title={props.name}
         testID={props.name}
       />
-      {called && (
+      {called && result != '' ? (
         <Text testID={props.name + '-result'} style={styles.result}>
-          {props.name + '-' + (props.test(result) ? 'OK' : 'KO')}
+          {convertResultToString(result)}
         </Text>
-      )}
-      {result && <Text style={styles.result}>{JSON.stringify(result)}</Text>}
+      ) : null}
     </View>
   );
 }

@@ -47,9 +47,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForVendor [ID = '0']"
+        name="getUserConsentStatusForVendor [ID = '1']"
         call={async () => {
-          return await Didomi.getUserConsentStatusForVendor('0');
+          return await Didomi.getUserConsentStatusForVendor('1');
         }}
         test={() => {
           return true;
@@ -57,9 +57,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserStatusForVendor [ID = '0']"
+        name="getUserStatusForVendor [ID = '1']"
         call={async () => {
-          return await Didomi.getUserStatusForVendor('0');
+          return await Didomi.getUserStatusForVendor('1');
         }}
         test={() => {
           return true;
@@ -112,6 +112,15 @@ export default function GettersParams() {
         }}
       />
 
+      <GetterParams
+        name="getJavaScriptForWebViewWithExtra"
+        call={async () => {
+          return await Didomi.getJavaScriptForWebView("console.log('extra JS!');");
+        }}
+        test={() => {
+          return true;
+        }}
+      />
       {/*
   getUserLegitimateInterestForVendor
   getUserLegitimateInterestStatusForVendorAndRequiredPurposes
