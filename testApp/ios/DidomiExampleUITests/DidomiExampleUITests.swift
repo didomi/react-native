@@ -81,11 +81,6 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setLogLevel", expected: "setLogLevel-OK")
   }
   
-//  func testUpdateSelectedLanguage() throws {
-//    let app = XCUIApplication()
-//    testMethodCall(app: app, name: "updateSelectedLanguage")
-//  }
-  
   func testShowNotice() throws {
     let app = XCUIApplication()
     tapButton(in: app, name: "showNotice")
@@ -109,41 +104,6 @@ class DidomiExampleUITests: XCTestCase {
     tapButton(in: app, name: "hideNotice")
     assertResult(in: app, name: "hideNotice", expected: "hideNotice-OK")
   }
-  
-//  func testShowPreferencesPurposes() throws {
-//    let app = XCUIApplication()
-//    testMethodCall(app: app, name: "showPreferences Purposes")
-//
-//    // Check opening of Purposes
-//    let noticeButton = app.staticTexts["Save"]
-//    let exists = NSPredicate(format: "exists == 1")
-//    expectation(for: exists, evaluatedWith: noticeButton, handler: nil)
-//    waitForExpectations(timeout: 5, handler: nil)
-//
-//    // Close notice
-//    noticeButton.tap()
-//
-//    testLastEvent(app: app, name:"on_hide_notice")
-//  }
-  
-//  func testShowPreferencesVendors() throws {
-//    let app = XCUIApplication()
-//    testMethodCall(app: app, name: "showPreferences Vendors")
-//
-//    // Check opening of Vendors
-//    let noticeButton = app.staticTexts["Save"]
-//    let closeButton = app.buttons.element(boundBy: 5)
-//    let text = app.staticTexts["Select partners"]
-//    let exists = NSPredicate(format: "exists == 1")
-//    expectation(for: exists, evaluatedWith: text, handler: nil)
-//    waitForExpectations(timeout: 5, handler: nil)
-//
-//    // Close notice
-//    closeButton.tap()
-//    noticeButton.tap()
-//
-//    testLastEvent(app: app, name:"on_hide_notice")
-//  }
   
   func testHidePreferences() throws {
     let app = XCUIApplication()
@@ -254,15 +214,15 @@ class DidomiExampleUITests: XCTestCase {
   func testGetPurposeWithId() throws {
     let app = XCUIApplication()
         
-    tapButton(in: app, name: "getPurpose [ID = 'analytics']")
+    tapButton(in: app, name: "getPurpose [ID = 'cookies']")
     
-    let staticText = app.staticTexts["getPurpose [ID = 'analytics']-result"]
+    let staticText = app.staticTexts["getPurpose [ID = 'cookies']-result"]
     staticText.wait()
     
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
     let actual = decodePurpose(actualRaw)
     
-    let expected = PurposeData(id: "analytics", name: "measurement_268d0e0", iabId: "5", description: "measurement_description_268d0e0")
+    let expected = PurposeData(id: "cookies", name: "purpose_1_name", iabId: "1", description: "purpose_1_description")
     assertEqual(actual, expected)
   }
   
@@ -285,8 +245,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserConsentStatusForPurpose [ID = 'analytics']")
-    assertResult(in: app, name: "getUserConsentStatusForPurpose [ID = 'analytics']", expected: "true")
+    tapButton(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']")
+    assertResult(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']", expected: "true")
   }
   
   func testGetUserConsentStatusForVendor() throws {
@@ -294,8 +254,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '1']")
-    assertResult(in: app, name: "getUserConsentStatusForVendor [ID = '1']", expected: "true")
+    tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '755']")
+    assertResult(in: app, name: "getUserConsentStatusForVendor [ID = '755']", expected: "true")
   }
   
   func testGetUserStatusForVendor() throws {
@@ -303,8 +263,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserStatusForVendor [ID = '1']")
-    assertResult(in: app, name: "getUserStatusForVendor [ID = '1']", expected: "true")
+    tapButton(in: app, name: "getUserStatusForVendor [ID = '755']")
+    assertResult(in: app, name: "getUserStatusForVendor [ID = '755']", expected: "true")
   }
   
   func testGetUserConsentStatusForVendorAndRequiredPurpose() throws {
@@ -312,8 +272,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']")
-    assertResult(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']", expected: "true")
+    tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
+    assertResult(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']", expected: "true")
   }
   
   func testGetUserLegitimateInterestStatusForPurpose() throws {
@@ -321,8 +281,8 @@ class DidomiExampleUITests: XCTestCase {
     
     resetUserStatus(in: app)
     
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'analytics']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'analytics']", expected: "true")
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']", expected: "true")
   }
   
   func testGetUserLegitimateInterestStatusForVendor() throws {
@@ -330,8 +290,8 @@ class DidomiExampleUITests: XCTestCase {
     
     resetUserStatus(in: app)
     
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '1']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '1']", expected: "true")
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '755']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '755']", expected: "true")
   }
   
   func testGetJavaScriptForWebViewWithExtra() throws {
@@ -362,8 +322,8 @@ class DidomiExampleUITests: XCTestCase {
     
     resetUserStatus(in: app)
     
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '1']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '1']", expected: "true")
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']", expected: "true")
   }
   
   // MARK: SETTERS
