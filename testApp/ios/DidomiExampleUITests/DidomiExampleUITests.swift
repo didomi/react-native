@@ -20,10 +20,6 @@ class DidomiExampleUITests: XCTestCase {
     continueAfterFailure = false
   }
   
-  override func tearDownWithError() throws {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-  }
-  
   private func waitUntilElementExists(element: XCUIElement, timeout: TimeInterval) {
     let startTime = Date.timeIntervalSinceReferenceDate
     while !element.exists {
@@ -44,7 +40,7 @@ class DidomiExampleUITests: XCTestCase {
   
   func testAOnReadyEvent() throws {
     
-    // Restart the app to make shure last event is "on ready"
+    // Restart the app to make sure last event is "on ready"
     let app = XCUIApplication()
     app.terminate()
     app.activate()
@@ -369,7 +365,6 @@ class DidomiExampleUITests: XCTestCase {
     tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '1']")
     assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '1']", expected: "true")
   }
-  
   
   // MARK: SETTERS
   
