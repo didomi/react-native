@@ -8,7 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
-import org.junit.After
+import org.hamcrest.CoreMatchers.startsWith
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,7 +25,7 @@ class UIGettersTest {
     fun init() {
         // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
         // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5000L)
+        Thread.sleep(5_000L)
 
         // Make sure view is ready before starting test
         waitForDisplayed(withText("RESET"))
@@ -95,15 +95,24 @@ class UIGettersTest {
         assertText(ALL_VENDOR_IDS)
     }
 
+    @Test
+    fun test_GetJavaScriptForWebView() {
+        tapButton("getJavaScriptForWebView".toUpperCase())
+
+        val expected = "\"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {".trim()
+
+        assertTextStartsWith(expected)
+    }
+
     private fun agreeToAll() {
         tapButton("setUserAgreeToAll".toUpperCase())
-        Thread.sleep(2000L)
+        Thread.sleep(2_000L)
         assertText("setUserAgreeToAll-OK")
     }
 
     private fun disagreeToAll() {
         tapButton("setUserDisagreeToAll".toUpperCase())
-        Thread.sleep(2000L)
+        Thread.sleep(2_000L)
         assertText("setUserDisagreeToAll-OK")
     }
 
@@ -115,6 +124,11 @@ class UIGettersTest {
 
     private fun assertText(text: String) {
         val matcher = withText(text)
+        onView(matcher).perform(ScrollToAction())
+    }
+
+    private fun assertTextStartsWith(text: String) {
+        val matcher = withText(startsWith(text))
         onView(matcher).perform(ScrollToAction())
     }
 
