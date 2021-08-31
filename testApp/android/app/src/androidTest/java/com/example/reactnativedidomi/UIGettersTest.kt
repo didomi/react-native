@@ -31,10 +31,6 @@ class UIGettersTest {
         waitForDisplayed(withText("RESET"))
     }
 
-    @After
-    fun tearDown() {
-    }
-
     @Test
     fun test_GetDisabledPurposes() {
         disagreeToAll()
