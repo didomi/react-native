@@ -42,7 +42,7 @@ class DidomiExampleUITests: XCTestCase {
   
   func testAOnReadyEvent() throws {
     
-    // Restart the app to make shure last event is "on ready"
+    // Restart the app to make sure last event is "on ready"
     let app = XCUIApplication()
     app.terminate()
     app.activate()
