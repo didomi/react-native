@@ -45,7 +45,7 @@ class UIGettersParamsTest {
     //TODO FIND A WAY TO CHECK WITHOUT THE ID HARD SET
     @Test
     fun test_GetPurpose() {
-        testMethodCall("getPurpose [ID = 'analytics']", true)
+        testMethodCall("getPurpose [ID = 'cookies']", true)
     }
 
     @Test
@@ -60,7 +60,7 @@ class UIGettersParamsTest {
 
     @Test
     fun test_GetUserConsentStatusForPurpose() {
-        testMethodCall("getUserConsentStatusForPurpose [ID = 'analytics']", true)
+        testMethodCall("getUserConsentStatusForPurpose [ID = 'cookies']", true)
     }
 
     @Test
@@ -70,11 +70,11 @@ class UIGettersParamsTest {
 
     @Test
     fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
-        testMethodCall("getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']", true)
+        testMethodCall("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']", true)
     }
 
     @Test
     fun test_GetEnabledVendors() {
-        testMethodCall("getUserLegitimateInterestStatusForPurpose [ID = 'analytics']", true)
+        testMethodCall("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']", true)
     }
 }
