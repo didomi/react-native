@@ -21,7 +21,7 @@ class UIGettersParamsTest: BaseUITest() {
     fun init() {
         // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
         // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(6_000L)
+        Thread.sleep(5_000L)
 
         // Make sure view is ready before starting test
         waitForDisplayed(withText("RESET"))
@@ -59,6 +59,9 @@ class UIGettersParamsTest: BaseUITest() {
 
     @Test
     fun test_GetUserConsentStatusForPurpose() {
+        // This test seems to be run first and it might be the case that it needs more time to let the device
+        // finish launching the app.
+        Thread.sleep(5_000L)
         agreeToAll()
 
         tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")
