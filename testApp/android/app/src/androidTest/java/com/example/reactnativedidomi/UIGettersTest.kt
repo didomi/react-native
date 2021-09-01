@@ -21,7 +21,7 @@ class UIGettersTest: BaseUITest() {
     fun init() {
         // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
         // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5_000L)
+        Thread.sleep(6_000L)
 
         // Make sure view is ready before starting test
         waitForDisplayed(withText("RESET"))
