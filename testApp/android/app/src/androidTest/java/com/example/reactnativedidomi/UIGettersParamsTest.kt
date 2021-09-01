@@ -1,7 +1,5 @@
 package com.example.reactnativedidomi
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -11,11 +9,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
-import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
-class UIGettersParamsTest {
+class UIGettersParamsTest: BaseUITest() {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
@@ -24,57 +21,71 @@ class UIGettersParamsTest {
     fun init() {
         // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
         // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5000L)
+        Thread.sleep(5_000L)
 
         // Make sure view is ready before starting test
         waitForDisplayed(withText("RESET"))
     }
 
-    @After
-    fun tearDown() {
-    }
-
-    private fun testMethodCall(method: String, needToScroll: Boolean) {
-        onView(withText(method.toUpperCase())).perform(scrollTo(), click())
-
-        if (needToScroll)
-            onView(withText(method.toUpperCase())).perform(swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp())
-        waitForDisplayed(withText("$method-OK"))
-    }
-
     //TODO FIND A WAY TO CHECK WITHOUT THE ID HARD SET
     @Test
     fun test_GetPurpose() {
-        testMethodCall("getPurpose [ID = 'cookies']", true)
+        // This assertion might be fragile if Android doesn't always keep the same order for the properties.
+        val expected = """
+            {
+            "descriptionLegal":"purpose_1_description_legal",
+            "iabId":"1",
+            "description":"purpose_1_description",
+            "name":"purpose_1_name",
+            "id":"cookies"
+            }
+        """.trimIndent().replace("\n","")
+
+        tapButton("getPurpose [ID = 'cookies']")
+        assertText(expected)
     }
 
     @Test
     fun test_GetText() {
-        testMethodCall("getText [Key = '0']", true)
+        tapButton("getText [Key = '0']")
+        assertText(text = "{}", accessibilityLabel = "getText [Key = '0']-result")
     }
 
     @Test
     fun test_GetTranslatedText() {
-        testMethodCall("getTranslatedText [Key = '0']", true)
+        tapButton("getTranslatedText [Key = '0']")
+        assertText(text = "0", accessibilityLabel = "getTranslatedText [Key = '0']-result")
     }
 
     @Test
     fun test_GetUserConsentStatusForPurpose() {
-        testMethodCall("getUserConsentStatusForPurpose [ID = 'cookies']", true)
+        agreeToAll()
+
+        tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")
+        assertText(text = "true", accessibilityLabel = "getUserConsentStatusForPurpose [ID = 'cookies']-result")
     }
 
     @Test
     fun test_GetUserConsentStatusForVendor() {
-        testMethodCall("getUserConsentStatusForVendor [ID = '0']", true)
+        agreeToAll()
+
+        tapButton("getUserConsentStatusForVendor [ID = '0']")
+        assertText(text = "{}", accessibilityLabel = "getUserConsentStatusForVendor [ID = '0']-result")
     }
 
     @Test
     fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
-        testMethodCall("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']", true)
+        agreeToAll()
+
+        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
+        assertText(text = "true", accessibilityLabel = "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']-result")
     }
 
     @Test
     fun test_GetEnabledVendors() {
-        testMethodCall("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']", true)
+        agreeToAll()
+
+        tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
+        assertText(text = "true", accessibilityLabel = "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']-result")
     }
 }
