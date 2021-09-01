@@ -5,8 +5,6 @@ import androidx.test.espresso.action.ScrollToAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.startsWith
-import org.hamcrest.Matchers.allOf
-import androidx.test.espresso.matcher.ViewMatchers.*
 
 open class BaseUITest {
     protected fun agreeToAll() {

@@ -23,7 +23,7 @@ export default function GetterParams(props: GetterParamsCallProps) {
         testID={props.name}
       />
       {called && result != '' ? (
-        <Text accessibilityLabel={props.name + '-result'} testID={props.name + '-result'} style={styles.result}>
+        <Text testID={props.name + '-result'} style={styles.result}>
           {convertResultToString(result)}
         </Text>
       ) : null}
