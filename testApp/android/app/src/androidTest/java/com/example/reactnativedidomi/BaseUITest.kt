@@ -8,7 +8,7 @@ import org.hamcrest.CoreMatchers.startsWith
 import org.hamcrest.Matchers.allOf
 import androidx.test.espresso.matcher.ViewMatchers.*
 
-abstract class BaseUITest {
+open class BaseUITest {
     protected fun agreeToAll() {
         tapButton("setUserAgreeToAll".toUpperCase())
         Thread.sleep(2_000L)

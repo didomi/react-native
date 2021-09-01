@@ -69,8 +69,8 @@ class UIGettersParamsTest: BaseUITest() {
     fun test_GetUserConsentStatusForVendor() {
         agreeToAll()
 
-        tapButton("getUserConsentStatusForVendor [ID = '0']")
-        assertText(text = "{}", accessibilityLabel = "getUserConsentStatusForVendor [ID = '0']-result")
+        tapButton("getUserConsentStatusForVendor [ID = '755']")
+        assertText(text = "true", accessibilityLabel = "getUserConsentStatusForVendor [ID = '755']-result")
     }
 
     @Test
