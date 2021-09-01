@@ -48,13 +48,13 @@ class UIGettersParamsTest: BaseUITest() {
     @Test
     fun test_GetText() {
         tapButton("getText [Key = '0']")
-        assertText(text = "{}", accessibilityLabel = "getText [Key = '0']-result")
+        assertText(text = "{}")
     }
 
     @Test
     fun test_GetTranslatedText() {
         tapButton("getTranslatedText [Key = '0']")
-        assertText(text = "0", accessibilityLabel = "getTranslatedText [Key = '0']-result")
+        assertText(text = "\"0\"")
     }
 
     @Test
