@@ -48,13 +48,13 @@ class UIGettersParamsTest: BaseUITest() {
     @Test
     fun test_GetText() {
         tapButton("getText [Key = '0']")
-        assertText(text = "{}")
+        assertText("{}")
     }
 
     @Test
     fun test_GetTranslatedText() {
         tapButton("getTranslatedText [Key = '0']")
-        assertText(text = "\"0\"")
+        assertText("\"0\"")
     }
 
     @Test
@@ -62,7 +62,7 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")
-        assertText(text = "true")
+        assertText("true")
     }
 
     @Test
@@ -70,7 +70,7 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserConsentStatusForVendor [ID = '755']")
-        assertText(text = "true")
+        assertText("true")
     }
 
     @Test
@@ -78,7 +78,7 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
-        assertText(text = "true")
+        assertText("true")
     }
 
     @Test
@@ -86,6 +86,6 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
-        assertText(text = "true")
+        assertText("true")
     }
 }
