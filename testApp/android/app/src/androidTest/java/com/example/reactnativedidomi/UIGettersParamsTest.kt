@@ -62,7 +62,7 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")
-        assertText(text = "true", accessibilityLabel = "getUserConsentStatusForPurpose [ID = 'cookies']-result")
+        assertText(text = "true")
     }
 
     @Test
@@ -70,7 +70,7 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserConsentStatusForVendor [ID = '755']")
-        assertText(text = "true", accessibilityLabel = "getUserConsentStatusForVendor [ID = '755']-result")
+        assertText(text = "true")
     }
 
     @Test
@@ -78,7 +78,7 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
-        assertText(text = "true", accessibilityLabel = "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']-result")
+        assertText(text = "true")
     }
 
     @Test
@@ -86,6 +86,6 @@ class UIGettersParamsTest: BaseUITest() {
         agreeToAll()
 
         tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
-        assertText(text = "true", accessibilityLabel = "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']-result")
+        assertText(text = "true")
     }
 }

@@ -37,11 +37,6 @@ open class BaseUITest {
         onView(matcher).perform(ScrollToAction())
     }
 
-    protected fun assertText(text: String, accessibilityLabel: String) {
-        val matcher = allOf(withContentDescription(accessibilityLabel), isDisplayed(), withText(text))
-        onView(matcher).perform(ScrollToAction())
-    }
-
     companion object {
         const val ALL_VENDOR_IDS = "28,google"
         const val ALL_PURPOSE_IDS = "cookies,create_ads_profile,geolocation_data,select_personalized_ads"
