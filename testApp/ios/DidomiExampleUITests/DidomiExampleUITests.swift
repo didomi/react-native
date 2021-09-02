@@ -209,6 +209,26 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertEqual(actual, expected)
   }
   
+  func testGetQueryStringForWebView() throws {
+    let app = XCUIApplication()
+        
+    resetUserStatus(in: app)
+    
+    let expected = "\"didomiConfig.user.externalConsent.value".removeNewLinesAndTrailingSpaces()
+    
+    tapButton(in: app, name: "getQueryStringForWebView")
+    
+    let staticText = app.staticTexts["getQueryStringForWebView-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    // The text might change every time we call the getQueryStringForWebView method
+    // so we'll only assert the beginning of the resulting string.
+    let actualPrefix = String(actual.prefix(40))
+    
+    XCTAssertEqual(actualPrefix, expected)
+  }
+  
   // MARK: GETTERS WITH PARAMS
   
   func testGetPurposeWithId() throws {
