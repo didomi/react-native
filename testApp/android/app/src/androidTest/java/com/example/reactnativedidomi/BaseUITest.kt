@@ -2,8 +2,7 @@ package com.example.reactnativedidomi
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ScrollToAction
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
 import org.hamcrest.CoreMatchers.endsWith
@@ -36,12 +35,12 @@ open class BaseUITest {
     protected fun tapButton(name: String) {
         val matcher = withText(name.toUpperCase())
         onView(matcher).perform(ScrollToAction())
-        onView(matcher).perform(ViewActions.click())
+        onView(matcher).perform(click())
     }
 
     private fun scrollToItem(name: String) {
         val matcher = withText(name.toUpperCase())
-        onView(matcher).perform(scrollTo())
+        onView(matcher).perform(ScrollToAction())
     }
 
     protected fun assertText(text: String) {
