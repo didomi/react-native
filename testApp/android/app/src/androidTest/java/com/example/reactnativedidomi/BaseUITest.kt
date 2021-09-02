@@ -8,6 +8,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
 import org.hamcrest.CoreMatchers.startsWith
 
+/**
+ * Class used to contain common logic used by the different test suite classes.
+ */
 open class BaseUITest {
     protected fun agreeToAll() {
         tapButton("setUserAgreeToAll".toUpperCase())
@@ -55,6 +58,8 @@ open class BaseUITest {
     }
 
     companion object {
+        // Considering the tests that we do for the bridge SDKs, using simple a configuration with few vendors
+        // should be enough. Currently we share the same vendor and purpose configuration across tests classes.
         const val ALL_VENDOR_IDS = "28,google"
         const val ALL_PURPOSE_IDS = "cookies,create_ads_profile,geolocation_data,select_personalized_ads"
     }

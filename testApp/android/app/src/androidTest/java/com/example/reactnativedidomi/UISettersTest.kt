@@ -23,21 +23,21 @@ class UISettersTest: BaseUITest() {
     @Test
     fun test_SetUserStatusSets() {
         tapButton("setUserStatusSets")
-        Thread.sleep(500)
+        Thread.sleep(2_000L)
         assertText("setUserStatusSets-OK")
     }
 
     @Test
     fun test_SetUserAgreeToAll() {
         tapButton("setUserAgreeToAll")
-        Thread.sleep(500)
+        Thread.sleep(2_000L)
         assertText("setUserAgreeToAll-OK")
     }
 
     @Test
     fun test_SetUserDisagreeToAll() {
         tapButton("setUserDisagreeToAll")
-        Thread.sleep(500)
+        Thread.sleep(2_000L)
         assertText("setUserDisagreeToAll-OK")
     }
 }
