@@ -1,5 +1,9 @@
 package com.example.reactnativedidomi
 
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -19,12 +23,7 @@ class UIGettersParamsTest: BaseUITest() {
 
     @Before
     fun init() {
-        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
-        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5_000L)
-
-        // Make sure view is ready before starting test
-        waitForDisplayed(withText("RESET"))
+        waitForSdkToBeReady()
     }
 
     //TODO FIND A WAY TO CHECK WITHOUT THE ID HARD SET
@@ -59,9 +58,6 @@ class UIGettersParamsTest: BaseUITest() {
 
     @Test
     fun test_GetUserConsentStatusForPurpose() {
-        // This test seems to be run first and it might be the case that it needs more time to let the device
-        // finish launching the app.
-        Thread.sleep(5_000L)
         agreeToAll()
 
         tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")

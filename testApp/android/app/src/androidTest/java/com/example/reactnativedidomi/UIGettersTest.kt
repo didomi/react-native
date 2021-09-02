@@ -19,12 +19,7 @@ class UIGettersTest: BaseUITest() {
 
     @Before
     fun init() {
-        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
-        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(6_000L)
-
-        // Make sure view is ready before starting test
-        waitForDisplayed(withText("RESET"))
+        waitForSdkToBeReady()
     }
 
     @Test
@@ -97,6 +92,8 @@ class UIGettersTest: BaseUITest() {
 
         val expected = "\"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {".trim()
 
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
         assertTextStartsWith(expected)
     }
 }

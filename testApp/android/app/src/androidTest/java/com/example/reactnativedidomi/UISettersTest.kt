@@ -19,19 +19,14 @@ import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
-class UISettersTest {
+class UISettersTest: BaseUITest() {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun init() {
-        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
-        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5000L)
-
-        // Make sure view is ready before starting test
-        waitForDisplayed(withText("RESET"))
+        waitForSdkToBeReady()
     }
 
     @After
