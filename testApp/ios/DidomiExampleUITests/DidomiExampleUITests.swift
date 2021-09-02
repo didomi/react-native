@@ -8,6 +8,9 @@
 import XCTest
 
 class DidomiExampleUITests: XCTestCase {
+    
+  let allPurposeIDs = "cookies,create_ads_profile,geolocation_data,select_personalized_ads"
+  let allVendorIDs = "28,google"
   
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -15,12 +18,6 @@ class DidomiExampleUITests: XCTestCase {
     app.launchArguments.append("--UITests")
     // In UI tests it is usually best to stop immediately when a failure occurs.
     continueAfterFailure = false
-    
-    // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-  }
-  
-  override func tearDownWithError() throws {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
   
   private func waitUntilElementExists(element: XCUIElement, timeout: TimeInterval) {
@@ -34,14 +31,6 @@ class DidomiExampleUITests: XCTestCase {
     }
   }
   
-  private func testMethodCall(app: XCUIApplication,name: String) {
-    app.buttons[name].tap()
-    let resultLabel = app.staticTexts[name + "-OK"]
-    let exists = NSPredicate(format: "exists == 1")
-    expectation(for: exists, evaluatedWith: resultLabel, handler: nil)
-    waitForExpectations(timeout: 7, handler: nil)
-  }
-  
   private func testLastEvent(app: XCUIApplication, name: String) {
     let event = app.staticTexts["LAST RECEIVED EVENT: " + name]
     let exists = NSPredicate(format: "exists == 1")
@@ -51,7 +40,7 @@ class DidomiExampleUITests: XCTestCase {
   
   func testAOnReadyEvent() throws {
     
-    // Restart the app to make shure last event is "on ready"
+    // Restart the app to make sure last event is "on ready"
     let app = XCUIApplication()
     app.terminate()
     app.activate()
@@ -62,12 +51,15 @@ class DidomiExampleUITests: XCTestCase {
   
   func testReset() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "reset")
+    
+    tapButton(in: app, name: "reset")
+    assertResult(in: app, name: "reset", expected: "reset-OK")
   }
   
   func testSetupUI() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "setupUI")
+    tapButton(in: app, name: "setupUI")
+    assertResult(in: app, name: "setupUI", expected: "setupUI-OK")
     
     // Check opening of notice
     let noticeButton = app.staticTexts["Agree & Close"]
@@ -84,23 +76,19 @@ class DidomiExampleUITests: XCTestCase {
   
   func testSetLogLevel() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "setLogLevel")
+    
+    tapButton(in: app, name: "setLogLevel")
+    assertResult(in: app, name: "setLogLevel", expected: "setLogLevel-OK")
   }
-  
-//  func testUpdateSelectedLanguage() throws {
-//    let app = XCUIApplication()
-//    testMethodCall(app: app, name: "updateSelectedLanguage")
-//  }
   
   func testShowNotice() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "showNotice")
+    tapButton(in: app, name: "showNotice")
+    assertResult(in: app, name: "showNotice", expected: "showNotice-OK")
     
     // Check opening of notice
     let noticeButton = app.staticTexts["Agree & Close"]
-    let exists = NSPredicate(format: "exists == 1")
-    expectation(for: exists, evaluatedWith: noticeButton, handler: nil)
-    waitForExpectations(timeout: 5, handler: nil)
+    noticeButton.wait()
     
     testLastEvent(app: app, name:"on_show_notice")
     
@@ -112,47 +100,16 @@ class DidomiExampleUITests: XCTestCase {
   
   func testHideNotice() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "hideNotice")
+    
+    tapButton(in: app, name: "hideNotice")
+    assertResult(in: app, name: "hideNotice", expected: "hideNotice-OK")
   }
-  
-//  func testShowPreferencesPurposes() throws {
-//    let app = XCUIApplication()
-//    testMethodCall(app: app, name: "showPreferences Purposes")
-//
-//    // Check opening of Purposes
-//    let noticeButton = app.staticTexts["Save"]
-//    let exists = NSPredicate(format: "exists == 1")
-//    expectation(for: exists, evaluatedWith: noticeButton, handler: nil)
-//    waitForExpectations(timeout: 5, handler: nil)
-//
-//    // Close notice
-//    noticeButton.tap()
-//
-//    testLastEvent(app: app, name:"on_hide_notice")
-//  }
-  
-//  func testShowPreferencesVendors() throws {
-//    let app = XCUIApplication()
-//    testMethodCall(app: app, name: "showPreferences Vendors")
-//
-//    // Check opening of Vendors
-//    let noticeButton = app.staticTexts["Save"]
-//    let closeButton = app.buttons.element(boundBy: 5)
-//    let text = app.staticTexts["Select partners"]
-//    let exists = NSPredicate(format: "exists == 1")
-//    expectation(for: exists, evaluatedWith: text, handler: nil)
-//    waitForExpectations(timeout: 5, handler: nil)
-//
-//    // Close notice
-//    closeButton.tap()
-//    noticeButton.tap()
-//
-//    testLastEvent(app: app, name:"on_hide_notice")
-//  }
   
   func testHidePreferences() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "hidePreferences")
+    
+    tapButton(in: app, name: "hidePreferences")
+    assertResult(in: app, name: "hidePreferences", expected: "hidePreferences-OK")
   }
   
   
@@ -160,112 +117,301 @@ class DidomiExampleUITests: XCTestCase {
   
   func testGetDisabledPurposes() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getDisabledPurposes")
+    
+    disagreeToAll(in: app)
+    
+    tapButton(in: app, name: "getDisabledPurposes")
+    assertResult(in: app, name: "getDisabledPurposes", expected: allPurposeIDs)
   }
   
   func testGetDisabledPurposeIds() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getDisabledPurposeIds")
+    
+    disagreeToAll(in: app)
+    
+    tapButton(in: app, name: "getDisabledPurposeIds")
+    assertResult(in: app, name: "getDisabledPurposeIds", expected: allPurposeIDs)
   }
   
   func testGetDisabledVendors() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getDisabledVendors")
+    
+    disagreeToAll(in: app)
+    
+    tapButton(in: app, name: "getDisabledVendors")
+    assertResult(in: app, name: "getDisabledVendors", expected: allVendorIDs)
   }
   
   func testGetDisabledVendorIds() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getDisabledVendorIds")
+    
+    disagreeToAll(in: app)
+    
+    tapButton(in: app, name: "getDisabledVendorIds")
+    assertResult(in: app, name: "getDisabledVendorIds", expected: allVendorIDs)
   }
   
   func testGetEnabledPurposes() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getDisabledVendorIds")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getEnabledPurposes")
+    assertResult(in: app, name: "getEnabledPurposes", expected: allPurposeIDs)
   }
   
   func testGetEnabledPurposeIds() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getDisabledVendorIds")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getEnabledPurposeIds")
+    assertResult(in: app, name: "getEnabledPurposeIds", expected: allPurposeIDs)
   }
   
   func testGetEnabledVendors() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getEnabledVendors")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getEnabledVendors")
+    assertResult(in: app, name: "getEnabledVendors", expected: allVendorIDs)
   }
   
-  func testGetenabledVendorIds() throws {
+  func testGetEnabledVendorIds() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getEnabledVendorIds")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getEnabledVendorIds")
+    assertResult(in: app, name: "getEnabledVendorIds", expected: allVendorIDs)
   }
   
+  func testGetJavaScriptForWebView() throws {
+    let app = XCUIApplication()
+    
+    resetUserStatus(in: app)
+    
+    let expected = """
+    \"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {
+    Didomi.notice.hide();Didomi.setUserStatus({"purposes":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
+    []}},"vendors":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
+    []}},"user_id":"","created":"","updated":"","source":{"type":"app","domain":"io.didomi.reactnativeapp"},"action":"webview"});});\"
+    """.removeNewLinesAndTrailingSpaces()
+    
+    tapButton(in: app, name: "getJavaScriptForWebView")
+    
+    let staticText = app.staticTexts["getJavaScriptForWebView-result"]
+    staticText.wait()
+    
+    let actual = staticText.label.removeJSONProperties(["updated", "created", "user_id"])
+    
+    XCTAssertEqual(actual, expected)
+  }
+  
+  func testGetQueryStringForWebView() throws {
+    let app = XCUIApplication()
+        
+    resetUserStatus(in: app)
+    
+    let expected = "\"didomiConfig.user.externalConsent.value".removeNewLinesAndTrailingSpaces()
+    
+    tapButton(in: app, name: "getQueryStringForWebView")
+    
+    let staticText = app.staticTexts["getQueryStringForWebView-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    // The text might change every time we call the getQueryStringForWebView method
+    // so we'll only assert the beginning of the resulting string.
+    let actualPrefix = String(actual.prefix(40))
+    
+    XCTAssertEqual(actualPrefix, expected)
+  }
   
   // MARK: GETTERS WITH PARAMS
   
   func testGetPurposeWithId() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getPurpose [ID = 'analytics']")
+        
+    tapButton(in: app, name: "getPurpose [ID = 'cookies']")
+    
+    let staticText = app.staticTexts["getPurpose [ID = 'cookies']-result"]
+    staticText.wait()
+    
+    let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
+    let actual = decodePurpose(actualRaw)
+    
+    let expected = PurposeData(id: "cookies", name: "purpose_1_name", iabId: "1", description: "purpose_1_description")
+    assertEqual(actual, expected)
   }
   
   func testGetText() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getText [Key = '0']")
+    
+    tapButton(in: app, name: "getText [Key = '0']")
+    assertResult(in: app, name: "getText [Key = '0']", expected: "")
   }
   
   func testGetTranslatedText() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getTranslatedText [Key = '0']")
+    
+    tapButton(in: app, name: "getTranslatedText [Key = '0']")
+    assertResult(in: app, name: "getTranslatedText [Key = '0']", expected: "\"0\"")
   }
   
   func testGetUserConsentStatusForPurpose() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserConsentStatusForPurpose [ID = 'analytics']")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']")
+    assertResult(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']", expected: "true")
   }
   
   func testGetUserConsentStatusForVendor() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserConsentStatusForVendor [ID = '0']")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '755']")
+    assertResult(in: app, name: "getUserConsentStatusForVendor [ID = '755']", expected: "true")
   }
   
   func testGetUserStatusForVendor() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserStatusForVendor [ID = '0']")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getUserStatusForVendor [ID = '755']")
+    assertResult(in: app, name: "getUserStatusForVendor [ID = '755']", expected: "true")
   }
   
   func testGetUserConsentStatusForVendorAndRequiredPurpose() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']")
+    
+    agreeToAll(in: app)
+    
+    tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
+    assertResult(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']", expected: "true")
   }
   
   func testGetUserLegitimateInterestStatusForPurpose() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'analytics']")
+    
+    resetUserStatus(in: app)
+    
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']", expected: "true")
   }
   
   func testGetUserLegitimateInterestStatusForVendor() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserLegitimateInterestStatusForVendor [ID = '1']")
+    
+    resetUserStatus(in: app)
+    
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '755']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '755']", expected: "true")
+  }
+  
+  func testGetJavaScriptForWebViewWithExtra() throws {
+    let app = XCUIApplication()
+    
+    resetUserStatus(in: app)
+    
+    let expected = """
+    \"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {
+    Didomi.notice.hide();Didomi.setUserStatus({"purposes":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
+    []}},"vendors":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
+    []}},"user_id":"","created":"","updated":"","source":{"type":"app","domain":"io.didomi.reactnativeapp"},"action":"webview"});
+    console.log('extra JS!');});\"
+    """.removeNewLinesAndTrailingSpaces()
+    
+    tapButton(in: app, name: "getJavaScriptForWebViewWithExtra")
+    
+    let staticText = app.staticTexts["getJavaScriptForWebViewWithExtra-result"]
+    staticText.wait()
+    
+    let actual = staticText.label.removeJSONProperties(["updated", "created", "user_id"])
+    
+    XCTAssertEqual(actual, expected)
   }
   
   func testGetUserLegitimateInterestStatusForVendorAndRequiredPurposes() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '1']")
+    
+    resetUserStatus(in: app)
+    
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']", expected: "true")
   }
-  
   
   // MARK: SETTERS
   
   func testSetUserStatusSets() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "setUserStatusSets")
+    
+    tapButton(in: app, name: "setUserStatusSets")
+    assertResult(in: app, name: "setUserStatusSets", expected: "setUserStatusSets-OK")
   }
   
   func testSetUserAgreeToAll() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "setUserAgreeToAll")
+    
+    tapButton(in: app, name: "setUserAgreeToAll")
+    assertResult(in: app, name: "setUserAgreeToAll", expected: "setUserAgreeToAll-OK")
   }
   
   func testSetUserDisagreeToAll() throws {
     let app = XCUIApplication()
-    testMethodCall(app: app, name: "setUserDisagreeToAll")
+    
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
+  }
+}
+
+
+// Utility methods
+extension DidomiExampleUITests {
+  private func disagreeToAll(in app: XCUIApplication) {
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
+  }
+  
+  private func agreeToAll(in app: XCUIApplication) {
+    tapButton(in: app, name: "setUserAgreeToAll")
+    assertResult(in: app, name: "setUserAgreeToAll", expected: "setUserAgreeToAll-OK")
+  }
+  
+  private func resetUserStatus(in app: XCUIApplication) {
+    tapButton(in: app, name: "reset")
+    assertResult(in: app, name: "reset", expected: "reset-OK")
+  }
+  
+  private func tapButton(in app: XCUIApplication, name: String) {
+    let button = app.buttons[name]
+    button.waitAndTap()
+  }
+  
+  private func assertResult(in app: XCUIApplication, name: String, expected expectedRaw: String) {
+    let staticText = app.staticTexts[name + "-result"]
+    staticText.wait()
+    
+    let actual = staticText.label.removeNewLinesAndTrailingSpaces()
+    let expected = expectedRaw.removeNewLinesAndTrailingSpaces()
+    XCTAssertEqual(actual, expected)
+  }
+  
+  func decodePurpose(_ string: String) -> PurposeData {
+    let data = string.data(using: .utf8)
+    let jsonDecoder = JSONDecoder()
+    return try! jsonDecoder.decode(PurposeData.self, from: data!)
+  }
+  
+  func assertEqual(_ purpose1: PurposeData, _ purpose2: PurposeData) {
+    XCTAssertEqual(purpose1.name, purpose2.name)
+    XCTAssertEqual(purpose1.id, purpose2.id)
+    XCTAssertEqual(purpose1.iabId, purpose2.iabId)
+    XCTAssertEqual(purpose1.description, purpose2.description)
   }
 }

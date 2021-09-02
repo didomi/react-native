@@ -19,6 +19,9 @@
 		5782FC4E2668DAA9009F822D /* DidomiExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782FC4D2668DAA9009F822D /* DidomiExampleUITests.swift */; };
 		57881F082680777B0021B71C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		F644BBBA26C5810C004EBE16 /* PurposeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F644BBB926C5810C004EBE16 /* PurposeData.swift */; };
+		F6CEE2E326C3CB4200FB6F6D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CEE2E226C3CB4200FB6F6D /* String.swift */; };
+		F6CEE2E526C42B8100FB6F6D /* XCUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CEE2E426C42B8100FB6F6D /* XCUIElement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +70,9 @@
 		E00ACF0FDA8BF921659E2F9A /* Pods-DidomiExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DidomiExample.release.xcconfig"; path = "Target Support Files/Pods-DidomiExample/Pods-DidomiExample.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		F644BBB926C5810C004EBE16 /* PurposeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeData.swift; sourceTree = "<group>"; };
+		F6CEE2E226C3CB4200FB6F6D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		F6CEE2E426C42B8100FB6F6D /* XCUIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,8 @@
 		5782FC4C2668DAA9009F822D /* DidomiExampleUITests */ = {
 			isa = PBXGroup;
 			children = (
+				F644BBB826C580F9004EBE16 /* models */,
+				F6CEE2E126C3CB3400FB6F6D /* extensions */,
 				5782FC4D2668DAA9009F822D /* DidomiExampleUITests.swift */,
 				5782FC4F2668DAA9009F822D /* Info.plist */,
 			);
@@ -185,6 +193,23 @@
 				5782FC4B2668DAA9009F822D /* DidomiExampleUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F644BBB826C580F9004EBE16 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				F644BBB926C5810C004EBE16 /* PurposeData.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		F6CEE2E126C3CB3400FB6F6D /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F6CEE2E226C3CB4200FB6F6D /* String.swift */,
+				F6CEE2E426C42B8100FB6F6D /* XCUIElement.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,6 +575,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F644BBBA26C5810C004EBE16 /* PurposeData.swift in Sources */,
+				F6CEE2E326C3CB4200FB6F6D /* String.swift in Sources */,
+				F6CEE2E526C42B8100FB6F6D /* XCUIElement.swift in Sources */,
 				5782FC4E2668DAA9009F822D /* DidomiExampleUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -794,6 +822,10 @@
 				INFOPLIST_FILE = DidomiExampleUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.2/$(PLATFORM_NAME)\"",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = didomi.DidomiExampleUITests;
@@ -825,6 +857,10 @@
 				INFOPLIST_FILE = DidomiExampleUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.2/$(PLATFORM_NAME)\"",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = didomi.DidomiExampleUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

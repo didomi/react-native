@@ -1,14 +1,13 @@
 {
     "app": {
-        "name": "Didomi Example App",
+        "name": "Didomi Test App",
         "privacyPolicyURL": "http://www.website.com/privacy",
         "vendors": {
-            "didomi": [
-                "google", "amazon", "facebook", "twitter"
-            ],
             "iab": {
                 "version": 2,
-                "all": true
+                "include": [28,755],
+                "all": false,
+                "enabled": true
             }
         },
         "gdprAppliesGlobally": true,
@@ -16,7 +15,7 @@
         "country" : "fr"
     },
     "languages": {
-      "enabled": ["fr", "en", "es"],
-      "default": "fr"
+        "enabled": ["fr", "en", "es"],
+        "default": "en"
     }
 }

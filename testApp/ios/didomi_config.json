@@ -4,7 +4,10 @@
         "privacyPolicyURL": "http://www.website.com/privacy",
         "vendors": {
             "iab": {
-                "all": true
+              "version": 2,
+              "include": [28,755],
+              "all": false,
+              "enabled": true
             }
         },
         "gdprAppliesGlobally": true,

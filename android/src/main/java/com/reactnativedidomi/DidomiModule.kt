@@ -353,9 +353,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun getJavaScriptForWebView(promise: Promise) {
+    fun getJavaScriptForWebView(extra: String?, promise: Promise) {
         try {
-            promise.resolve(Didomi.getInstance().javaScriptForWebView)
+            extra?.let {
+                promise.resolve(Didomi.getInstance().getJavaScriptForWebView(extra))
+            } ?: run {
+                promise.resolve(Didomi.getInstance().getJavaScriptForWebView())
+            }
+
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

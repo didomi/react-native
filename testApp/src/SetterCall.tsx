@@ -26,7 +26,6 @@ export default function Setter(props: SetterCallProps) {
           {props.name + '-' + (props.test(result) ? 'OK' : 'KO')}
         </Text>
       )}
-      {result && <Text style={styles.result}>{JSON.stringify(result)}</Text>}
     </View>
   );
 }
