@@ -1,10 +1,5 @@
 package com.example.reactnativedidomi
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
-import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -12,75 +7,104 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
-import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
-class UIGettersTest {
+class UIGettersTest: BaseUITest() {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun init() {
-        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
-        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5000L)
-
-        // Make sure view is ready before starting test
-        waitForDisplayed(withText("RESET"))
-    }
-
-    @After
-    fun tearDown() {
-    }
-
-    private fun testMethodCall(method: String, needToScroll: Boolean) {
-        onView(withText(method.toUpperCase())).perform(scrollTo(), click())
-
-        if (needToScroll)
-            onView(withText(method.toUpperCase())).perform(ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp(), ViewActions.swipeUp())
-        waitForDisplayed(withText("$method-OK"))
+        waitForSdkToBeReady()
     }
 
     @Test
     fun test_GetDisabledPurposes() {
-        testMethodCall("getDisabledPurposes", true)
+        disagreeToAll()
+
+        tapButton("getDisabledPurposes")
+        assertText(ALL_PURPOSE_IDS)
     }
 
     @Test
     fun test_GetDisabledPurposeIds() {
-        testMethodCall("getDisabledPurposeIds", true)
+        disagreeToAll()
+
+        tapButton("getDisabledPurposeIds")
+        assertText(ALL_PURPOSE_IDS)
     }
 
     @Test
     fun test_GetDisabledVendors() {
-        testMethodCall("getDisabledVendors", true)
+        disagreeToAll()
+
+        tapButton("getDisabledVendors")
+        assertText(ALL_VENDOR_IDS)
     }
 
     @Test
     fun test_GetDisabledVendorIds() {
-        testMethodCall("getDisabledVendorIds", true)
+        disagreeToAll()
+
+        tapButton("getDisabledVendorIds")
+        assertText(ALL_VENDOR_IDS)
     }
 
     @Test
     fun test_GetEnabledPurposes() {
-        testMethodCall("getEnabledPurposes", true)
+        agreeToAll()
+
+        tapButton("getEnabledPurposes")
+        assertText(ALL_PURPOSE_IDS)
     }
 
     @Test
     fun test_GetEnabledPurposeIds() {
-        testMethodCall("getEnabledPurposeIds", true)
+        agreeToAll()
+
+        tapButton("getEnabledPurposeIds")
+        assertText(ALL_PURPOSE_IDS)
     }
 
     @Test
     fun test_GetEnabledVendors() {
-        testMethodCall("getEnabledVendors", true)
+        agreeToAll()
+
+        tapButton("getEnabledVendors")
+        assertText(ALL_VENDOR_IDS)
     }
 
     @Test
     fun test_GetEnabledVendorIds() {
-        testMethodCall("getEnabledVendorIds", true)
+        agreeToAll()
+
+        tapButton("getEnabledVendorIds")
+        assertText(ALL_VENDOR_IDS)
+    }
+
+    @Test
+    fun test_GetJavaScriptForWebView() {
+        tapButton("getJavaScriptForWebView")
+
+        // Asserting the whole string can be tricky so we just assert the beginning of it.
+        val expected = "\"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {".trim()
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+        assertTextStartsWith(expected)
+    }
+
+    @Test
+    fun test_GetQueryStringForWebView() {
+        tapButton("getQueryStringForWebView")
+
+        // Asserting the whole string can be tricky so we just assert the beginning of it.
+        val expected = "\"didomiConfig.user.externalConsent.value".trim()
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+        assertTextStartsWith(expected)
     }
 }

@@ -13,6 +13,8 @@ function App() {
     name: 'NONE',
   });
 
+  const [sdkStatus, setSdkStatus] = useState("NOT_READY");
+
   const registerListener = (eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
       setReceivedEvent({ name: eventType, data });
@@ -80,6 +82,10 @@ function App() {
         undefined
       );
       console.log('Finished init');
+
+      Didomi.onReady().then(() => {
+        setSdkStatus("READY");
+      });
     }
     init();
   }, []);
@@ -87,6 +93,9 @@ function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.title}>
+        <Text style={styles.title}>
+          SDK STATUS: {sdkStatus}
+        </Text>
         <Text style={styles.title}>
           LAST RECEIVED EVENT: {receivedEvent.name}
           {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
