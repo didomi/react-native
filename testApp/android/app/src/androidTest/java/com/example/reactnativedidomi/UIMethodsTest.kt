@@ -12,7 +12,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
-import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
