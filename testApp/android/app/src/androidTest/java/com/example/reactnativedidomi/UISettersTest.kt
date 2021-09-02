@@ -29,10 +29,6 @@ class UISettersTest: BaseUITest() {
         waitForSdkToBeReady()
     }
 
-    @After
-    fun tearDown() {
-    }
-
     private fun testMethodCall(method: String, needToScroll: Boolean) {
         Log.d("Didomi Test", "Testing $method")
         try {
