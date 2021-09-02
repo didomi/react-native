@@ -88,7 +88,20 @@ class UIGettersTest: BaseUITest() {
     fun test_GetJavaScriptForWebView() {
         tapButton("getJavaScriptForWebView")
 
+        // Asserting the whole string can be tricky so we just assert the beginning of it.
         val expected = "\"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {".trim()
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+        assertTextStartsWith(expected)
+    }
+
+    @Test
+    fun test_GetQueryStringForWebView() {
+        tapButton("getQueryStringForWebView")
+
+        // Asserting the whole string can be tricky so we just assert the beginning of it.
+        val expected = "\"didomiConfig.user.externalConsent.value".trim()
 
         // There might be a delay to get this string.
         Thread.sleep(1_000L)

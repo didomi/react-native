@@ -81,4 +81,16 @@ class UIGettersParamsTest: BaseUITest() {
         tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
         assertText("true")
     }
+
+    @Test
+    fun test_GetJavaScriptForWebViewWithExtra() {
+        tapButton("getJavaScriptForWebViewWithExtra")
+
+        // Asserting the whole string can be tricky so we just assert the end of it.
+        val expected = "console.log('extra JS!');});\"".trim()
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+        assertTextEndsWith(expected)
+    }
 }

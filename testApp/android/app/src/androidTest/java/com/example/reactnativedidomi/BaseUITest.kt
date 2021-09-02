@@ -6,6 +6,7 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
+import org.hamcrest.CoreMatchers.endsWith
 import org.hamcrest.CoreMatchers.startsWith
 
 /**
@@ -50,6 +51,11 @@ open class BaseUITest {
 
     protected fun assertTextStartsWith(text: String) {
         val matcher = withText(startsWith(text))
+        onView(matcher).perform(ScrollToAction())
+    }
+
+    protected fun assertTextEndsWith(text: String) {
+        val matcher = withText(endsWith(text))
         onView(matcher).perform(ScrollToAction())
     }
 
