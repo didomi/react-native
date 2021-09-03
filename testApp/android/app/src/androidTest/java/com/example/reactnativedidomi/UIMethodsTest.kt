@@ -65,7 +65,7 @@ class UIMethodsTest: BaseUITest() {
         // Close notice
         agreeButton.perform(click())
 
-        testLastEvent("on_notice_click_agree")
+        testLastEvent("on_hide_notice")
         waitForDisplayed(withText("setupUI-OK"))
 
     }
