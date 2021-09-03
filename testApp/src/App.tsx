@@ -7,6 +7,7 @@ import Getters from './Getters';
 import GettersParams from './GettersParams';
 import Setters from './Setters';
 import { TestEvent } from './Types';
+import { DidomiListener } from '../../src/DidomiListener';
 
 function App() {
   const [receivedEvent, setReceivedEvent] = useState<TestEvent>({
@@ -22,7 +23,18 @@ function App() {
     });
   };
 
+  // For some reason listeners added in Didomi.initialize against the NativeEventEmitter are kept between test runs.
+  // This is not the same as the listeners added by app devs.
+  // In order to make tests run smoother locally, we remove them each time.
+  // In theory this shouldn't be an issue on a regular app.
+  const removeAllNativeListeners = () => {
+    Object.values(DidomiEventType).forEach((eventTypeValue) => {
+      DidomiListener.eventEmitter.removeAllListeners(eventTypeValue);
+    });
+  };
+
   React.useEffect(() => {
+    removeAllNativeListeners();
     Didomi.removeAllEventListeners();
 
     registerListener(DidomiEventType.CONSENT_CHANGED);
