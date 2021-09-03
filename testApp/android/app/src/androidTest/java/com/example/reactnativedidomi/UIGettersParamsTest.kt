@@ -1,8 +1,5 @@
 package com.example.reactnativedidomi
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -10,71 +7,90 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
-import org.junit.After
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 @LargeTest
-class UIGettersParamsTest {
+class UIGettersParamsTest: BaseUITest() {
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity> = ActivityScenarioRule(MainActivity::class.java)
 
     @Before
     fun init() {
-        // EVENT ON_READY NOT SENT ON SUCCESSIVE TESTS,
-        // HAVE TO WAIT TO BE SURE THAT THE SDK IS READY
-        Thread.sleep(5000L)
-
-        // Make sure view is ready before starting test
-        waitForDisplayed(withText("RESET"))
-    }
-
-    @After
-    fun tearDown() {
-    }
-
-    private fun testMethodCall(method: String, needToScroll: Boolean) {
-        onView(withText(method.toUpperCase())).perform(scrollTo(), click())
-
-        if (needToScroll)
-            onView(withText(method.toUpperCase())).perform(swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp(), swipeUp())
-        waitForDisplayed(withText("$method-OK"))
+        waitForSdkToBeReady()
     }
 
     //TODO FIND A WAY TO CHECK WITHOUT THE ID HARD SET
     @Test
     fun test_GetPurpose() {
-        testMethodCall("getPurpose [ID = 'analytics']", true)
+        // This assertion might be fragile if Android doesn't always keep the same order for the properties.
+        val expected = """
+            {
+            "descriptionLegal":"purpose_1_description_legal",
+            "iabId":"1",
+            "description":"purpose_1_description",
+            "name":"purpose_1_name",
+            "id":"cookies"
+            }
+        """.trimIndent().replace("\n","")
+
+        tapButton("getPurpose [ID = 'cookies']")
+        assertText(expected)
     }
 
     @Test
     fun test_GetText() {
-        testMethodCall("getText [Key = '0']", true)
+        tapButton("getText [Key = '0']")
+        assertText("{}")
     }
 
     @Test
     fun test_GetTranslatedText() {
-        testMethodCall("getTranslatedText [Key = '0']", true)
+        tapButton("getTranslatedText [Key = '0']")
+        assertText("\"0\"")
     }
 
     @Test
     fun test_GetUserConsentStatusForPurpose() {
-        testMethodCall("getUserConsentStatusForPurpose [ID = 'analytics']", true)
+        agreeToAll()
+
+        tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")
+        assertText("true")
     }
 
     @Test
     fun test_GetUserConsentStatusForVendor() {
-        testMethodCall("getUserConsentStatusForVendor [ID = '0']", true)
+        agreeToAll()
+
+        tapButton("getUserConsentStatusForVendor [ID = '755']")
+        assertText("true")
     }
 
     @Test
     fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
-        testMethodCall("getUserConsentStatusForVendorAndRequiredPurposes [ID = '1']", true)
+        agreeToAll()
+
+        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
+        assertText("true")
     }
 
     @Test
     fun test_GetEnabledVendors() {
-        testMethodCall("getUserLegitimateInterestStatusForPurpose [ID = 'analytics']", true)
+        agreeToAll()
+
+        tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
+        assertText("true")
+    }
+
+    @Test
+    fun test_GetJavaScriptForWebViewWithExtra() {
+        tapButton("getJavaScriptForWebViewWithExtra")
+
+        // Asserting the whole string can be tricky so we just assert the end of it.
+        val expected = "console.log('extra JS!');});\"".trim()
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+        assertTextEndsWith(expected)
     }
 }
