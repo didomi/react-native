@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Didomi, DidomiEventType } from '@didomi/react-native';
 import Methods from './Methods';
+import Getters from './Getters';
 import { TestEvent } from './Types';
 
 function App() {
@@ -87,7 +88,10 @@ function App() {
       </View>
       <ScrollView>
         <View style={styles.container}>
+          <Text style={styles.title}>METHODS</Text>
           <Methods />
+          <Text style={styles.title}>GETTERS</Text>
+          <Getters />
         </View>
       </ScrollView>
     </SafeAreaView>

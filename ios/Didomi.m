@@ -52,6 +52,9 @@ RCT_EXTERN_METHOD(getUserLegitimateInterestStatusForPurpose:(NSString *)purposeI
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getUserStatus:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getUserStatusForVendor:(NSString *)vendorId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)

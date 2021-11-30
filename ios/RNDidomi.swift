@@ -78,6 +78,13 @@ class RNDidomi: RCTEventEmitter {
         resolve(consentStatus.rawValue.consentStatusBool)
     }
     
+    @objc(getUserStatus:reject:)
+    func getUserStatus(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        let encoder = JSONEncoder()
+        let userStatus = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getUserStatus())) as? [String: Any]
+        resolve(userStatus)
+    }
+    
     @objc(getUserStatusForVendor:resolve:reject:)
     func getUserStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let userStatus = Didomi.shared.getUserStatusForVendor(vendorId: vendorId)

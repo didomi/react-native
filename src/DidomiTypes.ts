@@ -74,3 +74,33 @@ export interface Map<T> {
   [index: string]: T;
   [index: number]: T;
 }
+
+export interface UserStatus {
+  purposes: UserStatusPurposes;
+  vendors: UserStatusVendors;
+  userId: string;
+  created: string;
+  updated: string;
+  consentString: string;
+  additionalConsent: string;
+}
+
+export interface UserStatusPurposes {
+  global: UserStatusIds;
+  consent: UserStatusIds;
+  legitimateInterest: UserStatusIds;
+  essential: UserStatusIds;
+}
+
+export interface UserStatusVendors {
+  global: UserStatusIds;
+  globalConsent: UserStatusIds;
+  globalLegitimateInterest: UserStatusIds;
+  consent: UserStatusIds;
+  legitimateInterest: UserStatusIds;
+}
+
+export interface UserStatusIds {
+  disabled: string[];
+  enabled: string[];
+}

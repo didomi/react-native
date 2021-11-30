@@ -500,6 +500,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun getUserStatus(promise: Promise) {
+        try {
+            promise.resolve(objectToWritableMap(Didomi.getInstance().getUserStatus()))
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun getUserStatusForVendor(vendorId: String, promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().getUserStatusForVendor(vendorId))

@@ -286,6 +286,12 @@ export const Didomi = {
     ),
 
   /**
+   *  Get the user consent status.
+   *  @returns: status that represents user consent.
+   */
+  getUserStatus: (): Promise<any> => RNDidomi.getUserStatus(),
+
+  /**
    *  Get the user consent and legitimate interest status for a specific vendor.
    *  @param vendorId: vendor ID.
    *  @returns: status that represents both consent and legitimate interest status of a vendor.
