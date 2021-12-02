@@ -234,7 +234,7 @@ export const Didomi = {
    *  @param purposeId: The purpose ID to check consent for
    *  @returns: The user consent status for the specified purpose
    *  @deprecated use {@link #getUserStatus()} instead. Search the purposeId in
-   *  getUserStatus().getPurposes().getGlobal().getEnabled() or
+     * getUserStatus().getPurposes().getConsent().getEnabled() or
    *  getUserStatus().getPurposes().getConsent().getDisabled().
    */
   getUserConsentStatusForPurpose: (purposeId: string): Promise<boolean> =>
@@ -245,7 +245,7 @@ export const Didomi = {
    *  @param vendorId: The vendor ID to check consent for
    *  @returns: The user consent status for the specified vendor
    *  @deprecated use {@link #getUserStatus()} instead. Search the vendorId in
-   *  getUserStatus().getVendors().getGlobalConsent().getEnabled() or
+   *  getUserStatus().getVendors().getConsent().getEnabled() or
    *  getUserStatus().getVendors().getConsent().getDisabled().
    */
   getUserConsentStatusForVendor: (vendorId: string): Promise<boolean> =>
@@ -269,7 +269,7 @@ export const Didomi = {
    *  @param purposeId: purpose ID.
    *  @returns: LI status of a purpose.
    *  @deprecated use {@link #getUserStatus()} instead. Search the purposeId in
-   *  getUserStatus().getPurposes().getGlobal().getEnabled() or
+   *  getUserStatus().getPurposes().getLegitimateInterest().getEnabled() or
    *  getUserStatus().getPurposes().getLegitimateInterest().getDisabled().
    */
   getUserLegitimateInterestStatusForPurpose: (
@@ -282,7 +282,7 @@ export const Didomi = {
    *  @param vendorId: vendor ID.
    *  @returns: LI status of a vendor.
    *  @deprecated use {@link #getUserStatus()} instead. Search the vendorId in
-   *  getUserStatus().getVendors().getGlobalLegitimateInterest().getEnabled() or
+   *  getUserStatus().getVendors().getLegitimateInterest().getEnabled() or
    *  getUserStatus().getVendors().getLegitimateInterest().getDisabled().
    */
   getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> =>
