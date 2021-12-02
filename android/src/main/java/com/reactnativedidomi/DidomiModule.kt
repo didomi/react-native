@@ -71,6 +71,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         override fun noticeClickPrivacyPolicy(event: NoticeClickPrivacyPolicyEvent) = prepareEvent(EventTypes.NOTICE_CLICK_PRIVACY_POLICY.event, null)
 
         /**
+         * The preferences is being hidden
+         */
+        override fun hidePreferences(event: HidePreferencesEvent) = prepareEvent(EventTypes.HIDE_PREFERENCES.event, null)
+
+        /**
+         * The preferences is being shown
+         */
+        override fun showPreferences(event: ShowPreferencesEvent) = prepareEvent(EventTypes.SHOW_PREFERNCES.event, null)
+
+        /**
          * Click on agree to all on preferences popup
          */
         override fun preferencesClickAgreeToAll(event: PreferencesClickAgreeToAllEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL.event, null)
