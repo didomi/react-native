@@ -78,7 +78,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         /**
          * The preferences is being shown
          */
-        override fun showPreferences(event: ShowPreferencesEvent) = prepareEvent(EventTypes.SHOW_PREFERNCES.event, null)
+        override fun showPreferences(event: ShowPreferencesEvent) = prepareEvent(EventTypes.SHOW_PREFERENCES.event, null)
 
         /**
          * Click on agree to all on preferences popup

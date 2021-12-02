@@ -23,21 +23,24 @@ function App() {
 
     registerListener(DidomiEventType.CONSENT_CHANGED);
     registerListener(DidomiEventType.ERROR);
+    registerListener(DidomiEventType.READY);
+    registerListener(DidomiEventType.SYNC_DONE);
     registerListener(DidomiEventType.HIDE_NOTICE);
+    registerListener(DidomiEventType.SHOW_NOTICE);
     registerListener(DidomiEventType.NOTICE_CLICK_AGREE);
     registerListener(DidomiEventType.NOTICE_CLICK_DISAGREE);
     registerListener(DidomiEventType.NOTICE_CLICK_MORE_INFO);
     registerListener(DidomiEventType.NOTICE_CLICK_PRIVACY_POLICY);
     registerListener(DidomiEventType.NOTICE_CLICK_VIEW_VENDORS);
+    registerListener(DidomiEventType.HIDE_PREFERENCES);
+    registerListener(DidomiEventType.SHOW_PREFERENCES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_AGREE_TO_ALL);
     registerListener(DidomiEventType.PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS);
     registerListener(DidomiEventType.PREFERENCES_CLICK_CATEGORY_AGREE);
     registerListener(DidomiEventType.PREFERENCES_CLICK_CATEGORY_DISAGREE);
     registerListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL);
-    registerListener(
-      DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES
-    );
+    registerListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS);
     registerListener(DidomiEventType.PREFERENCES_CLICK_PURPOSE_AGREE);
     registerListener(DidomiEventType.PREFERENCES_CLICK_PURPOSE_DISAGREE);
@@ -48,9 +51,6 @@ function App() {
     registerListener(DidomiEventType.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_VIEW_PURPOSES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_VIEW_VENDORS);
-    registerListener(DidomiEventType.READY);
-    registerListener(DidomiEventType.SHOW_NOTICE);
-    registerListener(DidomiEventType.SYNC_DONE);
 
     Didomi.onReady().then(() => {
       console.log('ready');
