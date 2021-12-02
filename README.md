@@ -54,7 +54,7 @@ Didomi.addEventListener(DidomiEventType.SHOW_NOTICE, () => {
 
 ```
 
-For a complete overview of available methods and events, have a look at the [online documentation](https://developers.didomi.io/cmp/react-native).
+For a complete overview of available methods and events, have a look at the [online documentation](https://developers.didomi.io/cmp/mobile-sdk/react-native).
 
 ## Configuration with local file
 
