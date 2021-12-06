@@ -23,19 +23,15 @@ class UIGettersParamsTest: BaseUITest() {
     //TODO FIND A WAY TO CHECK WITHOUT THE ID HARD SET
     @Test
     fun test_GetPurpose() {
-        // This assertion might be fragile if Android doesn't always keep the same order for the properties.
-        val expected = """
-            {
-            "descriptionLegal":"purpose_1_description_legal",
-            "iabId":"1",
-            "description":"purpose_1_description",
-            "name":"purpose_1_name",
-            "id":"cookies"
-            }
-        """.trimIndent().replace("\n","")
 
         tapButton("getPurpose [ID = 'cookies']")
-        assertText(expected)
+
+        // Android doesn't always keep the same order for the properties.
+        assertTextContains("\"descriptionLegal\":\"purpose_1_description_legal\"")
+        assertTextContains("\"iabId\":\"1\"")
+        assertTextContains("\"description\":\"purpose_1_description\"")
+        assertTextContains("\"name\":\"purpose_1_name\"")
+        assertTextContains("\"id\":\"cookies\"")
     }
 
     @Test

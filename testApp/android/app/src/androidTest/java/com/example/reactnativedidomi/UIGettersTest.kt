@@ -113,10 +113,19 @@ class UIGettersTest: BaseUITest() {
         tapButton("getUserStatus")
 
         // Asserting the whole string can be tricky so we just assert the beginning of it.
-        val expected = "{\"addtl_consent\":\"\",\"consent_string\":\"\",\"user_id\":".trim()
+        val expected1 = "\"addtl_consent\":\"\"".trim()
+        val expected2 = "\"consent_string\":\"\"".trim()
+        val expected3 = "\"user_id\":".trim()
+        val expected4 = "\"vendors\":\"{".trim()
+        val expected5 = "\"purposes\":\"{".trim()
 
         // There might be a delay to get this string.
         Thread.sleep(1_000L)
-        assertTextStartsWith(expected)
+
+        assertTextContains(expected1)
+        assertTextContains(expected2)
+        assertTextContains(expected3)
+        assertTextContains(expected4)
+        assertTextContains(expected5)
     }
 }
