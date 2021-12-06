@@ -110,7 +110,7 @@ jobs:
   
   ios:
     needs: js
-    runs-on: macos-latest
+    runs-on: macos-11
     defaults:
       run:
         working-directory: testApp
