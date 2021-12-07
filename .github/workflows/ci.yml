@@ -2,6 +2,10 @@ name: ci
 
 on: push
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   js:
     runs-on: ubuntu-latest
@@ -110,7 +114,7 @@ jobs:
   
   ios:
     needs: js
-    runs-on: macos-10.15
+    runs-on: macos-11
     defaults:
       run:
         working-directory: testApp
@@ -148,5 +152,5 @@ jobs:
         -workspace DidomiExample.xcworkspace \
         -scheme DidomiExample \
         -sdk iphonesimulator \
-        -destination "platform=iOS Simulator,name=iPhone 11,OS=14.4" \
+        -destination "platform=iOS Simulator,name=iPhone 11,OS=15.0" \
         clean test

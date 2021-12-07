@@ -78,6 +78,13 @@ class RNDidomi: RCTEventEmitter {
         resolve(consentStatus.rawValue.consentStatusBool)
     }
     
+    @objc(getUserStatus:reject:)
+    func getUserStatus(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+        let encoder = JSONEncoder()
+        let userStatus = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getUserStatus())) as? [String: Any]
+        resolve(userStatus)
+    }
+    
     @objc(getUserStatusForVendor:resolve:reject:)
     func getUserStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let userStatus = Didomi.shared.getUserStatusForVendor(vendorId: vendorId)
@@ -449,15 +456,17 @@ extension RNDidomi {
         return ["on_ready_callback",
                 "on_error_callback",
                 "on_consent_changed",
-                "on_hide_notice",
                 "on_ready",
                 "on_error",
+                "on_hide_notice",
                 "on_show_notice",
                 "on_notice_click_agree",
                 "on_notice_click_disagree",
                 "on_notice_click_more_info",
                 "on_notice_click_view_vendors",
                 "on_notice_click_privacy_policy",
+                "on_hide_preferences",
+                "on_show_preferences",
                 "on_preferences_click_agree_to_all",
                 "on_preferences_click_disagree_to_all",
                 "on_preferences_click_agree_to_all_purposes",
@@ -486,10 +495,6 @@ extension RNDidomi {
             self.sendEvent(withName: "on_consent_changed", body:"")
         }
         
-        didomiEventListener.onHideNotice = { event in
-            self.sendEvent(withName: "on_hide_notice", body: "")
-        }
-        
         didomiEventListener.onReady = { event in
             self.sendEvent(withName: "on_ready", body: "")
         }
@@ -500,6 +505,10 @@ extension RNDidomi {
         
         didomiEventListener.onShowNotice = { event in
             self.sendEvent(withName: "on_show_notice", body: "")
+        }
+        
+        didomiEventListener.onHideNotice = { event in
+            self.sendEvent(withName: "on_hide_notice", body: "")
         }
         
         didomiEventListener.onNoticeClickAgree = { event in
@@ -520,6 +529,14 @@ extension RNDidomi {
         
         didomiEventListener.onNoticeClickPrivacyPolicy = { event in
             self.sendEvent(withName: "on_notice_click_privacy_policy", body: "")
+        }
+        
+        didomiEventListener.onShowPreferences = { event in
+            self.sendEvent(withName: "on_show_preferences", body: "")
+        }
+        
+        didomiEventListener.onHidePreferences = { event in
+            self.sendEvent(withName: "on_hide_preferences", body: "")
         }
         
         didomiEventListener.onPreferencesClickAgreeToAll = { event in

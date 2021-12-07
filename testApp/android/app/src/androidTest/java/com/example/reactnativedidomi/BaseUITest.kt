@@ -3,6 +3,7 @@ package com.example.reactnativedidomi
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ScrollToAction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.example.reactnativedidomi.EspressoViewFinder.waitForDisplayed
 import org.hamcrest.CoreMatchers.endsWith
@@ -55,6 +56,11 @@ open class BaseUITest {
 
     protected fun assertTextEndsWith(text: String) {
         val matcher = withText(endsWith(text))
+        onView(matcher).perform(ScrollToAction())
+    }
+
+    protected fun assertTextContains(text: String) {
+        val matcher = withSubstring(text)
         onView(matcher).perform(ScrollToAction())
     }
 

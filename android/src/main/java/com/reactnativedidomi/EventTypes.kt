@@ -13,6 +13,8 @@ enum class EventTypes(val event: String) {
     NOTICE_CLICK_MORE_INFO("on_notice_click_more_info"),
     NOTICE_CLICK_VIEW_VENDORS("on_notice_click_view_vendors"),
     NOTICE_CLICK_PRIVACY_POLICY("on_notice_click_privacy_policy"),
+    HIDE_PREFERENCES("on_hide_preferences"),
+    SHOW_PREFERENCES("on_show_preferences"),
     PREFERENCES_CLICK_AGREE_TO_ALL("on_preferences_click_agree_to_all"),
     PREFERENCES_CLICK_DISAGREE_TO_ALL("on_preferences_click_disagree_to_all"),
     PREFERENCES_CLICK_PURPOSE_AGREE("on_preferences_click_purpose_agree"),

@@ -36,12 +36,12 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         override fun consentChanged(event: ConsentChangedEvent) = prepareEvent(EventTypes.CONSENT_CHANGED.event, null)
 
         /**
-         * The notice is being hidden
+         * The notice screen is being hidden
          */
         override fun hideNotice(event: HideNoticeEvent) = prepareEvent(EventTypes.HIDE_NOTICE.event, null)
 
         /**
-         * The notice is being shown
+         * The notice screen is being shown
          */
         override fun showNotice(event: ShowNoticeEvent) = prepareEvent(EventTypes.SHOW_NOTICE.event, null)
 
@@ -69,6 +69,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          * Click on privacy policy on the notice
          */
         override fun noticeClickPrivacyPolicy(event: NoticeClickPrivacyPolicyEvent) = prepareEvent(EventTypes.NOTICE_CLICK_PRIVACY_POLICY.event, null)
+
+        /**
+         * The preferences screen is being hidden
+         */
+        override fun hidePreferences(event: HidePreferencesEvent) = prepareEvent(EventTypes.HIDE_PREFERENCES.event, null)
+
+        /**
+         * The preferences screen is being shown
+         */
+        override fun showPreferences(event: ShowPreferencesEvent) = prepareEvent(EventTypes.SHOW_PREFERENCES.event, null)
 
         /**
          * Click on agree to all on preferences popup
@@ -494,6 +504,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: String, promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId))
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun getUserStatus(promise: Promise) {
+        try {
+            promise.resolve(objectToWritableMap(Didomi.getInstance().getUserStatus()))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

@@ -229,6 +229,28 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertEqual(actualPrefix, expected)
   }
   
+  func testGetUserStatus() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "getUserStatus")
+    
+    let staticText = app.staticTexts["getUserStatus-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    
+    // The text might change every time we call the getUserStatus method
+    // so we'll only assert the first level parameters of the resulting json string.
+    XCTAssertTrue(actual.contains("\"addtl_consent\":\"\""))
+    XCTAssertTrue(actual.contains("\"consent_string\":\"\""))
+    XCTAssertTrue(actual.contains("\"purposes\":{\"legitimate_interest\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"vendors\":{\"consent\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"user_id\":\""))
+    XCTAssertTrue(actual.contains("\"created\":\""))
+    XCTAssertTrue(actual.contains("\"updated\":\""))
+
+  }
+  
   // MARK: GETTERS WITH PARAMS
   
   func testGetPurposeWithId() throws {
