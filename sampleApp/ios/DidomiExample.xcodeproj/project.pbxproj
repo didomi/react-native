@@ -457,7 +457,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-DidomiExample/Pods-DidomiExample-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Didomi/Didomi.framework/Didomi",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Didomi-XCFramework/Didomi.framework/Didomi",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
