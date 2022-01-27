@@ -214,7 +214,7 @@ dependencies {
     }
 
     implementation project(":reactnativedidomi")
-    implementation "io.didomi.sdk:android:1.44.0"
+    implementation "io.didomi.sdk:android:1.54.0"
 
     implementation platform("com.google.firebase:firebase-bom:28.0.1")
 
