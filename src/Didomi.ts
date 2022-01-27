@@ -158,19 +158,16 @@ export const Didomi = {
    *  @param extra: Extra JavaScript to inject in the returned code
    *  @returns: JavaScript code to inject in a WebView
    */
-  getJavaScriptForWebView: (extra?: string | null): Promise<string> =>
-    RNDidomi.getJavaScriptForWebView(extra),
+  getJavaScriptForWebView: (extra?: string | null): Promise<string> => RNDidomi.getJavaScriptForWebView(extra),
 
-  getQueryStringForWebView: (): Promise<string> =>
-    RNDidomi.getQueryStringForWebView(),
+  getQueryStringForWebView: (): Promise<string> => RNDidomi.getQueryStringForWebView(),
 
   /**
    *  Method used to get a Purpose based on its ID.
    *  @param purposeId: purpose ID used in the search.
    *  @returns: purpose found in the array.
    */
-  getPurpose: (purposeId: string): Promise<any> =>
-    RNDidomi.getPurpose(purposeId),
+  getPurpose: (purposeId: string): Promise<any> => RNDidomi.getPurpose(purposeId),
 
   /**
    *  Method used to get an array of required purposes.
@@ -226,8 +223,7 @@ export const Didomi = {
    *  @param key: used to find its corresponding value in one of the different sources.
    *  @returns: a translated string if a translation was found, the same key that was passed otherwise.
    */
-  getTranslatedText: (key: string): Promise<string> =>
-    RNDidomi.getTranslatedText(key),
+  getTranslatedText: (key: string): Promise<string> => RNDidomi.getTranslatedText(key),
 
   /**
    *  Get the user consent status for a specific purpose
@@ -237,8 +233,7 @@ export const Didomi = {
      * getUserStatus().getPurposes().getConsent().getEnabled() or
    *  getUserStatus().getPurposes().getConsent().getDisabled().
    */
-  getUserConsentStatusForPurpose: (purposeId: string): Promise<boolean> =>
-    RNDidomi.getUserConsentStatusForPurpose(purposeId),
+  getUserConsentStatusForPurpose: (purposeId: string): Promise<boolean> => RNDidomi.getUserConsentStatusForPurpose(purposeId),
 
   /**
    *  Get the user consent status for a specific vendor
@@ -248,8 +243,7 @@ export const Didomi = {
    *  getUserStatus().getVendors().getConsent().getEnabled() or
    *  getUserStatus().getVendors().getConsent().getDisabled().
    */
-  getUserConsentStatusForVendor: (vendorId: string): Promise<boolean> =>
-    RNDidomi.getUserConsentStatusForVendor(vendorId),
+  getUserConsentStatusForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserConsentStatusForVendor(vendorId),
 
   /**
    *  Get the user consent status for a specific vendor and all its purposes
@@ -259,10 +253,7 @@ export const Didomi = {
    *  by getUserStatus().getVendors().getGlobalConsent().getEnabled() or
    *  getUserStatus().getVendors().getGlobalConsent().getDisabled().
    */
-  getUserConsentStatusForVendorAndRequiredPurposes: (
-    vendorId: string
-  ): Promise<boolean> =>
-    RNDidomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId),
+  getUserConsentStatusForVendorAndRequiredPurposes: (vendorId: string): Promise<boolean> => RNDidomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId),
 
   /**
    *  Get the user legitimate interest status for a specific purpose.
@@ -272,10 +263,7 @@ export const Didomi = {
    *  getUserStatus().getPurposes().getLegitimateInterest().getEnabled() or
    *  getUserStatus().getPurposes().getLegitimateInterest().getDisabled().
    */
-  getUserLegitimateInterestStatusForPurpose: (
-    purposeId: string
-  ): Promise<boolean> =>
-    RNDidomi.getUserLegitimateInterestStatusForPurpose(purposeId),
+  getUserLegitimateInterestStatusForPurpose: (purposeId: string): Promise<boolean> => RNDidomi.getUserLegitimateInterestStatusForPurpose(purposeId),
 
   /**
    *  Get the user legitimate interest status for a specific vendor.
@@ -285,8 +273,7 @@ export const Didomi = {
    *  getUserStatus().getVendors().getLegitimateInterest().getEnabled() or
    *  getUserStatus().getVendors().getLegitimateInterest().getDisabled().
    */
-  getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> =>
-    RNDidomi.getUserLegitimateInterestStatusForVendor(vendorId),
+  getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserLegitimateInterestStatusForVendor(vendorId),
 
   /**
    *  Get the user LI status for a specific vendor and all its purposes.
@@ -296,12 +283,7 @@ export const Didomi = {
    *  getUserStatus().getVendors().getGlobalLegitimateInterest().getEnabled() or
    *  getUserStatus().getVendors().getGlobalLegitimateInterest().getDisabled().
    */
-  getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (
-    vendorId: string
-  ): boolean =>
-    RNDidomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(
-      vendorId
-    ),
+  getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (vendorId: string): boolean => RNDidomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId),
 
   /**
    *  Get the user consent status.
@@ -317,8 +299,7 @@ export const Didomi = {
    *  getUserStatus().getVendors().getGlobal().getEnabled() or
    *  getUserStatus().getVendors().getGlobal().getDisabled().
    */
-  getUserStatusForVendor: (vendorId: string): Promise<boolean> =>
-    RNDidomi.getUserStatusForVendor(vendorId),
+  getUserStatusForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserStatusForVendor(vendorId),
 
   /**
    *  Method used to get a Vendor based on its ID.
@@ -350,8 +331,7 @@ export const Didomi = {
    *  Determine if consent information is available for all purposes and vendors that are required
    *  @returns: **true** if consent is required and consent information is available, **false** otherwise.
    */
-  isUserConsentStatusPartial: (): Promise<boolean> =>
-    RNDidomi.isUserConsentStatusPartial(),
+  isUserConsentStatusPartial: (): Promise<boolean> => RNDidomi.isUserConsentStatusPartial(),
 
   /**
    *  Check if the consent notice is currently displayed
@@ -405,8 +385,7 @@ export const Didomi = {
    *  Show the preferences screen when/if the SDK is ready. By default the purposes list will be displayed.
    *  @param view: It can be `purposes` or `vendors`
    */
-  showPreferences: (view?: string): Promise<void> =>
-    RNDidomi.showPreferences(view),
+  showPreferences: (view?: string): Promise<void> => RNDidomi.showPreferences(view),
 
   /**
    *  Remove all consents for the user

@@ -5,7 +5,7 @@ import AppTrackingTransparency
 @objc(Didomi)
 class RNDidomi: RCTEventEmitter {
     
-    var initialized = false
+    public static var initialized = false
     let didomiEventListener = EventListener()
     
     override static func requiresMainQueueSetup() -> Bool {
@@ -16,12 +16,12 @@ class RNDidomi: RCTEventEmitter {
     func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
         onReady()
         onError()
-        if !initialized {
+        if !RNDidomi.initialized {
             initEventListener()
             let newLanguageCode = Locale.current.languageCode ?? ""
             Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode != nil ? languageCode : newLanguageCode, noticeId: noticeId)
         }
-        initialized = true
+        RNDidomi.initialized = true
     }
     
     private func onReady() {
