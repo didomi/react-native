@@ -41,11 +41,6 @@ class RNDidomi: RCTEventEmitter {
         resolve(Didomi.shared.getQueryStringForWebView())
     }
     
-    @objc(setUserAgent:version:)
-    func setUserAgent(name: String, version: String) {
-        Didomi.shared.setUserAgent(name: name, version: version)
-    }
-    
     @objc(setUserConsentStatus:disabledPurposeIds:enabledVendorIds:disabledVendorIds:resolve:reject:)
     func setUserConsentStatus(enabledPurposeIds: Set<String>, disabledPurposeIds: Set<String>, enabledVendorIds: Set<String>, disabledVendorIds: Set<String>, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.setUserConsentStatus(enabledPurposeIds: Set(enabledPurposeIds), disabledPurposeIds: Set(disabledPurposeIds), enabledVendorIds: Set(enabledVendorIds), disabledVendorIds: Set(disabledVendorIds)))

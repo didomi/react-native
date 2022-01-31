@@ -28,9 +28,6 @@ RCT_EXTERN_METHOD(onError)
 RCT_EXTERN_METHOD(getQueryStringForWebView:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(setUserAgent:(NSString *)name
-                  version:(NSString *)version)
-
 RCT_EXTERN_METHOD(setUserConsentStatus:(NSArray<NSString *> *)enabledPurposeIds
                   disabledPurposeIds:(NSArray<NSString *> *)disabledPurposeIds
                   enabledVendorIds:(NSArray<NSString *> *)enabledVendorIds
