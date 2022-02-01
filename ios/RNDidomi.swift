@@ -19,9 +19,6 @@ class RNDidomi: RCTEventEmitter {
         if !RNDidomi.initialized {
             initEventListener()
 
-            let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-            print("version is : \(version)")
-
             Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
             
             Didomi.shared.initialize(DidomiInitializeParameters(
@@ -243,24 +240,11 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getJavaScriptForWebView:resolve:reject:)
     func getJavaScriptForWebView(_ extra: String? = "", resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-        let version = Bundle.main.bundleIdentifier
-        let list = Bundle.allFrameworks
-        var str = ""
-        for b in list {
-            if b.bundleIdentifier?.contains("apple") == true {
-                continue
-            }
-            str += b.bundleIdentifier ?? ""
-            str += " "
+        if let extra = extra {
+            resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
+        } else {
+            resolve(Didomi.shared.getJavaScriptForWebView())
         }
-        let bob = Bundle(identifier: "io.didomi.Didomi")?.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        resolve("Name is \(str) - Version is \(bob)")
-        // if let extra = extra {
-        //     resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
-        // } else {
-        //     resolve(Didomi.shared.getJavaScriptForWebView())
-        // }
     }
     
     @objc(updateSelectedLanguage:)
