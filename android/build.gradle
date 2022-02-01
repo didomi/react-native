@@ -25,6 +25,8 @@ def getExtOrIntegerDefault(name) {
     return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["Didomi_" + name]).toInteger()
 }
 
+def parsedPackage = new groovy.json.JsonSlurper().parseText(file("../package.json").text)
+
 android {
     compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
     buildToolsVersion getExtOrDefault("buildToolsVersion")
@@ -32,7 +34,7 @@ android {
         minSdkVersion 16
         targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
         versionCode 1
-        versionName "1.0"
+        versionName "${parsedPackage.version}"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
