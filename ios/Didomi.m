@@ -4,16 +4,12 @@
 @interface RCT_EXTERN_MODULE(Didomi, RCTEventEmitter)
 
 RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
+                  withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 
-//RCT_EXTERN_METHOD(initialize:(NSString *)apikey
-//                  localConfigurationPath:(nullable NSString *)localConfigurationPath
-//                  remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
-//                  providerId:(nullable NSString *)providerId
-//                  disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig)
-
-RCT_EXTERN_METHOD(initialize:(NSString *)apikey
+RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
+                  userAgentVersion:(NSString *)userAgentVersion
+                  apiKey:(NSString *)apiKey
                   localConfigurationPath:(nullable NSString *)localConfigurationPath
                   remoteConfigurationURL:(nullable NSString *)remoteConfigurationURL
                   providerId:(nullable NSString *)providerId

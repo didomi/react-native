@@ -1,6 +1,7 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
 import { DidomiEventType } from './DidomiTypes';
+import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 
 const { Didomi: RNDidomi } = NativeModules;
 
@@ -30,6 +31,8 @@ export const Didomi = {
 
     // Trigger native SDK init
     RNDidomi.initialize(
+      DIDOMI_USER_AGENT_NAME,
+      DIDOMI_VERSION,
       apiKey,
       localConfigurationPath,
       remoteConfigurationUrl,

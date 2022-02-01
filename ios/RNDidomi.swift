@@ -12,14 +12,27 @@ class RNDidomi: RCTEventEmitter {
         return true
     }
     
-    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
-    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
+    @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
+    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
         onReady()
         onError()
         if !RNDidomi.initialized {
             initEventListener()
-            let newLanguageCode = Locale.current.languageCode ?? ""
-            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode != nil ? languageCode : newLanguageCode, noticeId: noticeId)
+
+            let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+            print("version is : \(version)")
+
+            Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
+            
+            Didomi.shared.initialize(DidomiInitializeParameters(
+                apiKey: apiKey,
+                localConfigurationPath: localConfigurationPath,
+                remoteConfigurationURL: remoteConfigurationURL,
+                providerID: providerId,
+                disableDidomiRemoteConfig: disableDidomiRemoteConfig,
+                languageCode: languageCode ?? Locale.current.languageCode ?? "",
+                noticeID: noticeId
+            ))
         }
         RNDidomi.initialized = true
     }
@@ -158,8 +171,6 @@ class RNDidomi: RCTEventEmitter {
         resolve(purposes)
     }
     
-    
-    
     @objc(getRequiredVendors:reject:)
     func getRequiredVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
@@ -232,11 +243,24 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(getJavaScriptForWebView:resolve:reject:)
     func getJavaScriptForWebView(_ extra: String? = "", resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
-        if let extra = extra {
-            resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
-        } else {
-            resolve(Didomi.shared.getJavaScriptForWebView())
+        let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+        let version = Bundle.main.bundleIdentifier
+        let list = Bundle.allFrameworks
+        var str = ""
+        for b in list {
+            if b.bundleIdentifier?.contains("apple") == true {
+                continue
+            }
+            str += b.bundleIdentifier ?? ""
+            str += " "
         }
+        let bob = Bundle(identifier: "io.didomi.Didomi")?.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        resolve("Name is \(str) - Version is \(bob)")
+        // if let extra = extra {
+        //     resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
+        // } else {
+        //     resolve(Didomi.shared.getJavaScriptForWebView())
+        // }
     }
     
     @objc(updateSelectedLanguage:)
