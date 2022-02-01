@@ -152,5 +152,5 @@ jobs:
         -workspace DidomiExample.xcworkspace \
         -scheme DidomiExample \
         -sdk iphonesimulator \
-        -destination "platform=iOS Simulator,name=iPhone 11,OS=15.0" \
+        -destination "platform=iOS Simulator,name=iPhone 11,OS=15.2" \
         clean test

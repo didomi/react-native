@@ -12,14 +12,24 @@ class RNDidomi: RCTEventEmitter {
         return true
     }
     
-    @objc(initialize:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
-    func initialize(apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
+    @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
+    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
         onReady()
         onError()
         if !RNDidomi.initialized {
             initEventListener()
-            let newLanguageCode = Locale.current.languageCode ?? ""
-            Didomi.shared.initialize(apiKey: apiKey, localConfigurationPath: localConfigurationPath, remoteConfigurationURL: remoteConfigurationURL, providerId: providerId, disableDidomiRemoteConfig: disableDidomiRemoteConfig, languageCode: languageCode != nil ? languageCode : newLanguageCode, noticeId: noticeId)
+
+            Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
+            
+            Didomi.shared.initialize(DidomiInitializeParameters(
+                apiKey: apiKey,
+                localConfigurationPath: localConfigurationPath,
+                remoteConfigurationURL: remoteConfigurationURL,
+                providerID: providerId,
+                disableDidomiRemoteConfig: disableDidomiRemoteConfig,
+                languageCode: languageCode ?? Locale.current.languageCode ?? "",
+                noticeID: noticeId
+            ))
         }
         RNDidomi.initialized = true
     }
@@ -39,11 +49,6 @@ class RNDidomi: RCTEventEmitter {
     @objc(getQueryStringForWebView:reject:)
     func getQueryStringForWebView(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getQueryStringForWebView())
-    }
-    
-    @objc(setUserAgent:version:)
-    func setUserAgent(name: String, version: String) {
-        Didomi.shared.setUserAgent(name: name, version: version)
     }
     
     @objc(setUserConsentStatus:disabledPurposeIds:enabledVendorIds:disabledVendorIds:resolve:reject:)
@@ -162,8 +167,6 @@ class RNDidomi: RCTEventEmitter {
         let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]]
         resolve(purposes)
     }
-    
-    
     
     @objc(getRequiredVendors:reject:)
     func getRequiredVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {

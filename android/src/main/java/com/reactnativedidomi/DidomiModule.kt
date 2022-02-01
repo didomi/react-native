@@ -9,6 +9,7 @@ import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.didomi.sdk.Didomi
+import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 
@@ -231,27 +232,33 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun initialize(apiKey: String,
-                   localConfigurationPath: String?,
-                   remoteConfigurationUrl: String?,
-                   providerId: String?,
-                   disableDidomiRemoteConfig: Boolean,
-                   languageCode: String?,
-                   noticeId: String?,
-                   promise: Promise) {
+    fun initialize(
+        userAgentName: String,
+        userAgentVersion: String,
+        apiKey: String,
+        localConfigurationPath: String?,
+        remoteConfigurationUrl: String?,
+        providerId: String?,
+        disableDidomiRemoteConfig: Boolean,
+        languageCode: String?,
+        noticeId: String?,
+        promise: Promise) {
         try {
             Didomi.getInstance().addEventListener(eventListener)
 
-            Didomi.getInstance().initialize(
-                    currentActivity?.application,
-                    apiKey,
-                    if (localConfigurationPath.isNullOrEmpty()) null else localConfigurationPath,
-                    if (remoteConfigurationUrl.isNullOrEmpty()) null else remoteConfigurationUrl,
-                    if (providerId.isNullOrEmpty()) null else providerId,
-                    disableDidomiRemoteConfig,
-                    languageCode,
-                    noticeId
+            Didomi.getInstance().setUserAgent(userAgentName, userAgentVersion)
+
+            val parameters = DidomiInitializeParameters(
+                apiKey,
+                localConfigurationPath,
+                remoteConfigurationUrl,
+                providerId,
+                disableDidomiRemoteConfig,
+                languageCode,
+                noticeId
             )
+
+            Didomi.getInstance().initialize(currentActivity?.application, parameters)
 
             Didomi.getInstance().onReady { prepareEvent(EventTypes.READY_CALLBACK.event, null) }
             Didomi.getInstance().onError { prepareEvent(EventTypes.ERROR_CALLBACK.event, null) }

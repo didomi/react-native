@@ -1,6 +1,7 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
 import { DidomiEventType } from './DidomiTypes';
+import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 
 const { Didomi: RNDidomi } = NativeModules;
 
@@ -30,6 +31,8 @@ export const Didomi = {
 
     // Trigger native SDK init
     RNDidomi.initialize(
+      DIDOMI_USER_AGENT_NAME,
+      DIDOMI_VERSION,
       apiKey,
       localConfigurationPath,
       remoteConfigurationUrl,
@@ -42,17 +45,17 @@ export const Didomi = {
 
   /**
    * Listen to SDK ready state
-   * */
+   */
   onReady: (): Promise<void> => DidomiListener.onReady(),
 
   /**
    * Listen to SDK errors
-   * */
+   */
   onError: (): Promise<any> => DidomiListener.onError(),
 
   /**
-    Provide the objects required to display UI elements
-  */
+   * Provide the objects required to display UI elements
+   */
   setupUI: (): Promise<void> => RNDidomi.setupUI(),
 
   /**

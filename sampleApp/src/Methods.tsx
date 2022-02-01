@@ -32,7 +32,7 @@ export default function Methods() {
         style={styles.input}
         onChangeText={onChangeLanguage}
         value={language}
-        placeholder="Language : en, es, fr..."
+        placeholder="Language: en, es, fr..."
       />
 
       <MethodCall
