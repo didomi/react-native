@@ -2,10 +2,9 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - '*' # Push events to matching *, i.e. 1.0, 20.15.10
+      - '!test*' # Prevent tests
   workflow_dispatch:
 
 concurrency:
