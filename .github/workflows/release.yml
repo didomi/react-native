@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches-ignore:
+      - '!main' # Ignore branches that are not main
     tags:
       - '*' # Push events to matching *, i.e. 1.0, 20.15.10
   workflow_dispatch:
