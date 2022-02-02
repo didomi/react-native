@@ -1,4 +1,6 @@
-name: release
+name: Publish
+
+# Triggered manually or on release creation
 on:
   release:
     types:
