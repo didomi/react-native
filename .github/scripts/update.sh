@@ -5,7 +5,6 @@
 # Increment React-Native version (from param major|minor|patch)
 #   No argument: use patch as default
 # Update React-Native dependencies
-# Commit and push changes
 #----------------------------------------------------------
 
 # set nocasematch option
@@ -41,13 +40,13 @@ increment_version() {
 
 # Get last version from pod
 pod_last_version() {
-  lastversion=""
+  version=""
   for line in $(pod trunk info Didomi-XCFramework); do
     if [[ "$line" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-      lastversion=$line
+      version=$line
     fi
   done
-  echo "$lastversion"
+  echo "$version"
 }
 
 #
@@ -55,42 +54,42 @@ pod_last_version() {
 #
 
 # Get RN version
-version=$(sh .github/scripts/extract_version.sh)
-if [[ ! $version =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
-  echo "Error while getting RN version ($version)"
+currentRNVersion=$(sh .github/scripts/extract_version.sh)
+if [[ ! $currentRNVersion =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
+  echo "Error while getting RN version ($currentRNVersion)"
   exit 1
 fi
 
-echo "Current version is $version"
+echo "Current version is $currentVersion"
 
 # Increment RN version
-rnversion=$(increment_version "$version" $position)
-echo "React Native version will change from $version to $rnversion"
+newRNVersion=$(increment_version "$currentRNVersion" $position)
+echo "React Native version will change from $currentRNVersion to $newRNVersion"
 
 # Update RN version for Constants
 pushd src >/dev/null
-sed -i~ -e "s|DIDOMI_VERSION = \"[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|DIDOMI_VERSION = \"$rnversion|g" Constants.ts || exit 1
+sed -i~ -e "s|DIDOMI_VERSION = \"[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|DIDOMI_VERSION = \"$newRNVersion|g" Constants.ts || exit 1
 popd >/dev/null
 
 # Update RN version in package.json
-sed -i~ -e "s|\"version\": \"[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|\"version\": \"$rnversion|g" package.json || exit 1
+sed -i~ -e "s|\"version\": \"[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|\"version\": \"$newRNVersion|g" package.json || exit 1
 
 #
 # Android
 #
 
 # Get Android SDK Version
-version=$(curl -s 'https://search.maven.org/solrsearch/select?q=didomi' | sed -n 's|.*"latestVersion":"\([^"]*\)".*|\1|p')
-if [[ ! $version =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
+lastAndroidVersion=$(curl -s 'https://search.maven.org/solrsearch/select?q=didomi' | sed -n 's|.*"latestVersion":"\([^"]*\)".*|\1|p')
+if [[ ! $lastAndroidVersion =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
   echo "Error while getting android SDK version"
   exit 1
 fi
 
-echo "Android SDK last version is $version"
+echo "Android SDK last version is $lastAndroidVersion"
 
 # Update Android dependency
 pushd android >/dev/null
-sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$version|g" build.gradle || exit 1
+sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$lastAndroidVersion|g" build.gradle || exit 1
 popd >/dev/null
 
 #
@@ -98,18 +97,41 @@ popd >/dev/null
 #
 
 # Get iOS SDK Version
-version=$(pod_last_version)
-if [[ ! $version =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
+lastIosVersion=$(pod_last_version)
+if [[ ! $lastIosVersion =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
   echo "Error while getting ios SDK version"
   exit 1
 fi
 
-echo "iOS SDK last version is $version"
+echo "iOS SDK last version is $lastIosVersion"
 
 # Update iOS dependency
-sed -i~ -e "s|s.dependency \"Didomi-XCFramework\", \"[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}\"|s.dependency \"Didomi-XCFramework\", \"$version\"|g" react-native-didomi.podspec || exit 1
+sed -i~ -e "s|s.dependency \"Didomi-XCFramework\", \"[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}\"|s.dependency \"Didomi-XCFramework\", \"$lastIosVersion\"|g" react-native-didomi.podspec || exit 1
 
-# Cleanup
-rm -rf **/*.*~
+# Update pod
+pod repo update || exit 1
+
+# Update Sample App
+pushd sampleApp/ios >/dev/null
+sed -i~ -e "s|\Didomi-XCFramework ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework ($lastIosVersion|g" Podfile.lock || exit 1
+sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework (= $lastIosVersion|g" Podfile.lock || exit 1
+sed -i~ -e "s|\react-native-didomi ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|react-native-didomi ($newRNVersion|g" Podfile.lock || exit 1
+pod repo update
+pod install
+popd >/dev/null
+
+# Update Test App
+pushd testApp/ios >/dev/null
+sed -i~ -e "s|\Didomi-XCFramework ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework ($lastIosVersion|g" Podfile.lock || exit 1
+sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework (= $lastIosVersion|g" Podfile.lock || exit 1
+sed -i~ -e "s|\react-native-didomi ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|react-native-didomi ($newRNVersion|g" Podfile.lock || exit 1
+pod repo update
+pod install
+popd >/dev/null
+
+# Cleanup backup files
+rm -rf **/**/*~
+rm -rf **/*~
+rm -rf *~
 
 echo "Update complete"
