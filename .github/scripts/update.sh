@@ -111,27 +111,51 @@ sed -i~ -e "s|s.dependency \"Didomi-XCFramework\", \"[0-9]\{1,2\}.[0-9]\{1,2\}.[
 # Update pod
 pod repo update || exit 1
 
-# Update Sample App
+#
+# Sample App
+#
+
+# Update Sample Android dependency
+pushd sampleApp/android/app >/dev/null
+sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$lastAndroidVersion|g" build.gradle || exit 1
+popd >/dev/null
+
+# Update Sample App iOS framework
 pushd sampleApp/ios >/dev/null
 sed -i~ -e "s|\Didomi-XCFramework ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework ($lastIosVersion|g" Podfile.lock || exit 1
 sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework (= $lastIosVersion|g" Podfile.lock || exit 1
-sed -i~ -e "s|\react-native-didomi ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|react-native-didomi ($newRNVersion|g" Podfile.lock || exit 1
+
 pod repo update
 pod install
+
+yarn install
 popd >/dev/null
 
-# Update Test App
+#
+# Test App
+#
+
+# Update Test Android dependency
+pushd testApp/android/app >/dev/null
+sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$lastAndroidVersion|g" build.gradle || exit 1
+popd >/dev/null
+
+# Update Test App iOS framework
 pushd testApp/ios >/dev/null
 sed -i~ -e "s|\Didomi-XCFramework ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework ($lastIosVersion|g" Podfile.lock || exit 1
 sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Didomi-XCFramework (= $lastIosVersion|g" Podfile.lock || exit 1
-sed -i~ -e "s|\react-native-didomi ([0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|react-native-didomi ($newRNVersion|g" Podfile.lock || exit 1
+
 pod repo update
 pod install
+
+yarn install
 popd >/dev/null
 
+#
+# Cleanup
+#
+
 # Cleanup backup files
-rm -rf **/**/*~
-rm -rf **/*~
-rm -rf *~
+find . -type f -name '*~' -delete
 
 echo "Update complete"
