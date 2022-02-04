@@ -38,7 +38,7 @@ jobs:
 
   test_android:
     needs: test_js
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: testApp
@@ -113,7 +113,7 @@ jobs:
   
   test_ios:
     needs: test_js
-    runs-on: macos-11
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: testApp

@@ -1,6 +1,6 @@
 name: Update
 
-# Triggered manually or on release creation
+# Triggered manually
 on:
   workflow_dispatch:
     inputs:
@@ -60,23 +60,3 @@ jobs:
           branch: ${{ github.ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "Update Native SDKs and increment ${{ github.event.inputs.increment }} version"
-
-      - name: Set new React Native version as ENV
-        run: |
-          echo "rn_version=test$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
-
-      - name: Print React Native Version
-        run: |
-          echo "React Native version is: ${{ env.rn_version }}"
-
-      - name: Create tag
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{ secrets.CUSTOM_GITHUB_TOKEN }} # Use custom token to trigger following workflows
-          script: |
-            github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{ env.rn_version }}",
-              sha: context.sha
-            })
