@@ -28,10 +28,14 @@ jobs:
 
       - name: Check if React Native SDK requires update
         if: github.event.inputs.force != 'true'
-        run: bash .github/scripts/check_before_update.sh
+        run: |
+          echo "Force: ${{ github.event.inputs.force }}"
+          bash .github/scripts/check_before_update.sh
 
       - name: Update React Native SDK
-        run: bash .github/scripts/update.sh ${{ github.event.inputs.increment }}
+        run: |
+          echo "Increment: ${{ github.event.inputs.increment }}"
+          bash .github/scripts/update.sh ${{ github.event.inputs.increment }}
 
       - name: Commit & Push changes
         uses: actions-js/push@master
