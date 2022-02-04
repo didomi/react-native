@@ -60,7 +60,7 @@ if [[ ! $currentRNVersion =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
   exit 1
 fi
 
-echo "Current version is $currentVersion"
+echo "Current version is $currentRNVersion"
 
 # Increment RN version
 newRNVersion=$(increment_version "$currentRNVersion" $position)
@@ -127,8 +127,6 @@ sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Dido
 
 pod repo update
 pod install
-
-yarn install
 popd >/dev/null
 
 #
@@ -147,8 +145,6 @@ sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Dido
 
 pod repo update
 pod install
-
-yarn install
 popd >/dev/null
 
 #
