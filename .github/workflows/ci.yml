@@ -1,6 +1,11 @@
 name: ci
 
-on: push
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,7 +40,7 @@ jobs:
 
   android:
     needs: js
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: testApp
@@ -114,7 +119,7 @@ jobs:
   
   ios:
     needs: js
-    runs-on: macos-11
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: testApp
