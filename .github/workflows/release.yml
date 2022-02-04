@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*' # Push events to matching *, i.e. 1.0, 20.15.10
+      - "!test*"
   workflow_dispatch:
 
 concurrency:

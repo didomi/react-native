@@ -62,31 +62,31 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "Update Native SDKs and increment ${{ github.event.inputs.increment }} version"
 
-  # tag:
-  #   name: Tag
-  #   needs: update
-  #   runs-on: ubuntu-latest
+  tag:
+    name: Tag
+    needs: update
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
-  #     - name: Set React Native version as ENV
-  #       run: |
-  #         echo "rn_version=$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
+      - name: Set React Native version as ENV
+        run: |
+          echo "rn_version=test$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
 
-  #     - name: Print React Native Version
-  #       run: |
-  #         echo "React Native version is: ${{ env.rn_version }}"
+      - name: Print React Native Version
+        run: |
+          echo "React Native version is: ${{ env.rn_version }}"
 
-  #     - name: Create tag
-  #       uses: actions/github-script@v3
-  #       with:
-  #         github-token: ${{ secrets.CUSTOM_GITHUB_TOKEN }} # Use custom token to trigger following workflows
-  #         script: |
-  #           github.git.createRef({
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             ref: "refs/tags/${{ env.rn_version }}",
-  #             sha: context.sha
-  #           })
+      - name: Create tag
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.CUSTOM_GITHUB_TOKEN }} # Use custom token to trigger following workflows
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{ env.rn_version }}",
+              sha: context.sha
+            })
