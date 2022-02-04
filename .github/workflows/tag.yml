@@ -1,6 +1,6 @@
 name: Create TAG
 
-# Triggered manually or after Update completion
+# Triggered manually or from Update
 on:
   workflow_dispatch:
 
@@ -13,9 +13,6 @@ jobs:
     name: Create TAG
     runs-on: ubuntu-latest
 
-    # Only if Update was sucessful
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,9 +20,6 @@ jobs:
       - name: Set new React Native version as ENV
         run: |
           echo "rn_version=test$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
-
-      - name: Print React Native Version from ENV
-        run: |
           echo "React Native version is: ${{ env.rn_version }}"
 
       - name: Create tag
