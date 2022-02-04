@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
- test_js:
+  test_js:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
