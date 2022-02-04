@@ -115,9 +115,7 @@ pod repo update || exit 1
 # Sample App
 #
 
-pushd sampleApp/ >/dev/null
-yarn install
-popd >/dev/null
+echo "Update Sample App dependencies"
 
 # Update Sample Android dependency
 pushd sampleApp/android/app >/dev/null
@@ -133,13 +131,15 @@ pod repo update
 pod install
 popd >/dev/null
 
+pushd sampleApp/ >/dev/null
+yarn install
+popd >/dev/null
+
 #
 # Test App
 #
 
-pushd testApp/ >/dev/null
-yarn install
-popd >/dev/null
+echo "Update Test App dependencies"
 
 # Update Test Android dependency
 pushd testApp/android/app >/dev/null
@@ -153,6 +153,10 @@ sed -i~ -e "s|\Didomi-XCFramework (= [0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|Dido
 
 pod repo update
 pod install
+popd >/dev/null
+
+pushd testApp/ >/dev/null
+yarn install
 popd >/dev/null
 
 #
