@@ -3,10 +3,6 @@ name: Create TAG
 # Triggered manually or after Update completion
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Update"]
-    type:
-      - complete
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
