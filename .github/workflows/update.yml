@@ -29,7 +29,6 @@ jobs:
       - name: Check if React Native SDK requires update
         if: github.event.inputs.force != 'true'
         run: |
-          echo "Force: ${{ github.event.inputs.force }}"
           bash .github/scripts/check_before_update.sh
 
       - name: Setup Node
@@ -62,16 +61,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "Update Native SDKs and increment ${{ github.event.inputs.increment }} version"
 
-  tag:
-    name: Tag
-    needs: update
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Set React Native version as ENV
+      - name: Set new React Native version as ENV
         run: |
           echo "rn_version=test$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
 
