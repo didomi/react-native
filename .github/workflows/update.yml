@@ -44,7 +44,7 @@ jobs:
 
   # tag:
   #   name: Tag
-  #   needs: [ test_ios, test_android ]
+  #   needs: update
   #   runs-on: ubuntu-latest
 
   #   steps:

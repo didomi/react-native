@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - '*' # Push events to matching *, i.e. 1.0, 20.15.10
-      - '!test*' # Prevent tests
   workflow_dispatch:
 
 concurrency:
@@ -12,8 +11,150 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+ test_js:
+    needs: update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Cache node dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: yarn install
+      
+      - name: Run JS tests
+        run: yarn test
+
+  test_android:
+    needs: test_js
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        working-directory: testApp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Cache node dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+
+      - name: Cache Gradle Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-caches-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-caches-
+      - name: Make Gradlew Executable
+        run: cd android && chmod +x ./gradlew
+
+      - name: Build Android App
+        run: |
+          npx react-native bundle --platform android --dev false --entry-file index.tsx --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+          cd android && ./gradlew assembleDebug --no-daemon
+      - name: Upload Android App APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-debug.apk 
+          path: testApp/android/app/build/outputs/apk/debug/app-debug.apk 
+          
+      - name: Build Android Test
+        run: |
+          cd android && ./gradlew :app:assembleDebugAndroidTest --no-daemon
+      
+      - name: Upload Android Test APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-debug-androidTest.apk 
+          path: testApp/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          export_default_credentials: true
+
+      - name: Run Instrumentation Tests in Firebase Test Lab
+        run: |
+          gcloud firebase test android run --type instrumentation \
+          --app android/app/build/outputs/apk/debug/app-debug.apk \
+          --test android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          --device model=Pixel2,version=28,locale=en,orientation=portrait --num-flaky-test-attempts=1
+  
+  test_ios:
+    needs: test_js
+    runs-on: macos-11
+    defaults:
+      run:
+        working-directory: testApp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Cache node dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Install pods
+        run: cd ios && pod install
+
+      - name: Run iOS Tests
+        run: |
+          cp index.tsx index.js
+          npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
+          rm index.js
+          cd ios && TEST=1 && RCT_NO_LAUNCH_PACKAGER=1 xcodebuild \
+          -workspace DidomiExample.xcworkspace \
+          -scheme DidomiExample \
+          -sdk iphonesimulator \
+          -destination "platform=iOS Simulator,name=iPhone 11,OS=15.2" \
+          clean test
+
   release:
     name: Create Release
+    needs: [ test_ios, test_android ]
     runs-on: ubuntu-latest
 
     steps:
