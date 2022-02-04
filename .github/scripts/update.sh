@@ -115,6 +115,10 @@ pod repo update || exit 1
 # Sample App
 #
 
+pushd sampleApp/ >/dev/null
+yarn install
+popd >/dev/null
+
 # Update Sample Android dependency
 pushd sampleApp/android/app >/dev/null
 sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$lastAndroidVersion|g" build.gradle || exit 1
@@ -132,6 +136,10 @@ popd >/dev/null
 #
 # Test App
 #
+
+pushd testApp/ >/dev/null
+yarn install
+popd >/dev/null
 
 # Update Test Android dependency
 pushd testApp/android/app >/dev/null
