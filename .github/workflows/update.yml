@@ -69,5 +69,5 @@ jobs:
         run: |
           curl --request POST \
               --url 'https://api.github.com/repos/didomi/react-native/actions/workflows/tag.yml/dispatches' \
-              --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              --header 'authorization: Bearer ${{ secrets.CUSTOM_GITHUB_TOKEN }}' \
               --data '{ "ref": "${{ github.ref }}" }'
