@@ -25,6 +25,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+          fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
       - name: Check if React Native SDK requires update
         if: github.event.inputs.force != 'true'
@@ -55,10 +59,10 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
-          author_email: "cmp-mobile@didomi.io"
-          author_name: "Auto-Bot"
+          author_email: "nicolas.chaix@didomi.io"
+          author_name: "Nicolas CHAIX"
           branch: ${{ github.ref }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           message: "Update Native SDKs and increment ${{ github.event.inputs.increment }} version"
 
       - name: Trigger Tag
