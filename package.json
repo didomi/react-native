@@ -1,6 +1,6 @@
 {
   "name": "@didomi/react-native",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Didomi React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
