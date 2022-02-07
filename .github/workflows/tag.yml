@@ -19,7 +19,7 @@ jobs:
 
       - name: Set new React Native version as ENV
         run: |
-          echo "rn_version=test$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
+          echo "rn_version=$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
           echo "React Native version is: ${{ env.rn_version }}"
 
       - name: Create tag
