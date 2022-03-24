@@ -227,7 +227,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     private fun objectToWritableMap(obj: Any?): WritableMap {
         val map = WritableNativeMap()
-        obj?.serializeToMap()?.entries?.forEach { entry -> map.putString(entry.key, entry.value.toString()) }
+        obj?.serializeToMap()?.entries?.forEach { entry ->
+            when (val value = entry.value) {
+                is Map<*,*> -> map.putMap(entry.key, objectToWritableMap(value))
+                is List<*> -> map.putArray(entry.key, Arguments.fromList(value))
+                else -> map.putString(entry.key, value.toString())
+            }
+        }
         return map
     }
 
