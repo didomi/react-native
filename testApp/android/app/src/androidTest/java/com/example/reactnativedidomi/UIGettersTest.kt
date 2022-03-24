@@ -120,7 +120,7 @@ class UIGettersTest: BaseUITest() {
         assertTextContains("\"addtl_consent\":\"\"".trim())
         assertTextContains("\"consent_string\":\"\"".trim())
         assertTextContains("\"purposes\":{\"legitimate_interest\":{\"enabled\":[".trim())
-        assertTextContains("\"vendors\":{\"consent\":{\"enabled\":[".trim())
+        assertTextContains("\"vendors\":{\"legitimate_interest\":{\"enabled\":[".trim())
         assertTextContains("\"user_id\":\"".trim())
         assertTextContains("\"created\":\"".trim())
         assertTextContains("\"updated\":\"".trim())
