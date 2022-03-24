@@ -98,7 +98,7 @@ jobs:
           path: testApp/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@master
+        uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
