@@ -50,7 +50,7 @@ export interface VendorNamespaces {
 
 export interface Purpose {
   id: string;
-  iAbId: string;
+  iabId: string;
   name: string;
   description: string;
   descriptionLegal: string;

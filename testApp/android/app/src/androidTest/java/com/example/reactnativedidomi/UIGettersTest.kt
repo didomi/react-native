@@ -112,20 +112,17 @@ class UIGettersTest: BaseUITest() {
     fun test_getUserStatus() {
         tapButton("getUserStatus")
 
-        // Asserting the whole string can be tricky so we just assert the beginning of it.
-        val expected1 = "\"addtl_consent\":\"\"".trim()
-        val expected2 = "\"consent_string\":\"\"".trim()
-        val expected3 = "\"user_id\":".trim()
-        val expected4 = "\"vendors\":\"{".trim()
-        val expected5 = "\"purposes\":\"{".trim()
-
         // There might be a delay to get this string.
         Thread.sleep(1_000L)
 
-        assertTextContains(expected1)
-        assertTextContains(expected2)
-        assertTextContains(expected3)
-        assertTextContains(expected4)
-        assertTextContains(expected5)
+        // The text might change every time we call the getUserStatus method
+        // so we'll only assert the first level parameters of the resulting json string.
+        assertTextContains("\"addtl_consent\":\"\"".trim())
+        assertTextContains("\"consent_string\":\"\"".trim())
+        assertTextContains("\"purposes\":{\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains("\"vendors\":{\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains("\"user_id\":\"".trim())
+        assertTextContains("\"created\":\"".trim())
+        assertTextContains("\"updated\":\"".trim())
     }
 }
