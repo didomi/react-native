@@ -377,7 +377,51 @@ class RNDidomi: RCTEventEmitter {
     dynamic func setUser(id: String, algorithm: String, secretId: String, salt: String?, digest: String) {
         Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
     }
-    
+
+    @objc(setUserWithHashAuth:algorithm:secretId:digest:salt:)
+    dynamic func setUserWithHashAuth(id: String, algorithm: String, secretId: String, digest: String, salt: String?) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithHashParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                digest: digest,
+                salt: salt))
+    }
+
+    @objc(setUserWithHashAuthWithExpiration:algorithm:secretId:digest:salt:expiration:)
+    dynamic func setUserWithHashAuthWithExpiration(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithHashParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                digest: digest,
+                salt: salt,
+                legacyExpiration: expiration))
+    }
+
+    @objc(setUserWithEncryptionAuth:algorithm:secretId:initializationVector:)
+    dynamic func setUserWithEncryptionAuth(id: String, algorithm: String, secretId: String, initializationVector: String) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithEncryptionParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                initializationVector: initializationVector))
+    }
+
+    @objc(setUserWithEncryptionAuthWithExpiration:algorithm:secretId:initializationVector:expiration:)
+    dynamic func setUserWithEncryptionAuthWithExpiration(id: String, algorithm: String, secretId: String, initializationVector: String, expiration: Double) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithEncryptionParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                initializationVector: initializationVector,
+                legacyExpiration: expiration))
+    }
+
     @objc public enum Views : Int, RawRepresentable {
         
         case purposes = 0
@@ -613,7 +657,11 @@ extension RNDidomi {
         didomiEventListener.onSyncDone = { event, organizationUserId in
             self.sendEvent(withName: "on_sync_done", body: organizationUserId)
         }
-        
+
+        didomiEventListener.onSyncError = { event, error in
+            self.sendEvent(withName: "on_sync_error", body: error)
+        }
+
         Didomi.shared.addEventListener(listener: didomiEventListener)
     }
 }
