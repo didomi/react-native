@@ -396,7 +396,7 @@ export const Didomi = {
     digest: string,
     salt?: string,
     expiration?: long
-  ): Promise<void> => {
+  ): void => {
     if (expiration === undefined) {
       RNDidomi.setUserWithHashAuth(
         organizationUserId,
@@ -432,7 +432,7 @@ export const Didomi = {
       secretId: string,
       initializationVector: string,
       expiration?: long
-    ): Promise<void> => {
+    ): void => {
       if (expiration === undefined) {
         RNDidomi.setUserWithEncryptionAuth(
           organizationUserId,
