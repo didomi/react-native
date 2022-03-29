@@ -40,4 +40,39 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         assertText("setUserDisagreeToAll-OK")
     }
+
+    @Test
+    fun test_SetUserWithId() {
+        tapButton("setUserWithId")
+        Thread.sleep(2_000L)
+        assertText("setUserWithId-OK")
+    }
+
+    @Test
+    fun test_SetUserWithHashAuth() {
+        tapButton("setUserWithHashAuth")
+        Thread.sleep(2_000L)
+        assertText("setUserWithHashAuth-OK")
+    }
+
+    @Test
+    fun test_SetUserWithHashAuthWithSaltAndExpiration() {
+        tapButton("setUserWithHashAuthWithSaltAndExpiration")
+        Thread.sleep(2_000L)
+        assertText("setUserWithHashAuthWithSaltAndExpiration-OK")
+    }
+
+    @Test
+    fun test_SetUserWithEncryptionAuth() {
+        tapButton("setUserWithEncryptionAuth")
+        Thread.sleep(2_000L)
+        assertText("setUserWithEncryptionAuth-OK")
+    }
+
+    @Test
+    fun test_SetUserWithEncryptionAuthWithExpiration() {
+        tapButton("setUserWithEncryptionAuthWithExpiration")
+        Thread.sleep(2_000L)
+        assertText("setUserWithEncryptionAuthWithExpiration-OK")
+    }
 }

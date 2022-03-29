@@ -171,6 +171,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          * Sync finished
          */
         override fun syncDone(event: SyncDoneEvent) = prepareEvent(EventTypes.SYNC_DONE.event, event.organizationUserId)
+
+        /**
+         * Sync error
+         */
+        override fun syncError(event: SyncErrorEvent) = prepareEvent(EventTypes.SYNC_ERROR.event, event.error)
     }
 
     override fun getName() = "Didomi"
@@ -626,7 +631,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         if (organizationUserIdAuthAlgorithm != null
                 && organizationUserIdAuthSid != null
                 && organizationUserIdAuthSalt != null
-                && organizationUserIdAuthDigest != null)
+                && organizationUserIdAuthDigest != null) {
             Didomi.getInstance().setUser(
                     organizationUserId,
                     organizationUserIdAuthAlgorithm,
@@ -634,8 +639,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     organizationUserIdAuthSalt,
                     organizationUserIdAuthDigest
             )
-        else
+        } else {
             Didomi.getInstance().setUser(organizationUserId)
+        }
 
         promise.resolve(0)
     }
