@@ -30,6 +30,7 @@ export enum DidomiEventType {
   PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES = 'on_preferences_click_disagree_to_all_purposes',
   PREFERENCES_CLICK_RESET_ALL_PURPOSES = 'on_preferences_click_reset_all_purposes',
   SYNC_DONE = 'on_sync_done',
+  SYNC_ERROR = 'on_sync_error',
 }
 
 export interface Vendor {

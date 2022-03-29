@@ -155,7 +155,6 @@ class RNDidomi: RCTEventEmitter {
         resolve(Array(Didomi.shared.getRequiredVendorIds()))
     }
     
-    
     @objc(isReady:reject:)
     func isReady(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.isReady())
@@ -181,7 +180,6 @@ class RNDidomi: RCTEventEmitter {
         let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
         resolve(purposes)
     }
-    
     
     @objc(getEnabledPurposeIds:reject:)
     func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
@@ -252,7 +250,6 @@ class RNDidomi: RCTEventEmitter {
         Didomi.shared.updateSelectedLanguage(languageCode: languageCode)
     }
     
-    
     // MARK: ViewProviderDelegate
     
     @objc(getNoticeViewController:resolve:reject:)
@@ -264,7 +261,6 @@ class RNDidomi: RCTEventEmitter {
     dynamic func getPreferencesViewController(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getPreferencesViewController())
     }
-    
     
     // MARK: Didomi extension
     
@@ -367,17 +363,60 @@ class RNDidomi: RCTEventEmitter {
         
         Didomi.shared.setLogLevel(minLevel: level)
     }
-    
-    @objc(setUser:)
-    dynamic func setUser(id: String) {
-        Didomi.shared.setUser(id: id)
-    }
-    
+
     @objc(setUser:algorithm:secretId:salt:digest:)
-    dynamic func setUser(id: String, algorithm: String, secretId: String, salt: String?, digest: String) {
-        Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
+    dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?) {
+        if let algorithm = algorithm, let secretId = secretId, let digest = digest {
+            Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
+        } else {
+            Didomi.shared.setUser(id: id)
+        }
     }
-    
+
+    @objc(setUserWithHashAuth:algorithm:secretId:digest:salt:)
+    dynamic func setUserWithHashAuth(id: String, algorithm: String, secretId: String, digest: String, salt: String?) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithHashParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                digest: digest,
+                salt: salt))
+    }
+
+    @objc(setUserWithHashAuthWithExpiration:algorithm:secretId:digest:salt:expiration:)
+    dynamic func setUserWithHashAuthWithExpiration(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithHashParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                digest: digest,
+                salt: salt,
+                legacyExpiration: expiration))
+    }
+
+    @objc(setUserWithEncryptionAuth:algorithm:secretId:initializationVector:)
+    dynamic func setUserWithEncryptionAuth(id: String, algorithm: String, secretId: String, initializationVector: String) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithEncryptionParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                initializationVector: initializationVector))
+    }
+
+    @objc(setUserWithEncryptionAuthWithExpiration:algorithm:secretId:initializationVector:expiration:)
+    dynamic func setUserWithEncryptionAuthWithExpiration(id: String, algorithm: String, secretId: String, initializationVector: String, expiration: Double) {
+        Didomi.shared.setUser(
+            userAuthParams: UserAuthWithEncryptionParams(
+                id: id,
+                algorithm: algorithm,
+                secretID: secretId,
+                initializationVector: initializationVector,
+                legacyExpiration: expiration))
+    }
+
     @objc public enum Views : Int, RawRepresentable {
         
         case purposes = 0
@@ -487,10 +526,10 @@ extension RNDidomi {
                 "on_preferences_click_vendor_agree",
                 "on_preferences_click_vendor_disagree",
                 "on_preferences_click_vendor_save_choices",
-                "on_sync_done"
+                "on_sync_done",
+                "on_sync_error"
         ]
     }
-    
     
     private func initEventListener(){
         
@@ -613,7 +652,11 @@ extension RNDidomi {
         didomiEventListener.onSyncDone = { event, organizationUserId in
             self.sendEvent(withName: "on_sync_done", body: organizationUserId)
         }
-        
+
+        didomiEventListener.onSyncError = { event, error in
+            self.sendEvent(withName: "on_sync_error", body: error)
+        }
+
         Didomi.shared.addEventListener(listener: didomiEventListener)
     }
 }

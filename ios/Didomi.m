@@ -203,13 +203,35 @@ RCT_EXTERN_METHOD(getText:(NSString *)key
 
 RCT_EXTERN_METHOD(setLogLevel:(int)minLevel)
 
-RCT_EXTERN_METHOD(setUser:(NSString *)id)
+RCT_EXTERN_METHOD(setUser:(NSString *)id
+                  algorithm:(nullable NSString *)algorithm
+                  secretId:(nullable NSString *)secretId
+                  salt:(nullable NSString *)salt
+                  digest:(nullable NSString *)digest)
 
-RCT_EXTERN_METHOD(setUse:(NSString *)id
+RCT_EXTERN_METHOD(setUserWithHashAuth:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
+                  digest:(NSString *)digest
+                  salt:(nullable NSString *)salt)
+
+RCT_EXTERN_METHOD(setUserWithHashAuthWithExpiration:(NSString *)id
+                  algorithm:(NSString *)algorithm
+                  secretId:(NSString *)secretId
+                  digest:(NSString *)digest
                   salt:(nullable NSString *)salt
-                  digest:(NSString *)digest)
+                  expiration: (double)expiration)
+
+RCT_EXTERN_METHOD(setUserWithEncryptionAuth:(NSString *)id
+                  algorithm:(NSString *)algorithm
+                  secretId:(NSString *)secretId
+                  initializationVector:(NSString *)initializationVector)
+
+RCT_EXTERN_METHOD(setUserWithEncryptionAuthWithExpiration:(NSString *)id
+                  algorithm:(NSString *)algorithm
+                  secretId:(NSString *)secretId
+                  initializationVector:(NSString *)initializationVector
+                  expiration: (double)expiration)
 
 RCT_EXTERN_METHOD(supportedEvents)
 

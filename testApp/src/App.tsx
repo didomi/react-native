@@ -20,6 +20,9 @@ function App() {
     Didomi.addEventListener(eventType, (data: any) => {
       setReceivedEvent({ name: eventType, data });
       console.log('event received: ' + eventType);
+      if (typeof data != "undefined" && data != "") {
+        console.log(' -> data : ' + data);
+      }
     });
   };
 
@@ -67,6 +70,7 @@ function App() {
     registerListener(DidomiEventType.READY);
     registerListener(DidomiEventType.SHOW_NOTICE);
     registerListener(DidomiEventType.SYNC_DONE);
+    registerListener(DidomiEventType.SYNC_ERROR);
 
     /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
       setReceivedEvent({ name: DidomiEventType.READY, data });

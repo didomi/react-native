@@ -356,20 +356,20 @@ export const Didomi = {
   isReady: (): Promise<boolean> => RNDidomi.isReady(),
 
   /**
-   *  Set user information with authentication
+   *  Set user information without authentication
    *
    *  @param id Organization user ID
-   *  @param algorithm Algorithm used for computing the digest
-   *  @param secretId ID of the secret used for computing the digest
-   *  @param salt Salt used for computing the digest (optional)
-   *  @param digest Digest of the organization user ID and secret
+   *  @param algorithm Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
+   *  @param secretId Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
+   *  @param salt Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
+   *  @param digest Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
    */
   setUser: (
     organizationUserId: string,
-    organizationUserIdAuthAlgorithm: string,
-    organizationUserIdAuthSid: string,
-    organizationUserIdAuthSalt: string,
-    organizationUserIdAuthDigest: string
+    organizationUserIdAuthAlgorithm?: string,
+    organizationUserIdAuthSid?: string,
+    organizationUserIdAuthSalt?: string,
+    organizationUserIdAuthDigest?: string
   ): Promise<void> =>
     RNDidomi.setUser(
       organizationUserId,
@@ -378,6 +378,78 @@ export const Didomi = {
       organizationUserIdAuthSalt,
       organizationUserIdAuthDigest
     ),
+
+  /**
+   *  Set user information with Hash authentication
+   *
+   *  @param id Organization user ID
+   *  @param algorithm Algorithm used for computing the digest
+   *  @param secretId ID of the secret used for computing the digest
+   *  @param digest Digest of the organization user ID and secret
+   *  @param salt Salt used for computing the digest (optional)
+   *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   */
+  setUserWithHashAuth: (
+    organizationUserId: string,
+    algorithm: string,
+    secretId: string,
+    digest: string,
+    salt?: string,
+    expiration?: BigInt
+  ): void => {
+    if (expiration === undefined) {
+      RNDidomi.setUserWithHashAuth(
+        organizationUserId,
+        algorithm,
+        secretId,
+        digest,
+        salt
+      );
+    } else {
+      RNDidomi.setUserWithHashAuthWithExpiration(
+        organizationUserId,
+        algorithm,
+        secretId,
+        digest,
+        salt,
+        expiration
+      );
+    }
+  },
+
+    /**
+     *  Set user information with Encryption authentication
+     *
+     *  @param id Organization user ID
+     *  @param algorithm Algorithm used for computing the digest
+     *  @param secretId ID of the secret used for computing the digest
+     *  @param initializationVector Initialization Vector used for computing the user ID
+     *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+     */
+    setUserWithEncryptionAuth: (
+      organizationUserId: string,
+      algorithm: string,
+      secretId: string,
+      initializationVector: string,
+      expiration?: BigInt
+    ): void => {
+      if (expiration === undefined) {
+        RNDidomi.setUserWithEncryptionAuth(
+          organizationUserId,
+          algorithm,
+          secretId,
+          initializationVector
+        );
+      } else {
+        RNDidomi.setUserWithEncryptionAuthWithExpiration(
+          organizationUserId,
+          algorithm,
+          secretId,
+          initializationVector,
+          expiration
+        );
+      }
+    },
 
   /**
    * Show the consent notice (if required, not disabled in the config and not already displayed)
