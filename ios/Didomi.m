@@ -203,13 +203,11 @@ RCT_EXTERN_METHOD(getText:(NSString *)key
 
 RCT_EXTERN_METHOD(setLogLevel:(int)minLevel)
 
-RCT_EXTERN_METHOD(setUser:(NSString *)id)
-
 RCT_EXTERN_METHOD(setUser:(NSString *)id
-                  algorithm:(NSString *)algorithm
-                  secretId:(NSString *)secretId
+                  algorithm:(nullable NSString *)algorithm
+                  secretId:(nullable NSString *)secretId
                   salt:(nullable NSString *)salt
-                  digest:(NSString *)digest)
+                  digest:(nullable NSString *)digest)
 
 RCT_EXTERN_METHOD(setUserWithHashAuth:(NSString *)id
                   algorithm:(NSString *)algorithm

@@ -395,7 +395,7 @@ export const Didomi = {
     secretId: string,
     digest: string,
     salt?: string,
-    expiration?: Long
+    expiration?: BigInt
   ): void => {
     if (expiration === undefined) {
       RNDidomi.setUserWithHashAuth(
@@ -431,7 +431,7 @@ export const Didomi = {
       algorithm: string,
       secretId: string,
       initializationVector: string,
-      expiration?: Long
+      expiration?: BigInt
     ): void => {
       if (expiration === undefined) {
         RNDidomi.setUserWithEncryptionAuth(

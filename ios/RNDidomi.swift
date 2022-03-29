@@ -155,7 +155,6 @@ class RNDidomi: RCTEventEmitter {
         resolve(Array(Didomi.shared.getRequiredVendorIds()))
     }
     
-    
     @objc(isReady:reject:)
     func isReady(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.isReady())
@@ -181,7 +180,6 @@ class RNDidomi: RCTEventEmitter {
         let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
         resolve(purposes)
     }
-    
     
     @objc(getEnabledPurposeIds:reject:)
     func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
@@ -252,7 +250,6 @@ class RNDidomi: RCTEventEmitter {
         Didomi.shared.updateSelectedLanguage(languageCode: languageCode)
     }
     
-    
     // MARK: ViewProviderDelegate
     
     @objc(getNoticeViewController:resolve:reject:)
@@ -264,7 +261,6 @@ class RNDidomi: RCTEventEmitter {
     dynamic func getPreferencesViewController(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getPreferencesViewController())
     }
-    
     
     // MARK: Didomi extension
     
@@ -367,15 +363,14 @@ class RNDidomi: RCTEventEmitter {
         
         Didomi.shared.setLogLevel(minLevel: level)
     }
-    
-    @objc(setUser:)
-    dynamic func setUser(id: String) {
-        Didomi.shared.setUser(id: id)
-    }
-    
+
     @objc(setUser:algorithm:secretId:salt:digest:)
-    dynamic func setUser(id: String, algorithm: String, secretId: String, salt: String?, digest: String) {
-        Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
+    dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?) {
+        if let algorithm = algorithm, let secretId = secretId, let digest = digest {
+            Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
+        } else {
+            Didomi.shared.setUser(id: id)
+        }
     }
 
     @objc(setUserWithHashAuth:algorithm:secretId:digest:salt:)
@@ -535,7 +530,6 @@ extension RNDidomi {
                 "on_sync_error"
         ]
     }
-    
     
     private func initEventListener(){
         
