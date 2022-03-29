@@ -531,7 +531,8 @@ extension RNDidomi {
                 "on_preferences_click_vendor_agree",
                 "on_preferences_click_vendor_disagree",
                 "on_preferences_click_vendor_save_choices",
-                "on_sync_done"
+                "on_sync_done",
+                "on_sync_error"
         ]
     }
     
