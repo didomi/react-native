@@ -26,18 +26,7 @@ function App() {
     });
   };
 
-  // For some reason listeners added in Didomi.initialize against the NativeEventEmitter are kept between test runs.
-  // This is not the same as the listeners added by app devs.
-  // In order to make tests run smoother locally, we remove them each time.
-  // In theory this shouldn't be an issue on a regular app.
-  const removeAllNativeListeners = () => {
-    Object.values(DidomiEventType).forEach((eventTypeValue) => {
-      DidomiListener.eventEmitter.removeAllListeners(eventTypeValue);
-    });
-  };
-
   React.useEffect(() => {
-    removeAllNativeListeners();
     Didomi.removeAllEventListeners();
 
     registerListener(DidomiEventType.CONSENT_CHANGED);
@@ -69,6 +58,8 @@ function App() {
     registerListener(DidomiEventType.PREFERENCES_CLICK_VIEW_VENDORS);
     registerListener(DidomiEventType.READY);
     registerListener(DidomiEventType.SHOW_NOTICE);
+    registerListener(DidomiEventType.HIDE_PREFERENCES);
+    registerListener(DidomiEventType.SHOW_PREFERENCES);
     registerListener(DidomiEventType.SYNC_DONE);
     registerListener(DidomiEventType.SYNC_ERROR);
 
