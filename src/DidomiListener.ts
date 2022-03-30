@@ -15,6 +15,8 @@ export const DidomiListener = {
   init: () => {
     // Register all native event listeners
     Object.values(DidomiEventType).forEach((eventTypeValue) => {
+      // Remove previous listeners, as init() can be called several times in some configs
+      DidomiListener.eventEmitter.removeAllListeners(eventTypeValue);
       DidomiListener.eventEmitter.addListener(eventTypeValue, (_event: any) => {
         let events = DidomiListener.listeners.get(eventTypeValue);
         if (events) {
