@@ -1,6 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Didomi-XCFramework (1.64.0)
+  - Didomi-XCFramework (1.67.1)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.63.4)
   - FBReactNativeSpec (0.63.4):
@@ -274,8 +274,8 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-didomi (1.5.0):
-    - Didomi-XCFramework (= 1.64.0)
+  - react-native-didomi (1.6.0):
+    - Didomi-XCFramework (= 1.67.1)
     - React-Core
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
@@ -444,7 +444,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Didomi-XCFramework: b8ba2059bccee657c48df01f1435108920d48e5a
+  Didomi-XCFramework: 59e82ee01da0c72c258dca55346c5d8104ab8f66
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
@@ -470,7 +470,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-didomi: ea4a6351391682e8043523a397f923fe8586660f
+  react-native-didomi: 709d1b1a59f837be7388498156b4b09e782b6443
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -485,4 +485,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d3e5e40be1955e5770edb1699ea7f72af12fe086
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
