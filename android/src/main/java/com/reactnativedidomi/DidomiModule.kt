@@ -287,7 +287,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun setupUI(promise: Promise) {
         try {
             runOnUiThread {
-                Didomi.getInstance().setupUI(currentActivity as FragmentActivity)
+                Didomi.getInstance().setupUI(currentActivity as? FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
@@ -718,7 +718,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun showNotice(promise: Promise) {
         try {
             runOnUiThread {
-                Didomi.getInstance().showNotice(currentActivity as FragmentActivity)
+                Didomi.getInstance().showNotice(currentActivity as? FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
@@ -732,8 +732,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         try {
             runOnUiThread {
                 view?.also {
-                    Didomi.getInstance().showPreferences(currentActivity as FragmentActivity, view)
-                } ?: Didomi.getInstance().showPreferences(currentActivity as FragmentActivity)
+                    Didomi.getInstance().showPreferences(currentActivity as? FragmentActivity, view)
+                } ?: Didomi.getInstance().showPreferences(currentActivity as? FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
