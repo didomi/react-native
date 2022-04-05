@@ -666,6 +666,7 @@ extension RNDidomi {
         Didomi.shared.addEventListener(listener: didomiEventListener)
     }
 
+    /// Sends the specified event only if the react-native bridge is still valid
     private func dispatchEvent(withName: String, body: String?) {
         if self.bridge != nil {
             self.sendEvent(withName: withName, body: body)
