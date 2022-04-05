@@ -270,7 +270,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 noticeId
             )
 
-            Didomi.getInstance().initialize(currentActivity?.application, parameters)
+            val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
+            Didomi.getInstance().initialize(application, parameters)
 
             Didomi.getInstance().onReady { prepareEvent(EventTypes.READY_CALLBACK.event, null) }
             Didomi.getInstance().onError { prepareEvent(EventTypes.ERROR_CALLBACK.event, null) }
@@ -278,7 +279,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             promise.resolve(0)
 
         } catch (e: Exception) {
-            Log.e("initialize", "Error while initializing the Didomi SDK", e);
+            Log.e("initialize", "Error while initializing the Didomi SDK", e)
             promise.reject(e)
         }
     }
@@ -531,7 +532,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserStatus(promise: Promise) {
         try {
-            promise.resolve(objectToWritableMap(Didomi.getInstance().getUserStatus()))
+            promise.resolve(objectToWritableMap(Didomi.getInstance().userStatus))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -596,7 +597,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun isNoticeVisible(promise: Promise) {
         try {
-            promise.resolve(Didomi.getInstance().isNoticeVisible)
+            promise.resolve(Didomi.getInstance().isNoticeVisible())
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -605,7 +606,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun isPreferencesVisible(promise: Promise) {
         try {
-            promise.resolve(Didomi.getInstance().isPreferencesVisible)
+            promise.resolve(Didomi.getInstance().isPreferencesVisible())
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
