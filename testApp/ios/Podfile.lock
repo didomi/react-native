@@ -186,7 +186,7 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-didomi (1.6.0):
+  - react-native-didomi (1.7.0):
     - Didomi-XCFramework (= 1.68.0)
     - React-Core
   - React-RCTActionSheet (0.63.4):
@@ -361,7 +361,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-didomi: 42765bd5298050c00b97fc8a981619dd3bb47a62
+  react-native-didomi: 1169ff4e525a767a4146e8a8f4155add6b69ed94
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
