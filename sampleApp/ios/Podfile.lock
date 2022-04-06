@@ -1,6 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Didomi-XCFramework (1.67.1)
+  - Didomi-XCFramework (1.68.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.63.4)
   - FBReactNativeSpec (0.63.4):
@@ -275,7 +275,7 @@ PODS:
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
   - react-native-didomi (1.6.0):
-    - Didomi-XCFramework (= 1.67.1)
+    - Didomi-XCFramework (= 1.68.0)
     - React-Core
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
