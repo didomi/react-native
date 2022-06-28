@@ -17,9 +17,9 @@ class RNDidomi: RCTEventEmitter {
     override static func requiresMainQueueSetup() -> Bool {
         return true
     }
-    
-    @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:)
-    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil) {
+
+    @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:resolve:reject:)
+    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         onReady()
         onError()
         if !RNDidomi.initialized {
@@ -38,6 +38,7 @@ class RNDidomi: RCTEventEmitter {
             ))
         }
         RNDidomi.initialized = true
+        resolve(0)
     }
     
     private func onReady() {
@@ -137,42 +138,43 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(setUserAgreeToAll:reject:)
-    func setUserAgreeToAll(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func setUserAgreeToAll(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.setUserAgreeToAll())
     }
-    
+
     @objc(setUserDisagreeToAll:reject:)
-    func setUserDisagreeToAll(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func setUserDisagreeToAll(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.setUserDisagreeToAll())
     }
-    
-    @objc(reset)
-    func reset() {
+
+    @objc(reset:reject:)
+    func reset(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.reset()
+        resolve(0)
     }
-    
+
     @objc(getRequiredPurposeIds:reject:)
-    func getRequiredPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getRequiredPurposeIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Array(Didomi.shared.getRequiredPurposeIds()))
     }
-    
+
     @objc(getRequiredVendorIds:reject:)
-    func getRequiredVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getRequiredVendorIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Array(Didomi.shared.getRequiredVendorIds()))
     }
-    
+
     @objc(isReady:reject:)
-    func isReady(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func isReady(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.isReady())
     }
-    
+
     @objc(getRequiredPurposes:reject:)
-    func getRequiredPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getRequiredPurposes(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
         let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredPurposes())) as? [[String: Any]]
         resolve(purposes)
     }
-    
+
     @objc(getRequiredVendors:reject:)
     func getRequiredVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
@@ -181,14 +183,14 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(getEnabledPurposes:reject:)
-    func getEnabledPurposes(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getEnabledPurposes(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
         let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
         resolve(purposes)
     }
     
     @objc(getEnabledPurposeIds:reject:)
-    func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Array(Didomi.shared.getEnabledPurposeIds()))
     }
     
@@ -212,24 +214,24 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(getEnabledVendorIds:reject:)
-    func getEnabledVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getEnabledVendorIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Array(Didomi.shared.getEnabledVendorIds()))
     }
     
     @objc(getDisabledVendors:reject:)
-    func getDisabledVendors(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getDisabledVendors(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
         let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as? [[String: Any]]
         resolve(vendors)
     }
     
     @objc(getDisabledVendorIds:reject:)
-    func getDisabledVendorIds(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getDisabledVendorIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Array(Didomi.shared.getDisabledVendorIds()))
     }
     
     @objc(getPurpose:resolve:reject:)
-    func getPurpose(purposeId: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getPurpose(purposeId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
         let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getPurpose(purposeId: purposeId))) as? [String: Any]
         resolve(purposes)
@@ -243,76 +245,81 @@ class RNDidomi: RCTEventEmitter {
     }
     
     @objc(getJavaScriptForWebView:resolve:reject:)
-    func getJavaScriptForWebView(_ extra: String? = "", resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    func getJavaScriptForWebView(_ extra: String? = "", resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         if let extra = extra {
             resolve(Didomi.shared.getJavaScriptForWebView(extra: extra))
         } else {
             resolve(Didomi.shared.getJavaScriptForWebView())
         }
     }
-    
-    @objc(updateSelectedLanguage:)
-    func updateSelectedLanguage(languageCode: String) {
+
+    @objc(updateSelectedLanguage:resolve:reject:)
+    func updateSelectedLanguage(languageCode: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.updateSelectedLanguage(languageCode: languageCode)
+        resolve(0)
     }
     
     // MARK: ViewProviderDelegate
     
     @objc(getNoticeViewController:resolve:reject:)
-    dynamic func getNoticeViewController(position: String, resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    dynamic func getNoticeViewController(position: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getNoticeViewController(position: position))
     }
     
     @objc(getPreferencesViewController:reject:)
-    dynamic func getPreferencesViewController(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    dynamic func getPreferencesViewController(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getPreferencesViewController())
     }
     
     // MARK: Didomi extension
-    
-    @objc(setupUI)
-    dynamic func setupUI() {
-        
+
+    @objc(setupUI:reject:)
+    dynamic func setupUI(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+
         DispatchQueue.main.async {
             if let containerController = RCTPresentedViewController() {
                 Didomi.shared.setupUI(containerController: containerController)
             }
         }
+        resolve(0)
     }
-    
-    @objc(forceShowNotice)
-    dynamic func forceShowNotice() {
+
+    @objc(forceShowNotice:reject:)
+    dynamic func forceShowNotice(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
             Didomi.shared.forceShowNotice()
         }
+        resolve(0)
     }
-    
-    @objc(showNotice)
-    dynamic func showNotice() {
+
+    @objc(showNotice:reject:)
+    dynamic func showNotice(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
             Didomi.shared.showNotice()
         }
+        resolve(0)
     }
-    
-    @objc(hideNotice)
-    dynamic func hideNotice() {
+
+    @objc(hideNotice:reject:)
+    dynamic func hideNotice(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
             Didomi.shared.hideNotice()
         }
+        resolve(0)
     }
     
     @objc(isNoticeVisible:reject:)
-    dynamic func isNoticeVisible(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    dynamic func isNoticeVisible(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.isNoticeVisible())
     }
     
     @objc(shouldConsentBeCollected:reject:)
-    dynamic func shouldConsentBeCollected(resolve:RCTPromiseResolveBlock,reject:RCTPromiseRejectBlock) {
+    dynamic func shouldConsentBeCollected(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.shouldConsentBeCollected())
     }
-    
-    @objc(showPreferences:)
-    dynamic func showPreferences(view: String?) {
+
+    @objc(showPreferences:resolve:reject:)
+    dynamic func showPreferences(view: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         if let containerController = RCTPresentedViewController(){
             if view?.lowercased() == "vendors"{
                 DispatchQueue.main.async {
@@ -325,13 +332,15 @@ class RNDidomi: RCTEventEmitter {
                 }
             }
         }
+        resolve(0)
     }
-    
-    @objc(hidePreferences)
-    dynamic func hidePreferences() {
+
+    @objc(hidePreferences:reject:)
+    dynamic func hidePreferences(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         DispatchQueue.main.async {
             Didomi.shared.hidePreferences()
         }
+        resolve(0)
     }
     
     @objc(isPreferencesVisible:reject:)
@@ -349,9 +358,9 @@ class RNDidomi: RCTEventEmitter {
         let text = Didomi.shared.getText(key: key)
         resolve(text)
     }
-    
-    @objc(setLogLevel:)
-    dynamic func setLogLevel(minLevel: UInt8) {
+
+    @objc(setLogLevel:resolve:reject:)
+    dynamic func setLogLevel(minLevel: UInt8, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         var level: UInt8
         
         switch minLevel {
@@ -368,19 +377,21 @@ class RNDidomi: RCTEventEmitter {
         }
         
         Didomi.shared.setLogLevel(minLevel: level)
+        resolve(0)
     }
 
-    @objc(setUser:algorithm:secretId:salt:digest:)
-    dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?) {
+    @objc(setUser:algorithm:secretId:salt:digest:resolve:reject:)
+    dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         if let algorithm = algorithm, let secretId = secretId, let digest = digest {
             Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
         } else {
             Didomi.shared.setUser(id: id)
         }
+        resolve(0)
     }
 
-    @objc(setUserWithHashAuth:algorithm:secretId:digest:salt:)
-    dynamic func setUserWithHashAuth(id: String, algorithm: String, secretId: String, digest: String, salt: String?) {
+    @objc(setUserWithHashAuth:algorithm:secretId:digest:salt:resolve:reject:)
+    dynamic func setUserWithHashAuth(id: String, algorithm: String, secretId: String, digest: String, salt: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUser(
             userAuthParams: UserAuthWithHashParams(
                 id: id,
@@ -388,10 +399,11 @@ class RNDidomi: RCTEventEmitter {
                 secretID: secretId,
                 digest: digest,
                 salt: salt))
+        resolve(0)
     }
 
-    @objc(setUserWithHashAuthWithExpiration:algorithm:secretId:digest:salt:expiration:)
-    dynamic func setUserWithHashAuthWithExpiration(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double) {
+    @objc(setUserWithHashAuthWithExpiration:algorithm:secretId:digest:salt:expiration:resolve:reject:)
+    dynamic func setUserWithHashAuthWithExpiration(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUser(
             userAuthParams: UserAuthWithHashParams(
                 id: id,
@@ -400,20 +412,22 @@ class RNDidomi: RCTEventEmitter {
                 digest: digest,
                 salt: salt,
                 legacyExpiration: expiration))
+        resolve(0)
     }
 
-    @objc(setUserWithEncryptionAuth:algorithm:secretId:initializationVector:)
-    dynamic func setUserWithEncryptionAuth(id: String, algorithm: String, secretId: String, initializationVector: String) {
+    @objc(setUserWithEncryptionAuth:algorithm:secretId:initializationVector:resolve:reject:)
+    dynamic func setUserWithEncryptionAuth(id: String, algorithm: String, secretId: String, initializationVector: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUser(
             userAuthParams: UserAuthWithEncryptionParams(
                 id: id,
                 algorithm: algorithm,
                 secretID: secretId,
                 initializationVector: initializationVector))
+        resolve(0)
     }
 
-    @objc(setUserWithEncryptionAuthWithExpiration:algorithm:secretId:initializationVector:expiration:)
-    dynamic func setUserWithEncryptionAuthWithExpiration(id: String, algorithm: String, secretId: String, initializationVector: String, expiration: Double) {
+    @objc(setUserWithEncryptionAuthWithExpiration:algorithm:secretId:initializationVector:expiration:resolve:reject:)
+    dynamic func setUserWithEncryptionAuthWithExpiration(id: String, algorithm: String, secretId: String, initializationVector: String, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUser(
             userAuthParams: UserAuthWithEncryptionParams(
                 id: id,
@@ -421,6 +435,7 @@ class RNDidomi: RCTEventEmitter {
                 secretID: secretId,
                 initializationVector: initializationVector,
                 legacyExpiration: expiration))
+        resolve(0)
     }
 
     @objc public enum Views : Int, RawRepresentable {

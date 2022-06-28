@@ -25,7 +25,7 @@ export const Didomi = {
     disableDidomiRemoteConfig: boolean = false,
     languageCode?: string,
     noticeId?: string
-  ) => {
+  ) : Promise<void> => {
     // Init listener
     DidomiListener.init();
 
