@@ -109,48 +109,64 @@ export const Didomi = {
   /**
    *  Method used to get an array of disabled purposes.
    *  @returns: array of disabled purposes.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getPurposes().getConsent().getDisabled().
    */
   getDisabledPurposes: (): Promise<any[]> => RNDidomi.getDisabledPurposes(),
 
   /**
    *  Method used to get a set of disabled purpose IDs.
    *  @returns: set that contains the IDs of disabled purposes.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getPurposes().getConsent().getDisabled().
    */
   getDisabledPurposeIds: (): Promise<any[]> => RNDidomi.getDisabledPurposeIds(),
 
   /**
    *  Method used to get an array of disabled vendors.
    *  @returns: array of disabled vendors.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getVendors().getConsent().getDisabled().
    */
   getDisabledVendors: (): Promise<any[]> => RNDidomi.getDisabledVendors(),
 
   /**
    *  Method used to get a set of disabled vendor IDs.
    *  @returns: set that contains the IDs of disabled vendors.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getVendors().getConsent().getDisabled().
    */
   getDisabledVendorIds: (): Promise<any[]> => RNDidomi.getDisabledVendorIds(),
 
   /**
    *  Method used to get an array of enabled purposes.
    *  @returns: array of enabled purposes.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getPurposes().getConsent().getEnabled().
    */
   getEnabledPurposes: (): Promise<any[]> => RNDidomi.getEnabledPurposes(),
 
   /**
    *  Method used to get a set of enabled purpose IDs.
    *  @returns: set that contains the IDs of enabled purposes.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getPurposes().getConsent().getEnabled().
    */
   getEnabledPurposeIds: (): Promise<any[]> => RNDidomi.getEnabledPurposeIds(),
 
   /**
    *  Method used to get an array of enabled vendors.
    *  @returns: array of enabled vendors.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getVendors().getConsent().getEnabled().
    */
   getEnabledVendors: (): Promise<any[]> => RNDidomi.getEnabledVendors(),
 
   /**
    *  Method used to get a set of enabled vendor IDs.
    *  @returns: set that contains the IDs of enabled vendors.
+   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
+   *  has been replaced by getUserStatus().getVendors().getConsent().getDisabled().
    */
   getEnabledVendorIds: (): Promise<any[]> => RNDidomi.getEnabledVendorIds(),
 
