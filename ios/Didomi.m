@@ -225,14 +225,18 @@ RCT_EXTERN_METHOD(setUserWithHashAuth:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
                   digest:(NSString *)digest
-                  salt:(nullable NSString *)salt)
+                  salt:(nullable NSString *)salt
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUserWithHashAuthWithExpiration:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
                   digest:(NSString *)digest
                   salt:(nullable NSString *)salt
-                  expiration: (double)expiration)
+                  expiration: (double)expiration
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUserWithEncryptionAuth:(NSString *)id
                   algorithm:(NSString *)algorithm
