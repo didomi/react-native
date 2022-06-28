@@ -166,7 +166,7 @@ export const Didomi = {
    *  Method used to get a set of enabled vendor IDs.
    *  @returns: set that contains the IDs of enabled vendors.
    *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().getVendors().getConsent().getDisabled().
+   *  has been replaced by getUserStatus().getVendors().getConsent().getEnabled().
    */
   getEnabledVendorIds: (): Promise<any[]> => RNDidomi.getEnabledVendorIds(),
 
