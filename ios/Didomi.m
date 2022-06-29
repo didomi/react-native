@@ -3,10 +3,6 @@
 
 @interface RCT_EXTERN_MODULE(Didomi, RCTEventEmitter)
 
-RCT_EXTERN_METHOD(multiply:(float)a withB:(float)b
-                  withResolver:(RCTPromiseResolveBlock)resolve
-                  withRejecter:(RCTPromiseRejectBlock)reject)
-
 RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
                   userAgentVersion:(NSString *)userAgentVersion
                   apiKey:(NSString *)apiKey
@@ -15,7 +11,9 @@ RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
                   providerId:(nullable NSString *)providerId
                   disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig
                   languageCode:(nullable NSString *)languageCode
-                  noticeId:(nullable NSString *)noticeId)
+                  noticeId:(nullable NSString *)noticeId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(onReady)
 
@@ -102,7 +100,8 @@ RCT_EXTERN_METHOD(setUserDisagreeToAll:(RCTPromiseResolveBlock)resolve
 //        Didomi.shared.onError(callback: callback)
 //    }
 
-RCT_EXTERN_METHOD(reset)
+RCT_EXTERN_METHOD(reset:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(getRequiredPurposeIds:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -157,7 +156,9 @@ RCT_EXTERN_METHOD(getJavaScriptForWebView:(NSString *)extra
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(updateSelectedLanguage:(NSString *)languageCode)
+RCT_EXTERN_METHOD(updateSelectedLanguage:(NSString *)languageCode
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 
 // MARK: ViewProviderDelegate
@@ -172,13 +173,17 @@ RCT_EXTERN_METHOD(getPreferencesViewController:(RCTPromiseResolveBlock)resolve
 
 // MARK: Didomi extension
 
-RCT_EXTERN_METHOD(setupUI)
+RCT_EXTERN_METHOD(setupUI:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(forceShowNotice)
+RCT_EXTERN_METHOD(forceShowNotice:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(showNotice)
+RCT_EXTERN_METHOD(showNotice:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(hideNotice)
+RCT_EXTERN_METHOD(hideNotice:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(isNoticeVisible:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -186,9 +191,12 @@ RCT_EXTERN_METHOD(isNoticeVisible:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(shouldConsentBeCollected:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(showPreferences:(nullable NSString *)view)
+RCT_EXTERN_METHOD(showPreferences:(nullable NSString *)view
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(hidePreferences)
+RCT_EXTERN_METHOD(hidePreferences:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(isPreferencesVisible:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -201,37 +209,49 @@ RCT_EXTERN_METHOD(getText:(NSString *)key
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(setLogLevel:(int)minLevel)
+RCT_EXTERN_METHOD(setLogLevel:(int)minLevel
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUser:(NSString *)id
                   algorithm:(nullable NSString *)algorithm
                   secretId:(nullable NSString *)secretId
                   salt:(nullable NSString *)salt
-                  digest:(nullable NSString *)digest)
+                  digest:(nullable NSString *)digest
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUserWithHashAuth:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
                   digest:(NSString *)digest
-                  salt:(nullable NSString *)salt)
+                  salt:(nullable NSString *)salt
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUserWithHashAuthWithExpiration:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
                   digest:(NSString *)digest
                   salt:(nullable NSString *)salt
-                  expiration: (double)expiration)
+                  expiration: (double)expiration
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUserWithEncryptionAuth:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
-                  initializationVector:(NSString *)initializationVector)
+                  initializationVector:(NSString *)initializationVector
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(setUserWithEncryptionAuthWithExpiration:(NSString *)id
                   algorithm:(NSString *)algorithm
                   secretId:(NSString *)secretId
                   initializationVector:(NSString *)initializationVector
-                  expiration: (double)expiration)
+                  expiration: (double)expiration
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(supportedEvents)
 

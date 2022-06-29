@@ -25,12 +25,12 @@ export const Didomi = {
     disableDidomiRemoteConfig: boolean = false,
     languageCode?: string,
     noticeId?: string
-  ) => {
+  ): Promise<void> => {
     // Init listener
     DidomiListener.init();
 
     // Trigger native SDK init
-    RNDidomi.initialize(
+    return RNDidomi.initialize(
       DIDOMI_USER_AGENT_NAME,
       DIDOMI_VERSION,
       apiKey,
@@ -81,7 +81,7 @@ export const Didomi = {
    *
    * @param minLevel: Minimum level of messages to log
    */
-  setLogLevel: (level: number): Promise<number> => RNDidomi.setLogLevel(level),
+  setLogLevel: (level: number): Promise<void> => RNDidomi.setLogLevel(level),
 
   /**
    *  Add an event listener
