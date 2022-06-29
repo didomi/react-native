@@ -209,7 +209,7 @@ RCT_EXTERN_METHOD(getText:(NSString *)key
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(setLogLevel:(int)minLevel:
+RCT_EXTERN_METHOD(setLogLevel:(int)minLevel
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
