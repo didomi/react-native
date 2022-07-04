@@ -381,60 +381,128 @@ class RNDidomi: RCTEventEmitter {
     }
 
     @objc(setUser:algorithm:secretId:salt:digest:resolve:reject:)
-    dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        if let algorithm = algorithm, let secretId = secretId, let digest = digest {
+    dynamic func setUser(id: String?, algorithm: String?, secretId: String?, salt: String?, digest: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        if let id = id, let algorithm = algorithm, let secretId = secretId, let digest = digest {
             Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
+        } else if let id = id {
+            DispatchQueue.main.async {
+                if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(id: id, containerController: containerController)
+                } else {
+                    Didomi.shared.setUser(id: id)
+                }
+            }
         } else {
-            Didomi.shared.setUser(id: id)
+            Didomi.shared.clearUser()
         }
         resolve(0)
     }
 
     @objc(setUserWithHashAuth:algorithm:secretId:digest:salt:resolve:reject:)
     dynamic func setUserWithHashAuth(id: String, algorithm: String, secretId: String, digest: String, salt: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        Didomi.shared.setUser(
-            userAuthParams: UserAuthWithHashParams(
-                id: id,
-                algorithm: algorithm,
-                secretID: secretId,
-                digest: digest,
-                salt: salt))
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: UserAuthWithHashParams(
+                            id: id,
+                            algorithm: algorithm,
+                            secretID: secretId,
+                            digest: digest,
+                            salt: salt
+                        ),
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(
+                    userAuthParams: UserAuthWithHashParams(
+                        id: id,
+                        algorithm: algorithm,
+                        secretID: secretId,
+                        digest: digest,
+                        salt: salt))
+            }
+        }
         resolve(0)
     }
 
     @objc(setUserWithHashAuthWithExpiration:algorithm:secretId:digest:salt:expiration:resolve:reject:)
     dynamic func setUserWithHashAuthWithExpiration(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        Didomi.shared.setUser(
-            userAuthParams: UserAuthWithHashParams(
-                id: id,
-                algorithm: algorithm,
-                secretID: secretId,
-                digest: digest,
-                salt: salt,
-                legacyExpiration: expiration))
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: UserAuthWithHashParams(
+                            id: id,
+                            algorithm: algorithm,
+                            secretID: secretId,
+                            digest: digest,
+                            salt: salt,
+                            legacyExpiration: expiration
+                        ),
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(
+                    userAuthParams: UserAuthWithHashParams(
+                        id: id,
+                        algorithm: algorithm,
+                        secretID: secretId,
+                        digest: digest,
+                        salt: salt,
+                        legacyExpiration: expiration))
+            }
+        }
         resolve(0)
     }
 
     @objc(setUserWithEncryptionAuth:algorithm:secretId:initializationVector:resolve:reject:)
     dynamic func setUserWithEncryptionAuth(id: String, algorithm: String, secretId: String, initializationVector: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        Didomi.shared.setUser(
-            userAuthParams: UserAuthWithEncryptionParams(
-                id: id,
-                algorithm: algorithm,
-                secretID: secretId,
-                initializationVector: initializationVector))
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: UserAuthWithEncryptionParams(
+                            id: id,
+                            algorithm: algorithm,
+                            secretID: secretId,
+                            initializationVector: initializationVector
+                        ),
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(
+                    userAuthParams: UserAuthWithEncryptionParams(
+                        id: id,
+                        algorithm: algorithm,
+                        secretID: secretId,
+                        initializationVector: initializationVector))
+            }
+        }
         resolve(0)
     }
 
     @objc(setUserWithEncryptionAuthWithExpiration:algorithm:secretId:initializationVector:expiration:resolve:reject:)
     dynamic func setUserWithEncryptionAuthWithExpiration(id: String, algorithm: String, secretId: String, initializationVector: String, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        Didomi.shared.setUser(
-            userAuthParams: UserAuthWithEncryptionParams(
-                id: id,
-                algorithm: algorithm,
-                secretID: secretId,
-                initializationVector: initializationVector,
-                legacyExpiration: expiration))
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: UserAuthWithEncryptionParams(
+                            id: id,
+                            algorithm: algorithm,
+                            secretID: secretId,
+                            initializationVector: initializationVector,
+                            legacyExpiration: expiration
+                        ),
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(
+                    userAuthParams: UserAuthWithEncryptionParams(
+                        id: id,
+                        algorithm: algorithm,
+                        secretID: secretId,
+                        initializationVector: initializationVector,
+                        legacyExpiration: expiration))
+            }
+        }
         resolve(0)
     }
 
@@ -444,7 +512,6 @@ class RNDidomi: RCTEventEmitter {
         
         case vendors
     }
-    
 }
 
 // MARK: Didomi Specific structs

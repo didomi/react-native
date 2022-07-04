@@ -213,7 +213,7 @@ RCT_EXTERN_METHOD(setLogLevel:(int)minLevel
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(setUser:(NSString *)id
+RCT_EXTERN_METHOD(setUser:(nullable NSString *)id
                   algorithm:(nullable NSString *)algorithm
                   secretId:(nullable NSString *)secretId
                   salt:(nullable NSString *)salt

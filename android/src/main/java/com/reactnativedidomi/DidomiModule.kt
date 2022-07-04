@@ -623,13 +623,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUser(organizationUserId: String,
+    fun setUser(organizationUserId: String?,
                 organizationUserIdAuthAlgorithm: String?,
                 organizationUserIdAuthSid: String?,
                 organizationUserIdAuthSalt: String?,
                 organizationUserIdAuthDigest: String?,
                 promise: Promise) {
-        if (organizationUserIdAuthAlgorithm != null
+        if (organizationUserId != null
+                && organizationUserIdAuthAlgorithm != null
                 && organizationUserIdAuthSid != null
                 && organizationUserIdAuthSalt != null
                 && organizationUserIdAuthDigest != null) {
@@ -641,7 +642,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     organizationUserIdAuthDigest
             )
         } else {
-            Didomi.getInstance().setUser(organizationUserId)
+            Didomi.getInstance().setUser(organizationUserId, currentActivity as? FragmentActivity)
         }
 
         promise.resolve(0)
@@ -654,13 +655,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 digest: String,
                 salt: String?,
                 promise: Promise) {
-        Didomi.getInstance().setUser(UserAuthWithHashParams(
-            organizationUserId,
-            algorithm,
-            secretId,
-            digest,
-            salt
-        ))
+        Didomi.getInstance().setUser(
+            UserAuthWithHashParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                digest,
+                salt
+            ),
+            currentActivity as? FragmentActivity
+        )
         promise.resolve(0)
     }
 
@@ -672,14 +676,17 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 salt: String?,
                 expiration: Int,
                 promise: Promise) {
-        Didomi.getInstance().setUser(UserAuthWithHashParams(
-            organizationUserId,
-            algorithm,
-            secretId,
-            digest,
-            salt,
-            expiration.toLong()
-        ))
+        Didomi.getInstance().setUser(
+            UserAuthWithHashParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                digest,
+                salt,
+                expiration.toLong()
+            ),
+            currentActivity as? FragmentActivity
+        )
         promise.resolve(0)
     }
 
@@ -689,12 +696,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                             secretId: String,
                             initializationVector: String,
                             promise: Promise) {
-        Didomi.getInstance().setUser(UserAuthWithEncryptionParams(
-            organizationUserId,
-            algorithm,
-            secretId,
-            initializationVector
-        ))
+        Didomi.getInstance().setUser(
+            UserAuthWithEncryptionParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                initializationVector
+            ),
+            currentActivity as? FragmentActivity
+        )
         promise.resolve(0)
     }
 
@@ -705,13 +715,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                             initializationVector: String,
                             expiration: Int,
                             promise: Promise) {
-        Didomi.getInstance().setUser(UserAuthWithEncryptionParams(
-            organizationUserId,
-            algorithm,
-            secretId,
-            initializationVector,
-            expiration.toLong()
-        ))
+        Didomi.getInstance().setUser(
+            UserAuthWithEncryptionParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                initializationVector,
+                expiration.toLong()
+            ),
+            currentActivity as? FragmentActivity
+        )
         promise.resolve(0)
     }
 
