@@ -248,6 +248,7 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains("\"user_id\":\""))
     XCTAssertTrue(actual.contains("\"created\":\""))
     XCTAssertTrue(actual.contains("\"updated\":\""))
+    XCTAssertTrue(actual.contains("\"regulation\":\"gdpr\""))
 
   }
   

@@ -86,6 +86,7 @@ export interface UserStatus {
   updated: string;
   consentString: string;
   additionalConsent: string;
+  regulation: string;
 }
 
 export interface UserStatusPurposes {
