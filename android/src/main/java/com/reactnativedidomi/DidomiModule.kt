@@ -623,14 +623,19 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUser(organizationUserId: String?,
+    fun clearUser(promise: Promise) {
+        Didomi.getInstance().setUser(null)
+        promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun setUser(organizationUserId: String,
                 organizationUserIdAuthAlgorithm: String?,
                 organizationUserIdAuthSid: String?,
                 organizationUserIdAuthSalt: String?,
                 organizationUserIdAuthDigest: String?,
                 promise: Promise) {
-        if (organizationUserId != null
-                && organizationUserIdAuthAlgorithm != null
+        if (organizationUserIdAuthAlgorithm != null
                 && organizationUserIdAuthSid != null
                 && organizationUserIdAuthSalt != null
                 && organizationUserIdAuthDigest != null) {
@@ -642,14 +647,39 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     organizationUserIdAuthDigest
             )
         } else {
-            Didomi.getInstance().setUser(organizationUserId, currentActivity as? FragmentActivity)
+            Didomi.getInstance().setUser(organizationUserId)
         }
 
         promise.resolve(0)
     }
 
     @ReactMethod
+    fun setUserAndSetupUI(organizationUserId: String, promise: Promise) {
+        Didomi.getInstance().setUser(organizationUserId, currentActivity as? FragmentActivity)
+        promise.resolve(0)
+    }
+
+    @ReactMethod
     fun setUserWithHashAuth(organizationUserId: String,
+                algorithm: String,
+                secretId: String,
+                digest: String,
+                salt: String?,
+                promise: Promise) {
+        Didomi.getInstance().setUser(
+            UserAuthWithHashParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                digest,
+                salt
+            )
+        )
+        promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun setUserWithHashAuthAndSetupUI(organizationUserId: String,
                 algorithm: String,
                 secretId: String,
                 digest: String,
@@ -684,6 +714,27 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 digest,
                 salt,
                 expiration.toLong()
+            )
+        )
+        promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun setUserWithHashAuthWithExpirationAndSetupUI(organizationUserId: String,
+                algorithm: String,
+                secretId: String,
+                digest: String,
+                salt: String?,
+                expiration: Int,
+                promise: Promise) {
+        Didomi.getInstance().setUser(
+            UserAuthWithHashParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                digest,
+                salt,
+                expiration.toLong()
             ),
             currentActivity as? FragmentActivity
         )
@@ -702,6 +753,23 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 algorithm,
                 secretId,
                 initializationVector
+            )
+        )
+        promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun setUserWithEncryptionAuthAndSetupUI(organizationUserId: String,
+                            algorithm: String,
+                            secretId: String,
+                            initializationVector: String,
+                            promise: Promise) {
+        Didomi.getInstance().setUser(
+            UserAuthWithEncryptionParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                initializationVector
             ),
             currentActivity as? FragmentActivity
         )
@@ -710,6 +778,25 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun setUserWithEncryptionAuthWithExpiration(organizationUserId: String,
+                            algorithm: String,
+                            secretId: String,
+                            initializationVector: String,
+                            expiration: Int,
+                            promise: Promise) {
+        Didomi.getInstance().setUser(
+            UserAuthWithEncryptionParams(
+                organizationUserId,
+                algorithm,
+                secretId,
+                initializationVector,
+                expiration.toLong()
+            )
+        )
+        promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun setUserWithEncryptionAuthWithExpirationAndSetupUI(organizationUserId: String,
                             algorithm: String,
                             secretId: String,
                             initializationVector: String,
