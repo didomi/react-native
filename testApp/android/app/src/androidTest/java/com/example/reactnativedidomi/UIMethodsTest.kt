@@ -26,14 +26,14 @@ class UIMethodsTest: BaseUITest() {
     }
 
     private fun testMethodCall(method: String) {
-        waitForDisplayed(withText(method.toUpperCase()))
-        onView(withText(method.toUpperCase())).perform(click())
+        waitForDisplayed(withText(method.uppercase()))
+        onView(withText(method.uppercase())).perform(click())
         waitForDisplayed(withText("$method-OK"))
     }
 
     private fun methodCall(method: String) {
-        waitForDisplayed(withText(method.toUpperCase()))
-        onView(withText(method.toUpperCase())).perform(click())
+        waitForDisplayed(withText(method.uppercase()))
+        onView(withText(method.uppercase())).perform(click())
     }
 
     private fun testLastEvent(event: String) {
