@@ -381,18 +381,18 @@ export const Didomi = {
    *  @param digest Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
    */
   setUser: (
-    organizationUserId: string,
-    organizationUserIdAuthAlgorithm?: string,
-    organizationUserIdAuthSid?: string,
-    organizationUserIdAuthSalt?: string,
-    organizationUserIdAuthDigest?: string
+    id?: string,
+    algorithm?: string,
+    secretId?: string,
+    salt?: string,
+    digest?: string
   ): Promise<void> =>
     RNDidomi.setUser(
-      organizationUserId,
-      organizationUserIdAuthAlgorithm,
-      organizationUserIdAuthSid,
-      organizationUserIdAuthSalt,
-      organizationUserIdAuthDigest
+      id,
+      algorithm,
+      secretId,
+      salt,
+      digest
     ),
 
   /**
@@ -406,7 +406,7 @@ export const Didomi = {
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
    */
   setUserWithHashAuth: (
-    organizationUserId: string,
+    id: string,
     algorithm: string,
     secretId: string,
     digest: string,
@@ -415,7 +415,7 @@ export const Didomi = {
   ): void => {
     if (expiration === undefined) {
       RNDidomi.setUserWithHashAuth(
-        organizationUserId,
+        id,
         algorithm,
         secretId,
         digest,
@@ -423,7 +423,7 @@ export const Didomi = {
       );
     } else {
       RNDidomi.setUserWithHashAuthWithExpiration(
-        organizationUserId,
+        id,
         algorithm,
         secretId,
         digest,
@@ -443,7 +443,7 @@ export const Didomi = {
      *  @param expiration Expiration date as timestamp (to prevent replay attacks)
      */
     setUserWithEncryptionAuth: (
-      organizationUserId: string,
+      id: string,
       algorithm: string,
       secretId: string,
       initializationVector: string,
@@ -451,14 +451,14 @@ export const Didomi = {
     ): void => {
       if (expiration === undefined) {
         RNDidomi.setUserWithEncryptionAuth(
-          organizationUserId,
+          id,
           algorithm,
           secretId,
           initializationVector
         );
       } else {
         RNDidomi.setUserWithEncryptionAuthWithExpiration(
-          organizationUserId,
+          id,
           algorithm,
           secretId,
           initializationVector,
