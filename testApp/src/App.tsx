@@ -6,8 +6,8 @@ import Methods from './Methods';
 import Getters from './Getters';
 import GettersParams from './GettersParams';
 import Setters from './Setters';
+import SetUser from './SetUser';
 import { TestEvent } from './Types';
-import { DidomiListener } from '../../src/DidomiListener';
 
 function App() {
   const [receivedEvent, setReceivedEvent] = useState<TestEvent>({
@@ -118,6 +118,8 @@ function App() {
           <GettersParams />
           <Text style={styles.title}>SETTERS</Text>
           <Setters />
+          <Text style={styles.title}>SET USER</Text>
+          <SetUser />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -372,6 +372,11 @@ export const Didomi = {
   isReady: (): Promise<boolean> => RNDidomi.isReady(),
 
   /**
+   *  Clear user information
+   */
+  clearUser: (): Promise<void> => RNDidomi.clearUser(),
+
+  /**
    *  Set user information without authentication
    *
    *  @param id Organization user ID
@@ -381,19 +386,26 @@ export const Didomi = {
    *  @param digest Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
    */
   setUser: (
-    organizationUserId: string,
-    organizationUserIdAuthAlgorithm?: string,
-    organizationUserIdAuthSid?: string,
-    organizationUserIdAuthSalt?: string,
-    organizationUserIdAuthDigest?: string
+    id: string,
+    algorithm?: string,
+    secretId?: string,
+    salt?: string,
+    digest?: string
   ): Promise<void> =>
     RNDidomi.setUser(
-      organizationUserId,
-      organizationUserIdAuthAlgorithm,
-      organizationUserIdAuthSid,
-      organizationUserIdAuthSalt,
-      organizationUserIdAuthDigest
+      id,
+      algorithm,
+      secretId,
+      salt,
+      digest
     ),
+
+  /**
+   *  Set user information without authentication and check for missing consent
+   *
+   *  @param id Organization user ID
+   */
+  setUserAndSetupUI: (id: string): Promise<void> => RNDidomi.setUserAndSetupUI(id),
 
   /**
    *  Set user information with Hash authentication
@@ -406,7 +418,7 @@ export const Didomi = {
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
    */
   setUserWithHashAuth: (
-    organizationUserId: string,
+    id: string,
     algorithm: string,
     secretId: string,
     digest: string,
@@ -415,7 +427,7 @@ export const Didomi = {
   ): void => {
     if (expiration === undefined) {
       RNDidomi.setUserWithHashAuth(
-        organizationUserId,
+        id,
         algorithm,
         secretId,
         digest,
@@ -423,7 +435,7 @@ export const Didomi = {
       );
     } else {
       RNDidomi.setUserWithHashAuthWithExpiration(
-        organizationUserId,
+        id,
         algorithm,
         secretId,
         digest,
@@ -433,39 +445,111 @@ export const Didomi = {
     }
   },
 
-    /**
-     *  Set user information with Encryption authentication
-     *
-     *  @param id Organization user ID
-     *  @param algorithm Algorithm used for computing the digest
-     *  @param secretId ID of the secret used for computing the digest
-     *  @param initializationVector Initialization Vector used for computing the user ID
-     *  @param expiration Expiration date as timestamp (to prevent replay attacks)
-     */
-    setUserWithEncryptionAuth: (
-      organizationUserId: string,
-      algorithm: string,
-      secretId: string,
-      initializationVector: string,
-      expiration?: BigInt
-    ): void => {
-      if (expiration === undefined) {
-        RNDidomi.setUserWithEncryptionAuth(
-          organizationUserId,
-          algorithm,
-          secretId,
-          initializationVector
-        );
-      } else {
-        RNDidomi.setUserWithEncryptionAuthWithExpiration(
-          organizationUserId,
-          algorithm,
-          secretId,
-          initializationVector,
-          expiration
-        );
-      }
-    },
+  /**
+   *  Set user information with Hash authentication and check for missing consent
+   *
+   *  @param id Organization user ID
+   *  @param algorithm Algorithm used for computing the digest
+   *  @param secretId ID of the secret used for computing the digest
+   *  @param digest Digest of the organization user ID and secret
+   *  @param salt Salt used for computing the digest (optional)
+   *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   */
+  setUserWithHashAuthAndSetupUI: (
+    id: string,
+    algorithm: string,
+    secretId: string,
+    digest: string,
+    salt?: string,
+    expiration?: BigInt
+  ): void => {
+    if (expiration === undefined) {
+      RNDidomi.setUserWithHashAuthAndSetupUI(
+        id,
+        algorithm,
+        secretId,
+        digest,
+        salt
+      );
+    } else {
+      RNDidomi.setUserWithHashAuthWithExpirationAndSetupUI(
+        id,
+        algorithm,
+        secretId,
+        digest,
+        salt,
+        expiration
+      );
+    }
+  },
+
+  /**
+   *  Set user information with Encryption authentication
+   *
+   *  @param id Organization user ID
+   *  @param algorithm Algorithm used for computing the digest
+   *  @param secretId ID of the secret used for computing the digest
+   *  @param initializationVector Initialization Vector used for computing the user ID
+   *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   */
+  setUserWithEncryptionAuth: (
+    id: string,
+    algorithm: string,
+    secretId: string,
+    initializationVector: string,
+    expiration?: BigInt
+  ): void => {
+    if (expiration === undefined) {
+      RNDidomi.setUserWithEncryptionAuth(
+        id,
+        algorithm,
+        secretId,
+        initializationVector
+      );
+    } else {
+      RNDidomi.setUserWithEncryptionAuthWithExpiration(
+        id,
+        algorithm,
+        secretId,
+        initializationVector,
+        expiration
+      );
+    }
+  },
+
+  /**
+   *  Set user information with Encryption authentication and check for missing consent
+   *
+   *  @param id Organization user ID
+   *  @param algorithm Algorithm used for computing the digest
+   *  @param secretId ID of the secret used for computing the digest
+   *  @param initializationVector Initialization Vector used for computing the user ID
+   *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   */
+  setUserWithEncryptionAuthAndSetupUI: (
+    id: string,
+    algorithm: string,
+    secretId: string,
+    initializationVector: string,
+    expiration?: BigInt
+  ): void => {
+    if (expiration === undefined) {
+      RNDidomi.setUserWithEncryptionAuthAndSetupUI(
+        id,
+        algorithm,
+        secretId,
+        initializationVector
+      );
+    } else {
+      RNDidomi.setUserWithEncryptionAuthWithExpirationAndSetupUI(
+        id,
+        algorithm,
+        secretId,
+        initializationVector,
+        expiration
+      );
+    }
+  },
 
   /**
    * Show the consent notice (if required, not disabled in the config and not already displayed)

@@ -380,12 +380,30 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
 
+    @objc(clearUser:reject:)
+    func clearUser(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        Didomi.shared.clearUser()
+        resolve(0)
+    }
+
     @objc(setUser:algorithm:secretId:salt:digest:resolve:reject:)
     dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         if let algorithm = algorithm, let secretId = secretId, let digest = digest {
             Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
         } else {
             Didomi.shared.setUser(id: id)
+        }
+        resolve(0)
+    }
+
+    @objc(setUserAndSetupUI:resolve:reject:)
+    dynamic func setUserAndSetupUI(id: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                Didomi.shared.setUser(id: id, containerController: containerController)
+            } else {
+                Didomi.shared.setUser(id: id)
+            }
         }
         resolve(0)
     }
@@ -402,6 +420,29 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
 
+
+    @objc(setUserWithHashAuthAndSetupUI:algorithm:secretId:digest:salt:resolve:reject:)
+    dynamic func setUserWithHashAuthAndSetupUI(id: String, algorithm: String, secretId: String, digest: String, salt: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        let userAuthParams = UserAuthWithHashParams(
+            id: id,
+            algorithm: algorithm,
+            secretID: secretId,
+            digest: digest,
+            salt: salt
+        )
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: userAuthParams,
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(userAuthParams: userAuthParams)
+            }
+        }
+        resolve(0)
+    }
+
     @objc(setUserWithHashAuthWithExpiration:algorithm:secretId:digest:salt:expiration:resolve:reject:)
     dynamic func setUserWithHashAuthWithExpiration(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUser(
@@ -415,6 +456,29 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
 
+    @objc(setUserWithHashAuthWithExpirationAndSetupUI:algorithm:secretId:digest:salt:expiration:resolve:reject:)
+    dynamic func setUserWithHashAuthWithExpirationAndSetupUI(id: String, algorithm: String, secretId: String, digest: String, salt: String?, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        let userAuthParams = UserAuthWithHashParams(
+            id: id,
+            algorithm: algorithm,
+            secretID: secretId,
+            digest: digest,
+            salt: salt,
+            legacyExpiration: expiration
+        )
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: userAuthParams,
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(userAuthParams: userAuthParams)
+            }
+        }
+        resolve(0)
+    }
+
     @objc(setUserWithEncryptionAuth:algorithm:secretId:initializationVector:resolve:reject:)
     dynamic func setUserWithEncryptionAuth(id: String, algorithm: String, secretId: String, initializationVector: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUser(
@@ -423,6 +487,27 @@ class RNDidomi: RCTEventEmitter {
                 algorithm: algorithm,
                 secretID: secretId,
                 initializationVector: initializationVector))
+        resolve(0)
+    }
+
+    @objc(setUserWithEncryptionAuthAndSetupUI:algorithm:secretId:initializationVector:resolve:reject:)
+    dynamic func setUserWithEncryptionAuthAndSetupUI(id: String, algorithm: String, secretId: String, initializationVector: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        let userAuthParams = UserAuthWithEncryptionParams(
+            id: id,
+            algorithm: algorithm,
+            secretID: secretId,
+            initializationVector: initializationVector
+        )
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: userAuthParams,
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(userAuthParams: userAuthParams)
+            }
+        }
         resolve(0)
     }
 
@@ -438,13 +523,34 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
 
+    @objc(setUserWithEncryptionAuthWithExpirationAndSetupUI:algorithm:secretId:initializationVector:expiration:resolve:reject:)
+    dynamic func setUserWithEncryptionAuthWithExpirationAndSetupUI(id: String, algorithm: String, secretId: String, initializationVector: String, expiration: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        let userAuthParams = UserAuthWithEncryptionParams(
+            id: id,
+            algorithm: algorithm,
+            secretID: secretId,
+            initializationVector: initializationVector,
+            legacyExpiration: expiration
+        )
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: userAuthParams,
+                        containerController: containerController
+                    )
+            } else {
+                Didomi.shared.setUser(userAuthParams: userAuthParams)
+            }
+        }
+        resolve(0)
+    }
+
     @objc public enum Views : Int, RawRepresentable {
         
         case purposes = 0
         
         case vendors
     }
-    
 }
 
 // MARK: Didomi Specific structs

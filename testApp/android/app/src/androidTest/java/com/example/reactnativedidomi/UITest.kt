@@ -8,6 +8,7 @@ import org.junit.runners.Suite
     UIMethodsTest::class,
     UIGettersTest::class,
     UIGettersParamsTest::class,
-    UISettersTest::class
+    UISettersTest::class,
+    UISetUserTest::class
 )
 class UITest

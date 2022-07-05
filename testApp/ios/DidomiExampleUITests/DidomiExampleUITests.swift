@@ -248,6 +248,7 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains("\"user_id\":\""))
     XCTAssertTrue(actual.contains("\"created\":\""))
     XCTAssertTrue(actual.contains("\"updated\":\""))
+    XCTAssertTrue(actual.contains("\"regulation\":\"gdpr\""))
 
   }
   
@@ -391,11 +392,27 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
   }
   
+  // MARK: SET USER
+  
+  func testClearUser() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "clearUser")
+    assertResult(in: app, name: "clearUser", expected: "clearUser-OK")
+  }
+  
   func testSetUserWithId() throws {
     let app = XCUIApplication()
     
     tapButton(in: app, name: "setUserWithId")
     assertResult(in: app, name: "setUserWithId", expected: "setUserWithId-OK")
+  }
+  
+  func testSetUserWithIdAndSetupUI() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "setUserWithIdAndSetupUI")
+    assertResult(in: app, name: "setUserWithIdAndSetupUI", expected: "setUserWithIdAndSetupUI-OK")
   }
   
   func testSetUserWithHashAuth() throws {
@@ -405,11 +422,25 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithHashAuth", expected: "setUserWithHashAuth-OK")
   }
   
+  func testSetUserWithHashAuthAndSetupUI() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "setUserWithHashAuthAndSetupUI")
+    assertResult(in: app, name: "setUserWithHashAuthAndSetupUI", expected: "setUserWithHashAuthAndSetupUI-OK")
+  }
+  
   func testSetUserWithHashAuthWithSaltAndExpiration() throws {
     let app = XCUIApplication()
     
     tapButton(in: app, name: "setUserWithHashAuthWithSaltAndExpiration")
     assertResult(in: app, name: "setUserWithHashAuthWithSaltAndExpiration", expected: "setUserWithHashAuthWithSaltAndExpiration-OK")
+  }
+  
+  func testSetUserWithHashAuthWithSaltAndExpirationAndSetupUI() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "setUserWithHashAuthWithSaltAndExpirationAndSetupUI")
+    assertResult(in: app, name: "setUserWithHashAuthWithSaltAndExpirationAndSetupUI", expected: "setUserWithHashAuthWithSaltAndExpirationAndSetupUI-OK")
   }
   
   func testSetUserWithEncryptionAuth() throws {
@@ -419,11 +450,25 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithEncryptionAuth", expected: "setUserWithEncryptionAuth-OK")
   }
   
+  func testSetUserWithEncryptionAuthAndSetupUI() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "setUserWithEncryptionAuthAndSetupUI")
+    assertResult(in: app, name: "setUserWithEncryptionAuthAndSetupUI", expected: "setUserWithEncryptionAuthAndSetupUI-OK")
+  }
+  
   func testSetUserWithEncryptionAuthWithExpiration() throws {
     let app = XCUIApplication()
     
     tapButton(in: app, name: "setUserWithEncryptionAuthWithExpiration")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpiration", expected: "setUserWithEncryptionAuthWithExpiration-OK")
+  }
+  
+  func testSetUserWithEncryptionAuthWithExpirationAndSetupUI() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI")
+    assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
   }
 }
 

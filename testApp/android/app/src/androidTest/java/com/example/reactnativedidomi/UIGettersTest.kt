@@ -124,5 +124,6 @@ class UIGettersTest: BaseUITest() {
         assertTextContains("\"user_id\":\"".trim())
         assertTextContains("\"created\":\"".trim())
         assertTextContains("\"updated\":\"".trim())
+        assertTextContains("\"regulation\":\"gdpr\"".trim())
     }
 }

@@ -14,14 +14,14 @@ import org.hamcrest.CoreMatchers.startsWith
  */
 open class BaseUITest {
     protected fun agreeToAll() {
-        tapButton("setUserAgreeToAll".toUpperCase())
+        tapButton("setUserAgreeToAll".uppercase())
         Thread.sleep(2_000L)
         assertText("setUserAgreeToAll-OK")
         scrollToTopOfList()
     }
 
     protected fun disagreeToAll() {
-        tapButton("setUserDisagreeToAll".toUpperCase())
+        tapButton("setUserDisagreeToAll".uppercase())
         Thread.sleep(2_000L)
         assertText("setUserDisagreeToAll-OK")
         scrollToTopOfList()
@@ -34,13 +34,13 @@ open class BaseUITest {
     }
 
     protected fun tapButton(name: String) {
-        val matcher = withText(name.toUpperCase())
+        val matcher = withText(name.uppercase())
         onView(matcher).perform(ScrollToAction())
         onView(matcher).perform(click())
     }
 
     private fun scrollToItem(name: String) {
-        val matcher = withText(name.toUpperCase())
+        val matcher = withText(name.uppercase())
         onView(matcher).perform(ScrollToAction())
     }
 
