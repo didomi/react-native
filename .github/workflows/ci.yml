@@ -103,12 +103,13 @@ jobs:
         name: app-debug-androidTest.apk 
         path: testApp/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
-    - id: Authenticate Cloud SDK
+    # Authenticate Cloud SDK
+    - id: 'auth'
       uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-    - name: Set up Cloud SDK
+    - name: Setup Cloud SDK
       uses: google-github-actions/setup-gcloud@v0
       with:
         project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
