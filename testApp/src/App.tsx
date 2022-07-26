@@ -62,6 +62,8 @@ function App() {
     registerListener(DidomiEventType.SHOW_PREFERENCES);
     registerListener(DidomiEventType.SYNC_DONE);
     registerListener(DidomiEventType.SYNC_ERROR);
+    registerListener(DidomiEventType.LANGUAGE_UPDATED);
+    registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
 
     /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
       setReceivedEvent({ name: DidomiEventType.READY, data });
