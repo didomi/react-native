@@ -57,7 +57,7 @@ class UIMethodsTest: BaseUITest() {
         // Check opening of notice
         val agreeButtonText = "Agree & Close"
 
-        Thread.sleep(1000L)
+        Thread.sleep(1_000L)
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -67,12 +67,21 @@ class UIMethodsTest: BaseUITest() {
 
         testLastEvent("on_hide_notice")
         waitForDisplayed(withText("setupUI-OK"))
-
     }
 
     @Test
     fun test_SetLogLevel() {
         testMethodCall("setLogLevel")
+
+        waitForDisplayed(withText("setLogLevel-OK"))
+    }
+
+    @Test
+    fun test_UpdateSelectedLanguage() {
+        testMethodCall("updateSelectedLanguage")
+
+        waitForDisplayed(withText("updateSelectedLanguage-OK"))
+        testLastEvent("on_language_updated\"fr\"")
     }
 
     @Test
@@ -93,7 +102,6 @@ class UIMethodsTest: BaseUITest() {
 
         val agreeButtonText = "Agree & Close"
 
-
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -110,7 +118,6 @@ class UIMethodsTest: BaseUITest() {
         methodCall("showPreferences Purposes")
 
         val agreeButtonText = "Agree to all"
-
 
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
@@ -129,7 +136,6 @@ class UIMethodsTest: BaseUITest() {
 
         var agreeButtonText = "Save"
 
-
         waitForDisplayed(withText(agreeButtonText))
         var agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -146,5 +152,4 @@ class UIMethodsTest: BaseUITest() {
 
         testLastEvent("on_hide_notice")
     }
-
 }
