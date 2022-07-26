@@ -31,10 +31,7 @@ class UIGettersParamsTest: BaseUITest() {
         assertTextContains("\"description\":\"Cookies, device identifiers, or other information can be stored or accessed on your device for the purposes presented to you.\"")
         assertTextContains("\"name\":\"Store and/or access information on a device\"")
         assertTextContains("\"id\":\"cookies\"")
-//        assertTextContains("\"descriptionLegal\":\"Vendors can:\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
-        // Split assertion because of line break
-        assertTextContains("\"descriptionLegal\":\"Vendors can:")
-        assertTextContains("* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+        assertTextContains("\"descriptionLegal\":\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
     }
 
     @Test
