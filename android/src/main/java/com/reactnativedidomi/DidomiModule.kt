@@ -624,7 +624,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun clearUser(promise: Promise) {
-        Didomi.getInstance().setUser(null)
+        Didomi.getInstance().clearUser()
         promise.resolve(0)
     }
 
