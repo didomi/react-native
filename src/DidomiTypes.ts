@@ -31,6 +31,8 @@ export enum DidomiEventType {
   PREFERENCES_CLICK_RESET_ALL_PURPOSES = 'on_preferences_click_reset_all_purposes',
   SYNC_DONE = 'on_sync_done',
   SYNC_ERROR = 'on_sync_error',
+  LANGUAGE_UPDATED = "on_language_updated",
+  LANGUAGE_UPDATE_FAILED = "on_language_update_failed",
 }
 
 export interface Vendor {

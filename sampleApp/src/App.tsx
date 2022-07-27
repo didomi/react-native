@@ -51,6 +51,8 @@ function App() {
     registerListener(DidomiEventType.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_VIEW_PURPOSES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_VIEW_VENDORS);
+    registerListener(DidomiEventType.LANGUAGE_UPDATED);
+    registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
 
     Didomi.onReady().then(() => {
       console.log('ready');

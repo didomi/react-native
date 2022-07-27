@@ -176,6 +176,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          * Sync error
          */
         override fun syncError(event: SyncErrorEvent) = prepareEvent(EventTypes.SYNC_ERROR.event, event.error)
+
+        /**
+         * Language updated
+         */
+        override fun languageUpdated(event: LanguageUpdatedEvent) = prepareEvent(EventTypes.LANGUAGE_UPDATED.event, event.languageCode)
+
+        /**
+         * Language update failed
+         */
+        override fun languageUpdateFailed(event: LanguageUpdateFailedEvent) = prepareEvent(EventTypes.LANGUAGE_UPDATE_FAILED.event, event.reason)
     }
 
     override fun getName() = "Didomi"
@@ -624,7 +634,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun clearUser(promise: Promise) {
-        Didomi.getInstance().setUser(null)
+        Didomi.getInstance().clearUser()
         promise.resolve(0)
     }
 

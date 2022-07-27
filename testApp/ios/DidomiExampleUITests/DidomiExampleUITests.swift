@@ -81,6 +81,15 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setLogLevel", expected: "setLogLevel-OK")
   }
   
+  func testUpdateSelectedLanguage() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "updateSelectedLanguage")
+    assertResult(in: app, name: "updateSelectedLanguage", expected: "updateSelectedLanguage-OK")
+
+    testLastEvent(app: app, name:"on_language_updated\"fr\"")
+  }
+  
   func testShowNotice() throws {
     let app = XCUIApplication()
     tapButton(in: app, name: "showNotice")
@@ -265,7 +274,7 @@ class DidomiExampleUITests: XCTestCase {
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
     let actual = decodePurpose(actualRaw)
     
-    let expected = PurposeData(id: "cookies", name: "purpose_1_name", iabId: "1", description: "purpose_1_description")
+    let expected = PurposeData(id: "cookies", name: "Store and/or access information on a device", iabId: "1", description: "Cookies, device identifiers, or other information can be stored or accessed on your device for the purposes presented to you.")
     assertEqual(actual, expected)
   }
   

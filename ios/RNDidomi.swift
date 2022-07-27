@@ -654,7 +654,9 @@ extension RNDidomi {
                 "on_preferences_click_vendor_disagree",
                 "on_preferences_click_vendor_save_choices",
                 "on_sync_done",
-                "on_sync_error"
+                "on_sync_error",
+                "on_language_updated",
+                "on_language_update_failed"
         ]
     }
 
@@ -782,6 +784,14 @@ extension RNDidomi {
 
         didomiEventListener.onSyncError = { event, error in
             self.dispatchEvent(withName: "on_sync_error", body: error)
+        }
+        
+        didomiEventListener.onLanguageUpdated = { event, languageCode in
+            self.dispatchEvent(withName: "on_language_updated", body: languageCode)
+        }
+
+        didomiEventListener.onLanguageUpdateFailed = { event, reason in
+            self.dispatchEvent(withName: "on_language_update_failed", body: reason)
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)

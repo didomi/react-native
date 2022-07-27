@@ -27,11 +27,11 @@ class UIGettersParamsTest: BaseUITest() {
         tapButton("getPurpose [ID = 'cookies']")
 
         // Android doesn't always keep the same order for the properties.
-        assertTextContains("\"descriptionLegal\":\"purpose_1_description_legal\"")
         assertTextContains("\"iabId\":\"1\"")
-        assertTextContains("\"description\":\"purpose_1_description\"")
-        assertTextContains("\"name\":\"purpose_1_name\"")
+        assertTextContains("\"description\":\"Cookies, device identifiers, or other information can be stored or accessed on your device for the purposes presented to you.\"")
+        assertTextContains("\"name\":\"Store and/or access information on a device\"")
         assertTextContains("\"id\":\"cookies\"")
+        assertTextContains("\"descriptionLegal\":\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
     }
 
     @Test
