@@ -24,7 +24,9 @@ export const Didomi = {
     providerId?: string,
     disableDidomiRemoteConfig: boolean = false,
     languageCode?: string,
-    noticeId?: string
+    noticeId?: string,
+    androidTvNoticeId?: string,
+    androidTvEnabled: boolean = false
   ): Promise<void> => {
     // Init listener
     DidomiListener.init();
@@ -39,7 +41,9 @@ export const Didomi = {
       providerId,
       disableDidomiRemoteConfig,
       languageCode,
-      noticeId
+      noticeId,
+      androidTvNoticeId,
+      androidTvEnabled
     );
   },
 

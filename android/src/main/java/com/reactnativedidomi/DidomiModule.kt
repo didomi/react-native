@@ -264,6 +264,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         disableDidomiRemoteConfig: Boolean,
         languageCode: String?,
         noticeId: String?,
+        androidTvNoticeId: String?,
+        androidTvEnabled: Boolean,
         promise: Promise) {
         try {
             Didomi.getInstance().addEventListener(eventListener)
@@ -277,7 +279,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 providerId,
                 disableDidomiRemoteConfig,
                 languageCode,
-                noticeId
+                noticeId,
+                androidTvNoticeId,
+                androidTvEnabled
             )
 
             val application = currentActivity?.application ?: throw IllegalStateException("No activity present")

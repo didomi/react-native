@@ -12,6 +12,8 @@ RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
                   disableDidomiRemoteConfig:(BOOL)disableDidomiRemoteConfig
                   languageCode:(nullable NSString *)languageCode
                   noticeId:(nullable NSString *)noticeId
+                  androidTvNoticeId:(nullable NSString *)androidTvNoticeId
+                  androidTvEnabled:(BOOL)androidTvEnabled
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
