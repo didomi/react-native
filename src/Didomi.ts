@@ -13,9 +13,11 @@ export const Didomi = {
    *  @param localConfigurationPath: Path to your local config file. Defaults to didomi_config.json if null.
    *  @param remoteConfigurationURL: URL to a remote configuration file to load during initialization. This parameter is not used yet. Set it to null for now.
    *  @param providerId: Your provider ID (if any).
-   *  @param disableDidomiRemoteConfig: Whether to disable loading the remove configuration from the Didomi config. Keep this to "false" for loading configuration from the Didomi Console.
+   *  @param disableDidomiRemoteConfig: Whether to disable loading the remote configuration from the Didomi config. Keep this to "false" for loading configuration from the Didomi Console.
    *  @param languageCode: Language in which the consent UI should be displayed. By default, the consent UI is displayed in the language configured in the device settings. This property allows you to override the default setting and specify a language to display the UI in. String containing the language code e.g.: "es", "fr", etc.
    *  @param noticeId: Notice id for the remote configuration.
+   *  @param androidTvNoticeId: Notice id for the remote configuration when running on Android TV device (ignored on iOS / tvOS). Note that using remote configuration is mandatory for TV devices.
+   *  @param androidTvEnabled: Whether to allow Didomi SDK to run on Android TV, default to "false".
    */
   initialize: (
     apiKey: string,
