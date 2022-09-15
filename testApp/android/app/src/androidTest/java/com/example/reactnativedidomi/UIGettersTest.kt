@@ -126,4 +126,35 @@ class UIGettersTest: BaseUITest() {
         assertTextContains("\"updated\":\"".trim())
         assertTextContains("\"regulation\":\"gdpr\"".trim())
     }
+
+    @Test
+    fun test_getUserStatus_purposes() {
+        tapButton("getUserStatus purposes")
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+
+        // The text might change every time we call the getUserStatus method
+        // so we'll only assert the first level parameters of the resulting json string.
+        assertTextContains("{\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains(",\"global\":{\"enabled\":[".trim())
+        assertTextContains(",\"essential\":[".trim())
+        assertTextContains(",\"consent\":{\"enabled\":[".trim())
+    }
+
+    @Test
+    fun test_getUserStatus_vendors() {
+        tapButton("getUserStatus vendors")
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+
+        // The text might change every time we call the getUserStatus method
+        // so we'll only assert the first level parameters of the resulting json string.
+        assertTextContains("{\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains(",\"global\":{\"enabled\":[".trim())
+        assertTextContains(",\"global_li\":{\"enabled\":[".trim())
+        assertTextContains(",\"global_consent\":{\"enabled\":[".trim())
+        assertTextContains(",\"consent\":{\"enabled\":[".trim())
+    }
 }
