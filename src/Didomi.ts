@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType } from './DidomiTypes';
+import { DidomiEventType, UserStatus } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 
 const { Didomi: RNDidomi } = NativeModules;
@@ -314,7 +314,7 @@ export const Didomi = {
    *  Get the user consent status.
    *  @returns: status that represents user consent.
    */
-  getUserStatus: (): Promise<any> => RNDidomi.getUserStatus(),
+  getUserStatus: (): Promise<UserStatus> => RNDidomi.getUserStatus(),
 
   /**
    *  Get the user consent and legitimate interest status for a specific vendor.
