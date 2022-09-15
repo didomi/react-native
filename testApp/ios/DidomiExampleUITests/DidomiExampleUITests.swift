@@ -261,6 +261,43 @@ class DidomiExampleUITests: XCTestCase {
 
   }
   
+  func testGetUserStatus_Purposes() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "getUserStatus purposes")
+    
+    let staticText = app.staticTexts["getUserStatus purposes-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    
+    // The text might change every time we call the getUserStatus method
+    // so we'll only assert the first level parameters of the resulting json string.
+    XCTAssertTrue(actual.contains("{\"legitimate_interest\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"global\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"essential\":["))
+    XCTAssertTrue(actual.contains(",\"consent\":{\"enabled\":["))
+  }
+  
+  func testGetUserStatus_Vendors() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "getUserStatus vendors")
+    
+    let staticText = app.staticTexts["getUserStatus vendors-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    
+    // The text might change every time we call the getUserStatus method
+    // so we'll only assert the first level parameters of the resulting json string.
+    XCTAssertTrue(actual.contains("{\"consent\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"global_li\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"global_consent\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"legitimate_interest\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"global\":{\"enabled\":["))
+  }
+  
   // MARK: GETTERS WITH PARAMS
   
   func testGetPurposeWithId() throws {

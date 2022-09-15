@@ -116,6 +116,26 @@ export default function Getters() {
         }}
       />
 
+      <Getter
+        name="getUserStatus purposes"
+        call={async () => {
+          return await (await Didomi.getUserStatus()).purposes;
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Getter
+        name="getUserStatus vendors"
+        call={async () => {
+          return await (await Didomi.getUserStatus()).vendors;
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
       {/* 
   getJavaScriptForWebView
   getQueryStringForWebView
