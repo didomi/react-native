@@ -19,45 +19,45 @@ pod_last_version() {
 changes=0
 
 # Check android SDK Version
-currentversion=$(cat android/build.gradle | sed -n 's|.*io.didomi.sdk:android:\([^"]*\)".*|\1|p')
-if [[ -z $currentversion ]]; then
+currentVersion=$(sh .github/scripts/extract_android_sdk_version.sh)
+if [[ -z $currentVersion ]]; then
   echo "Error while getting android SDK current version"
   exit 1
 fi
 
-lastversion=$(curl -s 'https://search.maven.org/solrsearch/select?q=didomi' | sed -n 's|.*"latestVersion":"\([^"]*\)".*|\1|p')
-if [[ -z $lastversion ]]; then
+lastVersion=$(curl -s 'https://search.maven.org/solrsearch/select?q=didomi' | sed -n 's|.*"latestVersion":"\([^"]*\)".*|\1|p')
+if [[ -z $lastVersion ]]; then
   echo "Error while getting android SDK latest version"
   exit 1
 fi
 
-if [[ "$currentversion" == "$lastversion" ]]; then
-  echo "No change for Android SDK: $currentversion"
+if [[ "$currentVersion" == "$lastVersion" ]]; then
+  echo "No change for Android SDK: $currentVersion"
 else
   changes=$changes+1
 
-  echo "Android SDK current version needs update: $currentversion to $lastversion"
+  echo "Android SDK current version needs update: $currentVersion to $lastVersion"
 fi
 
 # Check ios SDK Version
-currentversion=$(cat react-native-didomi.podspec | sed -n "s|.*s.dependency[ ]*\"Didomi-XCFramework\", \"\([^']*\)\".*|\1|p")
-if [[ -z $currentversion ]]; then
+currentVersion=$(sh .github/scripts/extract_ios_sdk_version.sh)
+if [[ -z $currentVersion ]]; then
   echo "Error while getting iOS SDK current version"
   exit 1
 fi
 
-lastversion=$(pod_last_version)
-if [[ -z $lastversion ]]; then
+lastVersion=$(pod_last_version)
+if [[ -z $lastVersion ]]; then
   echo "Error while getting iOS SDK version"
   exit 1
 fi
 
-if [[ "$currentversion" == "$lastversion" ]]; then
-  echo "No change for iOS SDK: $currentversion"
+if [[ "$currentVersion" == "$lastVersion" ]]; then
+  echo "No change for iOS SDK: $currentVersion"
 else
   changes=$changes+1
 
-  echo "iOS SDK current version needs update: $currentversion to $lastversion"
+  echo "iOS SDK current version needs update: $currentVersion to $lastVersion"
 fi
 
 if [[ $changes == 0 ]]; then

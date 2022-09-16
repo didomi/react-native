@@ -161,6 +161,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set Android SDK version as ENV
+        run: |
+          echo "android_sdk_version=$(sh .github/scripts/extract_android_sdk_version.sh)" >> $GITHUB_ENV
+
+      - name: Print Android SDK Version
+        run: |
+          echo "Android SDK version is: ${{ env.android_sdk_version }}"
+
+      - name: Set iOS SDK version as ENV
+        run: |
+          echo "ios_sdk_version=$(sh .github/scripts/extract_ios_sdk_version.sh)" >> $GITHUB_ENV
+
+      - name: Print iOS SDK Version
+        run: |
+          echo "iOS SDK version is: ${{ env.ios_sdk_version }}"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -170,7 +186,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           body: |
-            Update latest versions of native Android and iOS sdks
+            - Update latest versions of native Android (${{ env.android_sdk_version }}) and iOS (${{ env.ios_sdk_version }}) sdks
+
             More info: https://developers.didomi.io/cmp/mobile-sdk
           draft: false
           prerelease: false
