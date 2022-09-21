@@ -119,7 +119,7 @@ export default function Getters() {
       <Getter
         name="getUserStatus purposes"
         call={async () => {
-          return await (await Didomi.getUserStatus()).purposes;
+          return (await Didomi.getUserStatus()).purposes;
         }}
         test={() => {
           return true;
@@ -129,7 +129,7 @@ export default function Getters() {
       <Getter
         name="getUserStatus vendors"
         call={async () => {
-          return await (await Didomi.getUserStatus()).vendors;
+          return (await Didomi.getUserStatus()).vendors;
         }}
         test={() => {
           return true;
