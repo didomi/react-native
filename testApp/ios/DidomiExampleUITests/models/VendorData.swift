@@ -13,6 +13,5 @@ struct VendorData: Decodable {
   let name: String
   let iabId: String
   let namespace: String
-  let deviceStorageDisclosureUrl: String
   let policyUrl: String
 }

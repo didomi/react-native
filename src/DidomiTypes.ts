@@ -50,7 +50,6 @@ export interface Vendor {
   specialFeatureIds: string[];
   cookieMaxAgeSeconds: number
   usesNonCookieAccess: boolean;
-  deviceStorageDisclosureUrl: string;
 }
 
 export interface VendorNamespaces {

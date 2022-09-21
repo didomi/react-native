@@ -620,7 +620,6 @@ extension DidomiExampleUITests {
     XCTAssertEqual(vendor1.id, vendor2.id)
     XCTAssertEqual(vendor1.iabId, vendor2.iabId)
     XCTAssertEqual(vendor1.namespace, vendor2.namespace)
-    XCTAssertEqual(vendor1.deviceStorageDisclosureUrl, vendor2.deviceStorageDisclosureUrl)
     XCTAssertEqual(vendor1.policyUrl, vendor2.policyUrl)
   }
 }
