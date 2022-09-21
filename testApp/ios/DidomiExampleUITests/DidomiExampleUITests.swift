@@ -298,6 +298,23 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains(",\"global\":{\"enabled\":["))
   }
   
+  func testGetUserStatus_Vendors_globalConsent() throws {
+    let app = XCUIApplication()
+    
+    tapButton(in: app, name: "getUserStatus vendors globalConsent")
+    
+    let staticText = app.staticTexts["getUserStatus vendors globalConsent-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    
+    // The text might change every time we call the getUserStatus method
+    // so we'll only assert the first level parameters of the resulting json string.
+    XCTAssertTrue(actual.contains("{\"enabled\":["))
+    XCTAssertTrue(actual.contains(",\"disabled\":["))
+    XCTAssertTrue(actual.contains("]}"))
+  }
+  
   // MARK: GETTERS WITH PARAMS
   
   func testGetPurposeWithId() throws {
@@ -313,6 +330,35 @@ class DidomiExampleUITests: XCTestCase {
     
     let expected = PurposeData(id: "cookies", name: "Store and/or access information on a device", iabId: "1", description: "Cookies, device identifiers, or other information can be stored or accessed on your device for the purposes presented to you.")
     assertEqual(actual, expected)
+  }
+  
+  func testGetPurposeWithId_descriptionLegal() throws {
+    let app = XCUIApplication()
+        
+    tapButton(in: app, name: "getPurpose [ID = 'cookies'] descriptionLegal")
+    assertResult(in: app, name: "getPurpose [ID = 'cookies'] descriptionLegal", expected: "\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+  }
+  
+  func testGetVendorWithId() throws {
+    let app = XCUIApplication()
+        
+    tapButton(in: app, name: "getVendor [ID = '755']")
+    
+    let staticText = app.staticTexts["getVendor [ID = '755']-result"]
+    staticText.wait()
+    
+    let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
+    let actual = decodeVendor(actualRaw)
+    
+    let expected = VendorData(id: "google", name: "Google Advertising Products", iabId: "755", namespace: "didomi", policyUrl: "https://policies.google.com/privacy")
+    assertEqual(actual, expected)
+  }
+  
+  func testGetVendorWithId_policyUrl() throws {
+    let app = XCUIApplication()
+        
+    tapButton(in: app, name: "getVendor [ID = '755'] policyUrl")
+    assertResult(in: app, name: "getVendor [ID = '755'] policyUrl", expected: "\"https://policies.google.com/privacy\"")
   }
   
   func testGetText() throws {
@@ -561,5 +607,20 @@ extension DidomiExampleUITests {
     XCTAssertEqual(purpose1.id, purpose2.id)
     XCTAssertEqual(purpose1.iabId, purpose2.iabId)
     XCTAssertEqual(purpose1.description, purpose2.description)
+  }
+  
+  func decodeVendor(_ string: String) -> VendorData {
+    let data = string.data(using: .utf8)
+    let jsonDecoder = JSONDecoder()
+    return try! jsonDecoder.decode(VendorData.self, from: data!)
+  }
+  
+  func assertEqual(_ vendor1: VendorData, _ vendor2: VendorData) {
+    XCTAssertEqual(vendor1.name, vendor2.name)
+    XCTAssertEqual(vendor1.id, vendor2.id)
+    XCTAssertEqual(vendor1.iabId, vendor2.iabId)
+    XCTAssertEqual(vendor1.namespace, vendor2.namespace)
+    XCTAssertEqual(vendor1.deviceStorageDisclosureUrl, vendor2.deviceStorageDisclosureUrl)
+    XCTAssertEqual(vendor1.policyUrl, vendor2.policyUrl)
   }
 }

@@ -39,7 +39,7 @@ export interface Vendor {
   id: string;
   iabId: string
   name: string;
-  privacyPolicyUrl: string;
+  policyUrl: string;
   namespace: string;
   namespaces: VendorNamespaces;
   iabVendor: boolean;

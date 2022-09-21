@@ -17,6 +17,36 @@ export default function GettersParams() {
       />
 
       <GetterParams
+        name="getPurpose [ID = 'cookies'] descriptionLegal"
+        call={async () => {
+          return (await Didomi.getPurpose('cookies')).descriptionLegal;
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <GetterParams
+        name="getVendor [ID = '755']"
+        call={async () => {
+          return await Didomi.getVendor('755');
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <GetterParams
+        name="getVendor [ID = '755'] policyUrl"
+        call={async () => {
+          return (await Didomi.getVendor('755')).policyUrl;
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <GetterParams
         name="getText [Key = '0']"
         call={async () => {
           return await Didomi.getText('0');

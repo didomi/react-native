@@ -136,6 +136,16 @@ export default function Getters() {
         }}
       />
 
+      <Getter
+        name="getUserStatus vendors globalConsent"
+        call={async () => {
+          return (await Didomi.getUserStatus()).vendors.global_consent;
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
       {/* 
   getJavaScriptForWebView
   getQueryStringForWebView

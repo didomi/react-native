@@ -19,6 +19,7 @@
 		5782FC4E2668DAA9009F822D /* DidomiExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5782FC4D2668DAA9009F822D /* DidomiExampleUITests.swift */; };
 		57881F082680777B0021B71C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 008F07F21AC5B25A0029DE68 /* main.jsbundle */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		971D32C228DB43F2006D9FAA /* VendorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971D32C128DB43F2006D9FAA /* VendorData.swift */; };
 		F644BBBA26C5810C004EBE16 /* PurposeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F644BBB926C5810C004EBE16 /* PurposeData.swift */; };
 		F6CEE2E326C3CB4200FB6F6D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CEE2E226C3CB4200FB6F6D /* String.swift */; };
 		F6CEE2E526C42B8100FB6F6D /* XCUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CEE2E426C42B8100FB6F6D /* XCUIElement.swift */; };
@@ -66,6 +67,7 @@
 		5782FC4D2668DAA9009F822D /* DidomiExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidomiExampleUITests.swift; sourceTree = "<group>"; };
 		5782FC4F2668DAA9009F822D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = DidomiExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		971D32C128DB43F2006D9FAA /* VendorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VendorData.swift; sourceTree = "<group>"; };
 		CA3E69C5B9553B26FBA2DF04 /* libPods-DidomiExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DidomiExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E00ACF0FDA8BF921659E2F9A /* Pods-DidomiExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DidomiExample.release.xcconfig"; path = "Target Support Files/Pods-DidomiExample/Pods-DidomiExample.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				F644BBB926C5810C004EBE16 /* PurposeData.swift */,
+				971D32C128DB43F2006D9FAA /* VendorData.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				F644BBBA26C5810C004EBE16 /* PurposeData.swift in Sources */,
 				F6CEE2E326C3CB4200FB6F6D /* String.swift in Sources */,
 				F6CEE2E526C42B8100FB6F6D /* XCUIElement.swift in Sources */,
+				971D32C228DB43F2006D9FAA /* VendorData.swift in Sources */,
 				5782FC4E2668DAA9009F822D /* DidomiExampleUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
