@@ -35,6 +35,41 @@ class UIGettersParamsTest: BaseUITest() {
     }
 
     @Test
+    fun test_GetPurpose_descriptionLegal() {
+
+        tapButton("getPurpose [ID = 'cookies'] descriptionLegal")
+
+        assertText("\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+    }
+
+    @Test
+    fun test_GetVendor() {
+
+        tapButton("getVendor [ID = '755']")
+
+        // Android doesn't always keep the same order for the properties.
+        assertTextContains("\"specialPurposes\":[\"1\",\"2\"]")
+        assertTextContains("\"features\":[\"1\",\"2\"]")
+        assertTextContains("\"policyUrl\":\"https://policies.google.com/privacy\"")
+        assertTextContains("\"deviceStorageDisclosureUrl\":\"https://www.gstatic.com/iabtcf/deviceStorageDisclosure.json\"")
+        assertTextContains("\"name\":\"Google Advertising Products\"")
+        assertTextContains("\"id\":\"google\"")
+        assertTextContains("\"iabId\":\"755\"")
+        assertTextContains("\"namespace\":\"didomi\"")
+        assertTextContains("\"namespaces\":{\"iab2\":\"755\"}")
+        assertTextContains("\"usesNonCookieAccess\":\"true\"")
+        assertTextContains("\"purposes\":[\"cookies\",\"create_ads_profile\",")
+    }
+
+    @Test
+    fun test_GetPurpose_policyUrl() {
+
+        tapButton("getVendor [ID = '755'] policyUrl")
+
+        assertText("\"https://policies.google.com/privacy\"")
+    }
+
+    @Test
     fun test_GetText() {
         tapButton("getText [Key = '0']")
         assertText("{}")

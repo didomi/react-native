@@ -157,4 +157,18 @@ class UIGettersTest: BaseUITest() {
         assertTextContains(",\"global_consent\":{\"enabled\":[".trim())
         assertTextContains(",\"consent\":{\"enabled\":[".trim())
     }
+
+    @Test
+    fun test_getUserStatus_vendors_global_consent() {
+        tapButton("getUserStatus vendors global_consent")
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+
+        // The text might change every time we call the getUserStatus method
+        // so we'll only assert the first level parameters of the resulting json string.
+        assertTextContains("{\"enabled\":[".trim())
+        assertTextContains(",\"disabled\":[".trim())
+        assertTextContains("]}".trim())
+    }
 }

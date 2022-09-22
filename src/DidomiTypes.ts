@@ -37,14 +37,19 @@ export enum DidomiEventType {
 
 export interface Vendor {
   id: string;
+  iabId: string
   name: string;
-  privacyPolicyUrl: string;
+  policyUrl: string;
   namespace: string;
   namespaces: VendorNamespaces;
   iabVendor: boolean;
-  purposeId: string[];
+  purposeIds: string[];
+  flexiblePurposeIds: string[];
+  specialPurposeIds: string[];
   legIntPurposeIds: string[];
-  essentialPurposeIds: string[];
+  specialFeatureIds: string[];
+  cookieMaxAgeSeconds: number
+  usesNonCookieAccess: boolean;
 }
 
 export interface VendorNamespaces {
@@ -67,11 +72,11 @@ export interface Purpose {
 
 export interface PurposeCategory {
   id: string;
-  idpurposeId: string;
+  purposeId: string;
   icon: string;
   type: string;
   name: Map<string>;
-  namedescription: Map<string>;
+  description: Map<string>;
   children: PurposeCategory[];
 }
 
@@ -83,27 +88,27 @@ export interface Map<T> {
 export interface UserStatus {
   purposes: UserStatusPurposes;
   vendors: UserStatusVendors;
-  userId: string;
+  user_id: string;
   created: string;
   updated: string;
-  consentString: string;
-  additionalConsent: string;
+  consent_string: string;
+  additional_consent: string;
   regulation: string;
 }
 
 export interface UserStatusPurposes {
   global: UserStatusIds;
   consent: UserStatusIds;
-  legitimateInterest: UserStatusIds;
+  legitimate_interest: UserStatusIds;
   essential: UserStatusIds;
 }
 
 export interface UserStatusVendors {
   global: UserStatusIds;
-  globalConsent: UserStatusIds;
-  globalLegitimateInterest: UserStatusIds;
+  global_consent: UserStatusIds;
+  global_legitimate_interest: UserStatusIds;
   consent: UserStatusIds;
-  legitimateInterest: UserStatusIds;
+  legitimate_interest: UserStatusIds;
 }
 
 export interface UserStatusIds {
