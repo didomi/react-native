@@ -298,12 +298,12 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains(",\"global\":{\"enabled\":["))
   }
   
-  func testGetUserStatus_Vendors_globalConsent() throws {
+  func testGetUserStatus_Vendors_global_consent() throws {
     let app = XCUIApplication()
     
-    tapButton(in: app, name: "getUserStatus vendors globalConsent")
+    tapButton(in: app, name: "getUserStatus vendors global_consent")
     
-    let staticText = app.staticTexts["getUserStatus vendors globalConsent-result"]
+    let staticText = app.staticTexts["getUserStatus vendors global_consent-result"]
     staticText.wait()
     
     let actual = staticText.label

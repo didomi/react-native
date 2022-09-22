@@ -159,8 +159,8 @@ class UIGettersTest: BaseUITest() {
     }
 
     @Test
-    fun test_getUserStatus_vendors_globalConsent() {
-        tapButton("getUserStatus vendors globalConsent")
+    fun test_getUserStatus_vendors_global_consent() {
+        tapButton("getUserStatus vendors global_consent")
 
         // There might be a delay to get this string.
         Thread.sleep(1_000L)

@@ -137,7 +137,7 @@ export default function Getters() {
       />
 
       <Getter
-        name="getUserStatus vendors globalConsent"
+        name="getUserStatus vendors global_consent"
         call={async () => {
           return (await Didomi.getUserStatus()).vendors.global_consent;
         }}
