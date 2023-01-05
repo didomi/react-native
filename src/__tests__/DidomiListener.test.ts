@@ -2,10 +2,7 @@ import { DidomiListener } from '../DidomiListener';
 import { DidomiEventType } from '../DidomiTypes';
 
 // Mocked NativeEventEmitter
-jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter.js', () => {
-  const { EventEmitter } = require('events');
-  return EventEmitter;
-});
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
 
 describe('test add listener', () => {
   it('add listener', () => {
