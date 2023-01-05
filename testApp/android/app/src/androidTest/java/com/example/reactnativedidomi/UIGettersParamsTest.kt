@@ -48,8 +48,8 @@ class UIGettersParamsTest: BaseUITest() {
         tapButton("getVendor [ID = '755']")
 
         // Android doesn't always keep the same order for the properties.
-        assertTextContains("\"specialPurposes\":[\"1\",\"2\"]")
-        assertTextContains("\"features\":[\"1\",\"2\"]")
+        assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
+        assertTextContains("\"featureIds\":[\"1\",\"2\"]")
         assertTextContains("\"policyUrl\":\"https://policies.google.com/privacy\"")
         assertTextContains("\"deviceStorageDisclosureUrl\":\"https://www.gstatic.com/iabtcf/deviceStorageDisclosure.json\"")
         assertTextContains("\"name\":\"Google Advertising Products\"")
@@ -58,7 +58,7 @@ class UIGettersParamsTest: BaseUITest() {
         assertTextContains("\"namespace\":\"didomi\"")
         assertTextContains("\"namespaces\":{\"iab2\":\"755\"}")
         assertTextContains("\"usesNonCookieAccess\":\"true\"")
-        assertTextContains("\"purposes\":[\"cookies\",\"create_ads_profile\",")
+        assertTextContains("\"purposeIds\":[\"cookies\",\"create_ads_profile\",")
     }
 
     @Test
