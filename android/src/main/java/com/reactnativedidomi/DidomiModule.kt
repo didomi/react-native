@@ -973,6 +973,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         }
     }
 
+    @ReactMethod
+    fun addListener(eventName: String) {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    @ReactMethod
+    fun removeListeners(count: Integer) {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
     private fun prepareEvent(eventName: String, params: String?) {
         Log.d("prepareEvent", "Sending $eventName")
         reactContext
