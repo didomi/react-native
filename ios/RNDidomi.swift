@@ -5,7 +5,6 @@ import AppTrackingTransparency
 @objc(Didomi)
 class RNDidomi: RCTEventEmitter {
     
-    public static var initialized = false
     var didomiEventListener: EventListener
 
     override init() {
@@ -20,37 +19,18 @@ class RNDidomi: RCTEventEmitter {
 
     @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:androidTvNoticeId:androidTvEnabled:resolve:reject:)
     func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil, androidTvNoticeId: String? = nil, androidTvEnabled: Bool = false, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        onReady()
-        onError()
-        if !RNDidomi.initialized {
-            initEventListener()
-
-            Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
-            
-            Didomi.shared.initialize(DidomiInitializeParameters(
-                apiKey: apiKey,
-                localConfigurationPath: localConfigurationPath,
-                remoteConfigurationURL: remoteConfigurationURL,
-                providerID: providerId,
-                disableDidomiRemoteConfig: disableDidomiRemoteConfig,
-                languageCode: languageCode ?? Locale.current.languageCode ?? "",
-                noticeID: noticeId
-            ))
-        }
-        RNDidomi.initialized = true
+        Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
+        
+        Didomi.shared.initialize(DidomiInitializeParameters(
+            apiKey: apiKey,
+            localConfigurationPath: localConfigurationPath,
+            remoteConfigurationURL: remoteConfigurationURL,
+            providerID: providerId,
+            disableDidomiRemoteConfig: disableDidomiRemoteConfig,
+            languageCode: languageCode ?? Locale.current.languageCode ?? "",
+            noticeID: noticeId
+        ))
         resolve(0)
-    }
-    
-    private func onReady() {
-        Didomi.shared.onReady {
-            self.dispatchEvent(withName: "on_ready_callback", body: nil)
-        }
-    }
-    
-    private func onError() {
-        Didomi.shared.onError { error in
-            self.dispatchEvent(withName: "on_error_callback", body: error.descriptionText)
-        }
     }
     
     @objc(getQueryStringForWebView:reject:)
@@ -695,7 +675,7 @@ extension RNDidomi {
         }
         
         didomiEventListener.onError = { event in
-            self.dispatchEvent(withName: "on_error", body: "")
+            self.dispatchEvent(withName: "on_error", body: event.descriptionText)
         }
         
         didomiEventListener.onShowNotice = { event in
