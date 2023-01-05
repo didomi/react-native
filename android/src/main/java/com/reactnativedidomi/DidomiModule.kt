@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.reactnativedidomi
 
 import android.util.Log
@@ -213,8 +215,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private fun ReadableArray.toSet(): Set<String> {
         val set = mutableSetOf<String>()
 
-        for (i in 0 until size())
-            set.add(getString(i) ?: "")
+        for (i in 0 until size()) {
+            set.add(getString(i).orEmpty())
+        }
 
         return set
     }
@@ -245,7 +248,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val map = WritableNativeMap()
         obj?.serializeToMap()?.entries?.forEach { entry ->
             when (val value = entry.value) {
-                is Map<*,*> -> map.putMap(entry.key, objectToWritableMap(value))
+                is Map<*, *> -> map.putMap(entry.key, objectToWritableMap(value))
                 is List<*> -> map.putArray(entry.key, Arguments.fromList(value))
                 else -> map.putString(entry.key, value.toString())
             }
@@ -266,7 +269,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         noticeId: String?,
         androidTvNoticeId: String?,
         androidTvEnabled: Boolean,
-        promise: Promise) {
+        promise: Promise
+    ) {
         try {
             Didomi.getInstance().addEventListener(eventListener)
 
@@ -313,20 +317,23 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun setLogLevel(level: Int, promise: Promise) {
-        Didomi.getInstance().setLogLevel(when (level) {
-            0 -> Log.INFO
-            1 -> Log.DEBUG
-            2 -> Log.WARN
-            3 -> Log.ERROR
-            4 -> Log.VERBOSE
-            else -> Log.WARN
-        })
+        Didomi.getInstance().setLogLevel(
+            when (level) {
+                0 -> Log.INFO
+                1 -> Log.DEBUG
+                2 -> Log.WARN
+                3 -> Log.ERROR
+                4 -> Log.VERBOSE
+                else -> Log.WARN
+            }
+        )
         promise.resolve(0)
     }
 
     @ReactMethod
     fun getDisabledPurposes(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setToWritableArray(Didomi.getInstance().disabledPurposes))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -336,6 +343,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getDisabledPurposeIds(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setOfStringToWritableArray(Didomi.getInstance().disabledPurposeIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -345,6 +353,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getDisabledVendors(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setToWritableArray(Didomi.getInstance().disabledVendors))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -354,6 +363,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getDisabledVendorIds(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setOfStringToWritableArray(Didomi.getInstance().disabledVendorIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -363,6 +373,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getEnabledPurposes(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setToWritableArray(Didomi.getInstance().enabledPurposes))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -372,6 +383,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getEnabledPurposeIds(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setOfStringToWritableArray(Didomi.getInstance().enabledPurposeIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -381,6 +393,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getEnabledVendors(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setToWritableArray(Didomi.getInstance().enabledVendors))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -390,6 +403,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getEnabledVendorIds(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(setOfStringToWritableArray(Didomi.getInstance().enabledVendorIds))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -399,12 +413,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getJavaScriptForWebView(extra: String?, promise: Promise) {
         try {
-            extra?.let {
+            extra?.also {
                 promise.resolve(Didomi.getInstance().getJavaScriptForWebView(extra))
             } ?: run {
                 promise.resolve(Didomi.getInstance().getJavaScriptForWebView())
             }
-
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -492,6 +505,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserConsentStatusForPurpose(purposeId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserConsentStatusForPurpose(purposeId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -501,6 +515,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserConsentStatusForVendor(vendorId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserConsentStatusForVendor(vendorId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -510,6 +525,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserConsentStatusForVendorAndRequiredPurposes(vendorId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserConsentStatusForVendorAndRequiredPurposes(vendorId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -519,6 +535,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserLegitimateInterestStatusForPurpose(purposeId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForPurpose(purposeId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -528,6 +545,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserLegitimateInterestForVendor(vendorId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForVendor(vendorId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -537,6 +555,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -555,6 +574,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun getUserStatusForVendor(vendorId: String, promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().getUserStatusForVendor(vendorId))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
@@ -643,22 +663,26 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUser(organizationUserId: String,
-                organizationUserIdAuthAlgorithm: String?,
-                organizationUserIdAuthSid: String?,
-                organizationUserIdAuthSalt: String?,
-                organizationUserIdAuthDigest: String?,
-                promise: Promise) {
+    fun setUser(
+        organizationUserId: String,
+        organizationUserIdAuthAlgorithm: String?,
+        organizationUserIdAuthSid: String?,
+        organizationUserIdAuthSalt: String?,
+        organizationUserIdAuthDigest: String?,
+        promise: Promise
+    ) {
         if (organizationUserIdAuthAlgorithm != null
-                && organizationUserIdAuthSid != null
-                && organizationUserIdAuthSalt != null
-                && organizationUserIdAuthDigest != null) {
+            && organizationUserIdAuthSid != null
+            && organizationUserIdAuthSalt != null
+            && organizationUserIdAuthDigest != null
+        ) {
+            @Suppress("DEPRECATION")
             Didomi.getInstance().setUser(
-                    organizationUserId,
-                    organizationUserIdAuthAlgorithm,
-                    organizationUserIdAuthSid,
-                    organizationUserIdAuthSalt,
-                    organizationUserIdAuthDigest
+                organizationUserId,
+                organizationUserIdAuthAlgorithm,
+                organizationUserIdAuthSid,
+                organizationUserIdAuthSalt,
+                organizationUserIdAuthDigest
             )
         } else {
             Didomi.getInstance().setUser(organizationUserId)
@@ -674,12 +698,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithHashAuth(organizationUserId: String,
-                algorithm: String,
-                secretId: String,
-                digest: String,
-                salt: String?,
-                promise: Promise) {
+    fun setUserWithHashAuth(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        digest: String,
+        salt: String?,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithHashParams(
                 organizationUserId,
@@ -693,12 +719,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithHashAuthAndSetupUI(organizationUserId: String,
-                algorithm: String,
-                secretId: String,
-                digest: String,
-                salt: String?,
-                promise: Promise) {
+    fun setUserWithHashAuthAndSetupUI(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        digest: String,
+        salt: String?,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithHashParams(
                 organizationUserId,
@@ -713,13 +741,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithHashAuthWithExpiration(organizationUserId: String,
-                algorithm: String,
-                secretId: String,
-                digest: String,
-                salt: String?,
-                expiration: Int,
-                promise: Promise) {
+    fun setUserWithHashAuthWithExpiration(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        digest: String,
+        salt: String?,
+        expiration: Int,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithHashParams(
                 organizationUserId,
@@ -734,13 +764,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithHashAuthWithExpirationAndSetupUI(organizationUserId: String,
-                algorithm: String,
-                secretId: String,
-                digest: String,
-                salt: String?,
-                expiration: Int,
-                promise: Promise) {
+    fun setUserWithHashAuthWithExpirationAndSetupUI(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        digest: String,
+        salt: String?,
+        expiration: Int,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithHashParams(
                 organizationUserId,
@@ -756,11 +788,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuth(organizationUserId: String,
-                            algorithm: String,
-                            secretId: String,
-                            initializationVector: String,
-                            promise: Promise) {
+    fun setUserWithEncryptionAuth(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        initializationVector: String,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithEncryptionParams(
                 organizationUserId,
@@ -773,11 +807,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuthAndSetupUI(organizationUserId: String,
-                            algorithm: String,
-                            secretId: String,
-                            initializationVector: String,
-                            promise: Promise) {
+    fun setUserWithEncryptionAuthAndSetupUI(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        initializationVector: String,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithEncryptionParams(
                 organizationUserId,
@@ -791,12 +827,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuthWithExpiration(organizationUserId: String,
-                            algorithm: String,
-                            secretId: String,
-                            initializationVector: String,
-                            expiration: Int,
-                            promise: Promise) {
+    fun setUserWithEncryptionAuthWithExpiration(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        initializationVector: String,
+        expiration: Int,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithEncryptionParams(
                 organizationUserId,
@@ -810,12 +848,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuthWithExpirationAndSetupUI(organizationUserId: String,
-                            algorithm: String,
-                            secretId: String,
-                            initializationVector: String,
-                            expiration: Int,
-                            promise: Promise) {
+    fun setUserWithEncryptionAuthWithExpirationAndSetupUI(
+        organizationUserId: String,
+        algorithm: String,
+        secretId: String,
+        initializationVector: String,
+        expiration: Int,
+        promise: Promise
+    ) {
         Didomi.getInstance().setUser(
             UserAuthWithEncryptionParams(
                 organizationUserId,
@@ -878,17 +918,20 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     @Deprecated("Deprecated in the Didomi API")
-    fun setUserConsentStatus(enabledPurposeIds: ReadableArray,
-                             disabledPurposeIds: ReadableArray,
-                             enabledLegitimatePurposeIds: ReadableArray,
-                             disabledLegitimatePurposeIds: ReadableArray,
-                             enabledVendorIds: ReadableArray,
-                             disabledVendorIds: ReadableArray,
-                             enabledLegIntVendorIds: ReadableArray,
-                             disabledLegIntVendorIds: ReadableArray,
-                             promise: Promise) {
+    fun setUserConsentStatus(
+        enabledPurposeIds: ReadableArray,
+        disabledPurposeIds: ReadableArray,
+        enabledLegitimatePurposeIds: ReadableArray,
+        disabledLegitimatePurposeIds: ReadableArray,
+        enabledVendorIds: ReadableArray,
+        disabledVendorIds: ReadableArray,
+        enabledLegIntVendorIds: ReadableArray,
+        disabledLegIntVendorIds: ReadableArray,
+        promise: Promise
+    ) {
         try {
-            promise.resolve(Didomi.getInstance().setUserStatus(
+            promise.resolve(
+                Didomi.getInstance().setUserStatus(
                     enabledPurposeIds.toSet(),
                     disabledPurposeIds.toSet(),
                     enabledLegitimatePurposeIds.toSet(),
@@ -896,7 +939,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     enabledVendorIds.toSet(),
                     disabledVendorIds.toSet(),
                     enabledLegIntVendorIds.toSet(),
-                    disabledLegIntVendorIds.toSet()))
+                    disabledLegIntVendorIds.toSet()
+                )
+            )
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -912,34 +957,42 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUserStatus(purposesConsentStatus: Boolean,
-                      purposesLIStatus: Boolean,
-                      vendorsConsentStatus: Boolean,
-                      vendorsLIStatus: Boolean,
-                      promise: Promise) {
+    fun setUserStatus(
+        purposesConsentStatus: Boolean,
+        purposesLIStatus: Boolean,
+        vendorsConsentStatus: Boolean,
+        vendorsLIStatus: Boolean,
+        promise: Promise
+    ) {
         try {
-            promise.resolve(Didomi.getInstance().setUserStatus(
+            promise.resolve(
+                Didomi.getInstance().setUserStatus(
                     purposesConsentStatus,
                     purposesLIStatus,
                     vendorsConsentStatus,
-                    vendorsLIStatus))
+                    vendorsLIStatus
+                )
+            )
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
     }
 
     @ReactMethod
-    fun setUserStatusSets(enabledConsentPurposeIds: ReadableArray,
-                          disabledConsentPurposeIds: ReadableArray,
-                          enabledLIPurposeIds: ReadableArray,
-                          disabledLIPurposeIds: ReadableArray,
-                          enabledConsentVendorIds: ReadableArray,
-                          disabledConsentVendorIds: ReadableArray,
-                          enabledLIVendorIds: ReadableArray,
-                          disabledLIVendorIds: ReadableArray,
-                          promise: Promise) {
+    fun setUserStatusSets(
+        enabledConsentPurposeIds: ReadableArray,
+        disabledConsentPurposeIds: ReadableArray,
+        enabledLIPurposeIds: ReadableArray,
+        disabledLIPurposeIds: ReadableArray,
+        enabledConsentVendorIds: ReadableArray,
+        disabledConsentVendorIds: ReadableArray,
+        enabledLIVendorIds: ReadableArray,
+        disabledLIVendorIds: ReadableArray,
+        promise: Promise
+    ) {
         try {
-            promise.resolve(Didomi.getInstance().setUserStatus(
+            promise.resolve(
+                Didomi.getInstance().setUserStatus(
                     enabledConsentPurposeIds.toSet(),
                     disabledConsentPurposeIds.toSet(),
                     enabledLIPurposeIds.toSet(),
@@ -948,7 +1001,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     disabledConsentVendorIds.toSet(),
                     enabledLIVendorIds.toSet(),
                     disabledLIVendorIds.toSet()
-            ))
+                )
+            )
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -973,11 +1027,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @ReactMethod
     fun addListener(eventName: String) {
         // Keep: Required for RN built in Event Emitter Calls.
     }
 
+    @Suppress("UNUSED_PARAMETER")
     @ReactMethod
     fun removeListeners(count: Integer) {
         // Keep: Required for RN built in Event Emitter Calls.
@@ -986,7 +1042,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private fun prepareEvent(eventName: String, params: String?) {
         Log.d("prepareEvent", "Sending $eventName")
         reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-                .emit(eventName, params)
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit(eventName, params)
     }
 }
