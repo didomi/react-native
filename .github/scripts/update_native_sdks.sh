@@ -53,38 +53,6 @@ sed -i~ -e "s|s.dependency \"Didomi-XCFramework\", \"[0-9]\{1,2\}.[0-9]\{1,2\}.[
 pod repo update || exit 1
 
 #
-# Sample App
-#
-
-echo "Update Sample App dependencies"
-
-pushd sampleApp/ >/dev/null
-npm install
-popd >/dev/null
-
-# Update Sample App iOS framework
-pushd sampleApp/ios >/dev/null
-pod repo update
-pod install
-popd >/dev/null
-
-#
-# Test App
-#
-
-echo "Update Test App dependencies"
-
-pushd testApp/ >/dev/null
-npm install
-popd >/dev/null
-
-# Update Test App iOS framework
-pushd testApp/ios >/dev/null
-pod repo update
-pod install
-popd >/dev/null
-
-#
 # Cleanup
 #
 
