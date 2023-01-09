@@ -60,7 +60,7 @@ export const Didomi = {
   /**
    * Listen to SDK errors
    */
-  onError: (): Promise<any> => {
+  onError: (): Promise<void> => {
     DidomiListener.setOnErrorListener();
     return RNDidomi.onError();
   },

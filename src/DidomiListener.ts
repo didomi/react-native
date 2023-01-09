@@ -79,8 +79,8 @@ export const DidomiListener = {
     });
   },
 
-  setOnErrorListener: (): Promise<any> => {
-    return new Promise<any>((resolve) => {
+  setOnErrorListener: (): Promise<void> => {
+    return new Promise<void>((resolve) => {
       let subscription: EmitterSubscription;
       const listener = (_event: any) => {
         resolve(_event);
