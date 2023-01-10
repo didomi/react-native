@@ -30,9 +30,26 @@ class RNDidomi: RCTEventEmitter {
             languageCode: languageCode ?? Locale.current.languageCode ?? "",
             noticeID: noticeId
         ))
+
         resolve(0)
     }
-    
+
+    @objc(onReady:reject:)
+    func onReady(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        Didomi.shared.onReady {
+            self.dispatchEvent(withName: "on_ready_callback", body: nil)
+        }
+        resolve(0)
+    }
+
+    @objc(onError:reject:)
+    func onError(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        Didomi.shared.onError { error in
+            self.dispatchEvent(withName: "on_error_callback", body: error.descriptionText)
+        }
+        resolve(0)
+    }
+
     @objc(getQueryStringForWebView:reject:)
     func getQueryStringForWebView(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getQueryStringForWebView())

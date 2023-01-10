@@ -48,6 +48,12 @@ class DidomiExampleUITests: XCTestCase {
     testLastEvent(app: app, name:"on_ready")
     
   }
+
+  func testSdkReady() throws {
+    let app = XCUIApplication()
+
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+  }
   
   func testReset() throws {
     let app = XCUIApplication()

@@ -291,15 +291,24 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
             Didomi.getInstance().initialize(application, parameters)
 
-            Didomi.getInstance().onReady { prepareEvent(EventTypes.READY_CALLBACK.event, null) }
-            Didomi.getInstance().onError { prepareEvent(EventTypes.ERROR_CALLBACK.event, null) }
-
             promise.resolve(0)
 
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e)
             promise.reject(e)
         }
+    }
+
+    @ReactMethod
+    fun onReady(promise: Promise) {
+        Didomi.getInstance().onReady { prepareEvent(EventTypes.READY_CALLBACK.event, null) }
+        promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun onError(promise: Promise) {
+        Didomi.getInstance().onError { prepareEvent(EventTypes.ERROR_CALLBACK.event, null) }
+        promise.resolve(0)
     }
 
     @ReactMethod

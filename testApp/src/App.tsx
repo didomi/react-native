@@ -102,7 +102,7 @@ function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.title}>
-        <Text style={styles.title}>
+        <Text testID='ready-result' style={styles.title}>
           SDK STATUS: {sdkStatus}
         </Text>
         <Text style={styles.title}>
