@@ -684,7 +684,7 @@ extension RNDidomi {
     private func initEventListener() {
     
         didomiEventListener.onConsentChanged = { event in
-            self.dispatchEvent(withName: "on_consent_changed", body:"")
+            self.dispatchEvent(withName: "on_consent_changed", body: "")
         }
         
         didomiEventListener.onReady = { event in
