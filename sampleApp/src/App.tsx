@@ -58,8 +58,8 @@ function App() {
       console.log('ready');
     });
 
-    Didomi.onError().then((err: any) => {
-      console.log('error: ' + err);
+    Didomi.onError().then(() => {
+      console.log('error');
     });
 
     /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {

@@ -53,16 +53,18 @@ export const Didomi = {
    * Listen to SDK ready state
    */
   onReady: (): Promise<void> => {
-    DidomiListener.setOnReadyListener();
-    return RNDidomi.onReady();
+    var promise = DidomiListener.setOnReadyListener();
+    RNDidomi.onReady();
+    return promise;
   },
 
   /**
    * Listen to SDK errors
    */
   onError: (): Promise<void> => {
-    DidomiListener.setOnErrorListener();
-    return RNDidomi.onError();
+    var promise = DidomiListener.setOnErrorListener();
+    RNDidomi.onError();
+    return promise;
   },
 
   /**

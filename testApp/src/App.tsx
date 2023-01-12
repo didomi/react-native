@@ -43,9 +43,7 @@ function App() {
     registerListener(DidomiEventType.PREFERENCES_CLICK_CATEGORY_AGREE);
     registerListener(DidomiEventType.PREFERENCES_CLICK_CATEGORY_DISAGREE);
     registerListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL);
-    registerListener(
-      DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES
-    );
+    registerListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES);
     registerListener(DidomiEventType.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS);
     registerListener(DidomiEventType.PREFERENCES_CLICK_PURPOSE_AGREE);
     registerListener(DidomiEventType.PREFERENCES_CLICK_PURPOSE_DISAGREE);
