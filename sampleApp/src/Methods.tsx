@@ -21,7 +21,10 @@ export default function Methods() {
       <MethodCall
         name="initialize"
         call={() => {
-          Didomi.initialize(apiKey);
+          Didomi.initialize(apiKey).catch((err) => {
+            console.log(err);
+            return false
+          });
         }}
         test={() => {
           return true;
