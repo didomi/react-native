@@ -52,12 +52,18 @@ export const Didomi = {
   /**
    * Listen to SDK ready state
    */
-  onReady: (): Promise<void> => DidomiListener.onReady(),
+  onReady: (): Promise<void> => {
+    DidomiListener.setOnReadyListener();
+    return RNDidomi.onReady();
+  },
 
   /**
    * Listen to SDK errors
    */
-  onError: (): Promise<any> => DidomiListener.onError(),
+  onError: (): Promise<void> => {
+    DidomiListener.setOnErrorListener();
+    return RNDidomi.onError();
+  },
 
   /**
    * Provide the objects required to display UI elements

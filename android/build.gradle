@@ -1,10 +1,12 @@
+import groovy.json.JsonSlurper
+
 buildscript {
     // Buildscript is evaluated before everything else so we can't use getExtOrDefault
     def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["Didomi_kotlinVersion"]
 
     repositories {
+        mavenCentral()
         google()
-        jcenter()
     }
 
     dependencies {
@@ -25,13 +27,13 @@ def getExtOrIntegerDefault(name) {
     return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["Didomi_" + name]).toInteger()
 }
 
-def parsedPackage = new groovy.json.JsonSlurper().parseText(file("../package.json").text)
+def parsedPackage = new JsonSlurper().parseText(file("../package.json").text)
 
 android {
     compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
     buildToolsVersion getExtOrDefault("buildToolsVersion")
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion getExtOrIntegerDefault("minSdkVersion")
         targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
         versionCode 1
         versionName "${parsedPackage.version}"
@@ -56,7 +58,6 @@ android {
 
 repositories {
     mavenCentral()
-    jcenter()
     google()
 
     def found = false
@@ -66,10 +67,7 @@ repositories {
     if (rootProject.ext.has("reactNativeAndroidRoot")) {
         defaultDir = rootProject.ext.get("reactNativeAndroidRoot")
     } else {
-        defaultDir = new File(
-                projectDir,
-                "/../../../node_modules/react-native/android"
-        )
+        defaultDir = new File(projectDir, "/../../../node_modules/react-native/android")
     }
 
     if (defaultDir.exists()) {
@@ -87,15 +85,9 @@ repositories {
             if (found) return true
             parentDir = parentDir.parentFile
 
-            def androidSourcesDir = new File(
-                    parentDir,
-                    "node_modules/react-native"
-            )
+            def androidSourcesDir = new File(parentDir, "node_modules/react-native")
 
-            def androidPrebuiltBinaryDir = new File(
-                    parentDir,
-                    "node_modules/react-native/android"
-            )
+            def androidPrebuiltBinaryDir = new File(parentDir, "node_modules/react-native/android")
 
             if (androidPrebuiltBinaryDir.exists()) {
                 maven {
@@ -132,5 +124,5 @@ dependencies {
     api "com.facebook.react:react-native:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation "io.didomi.sdk:android:1.69.0"
+    implementation "io.didomi.sdk:android:1.72.1"
 }

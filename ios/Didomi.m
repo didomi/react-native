@@ -17,9 +17,11 @@ RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(onReady)
+RCT_EXTERN_METHOD(onReady:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(onError)
+RCT_EXTERN_METHOD(onError:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(getQueryStringForWebView:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)

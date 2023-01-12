@@ -1,4 +1,4 @@
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
 import { DidomiEventType } from './DidomiTypes';
 
 const { Didomi: RNDidomi } = NativeModules;
@@ -58,32 +58,42 @@ export const DidomiListener = {
     }
   },
 
-  onReady: (): Promise<void> => {
+  setOnReadyListener: (): Promise<void> => {
     return new Promise<void>((resolve) => {
+      let subscription: EmitterSubscription;
       const listener = (_event: any) => {
         resolve();
-        DidomiListener.eventEmitter.removeListener(
-          InternalEventType.READY_CALLBACK,
-          listener
-        );
+        if (subscription) {
+          subscription.remove();
+        } else if ('removeListener' in DidomiListener.eventEmitter) {
+          DidomiListener.eventEmitter.removeListener(
+            InternalEventType.READY_CALLBACK,
+            listener
+          );
+        }
       };
-      DidomiListener.eventEmitter.addListener(
+      subscription = DidomiListener.eventEmitter.addListener(
         InternalEventType.READY_CALLBACK,
         listener
       );
     });
   },
 
-  onError: (): Promise<any> => {
-    return new Promise<any>((resolve) => {
+  setOnErrorListener: (): Promise<void> => {
+    return new Promise<void>((resolve) => {
+      let subscription: EmitterSubscription;
       const listener = (_event: any) => {
         resolve(_event);
-        DidomiListener.eventEmitter.removeListener(
-          InternalEventType.ERROR_CALLBACK,
-          listener
-        );
+        if (subscription) {
+          subscription.remove();
+        } else if ('removeListener' in DidomiListener.eventEmitter) {
+          DidomiListener.eventEmitter.removeListener(
+            InternalEventType.ERROR_CALLBACK,
+            listener
+          );
+        }
       };
-      DidomiListener.eventEmitter.addListener(
+      subscription = DidomiListener.eventEmitter.addListener(
         InternalEventType.ERROR_CALLBACK,
         listener
       );
