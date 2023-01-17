@@ -29,6 +29,10 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# Xcode / tests
+#
+testApp/ios/main.jsbundle
+
 # Android/IJ
 #
 .idea
