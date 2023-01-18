@@ -2,7 +2,7 @@ import groovy.json.JsonSlurper
 
 buildscript {
     // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-    def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["Didomi_kotlinVersion"]
+    def kotlin_version = project.properties["Didomi_kotlinVersion"]
 
     repositories {
         mavenCentral()
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:7.1.1"
+        classpath "com.android.tools.build:gradle:7.0.4"
         // noinspection DifferentKotlinGradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -20,11 +20,11 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 def getExtOrDefault(name) {
-    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["Didomi_" + name]
+    return project.properties["Didomi_" + name].toString()
 }
 
 def getExtOrIntegerDefault(name) {
-    return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["Didomi_" + name]).toInteger()
+    return project.properties["Didomi_" + name].toInteger()
 }
 
 def parsedPackage = new JsonSlurper().parseText(file("../package.json").text)

@@ -29,6 +29,10 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# Xcode / tests
+#
+testApp/ios/main.jsbundle
+
 # Android/IJ
 #
 .idea
@@ -37,10 +41,12 @@ local.properties
 *.iml
 *.hprof
 
-# Cocoapods
+# Ruby / CocoaPods
 #
 testApp/ios/Pods
+testApp/vendor/bundle/
 sampleApp/ios/Pods
+sampleApp/vendor/bundle/
 
 # node.js
 #
