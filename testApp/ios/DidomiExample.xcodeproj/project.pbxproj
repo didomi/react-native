@@ -552,6 +552,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativedidomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DidomiExample.app/DidomiExample";
 			};
 			name = Debug;
@@ -575,6 +579,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.reactnativedidomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DidomiExample.app/DidomiExample";
 			};
 			name = Release;
@@ -603,8 +611,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnativeapp;
 				PRODUCT_NAME = DidomiExample;
 				PROVISIONING_PROFILE_SPECIFIER = "Didomi RN dev";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -632,7 +644,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnativeapp;
 				PRODUCT_NAME = DidomiExample;
 				PROVISIONING_PROFILE_SPECIFIER = "Didomi RN dev";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
