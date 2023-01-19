@@ -1044,7 +1044,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @Suppress("UNUSED_PARAMETER")
     @ReactMethod
-    fun removeListeners(count: Integer) {
+    fun removeListeners(count: Int) {
         // Keep: Required for RN built in Event Emitter Calls.
     }
 

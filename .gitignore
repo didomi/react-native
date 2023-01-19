@@ -29,17 +29,24 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# Xcode / tests
+#
+testApp/ios/main.jsbundle
+
 # Android/IJ
 #
 .idea
 .gradle
 local.properties
-android.iml
+*.iml
+*.hprof
 
-# Cocoapods
+# Ruby / CocoaPods
 #
 testApp/ios/Pods
+testApp/vendor/bundle/
 sampleApp/ios/Pods
+sampleApp/vendor/bundle/
 
 # node.js
 #
