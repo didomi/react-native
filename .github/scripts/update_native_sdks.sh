@@ -20,7 +20,7 @@ pod_last_version() {
 #
 
 # Get Android SDK Version
-lastAndroidVersion=$(curl -s 'https://search.maven.org/solrsearch/select?q=didomi' | sed -n 's|.*"latestVersion":"\([^"]*\)".*|\1|p')
+lastAndroidVersion=$(curl -s 'https://repo.maven.apache.org/maven2/io/didomi/sdk/android/maven-metadata.xml' | sed -ne '/release/{s/.*<release>\(.*\)<\/release>.*/\1/p;q;}')
 if [[ ! $lastAndroidVersion =~ ^[0-9]+.[0-9]+.[0-9]+$ ]]; then
   echo "Error while getting android SDK version"
   exit 1
@@ -29,9 +29,7 @@ fi
 echo "Android SDK last version is $lastAndroidVersion"
 
 # Update Android dependency
-pushd android >/dev/null
-sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$lastAndroidVersion|g" build.gradle || exit 1
-popd >/dev/null
+sed -i~ -e "s|io.didomi.sdk:android:[0-9]\{1,2\}.[0-9]\{1,2\}.[0-9]\{1,2\}|io.didomi.sdk:android:$lastAndroidVersion|g" android/build.gradle || exit 1
 
 #
 # iOS
