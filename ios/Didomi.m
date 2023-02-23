@@ -164,17 +164,6 @@ RCT_EXTERN_METHOD(updateSelectedLanguage:(NSString *)languageCode
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-
-// MARK: ViewProviderDelegate
-
-RCT_EXTERN_METHOD(getNoticeViewController:(NSString *)position
-                  resolve:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject)
-
-RCT_EXTERN_METHOD(getPreferencesViewController:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject)
-
-
 // MARK: Didomi extension
 
 RCT_EXTERN_METHOD(setupUI:(RCTPromiseResolveBlock)resolve
