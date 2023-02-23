@@ -256,18 +256,6 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
     
-    // MARK: ViewProviderDelegate
-    
-    @objc(getNoticeViewController:resolve:reject:)
-    dynamic func getNoticeViewController(position: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getNoticeViewController(position: position))
-    }
-    
-    @objc(getPreferencesViewController:reject:)
-    dynamic func getPreferencesViewController(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(Didomi.shared.getPreferencesViewController())
-    }
-    
     // MARK: Didomi extension
 
     @objc(setupUI:reject:)
