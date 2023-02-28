@@ -23,7 +23,7 @@ jobs:
           echo "React Native version is: ${{ env.rn_version }}"
 
       - name: Create tag
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.CUSTOM_GITHUB_TOKEN }} # Use custom token to trigger following workflows
           script: |
