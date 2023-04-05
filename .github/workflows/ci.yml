@@ -105,12 +105,12 @@ jobs:
 
     # Authenticate Cloud SDK
     - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
+      uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Setup Cloud SDK
-      uses: google-github-actions/setup-gcloud@v0
+      uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
 
@@ -119,7 +119,8 @@ jobs:
         gcloud firebase test android run --type instrumentation \
         --app android/app/build/outputs/apk/debug/app-debug.apk \
         --test android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-        --device model=Pixel2,version=28,locale=en,orientation=portrait --num-flaky-test-attempts=1
+        --device model=Pixel2,version=28,locale=en,orientation=portrait \
+        --num-flaky-test-attempts=1
   
   ios:
     needs: js
