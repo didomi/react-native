@@ -25,6 +25,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private val eventListener = object : EventListener() {
 
         /**
+         * The consent status of the user has changed
+         */
+        override fun consentChanged(event: ConsentChangedEvent) = prepareEvent(EventTypes.CONSENT_CHANGED.event, null)
+
+        /**
          * SDK has been successfully initialized
          */
         override fun ready(event: ReadyEvent) = prepareEvent(EventTypes.READY.event, null)
@@ -33,11 +38,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          * An error occurred during the SDK initialization
          */
         override fun error(event: ErrorEvent) = prepareEvent(EventTypes.ERROR.event, event.errorMessage)
-
-        /**
-         * The consent status of the user has changed
-         */
-        override fun consentChanged(event: ConsentChangedEvent) = prepareEvent(EventTypes.CONSENT_CHANGED.event, null)
 
         /**
          * The notice screen is being hidden
@@ -50,27 +50,32 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         override fun showNotice(event: ShowNoticeEvent) = prepareEvent(EventTypes.SHOW_NOTICE.event, null)
 
         /**
-         * Click on agree on notice
+         * Click on agree from notice
          */
         override fun noticeClickAgree(event: NoticeClickAgreeEvent) = prepareEvent(EventTypes.NOTICE_CLICK_AGREE.event, null)
 
         /**
-         * Click on disagree on the notice
+         * Click on disagree from the notice
          */
         override fun noticeClickDisagree(event: NoticeClickDisagreeEvent) = prepareEvent(EventTypes.NOTICE_CLICK_DISAGREE.event, null)
 
         /**
-         * Click on learn more on notice
-         */
-        override fun noticeClickMoreInfo(event: NoticeClickMoreInfoEvent) = prepareEvent(EventTypes.NOTICE_CLICK_MORE_INFO.event, null)
-
-        /**
-         * Click on partners on the notice
+         * Click on partners from the notice
          */
         override fun noticeClickViewVendors(event: NoticeClickViewVendorsEvent) = prepareEvent(EventTypes.NOTICE_CLICK_VIEW_VENDORS.event, null)
 
         /**
-         * Click on privacy policy on the notice
+         * Click on SPI from the notice
+         */
+        override fun noticeClickViewSPIPurposes(event: NoticeClickViewSPIPurposesEvent) = prepareEvent(EventTypes.NOTICE_CLICK_VIEW_SPI_PURPOSES.event, null)
+
+        /**
+         * Click on learn more from notice
+         */
+        override fun noticeClickMoreInfo(event: NoticeClickMoreInfoEvent) = prepareEvent(EventTypes.NOTICE_CLICK_MORE_INFO.event, null)
+
+        /**
+         * Click on privacy policy from the notice
          */
         override fun noticeClickPrivacyPolicy(event: NoticeClickPrivacyPolicyEvent) = prepareEvent(EventTypes.NOTICE_CLICK_PRIVACY_POLICY.event, null)
 
@@ -85,89 +90,119 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         override fun showPreferences(event: ShowPreferencesEvent) = prepareEvent(EventTypes.SHOW_PREFERENCES.event, null)
 
         /**
-         * Click on agree to all on preferences popup
-         */
-        override fun preferencesClickAgreeToAll(event: PreferencesClickAgreeToAllEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL.event, null)
-
-        /**
-         * Click on disagree to all on preferences popup
-         */
-        override fun preferencesClickDisagreeToAll(event: PreferencesClickDisagreeToAllEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL.event, null)
-
-        /**
-         * Click on agree to a purpose on preferences popup
-         */
-        override fun preferencesClickPurposeAgree(event: PreferencesClickPurposeAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_AGREE.event, event.purposeId)
-
-        /**
-         * Click on disagree to a purpose on preferences popup
-         */
-        override fun preferencesClickPurposeDisagree(event: PreferencesClickPurposeDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_DISAGREE.event, event.purposeId)
-
-        /**
-         * Click view vendors on purposes view on preferences popup
-         */
-        override fun preferencesClickViewVendors(event: PreferencesClickViewVendorsEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_VENDORS.event, null)
-
-        /**
-         * Click on save on the purposes view on preferences popup
-         */
-        override fun preferencesClickSaveChoices(event: PreferencesClickSaveChoicesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SAVE_CHOICES.event, null)
-
-        /**
-         * Click on agree to a vendor on preferences popup
-         */
-        override fun preferencesClickVendorAgree(event: PreferencesClickVendorAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_AGREE.event, event.vendorId)
-
-        /**
-         * Click on disagree to a vendor on preferences popup
-         */
-        override fun preferencesClickVendorDisagree(event: PreferencesClickVendorDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_DISAGREE.event, event.vendorId)
-
-        /**
-         * Click on agree to a category on preferences popup
-         */
-        override fun preferencesClickCategoryAgree(event: PreferencesClickCategoryAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_AGREE.event, event.categoryId)
-
-        /**
-         * Click on disagree to a category on preferences popup
-         */
-        override fun preferencesClickCategoryDisagree(event: PreferencesClickCategoryDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_DISAGREE.event, event.categoryId)
-
-        /**
-         * Click on agree to all vendors on preferences popup
-         */
-        override fun preferencesClickAgreeToAllVendors(event: PreferencesClickAgreeToAllVendorsEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS.event, null)
-
-        /**
-         * Click on disagree to all vendors on preferences popup
-         */
-        override fun preferencesClickDisagreeToAllVendors(event: PreferencesClickDisagreeToAllVendorsEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS.event, null)
-
-        /**
-         * Click on save on the vendors view on preferences popup
-         */
-        override fun preferencesClickVendorSaveChoices(event: PreferencesClickVendorSaveChoicesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES.event, null)
-
-        /**
-         * Click on view purposes on the preferences popup
+         * Click on view purposes from the preferences popup
          */
         override fun preferencesClickViewPurposes(event: PreferencesClickViewPurposesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_PURPOSES.event, null)
 
         /**
-         * Flip ON all purposes switch on the preferences popup
+         * Click view vendors on purposes view from preferences popup
+         */
+        override fun preferencesClickViewVendors(event: PreferencesClickViewVendorsEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_VENDORS.event, null)
+
+        /**
+         * Click on view SPI purposes from the preferences popup
+         */
+        override fun preferencesClickViewSPIPurposes(event: PreferencesClickViewSPIPurposesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VIEW_SPI_PURPOSES.event, null)
+
+        /**
+         * Click on agree to all from preferences popup
+         */
+        override fun preferencesClickAgreeToAll(event: PreferencesClickAgreeToAllEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL.event, null)
+
+        /**
+         * Click on disagree to all from preferences popup
+         */
+        override fun preferencesClickDisagreeToAll(event: PreferencesClickDisagreeToAllEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL.event, null)
+
+        /**
+         * Flip ON all purposes switch from the preferences popup
          */
         override fun preferencesClickAgreeToAllPurposes(event: PreferencesClickAgreeToAllPurposesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_PURPOSES.event, null)
 
         /**
-         * Flip OFF all purposes switch on the preferences popup
+         * Flip OFF all purposes switch from the preferences popup
          */
         override fun preferencesClickDisagreeToAllPurposes(event: PreferencesClickDisagreeToAllPurposesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_PURPOSES.event, null)
 
         /**
-         * Click on reset purposes on the preferences popup
+         * Click on reset purposes from the preferences popup
          */
         override fun preferencesClickResetAllPurposes(event: PreferencesClickResetAllPurposesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_RESET_ALL_PURPOSES.event, null)
+
+        /**
+         * Click on agree to a purpose from preferences popup
+         */
+        override fun preferencesClickPurposeAgree(event: PreferencesClickPurposeAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_AGREE.event, event.purposeId)
+
+        /**
+         * Click on disagree to a purpose from preferences popup
+         */
+        override fun preferencesClickPurposeDisagree(event: PreferencesClickPurposeDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_PURPOSE_DISAGREE.event, event.purposeId)
+
+        /**
+         * Click on agree to a category from preferences popup
+         */
+        override fun preferencesClickCategoryAgree(event: PreferencesClickCategoryAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_AGREE.event, event.categoryId)
+
+        /**
+         * Click on disagree to a category from preferences popup
+         */
+        override fun preferencesClickCategoryDisagree(event: PreferencesClickCategoryDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_CATEGORY_DISAGREE.event, event.categoryId)
+
+        /**
+         * Click on save on the purposes view from preferences popup
+         */
+        override fun preferencesClickSaveChoices(event: PreferencesClickSaveChoicesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SAVE_CHOICES.event, null)
+
+        /**
+         * Click on agree to all vendors from preferences popup
+         */
+        override fun preferencesClickAgreeToAllVendors(event: PreferencesClickAgreeToAllVendorsEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_AGREE_TO_ALL_VENDORS.event, null)
+
+        /**
+         * Click on disagree to all vendors from preferences popup
+         */
+        override fun preferencesClickDisagreeToAllVendors(event: PreferencesClickDisagreeToAllVendorsEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_DISAGREE_TO_ALL_VENDORS.event, null)
+
+        /**
+         * Click on agree to a vendor from preferences popup
+         */
+        override fun preferencesClickVendorAgree(event: PreferencesClickVendorAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_AGREE.event, event.vendorId)
+
+        /**
+         * Click on disagree to a vendor from preferences popup
+         */
+        override fun preferencesClickVendorDisagree(event: PreferencesClickVendorDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_DISAGREE.event, event.vendorId)
+
+        /**
+         * Click on save on the vendors view from preferences popup
+         */
+        override fun preferencesClickVendorSaveChoices(event: PreferencesClickVendorSaveChoicesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_VENDOR_SAVE_CHOICES.event, null)
+
+        /**
+         * Click on agree to a SPI purpose from preferences popup
+         */
+        override fun preferencesClickSPIPurposeAgree(event: PreferencesClickSPIPurposeAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SPI_PURPOSE_AGREE.event, event.purposeId)
+
+        /**
+         * Click on disagree to a SPI purpose from preferences popup
+         */
+        override fun preferencesClickSPIPurposeDisagree(event: PreferencesClickSPIPurposeDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SPI_PURPOSE_DISAGREE.event, event.purposeId)
+
+        /**
+         * Click on agree to a SPI category from preferences popup
+         */
+        override fun preferencesClickSPICategoryAgree(event: PreferencesClickSPICategoryAgreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SPI_CATEGORY_AGREE.event, event.categoryId)
+
+        /**
+         * Click on disagree to a SPI category from preferences popup
+         */
+        override fun preferencesClickSPICategoryDisagree(event: PreferencesClickSPICategoryDisagreeEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SPI_CATEGORY_DISAGREE.event, event.categoryId)
+
+        /**
+         * Click on save on the SPI purposes view from preferences popup
+         */
+        override fun preferencesClickSPIPurposeSaveChoices(event: PreferencesClickSPIPurposeSaveChoicesEvent) = prepareEvent(EventTypes.PREFERENCES_CLICK_SPI_PURPOSE_SAVE_CHOICES.event, null)
 
         /**
          * Sync finished
