@@ -631,39 +631,56 @@ extension RNDidomi {
     
     @objc(supportedEvents)
     override func supportedEvents() -> [String]! {
-        return ["on_ready_callback",
-                "on_error_callback",
+        return [
+                // Internal
                 "on_consent_changed",
-                "on_ready",
                 "on_error",
+                "on_error_callback",
+                "on_ready",
+                "on_ready_callback",
+                // Notice
                 "on_hide_notice",
                 "on_show_notice",
                 "on_notice_click_agree",
                 "on_notice_click_disagree",
-                "on_notice_click_more_info",
                 "on_notice_click_view_vendors",
+                "on_notice_click_view_spi_purposes",
+                "on_notice_click_more_info",
                 "on_notice_click_privacy_policy",
+                // Preferences
                 "on_hide_preferences",
                 "on_show_preferences",
+                // Preferences - Views
+                "on_preferences_click_view_purposes",
+                "on_preferences_click_view_vendors",
+                "on_preferences_click_view_spi_purposes",
+                // Preferences - Purpose
                 "on_preferences_click_agree_to_all",
                 "on_preferences_click_disagree_to_all",
                 "on_preferences_click_agree_to_all_purposes",
                 "on_preferences_click_disagree_to_all_purposes",
                 "on_preferences_click_reset_all_purposes",
-                "on_preferences_click_agree_to_all_vendors",
-                "on_preferences_click_disagree_to_all_vendors",
                 "on_preferences_click_purpose_agree",
                 "on_preferences_click_purpose_disagree",
                 "on_preferences_click_category_agree",
                 "on_preferences_click_category_disagree",
-                "on_preferences_click_view_vendors",
-                "on_preferences_click_view_purposes",
                 "on_preferences_click_save_choices",
+                // Preferences - Vendor
+                "on_preferences_click_agree_to_all_vendors",
+                "on_preferences_click_disagree_to_all_vendors",
                 "on_preferences_click_vendor_agree",
                 "on_preferences_click_vendor_disagree",
                 "on_preferences_click_vendor_save_choices",
+                // Preferences - Sensitive Personal Information
+                "on_preferences_click_spi_purpose_agree",
+                "on_preferences_click_spi_purpose_disagree",
+                "on_preferences_click_spi_category_agree",
+                "on_preferences_click_spi_category_disagree",
+                "on_preferences_click_spi_purpose_save_choices",
+                // Sync
                 "on_sync_done",
                 "on_sync_error",
+                // Language
                 "on_language_updated",
                 "on_language_update_failed"
         ]
@@ -675,20 +692,20 @@ extension RNDidomi {
             self.dispatchEvent(withName: "on_consent_changed", body: "")
         }
         
-        didomiEventListener.onReady = { event in
-            self.dispatchEvent(withName: "on_ready", body: "")
-        }
-        
         didomiEventListener.onError = { event in
             self.dispatchEvent(withName: "on_error", body: event.descriptionText)
         }
         
-        didomiEventListener.onShowNotice = { event in
-            self.dispatchEvent(withName: "on_show_notice", body: "")
+        didomiEventListener.onReady = { event in
+            self.dispatchEvent(withName: "on_ready", body: "")
         }
         
         didomiEventListener.onHideNotice = { event in
             self.dispatchEvent(withName: "on_hide_notice", body: "")
+        }
+        
+        didomiEventListener.onShowNotice = { event in
+            self.dispatchEvent(withName: "on_show_notice", body: "")
         }
         
         didomiEventListener.onNoticeClickAgree = { event in
@@ -698,25 +715,41 @@ extension RNDidomi {
         didomiEventListener.onNoticeClickDisagree = { event in
             self.dispatchEvent(withName: "on_notice_click_disagree", body: "")
         }
-        
-        didomiEventListener.onNoticeClickMoreInfo = { event in
-            self.dispatchEvent(withName: "on_notice_click_more_info", body: "")
-        }
 
         didomiEventListener.onNoticeClickViewVendors = { event in
             self.dispatchEvent(withName: "on_notice_click_view_vendors", body: "")
+        }
+
+        didomiEventListener.onNoticeClickViewSPIPurposes = { event in
+            self.dispatchEvent(withName: "on_notice_click_view_spi_purposes", body: "")
+        }
+        
+        didomiEventListener.onNoticeClickMoreInfo = { event in
+            self.dispatchEvent(withName: "on_notice_click_more_info", body: "")
         }
 
         didomiEventListener.onNoticeClickPrivacyPolicy = { event in
             self.dispatchEvent(withName: "on_notice_click_privacy_policy", body: "")
         }
         
+        didomiEventListener.onHidePreferences = { event in
+            self.dispatchEvent(withName: "on_hide_preferences", body: "")
+        }
+        
         didomiEventListener.onShowPreferences = { event in
             self.dispatchEvent(withName: "on_show_preferences", body: "")
         }
         
-        didomiEventListener.onHidePreferences = { event in
-            self.dispatchEvent(withName: "on_hide_preferences", body: "")
+        didomiEventListener.onPreferencesClickViewPurposes = { event in
+            self.dispatchEvent(withName: "on_preferences_click_view_purposes", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickViewVendors = { event in
+            self.dispatchEvent(withName: "on_preferences_click_view_vendors", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickViewSPIPurposes = { event in
+            self.dispatchEvent(withName: "on_preferences_click_view_spi_purposes", body: "")
         }
         
         didomiEventListener.onPreferencesClickAgreeToAll = { event in
@@ -739,14 +772,6 @@ extension RNDidomi {
             self.dispatchEvent(withName: "on_preferences_click_reset_all_purposes", body: "")
         }
         
-        didomiEventListener.onPreferencesClickAgreeToAllVendors = { event in
-            self.dispatchEvent(withName: "on_preferences_click_agree_to_all_vendors", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickDisagreeToAllVendors = { event in
-            self.dispatchEvent(withName: "on_preferences_click_disagree_to_all_vendors", body: "")
-        }
-        
         didomiEventListener.onPreferencesClickPurposeAgree = { event, purposeId in
             self.dispatchEvent(withName: "on_preferences_click_purpose_agree", body: purposeId)
         }
@@ -763,16 +788,16 @@ extension RNDidomi {
             self.dispatchEvent(withName: "on_preferences_click_category_disagree", body: categoryId)
         }
         
-        didomiEventListener.onPreferencesClickViewVendors = { event in
-            self.dispatchEvent(withName: "on_preferences_click_view_vendors", body: "")
-        }
-        
-        didomiEventListener.onPreferencesClickViewPurposes = { event in
-            self.dispatchEvent(withName: "on_preferences_click_view_purposes", body: "")
-        }
-        
         didomiEventListener.onPreferencesClickSaveChoices = { event in
             self.dispatchEvent(withName: "on_preferences_click_save_choices", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickAgreeToAllVendors = { event in
+            self.dispatchEvent(withName: "on_preferences_click_agree_to_all_vendors", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickDisagreeToAllVendors = { event in
+            self.dispatchEvent(withName: "on_preferences_click_disagree_to_all_vendors", body: "")
         }
         
         didomiEventListener.onPreferencesClickVendorAgree = { event, vendorId in
@@ -785,6 +810,26 @@ extension RNDidomi {
         
         didomiEventListener.onPreferencesClickVendorSaveChoices = { event in
             self.dispatchEvent(withName: "on_preferences_click_vendor_save_choices", body: "")
+        }
+        
+        didomiEventListener.onPreferencesClickSPIPurposeAgree = { event, purposeId in
+            self.dispatchEvent(withName: "on_preferences_click_spi_purpose_agree", body: purposeId)
+        }
+        
+        didomiEventListener.onPreferencesClickSPIPurposeDisagree = { event, purposeId in
+            self.dispatchEvent(withName: "on_preferences_click_spi_purpose_disagree", body: purposeId)
+        }
+        
+        didomiEventListener.onPreferencesClickSPICategoryAgree = { event, categoryId in
+            self.dispatchEvent(withName: "on_preferences_click_spi_category_agree", body: categoryId)
+        }
+        
+        didomiEventListener.onPreferencesClickSPICategoryDisagree = { event, categoryId in
+            self.dispatchEvent(withName: "on_preferences_click_spi_category_disagree", body: categoryId)
+        }
+        
+        didomiEventListener.onPreferencesClickSPIPurposeSaveChoices = { event in
+            self.dispatchEvent(withName: "on_preferences_click_spi_purpose_save_choices", body: "")
         }
         
         didomiEventListener.onSyncDone = { event, organizationUserId in
