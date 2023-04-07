@@ -1,8 +1,9 @@
 package com.reactnativedidomi
 
 enum class EventTypes(val event: String) {
-    // Internal
+    // Consent
     CONSENT_CHANGED("on_consent_changed"),
+    // SDK lifecycle events
     ERROR("on_error"),
     ERROR_CALLBACK("on_error_callback"),
     READY("on_ready"),
