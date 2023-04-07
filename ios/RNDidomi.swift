@@ -632,8 +632,9 @@ extension RNDidomi {
     @objc(supportedEvents)
     override func supportedEvents() -> [String]! {
         return [
-                // Internal
+                // Consent
                 "on_consent_changed",
+                // SDK lifecycle events
                 "on_error",
                 "on_error_callback",
                 "on_ready",
