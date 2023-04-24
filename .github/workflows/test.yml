@@ -1,11 +1,10 @@
-name: ci
+name: Test
 
 on:
   push:
     branches:
-      - '**'
-    tags-ignore:
-      - '**'
+      - "!main" # Prevent when pushing on main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
