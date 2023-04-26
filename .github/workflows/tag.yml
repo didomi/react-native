@@ -17,9 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set new React Native version as ENV
+      - name: Set React Native version as ENV
         run: |
           echo "rn_version=$(sh .github/scripts/extract_version.sh)" >> $GITHUB_ENV
+
+      - name: Print React Native Version
+        run: |
           echo "React Native version is: ${{ env.rn_version }}"
 
       - name: Create tag
