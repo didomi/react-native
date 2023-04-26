@@ -59,8 +59,8 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
-          author_email: "nicolas.chaix@didomi.io"
-          author_name: "Nicolas CHAIX"
+          author_email: ${{ secrets.AUTHOR_EMAIL }}
+          author_name: ${{ secrets.AUTHOR_NAME }}
           branch: ${{ github.ref }}
           github_token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           message: "Update Native SDKs and increment ${{ github.event.inputs.increment }} version"
