@@ -50,7 +50,7 @@ class UIGettersParamsTest: BaseUITest() {
         // Android doesn't always keep the same order for the properties.
         assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
         assertTextContains("\"featureIds\":[\"1\",\"2\"]")
-        assertTextContains("\"policyUrl\":\"https://policies.google.com/privacy\"")
+        assertTextContains("\"policyUrl\":\"https://business.safety.google/privacy/\"")
         assertTextContains("\"deviceStorageDisclosureUrl\":\"https://www.gstatic.com/iabtcf/deviceStorageDisclosure.json\"")
         assertTextContains("\"name\":\"Google Advertising Products\"")
         assertTextContains("\"id\":\"google\"")
@@ -66,7 +66,7 @@ class UIGettersParamsTest: BaseUITest() {
 
         tapButton("getVendor [ID = '755'] policyUrl")
 
-        assertText("\"https://policies.google.com/privacy\"")
+        assertText("\"https://business.safety.google/privacy/\"")
     }
 
     @Test
