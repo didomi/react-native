@@ -1,2 +1,2 @@
 export { Didomi } from './Didomi';
-export { DidomiEventType } from './DidomiTypes';
+export { DidomiEventType, Vendor, VendorNamespaces, Purpose, PurposeCategory, UserStatus, UserStatusPurposes, UserStatusVendors, UserStatusIds } from './DidomiTypes';
