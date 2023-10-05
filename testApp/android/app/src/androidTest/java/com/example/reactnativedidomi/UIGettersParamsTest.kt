@@ -51,7 +51,7 @@ class UIGettersParamsTest: BaseUITest() {
         assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
         assertTextContains("\"featureIds\":[\"1\",\"2\"]")
         assertTextContains("\"policyUrl\":\"https://business.safety.google/privacy/\"")
-        assertTextContains("\"deviceStorageDisclosureUrl\":\"https://www.gstatic.com/iabtcf/deviceStorageDisclosure.json\"")
+        assertTextContains("\"deviceStorageDisclosureUrl\":\"https://sdk.privacy-center.org/tcf/v2/disclosures/755.json\"")
         assertTextContains("\"name\":\"Google Advertising Products\"")
         assertTextContains("\"id\":\"google\"")
         assertTextContains("\"iabId\":\"755\"")
