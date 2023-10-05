@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
+import com.example.reactnativedidomi.BuildConfig;
+import com.example.reactnativedidomi.newarchitecture.components.MainComponentsRegistry;
+import com.example.reactnativedidomi.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -18,13 +21,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.UIManager;
 import com.facebook.react.fabric.ComponentFactory;
 import com.facebook.react.fabric.CoreComponentsRegistry;
-import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
+import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.example.reactnativedidomi.BuildConfig;
-import com.example.reactnativedidomi.newarchitecture.components.MainComponentsRegistry;
-import com.example.reactnativedidomi.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
-import com.reactnativedidomi.DidomiPackage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +54,6 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
         //     packages.add(new TurboReactPackage() { ... });
         // If you have custom Fabric Components, their ViewManagers should also be loaded here
         // inside a ReactPackage.
-        packages.add(new DidomiPackage());
         return packages;
     }
 
@@ -110,7 +108,7 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
                                 return new FabricJSIModuleProvider(
                                         reactApplicationContext,
                                         componentFactory,
-                                        new EmptyReactNativeConfig(),
+                                        ReactNativeConfig.DEFAULT_CONFIG,
                                         viewManagerRegistry);
                             }
                         });
