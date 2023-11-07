@@ -263,6 +263,7 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains("\"user_id\":\""))
     XCTAssertTrue(actual.contains("\"created\":\""))
     XCTAssertTrue(actual.contains("\"updated\":\""))
+    XCTAssertTrue(actual.contains("\"didomi_dcs\":\"\"")) // DCS feature flag is disabled (empty string)
     XCTAssertTrue(actual.contains("\"regulation\":\"gdpr\""))
 
   }

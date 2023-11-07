@@ -110,6 +110,7 @@ export interface UserStatus {
   updated: string;
   consent_string: string;
   additional_consent: string;
+  didomi_dcs: string;
   regulation: string;
 }
 
