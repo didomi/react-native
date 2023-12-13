@@ -37,15 +37,15 @@ class UIGettersParamsTest: BaseUITest() {
     @Test
     fun test_GetPurpose_descriptionLegal() {
 
-        tapButton("getPurpose [ID = 'cookies'] descriptionLegal")
+        tapButton("getPurpose [ID = 'cookies'] illustrations[0]")
 
-        assertText("\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+        assertText("Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).")
     }
 
     @Test
     fun test_GetVendor() {
 
-        tapButton("getVendor [ID = '755']")
+        tapButton("getVendor [ID = '217']")
 
         // Android doesn't always keep the same order for the properties.
         assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
@@ -64,7 +64,7 @@ class UIGettersParamsTest: BaseUITest() {
     @Test
     fun test_GetPurpose_policyUrl() {
 
-        tapButton("getVendor [ID = '755'] policyUrl")
+        tapButton("getVendor [ID = '217'] policyUrl")
 
         assertText("\"https://business.safety.google/privacy/\"")
     }
@@ -93,7 +93,7 @@ class UIGettersParamsTest: BaseUITest() {
     fun test_GetUserConsentStatusForVendor() {
         agreeToAll()
 
-        tapButton("getUserConsentStatusForVendor [ID = '755']")
+        tapButton("getUserConsentStatusForVendor [ID = '217']")
         assertText("true")
     }
 
@@ -101,7 +101,7 @@ class UIGettersParamsTest: BaseUITest() {
     fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
         agreeToAll()
 
-        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
+        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']")
         assertText("true")
     }
 

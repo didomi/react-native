@@ -57,6 +57,7 @@ export interface Vendor {
   iabId: string
   name: string;
   policyUrl: string;
+  urls: VendorUrls[];
   namespace: string;
   namespaces: VendorNamespaces;
   iabVendor: boolean;
@@ -65,12 +66,26 @@ export interface Vendor {
   specialPurposeIds: string[];
   legIntPurposeIds: string[];
   specialFeatureIds: string[];
-  cookieMaxAgeSeconds: number
+  dataDeclaration: string[];
+  dataRetention: VendorDataRetention;
+  cookieMaxAgeSeconds: number;
   usesNonCookieAccess: boolean;
 }
 
 export interface VendorNamespaces {
   iab2: string;
+}
+
+export interface VendorUrls {
+  privacy: string;
+  legIntClaim: string;
+  langId: string;
+}
+
+export interface VendorDataRetention {
+  stdRetention: number;
+  purposes: Map<number>;
+  specialPurposes: Map<number>;
 }
 
 export interface Purpose {
@@ -79,6 +94,7 @@ export interface Purpose {
   name: string;
   description: string;
   descriptionLegal: string;
+  illustrations: string[];
   custom: boolean;
   essential: boolean;
   specialFeature: boolean;
