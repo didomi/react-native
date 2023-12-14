@@ -118,7 +118,7 @@ class UIGettersTest: BaseUITest() {
         // The text might change every time we call the getUserStatus method
         // so we'll only assert the first level parameters of the resulting json string.
         assertTextContains("\"addtl_consent\":\"\"".trim())
-        assertTextContains("\"consent_string\":\"\"".trim())
+        assertTextContains("\"consent_string\":\"".trim())
         assertTextContains("\"purposes\":{\"legitimate_interest\":{\"enabled\":[".trim())
         assertTextContains("\"vendors\":{\"legitimate_interest\":{\"enabled\":[".trim())
         assertTextContains("\"user_id\":\"".trim())

@@ -342,16 +342,16 @@ class DidomiExampleUITests: XCTestCase {
   func testGetPurposeWithId_descriptionLegal() throws {
     let app = XCUIApplication()
         
-    tapButton(in: app, name: "getPurpose [ID = 'cookies'] descriptionLegal")
-    assertResult(in: app, name: "getPurpose [ID = 'cookies'] descriptionLegal", expected: "\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+    tapButton(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]")
+    assertResult(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]", expected: "Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).")
   }
   
   func testGetVendorWithId() throws {
     let app = XCUIApplication()
         
-    tapButton(in: app, name: "getVendor [ID = '755']")
+    tapButton(in: app, name: "getVendor [ID = '217']")
     
-    let staticText = app.staticTexts["getVendor [ID = '755']-result"]
+    let staticText = app.staticTexts["getVendor [ID = '217']-result"]
     staticText.wait()
     
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
@@ -364,8 +364,8 @@ class DidomiExampleUITests: XCTestCase {
   func testGetVendorWithId_policyUrl() throws {
     let app = XCUIApplication()
         
-    tapButton(in: app, name: "getVendor [ID = '755'] policyUrl")
-    assertResult(in: app, name: "getVendor [ID = '755'] policyUrl", expected: "\"https://policies.google.com/privacy\"")
+    tapButton(in: app, name: "getVendor [ID = '217'] policyUrl")
+    assertResult(in: app, name: "getVendor [ID = '217'] policyUrl", expected: "\"https://policies.google.com/privacy\"")
   }
   
   func testGetText() throws {
@@ -396,8 +396,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '755']")
-    assertResult(in: app, name: "getUserConsentStatusForVendor [ID = '755']", expected: "true")
+    tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '217']")
+    assertResult(in: app, name: "getUserConsentStatusForVendor [ID = '217']", expected: "true")
   }
   
   func testGetUserStatusForVendor() throws {
@@ -405,8 +405,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserStatusForVendor [ID = '755']")
-    assertResult(in: app, name: "getUserStatusForVendor [ID = '755']", expected: "true")
+    tapButton(in: app, name: "getUserStatusForVendor [ID = '217']")
+    assertResult(in: app, name: "getUserStatusForVendor [ID = '217']", expected: "true")
   }
   
   func testGetUserConsentStatusForVendorAndRequiredPurpose() throws {
@@ -414,8 +414,8 @@ class DidomiExampleUITests: XCTestCase {
     
     agreeToAll(in: app)
     
-    tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
-    assertResult(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']", expected: "true")
+    tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']")
+    assertResult(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']", expected: "true")
   }
   
   func testGetUserLegitimateInterestStatusForPurpose() throws {

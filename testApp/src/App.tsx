@@ -80,12 +80,13 @@ function App() {
 
     async function init() {
       await Didomi.initialize(
-        '465ca0b2-b96f-43b4-a864-f87e18d2fd38',
+        '9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba',
         undefined,
         undefined,
         undefined,
-        true,
+        false,
         undefined,
+        "Ar7NPQ72",
         undefined
       );
       console.log('Finished init');

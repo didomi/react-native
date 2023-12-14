@@ -71,7 +71,9 @@ open class BaseUITest {
     companion object {
         // Considering the tests that we do for the bridge SDKs, using simple a configuration with few vendors
         // should be enough. Currently we share the same vendor and purpose configuration across tests classes.
-        const val ALL_VENDOR_IDS = "28,google"
-        const val ALL_PURPOSE_IDS = "cookies,create_ads_profile,geolocation_data,select_personalized_ads"
+        const val ALL_VENDOR_IDS = "1111,217,272"
+        const val ALL_PURPOSE_IDS = "cookies,create_ads_profile,device_characteristics,geolocation_data," +
+                "improve_products,market_research,measure_ad_performance,measure_content_performance," +
+                "select_basic_ads,select_personalized_ads,use_limited_data_to_select_content"
     }
 }

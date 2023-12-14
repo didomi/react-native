@@ -37,9 +37,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getVendor [ID = '217'] policyUrl"
+        name="getVendor [ID = '217'] urls[0]"
         call={async () => {
-          return (await Didomi.getVendor('217')).policyUrl;
+          return (await Didomi.getVendor('217')).urls[0];
         }}
         test={() => {
           return true;

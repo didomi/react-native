@@ -23,6 +23,7 @@ class UIMethodsTest: BaseUITest() {
     @Before
     fun init() {
         waitForSdkToBeReady()
+        testMethodCall("reset")
     }
 
     private fun testMethodCall(method: String) {
@@ -42,11 +43,6 @@ class UIMethodsTest: BaseUITest() {
 
     fun test_SDKInitOK() {
         testLastEvent("on_ready")
-    }
-
-    @Test
-    fun test_Reset() {
-        testMethodCall("reset")
     }
 
     @Test
