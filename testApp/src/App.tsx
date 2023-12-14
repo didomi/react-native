@@ -18,7 +18,9 @@ function App() {
 
   const registerListener = (eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
-      setReceivedEvent({ name: eventType, data });
+      if (eventType != "on_sync_done") { // TODO To allow testing other events, could be printed somewhere else
+        setReceivedEvent({ name: eventType, data });
+      }
       console.log('event received: ' + eventType);
       if (typeof data != "undefined" && data != "") {
         console.log(' -> data : ' + data);
@@ -79,6 +81,7 @@ function App() {
     });*/
 
     async function init() {
+      await Didomi.clearUser();
       await Didomi.initialize(
         '9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba',
         undefined,

@@ -9,8 +9,8 @@ import XCTest
 
 class DidomiExampleUITests: XCTestCase {
     
-  let allPurposeIDs = "cookies,create_ads_profile,geolocation_data,select_personalized_ads"
-  let allVendorIDs = "28,google"
+  let allPurposeIDs = "cookies,create_ads_profile,device_characteristics,geolocation_data,improve_products,market_research,measure_ad_performance,measure_content_performance,select_basic_ads,select_personalized_ads,use_limited_data_to_select_content"
+  let allVendorIDs = "1111,217,272"
   
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -38,7 +38,7 @@ class DidomiExampleUITests: XCTestCase {
     waitForExpectations(timeout: 5, handler: nil)
   }
   
-  func testAOnReadyEvent() throws {
+  func testOnReadyEvent() throws {
     
     // Restart the app to make sure last event is "on ready"
     let app = XCUIApplication()
@@ -335,15 +335,15 @@ class DidomiExampleUITests: XCTestCase {
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
     let actual = decodePurpose(actualRaw)
     
-    let expected = PurposeData(id: "cookies", name: "Store and/or access information on a device", iabId: "1", description: "Cookies, device identifiers, or other information can be stored or accessed on your device for the purposes presented to you.")
+    let expected = PurposeData(id: "cookies", name: "Store and/or access information on a device", iabId: "1", description: "Cookies, device or similar online identifiers (e.g. login-based identifiers, randomly assigned identifiers, network based identifiers) together with other information (e.g. browser type and information, language, screen size, supported technologies etc.) can be stored or read on your device to recognise it each time it connects to an app or to a website, for one or several of the purposes presented here.")
     assertEqual(actual, expected)
   }
   
-  func testGetPurposeWithId_descriptionLegal() throws {
+  func testGetPurposeWithId_illustrations() throws {
     let app = XCUIApplication()
         
     tapButton(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]")
-    assertResult(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]", expected: "Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).")
+    assertResult(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]", expected: "\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"")
   }
   
   func testGetVendorWithId() throws {
@@ -357,15 +357,23 @@ class DidomiExampleUITests: XCTestCase {
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
     let actual = decodeVendor(actualRaw)
     
-    let expected = VendorData(id: "google", name: "Google Advertising Products", iabId: "755", namespace: "didomi", policyUrl: "https://policies.google.com/privacy")
+    let expected = VendorData(id: "217", name: "2KDirect, Inc. (dba iPromote)", iabId: "", namespace: "iab", policyUrl: nil)
     assertEqual(actual, expected)
   }
   
-  func testGetVendorWithId_policyUrl() throws {
+  func testGetVendorWithId_urls() throws {
     let app = XCUIApplication()
         
-    tapButton(in: app, name: "getVendor [ID = '217'] policyUrl")
-    assertResult(in: app, name: "getVendor [ID = '217'] policyUrl", expected: "\"https://policies.google.com/privacy\"")
+    tapButton(in: app, name: "getVendor [ID = '217'] urls[0]")
+
+    let staticText = app.staticTexts["getVendor [ID = '217'] urls[0]-result"]
+    staticText.wait()
+    
+    let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
+    let actual = decodeVendorURLData(actualRaw)
+
+    let expected = VendorURLData(langId: "en", privacy: "https://www.ipromote.com/privacy-policy/", legIntClaim: "https://www.ipromote.com/privacy-policy/")
+    assertEqual(actual, expected)
   }
   
   func testGetText() throws {
@@ -432,8 +440,8 @@ class DidomiExampleUITests: XCTestCase {
     
     resetUserStatus(in: app)
     
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '755']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '755']", expected: "true")
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '217']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '217']", expected: "true")
   }
   
   func testGetJavaScriptForWebViewWithExtra() throws {
@@ -464,8 +472,8 @@ class DidomiExampleUITests: XCTestCase {
     
     resetUserStatus(in: app)
     
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']", expected: "true")
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '217']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '217']", expected: "true")
   }
   
   // MARK: SETTERS
@@ -622,11 +630,24 @@ extension DidomiExampleUITests {
     return try! jsonDecoder.decode(VendorData.self, from: data!)
   }
   
+  func decodeVendorURLData(_ string: String) -> VendorURLData {
+    let data = string.data(using: .utf8)
+    let jsonDecoder = JSONDecoder()
+    return try! jsonDecoder.decode(VendorURLData.self, from: data!)
+  }
+  
+
   func assertEqual(_ vendor1: VendorData, _ vendor2: VendorData) {
     XCTAssertEqual(vendor1.name, vendor2.name)
     XCTAssertEqual(vendor1.id, vendor2.id)
     XCTAssertEqual(vendor1.iabId, vendor2.iabId)
     XCTAssertEqual(vendor1.namespace, vendor2.namespace)
     XCTAssertEqual(vendor1.policyUrl, vendor2.policyUrl)
+  }
+
+  func assertEqual(_ url1: VendorURLData, _ url2: VendorURLData) {
+    XCTAssertEqual(url1.langId, url2.langId)
+    XCTAssertEqual(url1.privacy, url2.privacy)
+    XCTAssertEqual(url1.legIntClaim, url2.legIntClaim)
   }
 }
