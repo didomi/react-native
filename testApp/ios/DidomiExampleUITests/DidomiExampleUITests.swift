@@ -20,6 +20,14 @@ class DidomiExampleUITests: XCTestCase {
     continueAfterFailure = false
   }
   
+  private func initApp() -> XCUIApplication {
+    let app = XCUIApplication()
+    app.activate()
+    
+    testLastEvent(app: app, name:"on_ready")
+    return app
+  }
+  
   private func waitUntilElementExists(element: XCUIElement, timeout: TimeInterval) {
     let startTime = Date.timeIntervalSinceReferenceDate
     while !element.exists {
@@ -39,9 +47,9 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testOnReadyEvent() throws {
+    let app = initApp()
     
     // Restart the app to make sure last event is "on ready"
-    let app = XCUIApplication()
     app.terminate()
     app.activate()
     
@@ -49,20 +57,20 @@ class DidomiExampleUITests: XCTestCase {
   }
 
   func testSdkReady() throws {
-    let app = XCUIApplication()
+    let app = initApp()
 
     assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
   }
   
   func testReset() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "reset")
     assertResult(in: app, name: "reset", expected: "reset-OK")
   }
   
   func testSetupUI() throws {
-    let app = XCUIApplication()
+    let app = initApp()
     tapButton(in: app, name: "reset")
     tapButton(in: app, name: "setupUI")
     assertResult(in: app, name: "setupUI", expected: "setupUI-OK")
@@ -81,15 +89,15 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testSetLogLevel() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setLogLevel")
     assertResult(in: app, name: "setLogLevel", expected: "setLogLevel-OK")
   }
   
   func testUpdateSelectedLanguage() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "updateSelectedLanguage")
     assertResult(in: app, name: "updateSelectedLanguage", expected: "updateSelectedLanguage-OK")
 
@@ -97,7 +105,7 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testShowNotice() throws {
-    let app = XCUIApplication()
+    let app = initApp()
     tapButton(in: app, name: "reset")
     tapButton(in: app, name: "showNotice")
     assertResult(in: app, name: "showNotice", expected: "showNotice-OK")
@@ -115,15 +123,15 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testHideNotice() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "hideNotice")
     assertResult(in: app, name: "hideNotice", expected: "hideNotice-OK")
   }
   
   func testHidePreferences() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "hidePreferences")
     assertResult(in: app, name: "hidePreferences", expected: "hidePreferences-OK")
   }
@@ -132,8 +140,8 @@ class DidomiExampleUITests: XCTestCase {
   // MARK: GETTERS
   
   func testGetDisabledPurposes() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     disagreeToAll(in: app)
     
     tapButton(in: app, name: "getDisabledPurposes")
@@ -141,8 +149,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetDisabledPurposeIds() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     disagreeToAll(in: app)
     
     tapButton(in: app, name: "getDisabledPurposeIds")
@@ -150,8 +158,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetDisabledVendors() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     disagreeToAll(in: app)
     
     tapButton(in: app, name: "getDisabledVendors")
@@ -159,8 +167,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetDisabledVendorIds() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     disagreeToAll(in: app)
     
     tapButton(in: app, name: "getDisabledVendorIds")
@@ -168,8 +176,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetEnabledPurposes() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getEnabledPurposes")
@@ -177,8 +185,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetEnabledPurposeIds() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getEnabledPurposeIds")
@@ -186,8 +194,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetEnabledVendors() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getEnabledVendors")
@@ -195,8 +203,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetEnabledVendorIds() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getEnabledVendorIds")
@@ -204,8 +212,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetJavaScriptForWebView() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     resetUserStatus(in: app)
     
     let expected = """
@@ -226,8 +234,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetQueryStringForWebView() throws {
-    let app = XCUIApplication()
-        
+    let app = initApp()
+
     resetUserStatus(in: app)
     
     let expected = "\"didomiConfig.user.externalConsent.value".removeNewLinesAndTrailingSpaces()
@@ -246,8 +254,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserStatus() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "getUserStatus")
     
     let staticText = app.staticTexts["getUserStatus-result"]
@@ -270,8 +278,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserStatus_Purposes() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "getUserStatus purposes")
     
     let staticText = app.staticTexts["getUserStatus purposes-result"]
@@ -288,8 +296,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserStatus_Vendors() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "getUserStatus vendors")
     
     let staticText = app.staticTexts["getUserStatus vendors-result"]
@@ -307,8 +315,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserStatus_Vendors_global_consent() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "getUserStatus vendors global_consent")
     
     let staticText = app.staticTexts["getUserStatus vendors global_consent-result"]
@@ -326,8 +334,8 @@ class DidomiExampleUITests: XCTestCase {
   // MARK: GETTERS WITH PARAMS
   
   func testGetPurposeWithId() throws {
-    let app = XCUIApplication()
-        
+    let app = initApp()
+
     tapButton(in: app, name: "getPurpose [ID = 'cookies']")
     
     let staticText = app.staticTexts["getPurpose [ID = 'cookies']-result"]
@@ -341,15 +349,15 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetPurposeWithId_illustrations() throws {
-    let app = XCUIApplication()
-        
+    let app = initApp()
+
     tapButton(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]")
     assertResult(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]", expected: "\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"")
   }
   
   func testGetVendorWithId() throws {
-    let app = XCUIApplication()
-        
+    let app = initApp()
+
     tapButton(in: app, name: "getVendor [ID = '217']")
     
     let staticText = app.staticTexts["getVendor [ID = '217']-result"]
@@ -363,8 +371,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetVendorWithId_urls() throws {
-    let app = XCUIApplication()
-        
+    let app = initApp()
+
     tapButton(in: app, name: "getVendor [ID = '217'] urls[0]")
 
     let staticText = app.staticTexts["getVendor [ID = '217'] urls[0]-result"]
@@ -378,8 +386,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetText() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "getText [Key = '0']")
     assertResult(in: app, name: "getText [Key = '0']", expected: "")
   }
@@ -392,8 +400,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserConsentStatusForPurpose() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']")
@@ -401,8 +409,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserConsentStatusForVendor() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '217']")
@@ -410,8 +418,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserStatusForVendor() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getUserStatusForVendor [ID = '217']")
@@ -419,8 +427,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserConsentStatusForVendorAndRequiredPurpose() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     agreeToAll(in: app)
     
     tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']")
@@ -428,8 +436,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserLegitimateInterestStatusForPurpose() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     resetUserStatus(in: app)
     
     tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
@@ -437,8 +445,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserLegitimateInterestStatusForVendor() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     resetUserStatus(in: app)
     
     tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '217']")
@@ -446,8 +454,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetJavaScriptForWebViewWithExtra() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     resetUserStatus(in: app)
     
     let expected = """
@@ -469,8 +477,8 @@ class DidomiExampleUITests: XCTestCase {
   }
   
   func testGetUserLegitimateInterestStatusForVendorAndRequiredPurposes() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     resetUserStatus(in: app)
     
     tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '217']")
@@ -480,22 +488,22 @@ class DidomiExampleUITests: XCTestCase {
   // MARK: SETTERS
   
   func testSetUserStatusSets() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserStatusSets")
     assertResult(in: app, name: "setUserStatusSets", expected: "setUserStatusSets-OK")
   }
   
   func testSetUserAgreeToAll() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserAgreeToAll")
     assertResult(in: app, name: "setUserAgreeToAll", expected: "setUserAgreeToAll-OK")
   }
   
   func testSetUserDisagreeToAll() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserDisagreeToAll")
     assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
   }
@@ -503,78 +511,78 @@ class DidomiExampleUITests: XCTestCase {
   // MARK: SET USER
   
   func testClearUser() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "clearUser")
     assertResult(in: app, name: "clearUser", expected: "clearUser-OK")
   }
   
   func testSetUserWithId() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithId")
     assertResult(in: app, name: "setUserWithId", expected: "setUserWithId-OK")
   }
   
   func testSetUserWithIdAndSetupUI() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithIdAndSetupUI")
     assertResult(in: app, name: "setUserWithIdAndSetupUI", expected: "setUserWithIdAndSetupUI-OK")
   }
   
   func testSetUserWithHashAuth() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithHashAuth")
     assertResult(in: app, name: "setUserWithHashAuth", expected: "setUserWithHashAuth-OK")
   }
   
   func testSetUserWithHashAuthAndSetupUI() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithHashAuthAndSetupUI")
     assertResult(in: app, name: "setUserWithHashAuthAndSetupUI", expected: "setUserWithHashAuthAndSetupUI-OK")
   }
   
   func testSetUserWithHashAuthWithSaltAndExpiration() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithHashAuthWithSaltAndExpiration")
     assertResult(in: app, name: "setUserWithHashAuthWithSaltAndExpiration", expected: "setUserWithHashAuthWithSaltAndExpiration-OK")
   }
   
   func testSetUserWithHashAuthWithSaltAndExpirationAndSetupUI() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithHashAuthWithSaltAndExpirationAndSetupUI")
     assertResult(in: app, name: "setUserWithHashAuthWithSaltAndExpirationAndSetupUI", expected: "setUserWithHashAuthWithSaltAndExpirationAndSetupUI-OK")
   }
   
   func testSetUserWithEncryptionAuth() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithEncryptionAuth")
     assertResult(in: app, name: "setUserWithEncryptionAuth", expected: "setUserWithEncryptionAuth-OK")
   }
   
   func testSetUserWithEncryptionAuthAndSetupUI() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithEncryptionAuthAndSetupUI")
     assertResult(in: app, name: "setUserWithEncryptionAuthAndSetupUI", expected: "setUserWithEncryptionAuthAndSetupUI-OK")
   }
   
   func testSetUserWithEncryptionAuthWithExpiration() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithEncryptionAuthWithExpiration")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpiration", expected: "setUserWithEncryptionAuthWithExpiration-OK")
   }
   
   func testSetUserWithEncryptionAuthWithExpirationAndSetupUI() throws {
-    let app = XCUIApplication()
-    
+    let app = initApp()
+
     tapButton(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
   }
