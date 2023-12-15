@@ -285,14 +285,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             when (val value = entry.value) {
                 is Map<*, *> -> map.putMap(entry.key, objectToWritableMap(value))
                 is List<*> -> {
-                    var isString = false
-                    val listValues = value.map {
-                        if (it is String) {
-                            isString = true
-                            it
-                        } else objectToWritableMap(it)
+                    if (value.size > 0 && value[0] is String) {
+                        // String values
+                        map.putArray(entry.key, Arguments.fromList(value))
+                    } else {
+                        // Other objects
+                        val listValues = value.map { objectToWritableMap(it) }
+                        map.putArray(entry.key, Arguments.makeNativeArray(listValues))
                     }
-                    map.putArray(entry.key, if (isString) Arguments.fromList(listValues) else Arguments.makeNativeArray(listValues))
                 }
                 else -> map.putString(entry.key, value.toString())
             }
