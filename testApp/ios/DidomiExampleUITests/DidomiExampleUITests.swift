@@ -46,7 +46,6 @@ class DidomiExampleUITests: XCTestCase {
     app.activate()
     
     testLastEvent(app: app, name:"on_ready")
-    
   }
 
   func testSdkReady() throws {
@@ -64,6 +63,7 @@ class DidomiExampleUITests: XCTestCase {
   
   func testSetupUI() throws {
     let app = XCUIApplication()
+    tapButton(in: app, name: "reset")
     tapButton(in: app, name: "setupUI")
     assertResult(in: app, name: "setupUI", expected: "setupUI-OK")
     
@@ -98,6 +98,7 @@ class DidomiExampleUITests: XCTestCase {
   
   func testShowNotice() throws {
     let app = XCUIApplication()
+    tapButton(in: app, name: "reset")
     tapButton(in: app, name: "showNotice")
     assertResult(in: app, name: "showNotice", expected: "showNotice-OK")
     
@@ -257,7 +258,7 @@ class DidomiExampleUITests: XCTestCase {
     // The text might change every time we call the getUserStatus method
     // so we'll only assert the first level parameters of the resulting json string.
     XCTAssertTrue(actual.contains("\"addtl_consent\":\"\""))
-    XCTAssertTrue(actual.contains("\"consent_string\":\"\""))
+    XCTAssertTrue(actual.contains("\"consent_string\":\""))
     XCTAssertTrue(actual.contains("\"purposes\":{\"legitimate_interest\":{\"enabled\":["))
     XCTAssertTrue(actual.contains("\"vendors\":{\"consent\":{\"enabled\":["))
     XCTAssertTrue(actual.contains("\"user_id\":\""))
