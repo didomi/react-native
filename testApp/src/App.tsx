@@ -18,9 +18,6 @@ function App() {
 
   const registerListener = (eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
-      if (eventType != "on_sync_done") { // TODO To allow testing other events, could be printed somewhere else
-        setReceivedEvent({ name: eventType, data });
-      }
       console.log('event received: ' + eventType);
       if (typeof data != "undefined" && data != "") {
         console.log(' -> data : ' + data);
@@ -60,8 +57,9 @@ function App() {
     registerListener(DidomiEventType.SHOW_NOTICE);
     registerListener(DidomiEventType.HIDE_PREFERENCES);
     registerListener(DidomiEventType.SHOW_PREFERENCES);
-    registerListener(DidomiEventType.SYNC_DONE);
-    registerListener(DidomiEventType.SYNC_ERROR);
+    // Disabled to allow testing other events. TODO These events could be printed somewhere else if needed
+    //registerListener(DidomiEventType.SYNC_DONE);
+    //registerListener(DidomiEventType.SYNC_ERROR);
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
 

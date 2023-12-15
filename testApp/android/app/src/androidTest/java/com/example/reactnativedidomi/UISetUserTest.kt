@@ -18,8 +18,6 @@ class UISetUserTest: BaseUITest() {
     @Before
     fun init() {
         waitForSdkToBeReady()
-        // Scroll at the bottom to prevent unreachable text fields
-        scrollToBottomOfList()
     }
 
     @Test
