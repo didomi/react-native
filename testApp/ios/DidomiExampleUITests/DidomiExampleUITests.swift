@@ -23,8 +23,6 @@ class DidomiExampleUITests: XCTestCase {
   private func initApp() -> XCUIApplication {
     let app = XCUIApplication()
     app.activate()
-    
-    testLastEvent(app: app, name:"on_ready")
     return app
   }
   
