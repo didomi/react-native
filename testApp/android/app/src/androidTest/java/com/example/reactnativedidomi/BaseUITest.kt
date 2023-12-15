@@ -27,10 +27,15 @@ open class BaseUITest {
         scrollToTopOfList()
     }
 
-    private fun scrollToTopOfList() {
+    protected fun scrollToTopOfList() {
         // We scroll back up because scrolling up does not work as expected on all elements.
         // We do seem to be able to scroll properly to these text views so we scroll up to the first one (METHODS).
         scrollToItem("METHODS")
+    }
+
+    protected fun scrollToBottomOfList() {
+        // We scroll at the bottom because scrolling down does not work as expected on all elements.
+        scrollToItem("SETUSERWITHENCRYPTIONAUTHWITHEXPIRATIONANDSETUPUI")
     }
 
     protected fun tapButton(name: String) {
