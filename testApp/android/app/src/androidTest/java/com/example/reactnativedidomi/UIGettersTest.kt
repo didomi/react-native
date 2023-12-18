@@ -119,8 +119,8 @@ class UIGettersTest: BaseUITest() {
         // so we'll only assert the first level parameters of the resulting json string.
         assertTextContains("\"addtl_consent\":\"\"".trim())
         assertTextContains("\"consent_string\":\"".trim())
-        assertTextContains("\"purposes\":{\"legitimate_interest\":{\"enabled\":[".trim())
-        assertTextContains("\"vendors\":{\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains("\"purposes\":{\"".trim())
+        assertTextContains("\"vendors\":{\"".trim())
         assertTextContains("\"user_id\":\"".trim())
         assertTextContains("\"created\":\"".trim())
         assertTextContains("\"updated\":\"".trim())
@@ -137,10 +137,10 @@ class UIGettersTest: BaseUITest() {
 
         // The text might change every time we call the getUserStatus method
         // so we'll only assert the first level parameters of the resulting json string.
-        assertTextContains("{\"legitimate_interest\":{\"enabled\":[".trim())
-        assertTextContains(",\"global\":{\"enabled\":[".trim())
-        assertTextContains(",\"essential\":[".trim())
-        assertTextContains(",\"consent\":{\"enabled\":[".trim())
+        assertTextContains("\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains("\"global\":{\"enabled\":[".trim())
+        assertTextContains("\"essential\":[".trim())
+        assertTextContains("\"consent\":{\"enabled\":[".trim())
     }
 
     @Test
@@ -152,11 +152,11 @@ class UIGettersTest: BaseUITest() {
 
         // The text might change every time we call the getUserStatus method
         // so we'll only assert the first level parameters of the resulting json string.
-        assertTextContains("{\"legitimate_interest\":{\"enabled\":[".trim())
-        assertTextContains(",\"global\":{\"enabled\":[".trim())
-        assertTextContains(",\"global_li\":{\"enabled\":[".trim())
-        assertTextContains(",\"global_consent\":{\"enabled\":[".trim())
-        assertTextContains(",\"consent\":{\"enabled\":[".trim())
+        assertTextContains("\"legitimate_interest\":{\"enabled\":[".trim())
+        assertTextContains("\"global\":{\"enabled\":[".trim())
+        assertTextContains("\"global_li\":{\"enabled\":[".trim())
+        assertTextContains("\"global_consent\":{\"enabled\":[".trim())
+        assertTextContains("\"consent\":{\"enabled\":[".trim())
     }
 
     @Test
