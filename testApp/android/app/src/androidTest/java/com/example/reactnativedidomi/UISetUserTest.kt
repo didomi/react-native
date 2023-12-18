@@ -87,6 +87,9 @@ class UISetUserTest: BaseUITest() {
     fun test_SetUserWithEncryptionAuthWithExpiration() {
         tapButton("setUserWithEncryptionAuthWithExpiration")
         Thread.sleep(2_000L)
+        // Prevent random test failure
+        scrollToBottomOfList()
+        Thread.sleep(1_000L)
         assertText("setUserWithEncryptionAuthWithExpiration-OK")
     }
 

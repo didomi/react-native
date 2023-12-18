@@ -27,10 +27,15 @@ open class BaseUITest {
         scrollToTopOfList()
     }
 
-    private fun scrollToTopOfList() {
+    protected fun scrollToTopOfList() {
         // We scroll back up because scrolling up does not work as expected on all elements.
         // We do seem to be able to scroll properly to these text views so we scroll up to the first one (METHODS).
         scrollToItem("METHODS")
+    }
+
+    protected fun scrollToBottomOfList() {
+        // We scroll at the bottom because scrolling down does not work as expected on all elements.
+        scrollToItem("SETUSERWITHENCRYPTIONAUTHWITHEXPIRATIONANDSETUPUI")
     }
 
     protected fun tapButton(name: String) {
@@ -71,7 +76,9 @@ open class BaseUITest {
     companion object {
         // Considering the tests that we do for the bridge SDKs, using simple a configuration with few vendors
         // should be enough. Currently we share the same vendor and purpose configuration across tests classes.
-        const val ALL_VENDOR_IDS = "28,google"
-        const val ALL_PURPOSE_IDS = "cookies,create_ads_profile,geolocation_data,select_personalized_ads"
+        const val ALL_VENDOR_IDS = "1111,217,272"
+        const val ALL_PURPOSE_IDS = "cookies,create_ads_profile,device_characteristics,geolocation_data," +
+                "improve_products,market_research,measure_ad_performance,measure_content_performance," +
+                "select_basic_ads,select_personalized_ads,use_limited_data_to_select_content"
     }
 }

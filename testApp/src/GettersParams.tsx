@@ -17,9 +17,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getPurpose [ID = 'cookies'] descriptionLegal"
+        name="getPurpose [ID = 'cookies'] illustrations[0]"
         call={async () => {
-          return (await Didomi.getPurpose('cookies')).descriptionLegal;
+          return (await Didomi.getPurpose('cookies')).illustrations[0];
         }}
         test={() => {
           return true;
@@ -27,9 +27,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getVendor [ID = '755']"
+        name="getVendor [ID = '217']"
         call={async () => {
-          return await Didomi.getVendor('755');
+          return await Didomi.getVendor('217');
         }}
         test={() => {
           return true;
@@ -37,9 +37,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getVendor [ID = '755'] policyUrl"
+        name="getVendor [ID = '217'] urls[0]"
         call={async () => {
-          return (await Didomi.getVendor('755')).policyUrl;
+          return (await Didomi.getVendor('217')).urls[0];
         }}
         test={() => {
           return true;
@@ -77,9 +77,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForVendor [ID = '755']"
+        name="getUserConsentStatusForVendor [ID = '217']"
         call={async () => {
-          return await Didomi.getUserConsentStatusForVendor('755');
+          return await Didomi.getUserConsentStatusForVendor('217');
         }}
         test={() => {
           return true;
@@ -87,9 +87,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserStatusForVendor [ID = '755']"
+        name="getUserStatusForVendor [ID = '217']"
         call={async () => {
-          return await Didomi.getUserStatusForVendor('755');
+          return await Didomi.getUserStatusForVendor('217');
         }}
         test={() => {
           return true;
@@ -97,9 +97,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']"
+        name="getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']"
         call={async () => {
-          return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes('755');
+          return await Didomi.getUserConsentStatusForVendorAndRequiredPurposes('217');
         }}
         test={() => {
           return true;
@@ -117,9 +117,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserLegitimateInterestStatusForVendor [ID = '755']"
+        name="getUserLegitimateInterestStatusForVendor [ID = '217']"
         call={async () => {
-          return await Didomi.getUserLegitimateInterestForVendor('755');
+          return await Didomi.getUserLegitimateInterestForVendor('217');
         }}
         test={() => {
           return true;
@@ -127,9 +127,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '755']"
+        name="getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '217']"
         call={async () => {
-          return await Didomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes('755');
+          return await Didomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes('217');
         }}
         test={() => {
           return true;

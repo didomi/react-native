@@ -13,5 +13,12 @@ struct VendorData: Decodable {
   let name: String
   let iabId: String
   let namespace: String
-  let policyUrl: String
+  let policyUrl: String?
+}
+
+// Vendor URLs structure since TCF 2.2
+struct VendorURLData: Decodable {
+  let langId: String
+  let privacy: String
+  let legIntClaim: String
 }

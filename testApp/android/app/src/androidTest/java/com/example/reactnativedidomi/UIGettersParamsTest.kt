@@ -27,46 +27,44 @@ class UIGettersParamsTest: BaseUITest() {
         tapButton("getPurpose [ID = 'cookies']")
 
         // Android doesn't always keep the same order for the properties.
-        assertTextContains("\"iabId\":\"1\"")
-        assertTextContains("\"description\":\"Cookies, device identifiers, or other information can be stored or accessed on your device for the purposes presented to you.\"")
-        assertTextContains("\"name\":\"Store and/or access information on a device\"")
         assertTextContains("\"id\":\"cookies\"")
-        assertTextContains("\"descriptionLegal\":\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+        assertTextContains("\"iabId\":\"1\"")
+        assertTextContains("\"name\":\"Store and/or access information on a device\"")
+        assertTextContains("\"description\":\"Cookies, device or similar online identifiers (e.g. login-based identifiers, randomly assigned identifiers, network based identifiers) together with other information (e.g. browser type and information, language, screen size, supported technologies etc.) can be stored or read on your device to recognise it each time it connects to an app or to a website, for one or several of the purposes presented here.\"")
+        assertTextContains("\"illustrations\":[\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"]")
     }
 
     @Test
-    fun test_GetPurpose_descriptionLegal() {
+    fun test_GetPurpose_illustrations() {
 
-        tapButton("getPurpose [ID = 'cookies'] descriptionLegal")
+        tapButton("getPurpose [ID = 'cookies'] illustrations[0]")
 
-        assertText("\"Vendors can:\\n* Store and access information on the device such as cookies and device identifiers presented to a user.\"")
+        assertText("\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"")
     }
 
     @Test
     fun test_GetVendor() {
 
-        tapButton("getVendor [ID = '755']")
+        tapButton("getVendor [ID = '217']")
 
         // Android doesn't always keep the same order for the properties.
+        assertTextContains("\"id\":\"217\"")
+        assertTextContains("\"name\":\"2KDirect, Inc. (dba iPromote)\"")
+        assertTextContains("\"purposeIds\":[\"cookies\",\"create_ads_profile\",\"select_personalized_ads\"")
         assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
-        assertTextContains("\"featureIds\":[\"1\",\"2\"]")
-        assertTextContains("\"policyUrl\":\"https://business.safety.google/privacy/\"")
-        assertTextContains("\"deviceStorageDisclosureUrl\":\"https://sdk.privacy-center.org/tcf/v2/disclosures/755.json\"")
-        assertTextContains("\"name\":\"Google Advertising Products\"")
-        assertTextContains("\"id\":\"google\"")
-        assertTextContains("\"iabId\":\"755\"")
-        assertTextContains("\"namespace\":\"didomi\"")
-        assertTextContains("\"namespaces\":{\"iab2\":\"755\"}")
-        assertTextContains("\"usesNonCookieAccess\":\"true\"")
-        assertTextContains("\"purposeIds\":[\"cookies\",\"create_ads_profile\",")
+        assertTextContains("\"deviceStorageDisclosureUrl\":\"https://sdk.privacy-center.org/tcf/v3/disclosures/217.json\"")
+        assertTextContains("\"namespace\":\"iab\"")
+        assertTextContains("\"usesNonCookieAccess\":\"false\"")
     }
 
     @Test
-    fun test_GetPurpose_policyUrl() {
+    fun test_GetPurpose_urls() {
 
-        tapButton("getVendor [ID = '755'] policyUrl")
+        tapButton("getVendor [ID = '217'] urls[0]")
 
-        assertText("\"https://business.safety.google/privacy/\"")
+        assertTextContains("\"langId\":\"en\"")
+        assertTextContains("\"privacy\":\"https://www.ipromote.com/privacy-policy/\"")
+        assertTextContains("\"legIntClaim\":\"https://www.ipromote.com/privacy-policy/\"")
     }
 
     @Test
@@ -93,7 +91,7 @@ class UIGettersParamsTest: BaseUITest() {
     fun test_GetUserConsentStatusForVendor() {
         agreeToAll()
 
-        tapButton("getUserConsentStatusForVendor [ID = '755']")
+        tapButton("getUserConsentStatusForVendor [ID = '217']")
         assertText("true")
     }
 
@@ -101,7 +99,7 @@ class UIGettersParamsTest: BaseUITest() {
     fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
         agreeToAll()
 
-        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '755']")
+        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']")
         assertText("true")
     }
 

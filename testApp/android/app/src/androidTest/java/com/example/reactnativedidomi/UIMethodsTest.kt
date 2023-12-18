@@ -23,6 +23,7 @@ class UIMethodsTest: BaseUITest() {
     @Before
     fun init() {
         waitForSdkToBeReady()
+        testMethodCall("reset")
     }
 
     private fun testMethodCall(method: String) {
@@ -45,11 +46,6 @@ class UIMethodsTest: BaseUITest() {
     }
 
     @Test
-    fun test_Reset() {
-        testMethodCall("reset")
-    }
-
-    @Test
     fun test_SetupUI() {
         testMethodCall("reset")
         methodCall("setupUI")
@@ -67,6 +63,9 @@ class UIMethodsTest: BaseUITest() {
 
         testLastEvent("on_hide_notice")
         waitForDisplayed(withText("setupUI-OK"))
+
+        // Let some time after Didomi UI was closed
+        Thread.sleep(1_000L)
     }
 
     @Test
@@ -102,6 +101,7 @@ class UIMethodsTest: BaseUITest() {
 
         val agreeButtonText = "Agree & Close"
 
+        Thread.sleep(1_000L)
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -110,6 +110,9 @@ class UIMethodsTest: BaseUITest() {
         agreeButton.perform(click())
 
         testLastEvent("on_hide_notice")
+
+        // Let some time after Didomi UI was closed
+        Thread.sleep(1_000L)
     }
 
     @Test
@@ -119,6 +122,7 @@ class UIMethodsTest: BaseUITest() {
 
         val agreeButtonText = "Agree to all"
 
+        Thread.sleep(1_000L)
         waitForDisplayed(withText(agreeButtonText))
         val agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -127,6 +131,9 @@ class UIMethodsTest: BaseUITest() {
         agreeButton.perform(click())
 
         testLastEvent("on_hide_notice")
+
+        // Let some time after Didomi UI was closed
+        Thread.sleep(1_000L)
     }
 
     @Test
@@ -136,6 +143,7 @@ class UIMethodsTest: BaseUITest() {
 
         var agreeButtonText = "Save"
 
+        Thread.sleep(1_000L)
         waitForDisplayed(withText(agreeButtonText))
         var agreeButton = onView(withText(agreeButtonText))
         agreeButton.check(matches(isDisplayed()))
@@ -151,5 +159,8 @@ class UIMethodsTest: BaseUITest() {
         agreeButton.perform(click())
 
         testLastEvent("on_hide_notice")
+
+        // Let some time after Didomi UI was closed
+        Thread.sleep(1_000L)
     }
 }
