@@ -367,6 +367,12 @@ export const Didomi = {
   isUserConsentStatusPartial: (): Promise<boolean> => RNDidomi.isUserConsentStatusPartial(),
 
   /**
+   *  Determine if user did not express a choice for any purpose or vendor that is required
+   *  @returns: **true** if user choice is required and a choice is not expressed, **false** otherwise.
+   */
+  isUserStatusPartial: (): Promise<boolean> => RNDidomi.isUserStatusPartial(),
+
+  /**
    *  Check if the consent notice is currently displayed
    *  @returns: **true** if the notice is displayed, **false** if is not.
    */

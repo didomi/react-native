@@ -69,6 +69,11 @@ class RNDidomi: RCTEventEmitter {
     func isUserConsentStatusPartial(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.isUserConsentStatusPartial())
     }
+
+    @objc(isUserStatusPartial:reject:)
+    func isUserStatusPartial(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.isUserStatusPartial())
+    }
     
     @objc(isUserLegitimateInterestStatusPartial:reject:)
     func isUserLegitimateInterestStatusPartial(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {

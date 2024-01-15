@@ -682,6 +682,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun isUserStatusPartial(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().isUserStatusPartial)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun isNoticeVisible(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isNoticeVisible())

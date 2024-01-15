@@ -107,6 +107,16 @@ export default function Getters() {
       />
 
       <Getter
+        name="isUserStatusPartial"
+        call={async () => {
+          return await Didomi.isUserStatusPartial();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Getter
         name="getUserStatus"
         call={async () => {
           return await Didomi.getUserStatus();
@@ -166,6 +176,7 @@ export default function Getters() {
   getVendor
   isConsentRequired
   isUserConsentStatusPartial
+  isUserStatusPartial
   isNoticeVisible
   isPreferencesVisible
   isError

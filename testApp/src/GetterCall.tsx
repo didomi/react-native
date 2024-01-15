@@ -22,7 +22,7 @@ export default function Getter(props: GetterCallProps) {
         title={props.name}
         testID={props.name}
       />
-      {called && result != '' ? (
+      {called && (typeof(result) == "boolean" || result != '') ? (
         <Text testID={props.name + '-result'} style={styles.result}>
           {convertResultToString(result)}
         </Text>

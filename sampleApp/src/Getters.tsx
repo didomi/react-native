@@ -116,6 +116,7 @@ export default function Getters() {
   getVendor
   isConsentRequired
   isUserConsentStatusPartial
+  isUserStatusPartial
   isNoticeVisible
   isPreferencesVisible
   isError
