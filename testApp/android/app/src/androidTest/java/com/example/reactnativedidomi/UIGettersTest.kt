@@ -111,22 +111,30 @@ class UIGettersTest: BaseUITest() {
     @Test
     fun test_isUserStatusPartial() {
         tapButton("isUserStatusPartial")
+        // There might be a delay to get the result.
+        Thread.sleep(200L)
         assertText("true")
 
         disagreeToAll()
 
         tapButton("isUserStatusPartial")
+        // There might be a delay to get the result.
+        Thread.sleep(200L)
         assertText("false")
     }
 
     @Test
     fun test_shouldUserStatusBeCollected() {
         tapButton("shouldUserStatusBeCollected")
+        // There might be a delay to get the result.
+        Thread.sleep(200L)
         assertText("true")
 
         disagreeToAll()
 
         tapButton("shouldUserStatusBeCollected")
+        // There might be a delay to get the result.
+        Thread.sleep(200L)
         assertText("false")
     }
 
