@@ -29,6 +29,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithId() {
+        tapButton("clearUser")
+
         tapButton("setUserWithId")
         Thread.sleep(2_000L)
         assertText("setUserWithId-OK")
@@ -36,6 +38,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithIdAndSetupUI() {
+        tapButton("clearUser")
+
         tapButton("setUserWithIdAndSetupUI")
         Thread.sleep(2_000L)
         assertText("setUserWithIdAndSetupUI-OK")
@@ -43,6 +47,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithHashAuth() {
+        tapButton("clearUser")
+
         tapButton("setUserWithHashAuth")
         Thread.sleep(2_000L)
         assertText("setUserWithHashAuth-OK")
@@ -64,6 +70,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithHashAuthWithSaltAndExpirationAndSetupUI() {
+        tapButton("clearUser")
+
         tapButton("setUserWithHashAuthWithSaltAndExpirationAndSetupUI")
         Thread.sleep(2_000L)
         assertText("setUserWithHashAuthWithSaltAndExpirationAndSetupUI-OK")
@@ -71,6 +79,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithEncryptionAuth() {
+        tapButton("clearUser")
+
         tapButton("setUserWithEncryptionAuth")
         Thread.sleep(2_000L)
         assertText("setUserWithEncryptionAuth-OK")
@@ -78,6 +88,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithEncryptionAuthAndSetupUI() {
+        tapButton("clearUser")
+
         tapButton("setUserWithEncryptionAuthAndSetupUI")
         Thread.sleep(2_000L)
         assertText("setUserWithEncryptionAuthAndSetupUI-OK")
@@ -85,6 +97,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithEncryptionAuthWithExpiration() {
+        tapButton("clearUser")
+
         tapButton("setUserWithEncryptionAuthWithExpiration")
         Thread.sleep(2_000L)
         // Prevent random test failure
@@ -95,6 +109,8 @@ class UISetUserTest: BaseUITest() {
 
     @Test
     fun test_SetUserWithEncryptionAuthWithExpirationAndSetupUI() {
+        tapButton("clearUser")
+
         tapButton("setUserWithEncryptionAuthWithExpirationAndSetupUI")
         Thread.sleep(2_000L)
         assertText("setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
