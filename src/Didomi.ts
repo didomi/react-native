@@ -361,6 +361,15 @@ export const Didomi = {
   isConsentRequired: (): Promise<boolean> => RNDidomi.isConsentRequired(),
 
   /**
+   *  Determine if user status should be collected for the visitor.
+   *  Returns **true** if user status is required for the current user and one of following two conditions is met:
+   *  - User status has never been collected for this visitor yet
+   *  - New user status should be collected (as new vendors have been added) AND the number of days before recollecting them has exceeded
+   *  @returns: **true** if user status should be collected according to these rules, **false** otherwise.
+   */
+  shouldUserStatusBeCollected: (): Promise<boolean> => RNDidomi.shouldUserStatusBeCollected(),
+
+  /**
    *  Determine if consent information is available for all purposes and vendors that are required
    *  @returns: **true** if consent is required and consent information is available, **false** otherwise.
    */

@@ -109,6 +109,28 @@ class UIGettersTest: BaseUITest() {
     }
 
     @Test
+    fun test_isUserStatusPartial() {
+        tapButton("isUserStatusPartial")
+        assertText("true")
+
+        disagreeToAll()
+
+        tapButton("isUserStatusPartial")
+        assertText("false")
+    }
+
+    @Test
+    fun test_shouldUserStatusBeCollected() {
+        tapButton("shouldUserStatusBeCollected")
+        assertText("true")
+
+        disagreeToAll()
+
+        tapButton("shouldUserStatusBeCollected")
+        assertText("false")
+    }
+
+    @Test
     fun test_getUserStatus() {
         tapButton("getUserStatus")
 

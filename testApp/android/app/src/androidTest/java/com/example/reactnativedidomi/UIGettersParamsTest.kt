@@ -104,10 +104,10 @@ class UIGettersParamsTest: BaseUITest() {
     }
 
     @Test
-    fun test_GetEnabledVendors() {
+    fun test_GetUserLegitimateInterestStatusForPurpose() {
         agreeToAll()
 
-        tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
+        tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'market_research']")
         assertText("true")
     }
 
