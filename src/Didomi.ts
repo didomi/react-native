@@ -361,10 +361,25 @@ export const Didomi = {
   isConsentRequired: (): Promise<boolean> => RNDidomi.isConsentRequired(),
 
   /**
+   *  Determine if user status should be collected for the user.
+   *  Returns **true** if user status is required for the current user and regulation, and one of the following two conditions is met:
+   *  - User status has never been collected for this user yet
+   *  - New user status should be collected (as new vendors have been added) AND the number of days before recollecting them has exceeded
+   *  @returns: **true** if user status should be collected according to these rules, **false** otherwise.
+   */
+  shouldUserStatusBeCollected: (): Promise<boolean> => RNDidomi.shouldUserStatusBeCollected(),
+
+  /**
    *  Determine if consent information is available for all purposes and vendors that are required
    *  @returns: **true** if consent is required and consent information is available, **false** otherwise.
    */
   isUserConsentStatusPartial: (): Promise<boolean> => RNDidomi.isUserConsentStatusPartial(),
+
+  /**
+   *  Determine if user did not express a choice for any purpose or vendor that is required
+   *  @returns: **true** if user choice is required and a choice is not expressed, **false** otherwise.
+   */
+  isUserStatusPartial: (): Promise<boolean> => RNDidomi.isUserStatusPartial(),
 
   /**
    *  Check if the consent notice is currently displayed
@@ -670,6 +685,7 @@ export const Didomi = {
   /**
    *  Check if the consent should be collected depending on if we have any consents or if we have some consents but the number of days before displaying the notice again has not expired yet
    *  @returns: A boolean depending if the consent should be collected or not
+   *  @deprecated use {@link #shouldUserStatusBeCollected()} instead.
    */
   shouldConsentBeCollected: (): Promise<boolean> =>
     RNDidomi.shouldConsentBeCollected(),

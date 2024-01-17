@@ -36,7 +36,13 @@ RCT_EXTERN_METHOD(setUserConsentStatus:(NSArray<NSString *> *)enabledPurposeIds
 RCT_EXTERN_METHOD(isConsentRequired:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(shouldUserStatusBeCollected:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(isUserLegitimateInterestStatusPartial:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(isUserStatusPartial:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(getUserConsentStatusForPurpose:(NSString *)purposeId

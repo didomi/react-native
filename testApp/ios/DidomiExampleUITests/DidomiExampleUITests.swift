@@ -251,6 +251,34 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertEqual(actualPrefix, expected)
   }
   
+  func testIsUserStatusPartial() throws {
+    let app = initApp()
+    
+    tapButton(in: app, name: "reset")
+
+    tapButton(in: app, name: "isUserStatusPartial")
+    assertResult(in: app, name: "isUserStatusPartial", expected: "true")
+
+    disagreeToAll(in: app)
+    
+    tapButton(in: app, name: "isUserStatusPartial")
+    assertResult(in: app, name: "isUserStatusPartial", expected: "false")
+  }
+  
+  func testShouldUserStatusBeCollected() throws {
+    let app = initApp()
+    
+    tapButton(in: app, name: "reset")
+
+    tapButton(in: app, name: "shouldUserStatusBeCollected")
+    assertResult(in: app, name: "shouldUserStatusBeCollected", expected: "true")
+
+    disagreeToAll(in: app)
+    
+    tapButton(in: app, name: "shouldUserStatusBeCollected")
+    assertResult(in: app, name: "shouldUserStatusBeCollected", expected: "false")
+  }
+  
   func testGetUserStatus() throws {
     let app = initApp()
 
@@ -436,10 +464,10 @@ class DidomiExampleUITests: XCTestCase {
   func testGetUserLegitimateInterestStatusForPurpose() throws {
     let app = initApp()
 
-    resetUserStatus(in: app)
-    
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'cookies']", expected: "true")
+    agreeToAll(in: app)
+
+    tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'market_research']")
+    assertResult(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'market_research']", expected: "true")
   }
   
   func testGetUserLegitimateInterestStatusForVendor() throws {
@@ -642,7 +670,6 @@ extension DidomiExampleUITests {
     let jsonDecoder = JSONDecoder()
     return try! jsonDecoder.decode(VendorURLData.self, from: data!)
   }
-  
 
   func assertEqual(_ vendor1: VendorData, _ vendor2: VendorData) {
     XCTAssertEqual(vendor1.name, vendor2.name)

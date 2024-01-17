@@ -673,9 +673,27 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun shouldUserStatusBeCollected(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().shouldUserStatusBeCollected())
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun isUserConsentStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserConsentStatusPartial)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun isUserStatusPartial(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().isUserStatusPartial)
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

@@ -44,7 +44,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuth"
         call={async () => {
-          return await Didomi.setUserWithHashAuth(userId, "hash-md5", secretId, "test-digest");
+          return Didomi.setUserWithHashAuth(userId, "hash-md5", secretId, "test-digest");
         }}
         test={() => {
           return true;
@@ -54,7 +54,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuthAndSetupUI"
         call={async () => {
-          return await Didomi.setUserWithHashAuthAndSetupUI(userId, "hash-md5", secretId, "test-digest");
+          return Didomi.setUserWithHashAuthAndSetupUI(userId, "hash-md5", secretId, "test-digest");
         }}
         test={() => {
           return true;
@@ -64,7 +64,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuthWithSaltAndExpiration"
         call={async () => {
-          return await Didomi.setUserWithHashAuth(userId, "hash-md5", secretId, "test-digest", "test-salt", 3600);
+          return Didomi.setUserWithHashAuth(userId, "hash-md5", secretId, "test-digest", "test-salt", 3600);
         }}
         test={() => {
           return true;
@@ -74,7 +74,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuthWithSaltAndExpirationAndSetupUI"
         call={async () => {
-          return await Didomi.setUserWithHashAuthAndSetupUI(userId, "hash-md5", secretId, "test-digest", "test-salt", 3600);
+          return Didomi.setUserWithHashAuthAndSetupUI(userId, "hash-md5", secretId, "test-digest", "test-salt", 3600);
         }}
         test={() => {
           return true;
@@ -84,7 +84,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuth"
         call={async () => {
-          return await Didomi.setUserWithEncryptionAuth(userId, "aes-256-cbc", secretId, "3ff223854400259e5592cbb992be93cf");
+          return Didomi.setUserWithEncryptionAuth(userId, "aes-256-cbc", secretId, "abcd");
         }}
         test={() => {
           return true;
@@ -94,7 +94,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuthAndSetupUI"
         call={async () => {
-          return await Didomi.setUserWithEncryptionAuthAndSetupUI(userId, "aes-256-cbc", secretId, "3ff223854400259e5592cbb992be93cf");
+          return Didomi.setUserWithEncryptionAuthAndSetupUI(userId, "aes-256-cbc", secretId, "abcd");
         }}
         test={() => {
           return true;
@@ -104,7 +104,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuthWithExpiration"
         call={async () => {
-          return await Didomi.setUserWithEncryptionAuth(userId, "aes-256-cbc", secretId, "3ff223854400259e5592cbb992be93cf", 3600);
+          return Didomi.setUserWithEncryptionAuth(userId, "aes-256-cbc", secretId, "abcd", 3600);
         }}
         test={() => {
           return true;
@@ -114,7 +114,7 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuthWithExpirationAndSetupUI"
         call={async () => {
-          return await Didomi.setUserWithEncryptionAuthAndSetupUI(userId, "aes-256-cbc", secretId, "3ff223854400259e5592cbb992be93cf", 3600);
+          return Didomi.setUserWithEncryptionAuthAndSetupUI(userId, "aes-256-cbc", secretId, "abcd", 3600);
         }}
         test={() => {
           return true;

@@ -107,9 +107,9 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getUserLegitimateInterestStatusForPurpose [ID = 'cookies']"
+        name="getUserLegitimateInterestStatusForPurpose [ID = 'market_research']"
         call={async () => {
-          return await Didomi.getUserLegitimateInterestStatusForPurpose('cookies');
+          return await Didomi.getUserLegitimateInterestStatusForPurpose('market_research');
         }}
         test={() => {
           return true;
