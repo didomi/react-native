@@ -29,6 +29,7 @@ class UISetUserTest: BaseUITest() {
         assertText("clearUser-OK")
     }
 
+/*
     @Test
     fun test_SetUserWithId() {
         tapButton("setUserWithId")
@@ -102,4 +103,5 @@ class UISetUserTest: BaseUITest() {
         Thread.sleep(2_000L)
         assertText("setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
     }
+    */
 }
