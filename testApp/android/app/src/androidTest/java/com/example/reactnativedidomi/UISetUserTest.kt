@@ -31,17 +31,13 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithId() {
         tapButton("setUserWithId")
         Thread.sleep(2_000L)
         assertText("setUserWithId-OK")
     }
 
-    // TODO Tests are ignored because of a OutOfMemoryError happening only on Firebase, to be investigated
-
     @Test
-    @Ignore
     fun test_SetUserWithIdAndSetupUI() {
         tapButton("setUserWithIdAndSetupUI")
         Thread.sleep(2_000L)
@@ -49,7 +45,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithHashAuth() {
         tapButton("setUserWithHashAuth")
         Thread.sleep(2_000L)
@@ -57,7 +52,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithHashAuthAndSetupUI() {
         tapButton("setUserWithHashAuthAndSetupUI")
         Thread.sleep(2_000L)
@@ -65,7 +59,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithHashAuthWithSaltAndExpiration() {
         tapButton("setUserWithHashAuthWithSaltAndExpiration")
         Thread.sleep(2_000L)
@@ -73,7 +66,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithHashAuthWithSaltAndExpirationAndSetupUI() {
         tapButton("setUserWithHashAuthWithSaltAndExpirationAndSetupUI")
         Thread.sleep(2_000L)
@@ -81,7 +73,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithEncryptionAuth() {
         tapButton("setUserWithEncryptionAuth")
         Thread.sleep(2_000L)
@@ -89,7 +80,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithEncryptionAuthAndSetupUI() {
         tapButton("setUserWithEncryptionAuthAndSetupUI")
         Thread.sleep(2_000L)
@@ -97,7 +87,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithEncryptionAuthWithExpiration() {
         tapButton("setUserWithEncryptionAuthWithExpiration")
         Thread.sleep(2_000L)
@@ -108,7 +97,6 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
-    @Ignore
     fun test_SetUserWithEncryptionAuthWithExpirationAndSetupUI() {
         tapButton("setUserWithEncryptionAuthWithExpirationAndSetupUI")
         Thread.sleep(2_000L)
