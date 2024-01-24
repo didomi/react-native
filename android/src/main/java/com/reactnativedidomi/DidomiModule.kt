@@ -1082,6 +1082,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun shouldConsentBeCollected(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().shouldConsentBeCollected())
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
