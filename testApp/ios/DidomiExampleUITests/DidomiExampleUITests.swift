@@ -365,6 +365,35 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains(",\"disabled\":["))
     XCTAssertTrue(actual.contains("]}"))
   }
+
+  // MARK: GetCurrentUserStatus
+  
+  func testGetCurrentUserStatus() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "getCurrentUserStatus")
+
+    let staticText = app.staticTexts["getCurrentUserStatus-result"]
+    staticText.wait()
+    
+    let actual = staticText.label
+    
+    // The text might change every time we call the getCurrentUserStatus method
+    // so we'll only assert the first level parameters of the resulting json string.
+    XCTAssertTrue(actual.contains("\"addtl_consent\":\"\""))
+    XCTAssertTrue(actual.contains("\"consent_string\":\""))
+    XCTAssertTrue(actual.contains("\"purposes\":{\""))
+    XCTAssertTrue(actual.contains("\"measure_content_performance\":")) // Key
+    XCTAssertTrue(actual.contains("\"id\":\"measure_content_performance\"")) // Value - id only because id/enabled can change position
+    XCTAssertTrue(actual.contains("\"vendors\":{\""))
+    XCTAssertTrue(actual.contains("\"ipromote\":")) // Key
+    XCTAssertTrue(actual.contains("\"id\":\"ipromote\"")) // Value - id only because id/enabled can change position
+    XCTAssertTrue(actual.contains("\"user_id\":\""))
+    XCTAssertTrue(actual.contains("\"created\":\""))
+    XCTAssertTrue(actual.contains("\"updated\":\""))
+    XCTAssertTrue(actual.contains("\"didomi_dcs\":\"\"")) // DCS feature flag is disabled (empty string)
+    XCTAssertTrue(actual.contains("\"regulation\":\"gdpr\""))
+  }
   
   // MARK: GETTERS WITH PARAMS
   

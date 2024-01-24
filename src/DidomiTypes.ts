@@ -149,3 +149,25 @@ export interface UserStatusIds {
   disabled: string[];
   enabled: string[];
 }
+
+export interface CurrentUserStatus {
+  purposes: Map<PurposeStatus>;
+  vendors: Map<VendorStatus>;
+  user_id: string;
+  created: string;
+  updated: string;
+  consent_string: string;
+  additional_consent: string;
+  didomi_dcs: string;
+  regulation: string;
+}
+
+export interface PurposeStatus {
+  id: string;
+  enabled: boolean;
+}
+
+export interface VendorStatus {
+  id: string;
+  enabled: boolean;
+}

@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, UserStatus, Vendor } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 
 const { Didomi: RNDidomi } = NativeModules;
@@ -317,6 +317,12 @@ export const Didomi = {
    *  getUserStatus().vendors.global_legitimate_interest.disabled.
    */
   getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (vendorId: string): boolean => RNDidomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId),
+
+  /**
+   *  Get the current user consent status.
+   *  @returns: status that represents current user consent.
+   */
+  getCurrentUserStatus: (): Promise<CurrentUserStatus> => RNDidomi.getCurrentUserStatus(),
 
   /**
    *  Get the user consent status.

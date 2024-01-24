@@ -212,4 +212,26 @@ class UIGettersTest: BaseUITest() {
         assertTextContains(",\"disabled\":[".trim())
         assertTextContains("]}".trim())
     }
+
+    /** getCurrentUserStatus */
+
+    @Test
+    fun test_getCurrentUserStatus() {
+        tapButton("getCurrentUserStatus")
+
+        // There might be a delay to get this string.
+        Thread.sleep(1_000L)
+
+        // The text might change every time we call the getCurrentUserStatus method
+        // so we'll only assert the first level parameters of the resulting json string.
+        assertTextContains("\"addtl_consent\":\"\"".trim())
+        assertTextContains("\"consent_string\":\"".trim())
+        assertTextContains("\"purposes\":{\"".trim())
+        assertTextContains("\"vendors\":{\"".trim())
+        assertTextContains("\"user_id\":\"".trim())
+        assertTextContains("\"created\":\"".trim())
+        assertTextContains("\"updated\":\"".trim())
+        assertTextContains("\"didomi_dcs\":\"\"".trim()) // DCS feature flag is disabled (empty string)
+        assertTextContains("\"regulation\":\"gdpr\"".trim())
+    }
 }
