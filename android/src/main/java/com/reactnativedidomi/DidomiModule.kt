@@ -616,6 +616,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun getCurrentUserStatus(promise: Promise) {
+        try {
+            promise.resolve(objectToWritableMap(Didomi.getInstance().currentUserStatus))
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun getUserStatus(promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().userStatus))
@@ -1082,6 +1091,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun shouldConsentBeCollected(promise: Promise) {
         try {
+            @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().shouldConsentBeCollected())
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)

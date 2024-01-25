@@ -142,8 +142,10 @@ android {
         versionCode 1
         versionName "1.0"
 
-        multiDexEnabled true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
+        
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
 
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
         if (isNewArchitectureEnabled()) {
@@ -256,6 +258,13 @@ android {
             }
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
+    testOptions {
+        animationsDisabled = true
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+    }
 }
 
 dependencies {
@@ -302,6 +311,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.5"
     androidTestImplementation "androidx.test:rules:1.5.0"
     androidTestImplementation "androidx.test:runner:1.5.2"
+
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
 }
 
 if (isNewArchitectureEnabled()) {
