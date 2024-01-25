@@ -637,10 +637,7 @@ export const Didomi = {
 
   /**
    *  Set the user status for purposes and vendors for consent and legitimate interest.
-   *  @param purposesConsentStatus: boolean used to determine if consent will be enabled or disabled for all purposes.
-   *  @param purposesLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all purposes.
-   *  @param vendorsConsentStatus: boolean used to determine if consent will be enabled or disabled for all vendors.
-   *  @param vendorsLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all vendors.
+   *  @param currentUserStatus: instance of CurrentUserStatus containing the user's choices.
    *  @returns: **true** if consent status has been updated, **false** otherwise.
    */
   setCurrentUserStatus: (
