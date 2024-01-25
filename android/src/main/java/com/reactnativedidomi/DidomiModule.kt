@@ -14,6 +14,7 @@ import io.didomi.sdk.Didomi
 import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
+import io.didomi.sdk.models.CurrentUserStatus
 import io.didomi.sdk.user.UserAuthWithEncryptionParams
 import io.didomi.sdk.user.UserAuthWithHashParams
 
@@ -1032,6 +1033,21 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         try {
             promise.resolve(Didomi.getInstance().setUserDisagreeToAll())
         } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun setCurrentUserStatus(
+        currentUserStatusAsString: String,
+        promise: Promise
+    ) {
+        try {
+            val currentUserStatus = gson.fromJson(currentUserStatusAsString, CurrentUserStatus::class.java)
+            promise.resolve(
+                Didomi.getInstance().setCurrentUserStatus(currentUserStatus)
+            )
+        } catch (e: Exception) {
             promise.reject(e)
         }
     }

@@ -21,6 +21,20 @@ class UISettersTest: BaseUITest() {
     }
 
     @Test
+    fun test_SetCurrentUserStatusFails() {
+        tapButton("setCurrentUserStatus-Fails")
+        Thread.sleep(2_000L)
+        assertText("\"setCurrentUserStatus-Fails-false\"")
+    }
+
+    @Test
+    fun test_SetCurrentUserStatusSucceeds() {
+        tapButton("setCurrentUserStatus-Succeeds")
+        Thread.sleep(2_000L)
+        assertText("\"setCurrentUserStatus-Succeeds-true\"")
+    }
+
+    @Test
     fun test_SetUserStatusSets() {
         tapButton("setUserStatusSets")
         Thread.sleep(2_000L)

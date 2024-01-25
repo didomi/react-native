@@ -141,6 +141,22 @@ class RNDidomi: RCTEventEmitter {
         resolve(consentStatus.rawValue.consentStatusBool)
     }
     
+    @objc(setCurrentUserStatus:resolve:reject:)
+    func setCurrentUserStatus(currentUserStatusAsString: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        guard let jsonData = currentUserStatusAsString.data(using: .utf8) else {
+            print("Failed to convert JSON string to Data")
+            resolve(false)
+            return
+        }
+        do {
+            let currentUserStatus = try JSONDecoder().decode(CurrentUserStatus.self, from: jsonData)
+            resolve(Didomi.shared.setCurrentUserStatus(currentUserStatus: currentUserStatus))
+        } catch {
+            print("Error decoding JSON: \(error.localizedDescription)")
+            resolve(false)
+        }
+    }
+    
     @objc(setUserStatus:purposesLIStatus:vendorsConsentStatus:vendorsLIStatus:resolve:reject:)
     func setUserStatus(purposesConsentStatus: Bool, purposesLIStatus: Bool, vendorsConsentStatus: Bool, vendorsLIStatus: Bool, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.setUserStatus(purposesConsentStatus: purposesConsentStatus, purposesLIStatus: purposesLIStatus, vendorsConsentStatus: vendorsConsentStatus, vendorsLIStatus: vendorsLIStatus))

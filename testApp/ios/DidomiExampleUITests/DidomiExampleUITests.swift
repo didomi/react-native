@@ -551,6 +551,20 @@ class DidomiExampleUITests: XCTestCase {
   
   // MARK: SETTERS
   
+  func testSetCurrentUserStatusFails() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setCurrentUserStatus-Fails")
+    assertResult(in: app, name: "setCurrentUserStatus-Fails", expected: "\"setCurrentUserStatus-Fails-false\"")
+  }
+  
+  func testSetCurrentUserStatusSucceeds() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setCurrentUserStatus-Succeeds")
+    assertResult(in: app, name: "setCurrentUserStatus-Succeeds", expected: "\"setCurrentUserStatus-Succeeds-true\"")
+  }
+  
   func testSetUserStatusSets() throws {
     let app = initApp()
 
