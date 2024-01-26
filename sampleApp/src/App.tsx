@@ -4,6 +4,7 @@ import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Didomi, DidomiEventType } from '@didomi/react-native';
 import Methods from './Methods';
 import Getters from './Getters';
+import Setters from './Setters';
 import { TestEvent } from './Types';
 
 function App() {
@@ -94,6 +95,8 @@ function App() {
           <Methods />
           <Text style={styles.title}>GETTERS</Text>
           <Getters />
+          <Text style={styles.title}>SETTERS</Text>
+          <Setters />
         </View>
       </ScrollView>
     </SafeAreaView>

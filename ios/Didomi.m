@@ -79,6 +79,10 @@ RCT_EXTERN_METHOD(getUserLegitimateInterestStatusForVendorAndRequiredPurposes:(N
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(setCurrentUserStatus:(NSString *)currentUserStatusAsString
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(setUserStatus:(BOOL)purposesConsentStatus
                   purposesLIStatus:(BOOL)purposesLIStatus
                   vendorsConsentStatus:(BOOL)vendorsConsentStatus

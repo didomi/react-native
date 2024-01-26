@@ -636,6 +636,18 @@ export const Didomi = {
   setUserDisagreeToAll: (): Promise<boolean> => RNDidomi.setUserDisagreeToAll(),
 
   /**
+   *  Set user's choices for purposes and vendors for the current regulation.
+   *  @param currentUserStatus: instance of CurrentUserStatus containing the user's choices.
+   *  @returns: **true** if user status has been updated, **false** otherwise.
+   */
+  setCurrentUserStatus: (
+    currentUserStatus: CurrentUserStatus
+  ): Promise<boolean> => {
+    const jsonString = JSON.stringify(currentUserStatus);
+    return RNDidomi.setCurrentUserStatus(jsonString)
+  },
+
+  /**
    *  Set the user status for purposes and vendors for consent and legitimate interest.
    *  @param purposesConsentStatus: boolean used to determine if consent will be enabled or disabled for all purposes.
    *  @param purposesLIStatus: boolean used to determine if legitimate interest will be enabled or disabled for all purposes.
