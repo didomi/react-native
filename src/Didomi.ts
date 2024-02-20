@@ -576,7 +576,7 @@ export const Didomi = {
 
   /**
    *  Show the preferences screen when/if the SDK is ready. By default the purposes list will be displayed.
-   *  @param view: It can be `purposes` or `vendors`
+   *  @param view: It can be `purposes`, `vendors` or `senstive-personal-information`.
    */
   showPreferences: (view?: string): Promise<void> => RNDidomi.showPreferences(view),
 

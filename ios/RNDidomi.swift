@@ -248,18 +248,25 @@ class RNDidomi: RCTEventEmitter {
 
     @objc(showPreferences:resolve:reject:)
     dynamic func showPreferences(view: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        if let containerController = RCTPresentedViewController(){
-            if view?.lowercased() == "vendors"{
-                DispatchQueue.main.async {
-                    Didomi.shared.showPreferences(controller: containerController, view: .vendors)
-                }
-            }
-            else {
-                DispatchQueue.main.async {
+        if let containerController = RCTPresentedViewController() {
+            DispatchQueue.main.async {
+                if let view = view {
+                    var preferencesView: Didomi.Views
+                    switch view.lowercased() {
+                    case "sensitive-personal-information":
+                        preferencesView = .sensitivePersonalInformation
+                    case "vendors":
+                        preferencesView = .vendors
+                    default:
+                        preferencesView = .purposes
+                    }
+                    Didomi.shared.showPreferences(controller: containerController, view: preferencesView)
+                } else {
                     Didomi.shared.showPreferences(controller: containerController)
                 }
             }
         }
+        
         resolve(0)
     }
 
@@ -466,13 +473,6 @@ class RNDidomi: RCTEventEmitter {
             }
         }
         resolve(0)
-    }
-
-    @objc public enum Views : Int, RawRepresentable {
-        
-        case purposes = 0
-        
-        case vendors
     }
 }
 
