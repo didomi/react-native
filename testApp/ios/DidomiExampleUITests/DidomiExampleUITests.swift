@@ -336,15 +336,8 @@ class DidomiExampleUITests: XCTestCase {
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
     let actual = decodePurpose(actualRaw)
     
-    let expected = PurposeData(id: "cookies", name: "Store and/or access information on a device", iabId: "1", description: "Cookies, device or similar online identifiers (e.g. login-based identifiers, randomly assigned identifiers, network based identifiers) together with other information (e.g. browser type and information, language, screen size, supported technologies etc.) can be stored or read on your device to recognise it each time it connects to an app or to a website, for one or several of the purposes presented here.")
+    let expected = PurposeData(id: "cookies", name: "Store and/or access information on a device", description: "Cookies, device or similar online identifiers (e.g. login-based identifiers, randomly assigned identifiers, network based identifiers) together with other information (e.g. browser type and information, language, screen size, supported technologies etc.) can be stored or read on your device to recognise it each time it connects to an app or to a website, for one or several of the purposes presented here.")
     assertEqual(actual, expected)
-  }
-  
-  func testGetPurposeWithId_illustrations() throws {
-    let app = initApp()
-
-    tapButton(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]")
-    assertResult(in: app, name: "getPurpose [ID = 'cookies'] illustrations[0]", expected: "\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"")
   }
   
   func testGetVendorWithId() throws {
@@ -572,7 +565,6 @@ extension DidomiExampleUITests {
   func assertEqual(_ purpose1: PurposeData, _ purpose2: PurposeData) {
     XCTAssertEqual(purpose1.name, purpose2.name)
     XCTAssertEqual(purpose1.id, purpose2.id)
-    XCTAssertEqual(purpose1.iabId, purpose2.iabId)
     XCTAssertEqual(purpose1.description, purpose2.description)
   }
   

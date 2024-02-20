@@ -478,24 +478,6 @@ class RNDidomi: RCTEventEmitter {
 
 // MARK: Didomi Specific structs
 
-/// Struct used to represent a Purpose.
-public struct Purpose : Codable {
-    
-    /// ID of the purpose.
-    public var id: String?
-    
-    /// IAB ID that the purpose should be mapped to (if the purpose is a custom purpose should be treated as an IAB purpose).
-    public var iabId: String?
-    
-    /// Name of the purpose.
-    public var name: String?
-    
-    /// Description of the purpose.
-    public var description: String?
-    
-    /// Legal description of the purpose.
-    public var descriptionLegal: String?
-}
 
 public struct Vendor : Codable {
     

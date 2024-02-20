@@ -90,27 +90,8 @@ export interface VendorDataRetention {
 
 export interface Purpose {
   id: string;
-  iabId: string;
   name: string;
   description: string;
-  descriptionLegal: string;
-  illustrations: string[];
-  custom: boolean;
-  essential: boolean;
-  specialFeature: boolean;
-  legitimateInterest: boolean;
-  consent: boolean;
-  category: PurposeCategory;
-}
-
-export interface PurposeCategory {
-  id: string;
-  purposeId: string;
-  icon: string;
-  type: string;
-  name: Map<string>;
-  description: Map<string>;
-  children: PurposeCategory[];
 }
 
 export interface Map<T> {

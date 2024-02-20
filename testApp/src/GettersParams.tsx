@@ -17,16 +17,6 @@ export default function GettersParams() {
       />
 
       <GetterParams
-        name="getPurpose [ID = 'cookies'] illustrations[0]"
-        call={async () => {
-          return (await Didomi.getPurpose('cookies')).illustrations[0];
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <GetterParams
         name="getVendor [ID = '217']"
         call={async () => {
           return await Didomi.getVendor('217');

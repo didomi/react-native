@@ -28,18 +28,8 @@ class UIGettersParamsTest: BaseUITest() {
 
         // Android doesn't always keep the same order for the properties.
         assertTextContains("\"id\":\"cookies\"")
-        assertTextContains("\"iabId\":\"1\"")
         assertTextContains("\"name\":\"Store and/or access information on a device\"")
         assertTextContains("\"description\":\"Cookies, device or similar online identifiers (e.g. login-based identifiers, randomly assigned identifiers, network based identifiers) together with other information (e.g. browser type and information, language, screen size, supported technologies etc.) can be stored or read on your device to recognise it each time it connects to an app or to a website, for one or several of the purposes presented here.\"")
-        assertTextContains("\"illustrations\":[\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"]")
-    }
-
-    @Test
-    fun test_GetPurpose_illustrations() {
-
-        tapButton("getPurpose [ID = 'cookies'] illustrations[0]")
-
-        assertText("\"Most purposes explained in this notice rely on the storage or accessing of information from your device when you use an app or visit a website. For example, a vendor or publisher might need to store a cookie on your device during your first visit on a website, to be able to recognise your device during your next visits (by accessing this cookie each time).\"")
     }
 
     @Test
