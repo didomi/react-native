@@ -137,78 +137,6 @@ class DidomiExampleUITests: XCTestCase {
   
   // MARK: GETTERS
   
-  func testGetDisabledPurposes() throws {
-    let app = initApp()
-
-    disagreeToAll(in: app)
-    
-    tapButton(in: app, name: "getDisabledPurposes")
-    assertResult(in: app, name: "getDisabledPurposes", expected: allPurposeIDs)
-  }
-  
-  func testGetDisabledPurposeIds() throws {
-    let app = initApp()
-
-    disagreeToAll(in: app)
-    
-    tapButton(in: app, name: "getDisabledPurposeIds")
-    assertResult(in: app, name: "getDisabledPurposeIds", expected: allPurposeIDs)
-  }
-  
-  func testGetDisabledVendors() throws {
-    let app = initApp()
-
-    disagreeToAll(in: app)
-    
-    tapButton(in: app, name: "getDisabledVendors")
-    assertResult(in: app, name: "getDisabledVendors", expected: allVendorIDs)
-  }
-  
-  func testGetDisabledVendorIds() throws {
-    let app = initApp()
-
-    disagreeToAll(in: app)
-    
-    tapButton(in: app, name: "getDisabledVendorIds")
-    assertResult(in: app, name: "getDisabledVendorIds", expected: allVendorIDs)
-  }
-  
-  func testGetEnabledPurposes() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getEnabledPurposes")
-    assertResult(in: app, name: "getEnabledPurposes", expected: allPurposeIDs)
-  }
-  
-  func testGetEnabledPurposeIds() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getEnabledPurposeIds")
-    assertResult(in: app, name: "getEnabledPurposeIds", expected: allPurposeIDs)
-  }
-  
-  func testGetEnabledVendors() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getEnabledVendors")
-    assertResult(in: app, name: "getEnabledVendors", expected: allVendorIDs)
-  }
-  
-  func testGetEnabledVendorIds() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getEnabledVendorIds")
-    assertResult(in: app, name: "getEnabledVendorIds", expected: allVendorIDs)
-  }
-  
   func testGetJavaScriptForWebView() throws {
     let app = initApp()
 
@@ -463,60 +391,6 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "getTranslatedText [Key = '0']", expected: "\"0\"")
   }
   
-  func testGetUserConsentStatusForPurpose() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']")
-    assertResult(in: app, name: "getUserConsentStatusForPurpose [ID = 'cookies']", expected: "true")
-  }
-  
-  func testGetUserConsentStatusForVendor() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getUserConsentStatusForVendor [ID = '217']")
-    assertResult(in: app, name: "getUserConsentStatusForVendor [ID = '217']", expected: "true")
-  }
-  
-  func testGetUserStatusForVendor() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getUserStatusForVendor [ID = '217']")
-    assertResult(in: app, name: "getUserStatusForVendor [ID = '217']", expected: "true")
-  }
-  
-  func testGetUserConsentStatusForVendorAndRequiredPurpose() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-    
-    tapButton(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']")
-    assertResult(in: app, name: "getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']", expected: "true")
-  }
-  
-  func testGetUserLegitimateInterestStatusForPurpose() throws {
-    let app = initApp()
-
-    agreeToAll(in: app)
-
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'market_research']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForPurpose [ID = 'market_research']", expected: "true")
-  }
-  
-  func testGetUserLegitimateInterestStatusForVendor() throws {
-    let app = initApp()
-
-    resetUserStatus(in: app)
-    
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '217']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendor [ID = '217']", expected: "true")
-  }
-  
   func testGetJavaScriptForWebViewWithExtra() throws {
     let app = initApp()
 
@@ -538,15 +412,6 @@ class DidomiExampleUITests: XCTestCase {
     let actual = staticText.label.removeJSONProperties(["updated", "created", "user_id"])
     
     XCTAssertEqual(actual, expected)
-  }
-  
-  func testGetUserLegitimateInterestStatusForVendorAndRequiredPurposes() throws {
-    let app = initApp()
-
-    resetUserStatus(in: app)
-    
-    tapButton(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '217']")
-    assertResult(in: app, name: "getUserLegitimateInterestStatusForVendorAndRequiredPurposes [ID = '217']", expected: "true")
   }
   
   // MARK: SETTERS

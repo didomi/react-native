@@ -385,86 +385,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun getDisabledPurposes(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setToWritableArray(Didomi.getInstance().disabledPurposes))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getDisabledPurposeIds(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().disabledPurposeIds))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getDisabledVendors(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setToWritableArray(Didomi.getInstance().disabledVendors))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getDisabledVendorIds(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().disabledVendorIds))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getEnabledPurposes(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setToWritableArray(Didomi.getInstance().enabledPurposes))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getEnabledPurposeIds(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().enabledPurposeIds))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getEnabledVendors(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setToWritableArray(Didomi.getInstance().enabledVendors))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getEnabledVendorIds(promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(setOfStringToWritableArray(Didomi.getInstance().enabledVendorIds))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
     fun getJavaScriptForWebView(extra: String?, promise: Promise) {
         try {
             extra?.also {
@@ -514,6 +434,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun getVendor(vendorId: String, promise: Promise) {
+        try {
+            promise.resolve(objectToWritableMap(Didomi.getInstance().getVendor(vendorId)))
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun getRequiredVendors(promise: Promise) {
         try {
             promise.resolve(setToWritableArray(Didomi.getInstance().requiredVendors))
@@ -557,66 +486,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun getUserConsentStatusForPurpose(purposeId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserConsentStatusForPurpose(purposeId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getUserConsentStatusForVendor(vendorId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserConsentStatusForVendor(vendorId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getUserConsentStatusForVendorAndRequiredPurposes(vendorId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserConsentStatusForVendorAndRequiredPurposes(vendorId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getUserLegitimateInterestStatusForPurpose(purposeId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForPurpose(purposeId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getUserLegitimateInterestForVendor(vendorId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForVendor(vendorId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
     fun getCurrentUserStatus(promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().currentUserStatus))
@@ -629,25 +498,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun getUserStatus(promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().userStatus))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getUserStatusForVendor(vendorId: String, promise: Promise) {
-        try {
-            @Suppress("DEPRECATION")
-            promise.resolve(Didomi.getInstance().getUserStatusForVendor(vendorId))
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    fun getVendor(vendorId: String, promise: Promise) {
-        try {
-            promise.resolve(objectToWritableMap(Didomi.getInstance().getVendor(vendorId)))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -744,31 +594,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setUser(
-        organizationUserId: String,
-        organizationUserIdAuthAlgorithm: String?,
-        organizationUserIdAuthSid: String?,
-        organizationUserIdAuthSalt: String?,
-        organizationUserIdAuthDigest: String?,
-        promise: Promise
-    ) {
-        if (organizationUserIdAuthAlgorithm != null
-            && organizationUserIdAuthSid != null
-            && organizationUserIdAuthSalt != null
-            && organizationUserIdAuthDigest != null
-        ) {
-            @Suppress("DEPRECATION")
-            Didomi.getInstance().setUser(
-                organizationUserId,
-                organizationUserIdAuthAlgorithm,
-                organizationUserIdAuthSid,
-                organizationUserIdAuthSalt,
-                organizationUserIdAuthDigest
-            )
-        } else {
-            Didomi.getInstance().setUser(organizationUserId)
-        }
-
+    fun setUser(organizationUserId: String, promise: Promise) {
+        Didomi.getInstance().setUser(organizationUserId)
         promise.resolve(0)
     }
 
@@ -992,37 +819,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun setUserAgreeToAll(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().setUserAgreeToAll())
-        } catch (e: DidomiNotReadyException) {
-            promise.reject(e)
-        }
-    }
-
-    @ReactMethod
-    @Deprecated("Deprecated in the Didomi API")
-    fun setUserConsentStatus(
-        enabledPurposeIds: ReadableArray,
-        disabledPurposeIds: ReadableArray,
-        enabledLegitimatePurposeIds: ReadableArray,
-        disabledLegitimatePurposeIds: ReadableArray,
-        enabledVendorIds: ReadableArray,
-        disabledVendorIds: ReadableArray,
-        enabledLegIntVendorIds: ReadableArray,
-        disabledLegIntVendorIds: ReadableArray,
-        promise: Promise
-    ) {
-        try {
-            promise.resolve(
-                Didomi.getInstance().setUserStatus(
-                    enabledPurposeIds.toSet(),
-                    disabledPurposeIds.toSet(),
-                    enabledLegitimatePurposeIds.toSet(),
-                    disabledLegitimatePurposeIds.toSet(),
-                    enabledVendorIds.toSet(),
-                    disabledVendorIds.toSet(),
-                    enabledLegIntVendorIds.toSet(),
-                    disabledLegIntVendorIds.toSet()
-                )
-            )
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

@@ -415,25 +415,8 @@ export const Didomi = {
    *  Set user information without authentication
    *
    *  @param id Organization user ID
-   *  @param algorithm Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
-   *  @param secretId Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
-   *  @param salt Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
-   *  @param digest Deprecated. To set user with authentication, use setUserWithHashAuth or setUserWithEncryptionAuth.
    */
-  setUser: (
-    id: string,
-    algorithm?: string,
-    secretId?: string,
-    salt?: string,
-    digest?: string
-  ): Promise<void> =>
-    RNDidomi.setUser(
-      id,
-      algorithm,
-      secretId,
-      salt,
-      digest
-    ),
+  setUser: (id: string): Promise<void> => RNDidomi.setUser(id),
 
   /**
    *  Set user information without authentication and check for missing consent

@@ -80,38 +80,6 @@ class UIGettersParamsTest: BaseUITest() {
     }
 
     @Test
-    fun test_GetUserConsentStatusForPurpose() {
-        agreeToAll()
-
-        tapButton("getUserConsentStatusForPurpose [ID = 'cookies']")
-        assertText("true")
-    }
-
-    @Test
-    fun test_GetUserConsentStatusForVendor() {
-        agreeToAll()
-
-        tapButton("getUserConsentStatusForVendor [ID = '217']")
-        assertText("true")
-    }
-
-    @Test
-    fun test_GetUserConsentStatusForVendorAndRequiredPurposes() {
-        agreeToAll()
-
-        tapButton("getUserConsentStatusForVendorAndRequiredPurposes [ID = '217']")
-        assertText("true")
-    }
-
-    @Test
-    fun test_GetUserLegitimateInterestStatusForPurpose() {
-        agreeToAll()
-
-        tapButton("getUserLegitimateInterestStatusForPurpose [ID = 'market_research']")
-        assertText("true")
-    }
-
-    @Test
     fun test_GetJavaScriptForWebViewWithExtra() {
         tapButton("getJavaScriptForWebViewWithExtra")
 
