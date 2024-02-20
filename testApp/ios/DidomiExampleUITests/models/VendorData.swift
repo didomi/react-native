@@ -11,8 +11,6 @@ import Foundation
 struct VendorData: Decodable {
   let id: String
   let name: String
-  let iabId: String
-  let namespace: String
   let policyUrl: String?
 }
 

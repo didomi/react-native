@@ -56,20 +56,15 @@ export interface Vendor {
   id: string;
   iabId: string
   name: string;
-  policyUrl: string;
-  urls: VendorUrls[];
-  namespace: string;
   namespaces: VendorNamespaces;
-  iabVendor: boolean;
+  policyUrl: string;
   purposeIds: string[];
-  flexiblePurposeIds: string[];
-  specialPurposeIds: string[];
+  flexibleIds: string[];
   legIntPurposeIds: string[];
+  flexiblePurposeIds: string[];
   specialFeatureIds: string[];
-  dataDeclaration: string[];
-  dataRetention: VendorDataRetention;
-  cookieMaxAgeSeconds: number;
-  usesNonCookieAccess: boolean;
+  specialPurposeIds: string[];
+  urls: VendorUrls[];
 }
 
 export interface VendorNamespaces {

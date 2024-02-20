@@ -351,7 +351,7 @@ class DidomiExampleUITests: XCTestCase {
     let actualRaw = staticText.label.removeNewLinesAndTrailingSpaces()
     let actual = decodeVendor(actualRaw)
     
-    let expected = VendorData(id: "217", name: "2KDirect, Inc. (dba iPromote)", iabId: "", namespace: "iab", policyUrl: nil)
+    let expected = VendorData(id: "ipromote", name: "2KDirect, Inc. (dba iPromote)", policyUrl: nil)
     assertEqual(actual, expected)
   }
   
@@ -583,8 +583,6 @@ extension DidomiExampleUITests {
   func assertEqual(_ vendor1: VendorData, _ vendor2: VendorData) {
     XCTAssertEqual(vendor1.name, vendor2.name)
     XCTAssertEqual(vendor1.id, vendor2.id)
-    XCTAssertEqual(vendor1.iabId, vendor2.iabId)
-    XCTAssertEqual(vendor1.namespace, vendor2.namespace)
     XCTAssertEqual(vendor1.policyUrl, vendor2.policyUrl)
   }
 

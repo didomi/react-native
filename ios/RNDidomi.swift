@@ -478,58 +478,6 @@ class RNDidomi: RCTEventEmitter {
 
 // MARK: Didomi Specific structs
 
-
-public struct Vendor : Codable {
-    
-    /// Unique ID of the vendor.
-    public var id: String?
-    
-    /// IAB ID that the vendor should be mapped to (if vendor namespace is not **iab** and the vendor should be treated as an IAB vendor).
-    public var iabId: String?
-    
-    /// Name of the vendor.
-    public var name: String?
-    
-    /// URL to the privacy policy of the vendor.
-    public var policyUrl: String?
-    
-    /// Namespace of the vendor (IAB, didomi or custom).
-    public var namespace: String?
-    
-    /// Namespaces of the vendor (IAB, didomi or custom) and their corresponding IDs.
-    public var namespaces: [String : String]?
-    
-    /// Purpose IDs that the vendor is operating under the consent legal basis.
-    public var purposeIds: Set<String>?
-    
-    /// Purpose IDs that the vendor is operating under the legitimate interest legal basis.
-    public var legIntPurposeIds: Set<String>?
-
-    /// Set with IDs that represent features.
-    public var featureIds: Set<String>?
-
-    /// Set with IDs that represent Special Features. TCFv2 property.
-    public var specialFeatureIds: Set<String>?
-
-    /// Set with IDs that represent flexible purposes. TCFv2 property.
-    public var flexiblePurposeIds: Set<String>?
-
-    /// Set with IDs that represent Special Purposes. TCFv2 property.
-    public var specialPurposeIds: Set<String>?
-
-    /// Transient property : Set with IDs that represent essential purposes
-    public var essentialPurposeIds: Set<String>?
-
-    /// Cookie Max Age in Seconds.
-    public var cookieMaxAgeSeconds: Int?
-
-    /// If vendor uses other means of storage/access than cookies
-    public var usesNonCookieAccess: Bool?
-
-    /// URL used to download Device Storage Disclosures (done post initialization).
-    public var deviceStorageDisclosureUrl: String?
-}
-
 @objc public enum ConsentStatus : Int {
     
     case enable

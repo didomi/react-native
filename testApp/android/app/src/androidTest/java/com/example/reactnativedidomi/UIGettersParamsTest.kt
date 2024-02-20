@@ -38,13 +38,10 @@ class UIGettersParamsTest: BaseUITest() {
         tapButton("getVendor [ID = '217']")
 
         // Android doesn't always keep the same order for the properties.
-        assertTextContains("\"id\":\"217\"")
+        assertTextContains("\"id\":\"ipromote\"")
         assertTextContains("\"name\":\"2KDirect, Inc. (dba iPromote)\"")
         assertTextContains("\"purposeIds\":[\"cookies\",\"create_ads_profile\",\"select_personalized_ads\"")
         assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
-        assertTextContains("\"deviceStorageDisclosureUrl\":\"https://sdk.privacy-center.org/tcf/v3/disclosures/217.json\"")
-        assertTextContains("\"namespace\":\"iab\"")
-        assertTextContains("\"usesNonCookieAccess\":\"false\"")
     }
 
     @Test
