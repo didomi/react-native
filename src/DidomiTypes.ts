@@ -54,7 +54,6 @@ export enum DidomiEventType {
 
 export interface Vendor {
   id: string;
-  iabId: string
   name: string;
   namespaces: VendorNamespaces;
   policyUrl: string;
