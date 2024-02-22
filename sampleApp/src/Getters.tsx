@@ -7,9 +7,9 @@ export default function Getters() {
   return (
     <View style={styles.container}>
       <Getter
-        name="getDisabledPurposes"
+        name="getPurpose('cookies')"
         call={async () => {
-          return await Didomi.getDisabledPurposes();
+          return await Didomi.getPurpose("cookies");
         }}
         test={() => {
           return true;
@@ -17,69 +17,9 @@ export default function Getters() {
       />
 
       <Getter
-        name="getDisabledPurposeIds"
+        name="getVendor('google')"
         call={async () => {
-          return await Didomi.getDisabledPurposeIds();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <Getter
-        name="getDisabledVendors"
-        call={async () => {
-          return await Didomi.getDisabledVendors();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <Getter
-        name="getDisabledVendorIds"
-        call={async () => {
-          return await Didomi.getDisabledVendorIds();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <Getter
-        name="getEnabledPurposes"
-        call={async () => {
-          return await Didomi.getEnabledPurposes();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <Getter
-        name="getEnabledPurposeIds"
-        call={async () => {
-          return await Didomi.getEnabledPurposeIds();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <Getter
-        name="getEnabledVendors"
-        call={async () => {
-          return await Didomi.getEnabledVendors();
-        }}
-        test={() => {
-          return true;
-        }}
-      />
-
-      <Getter
-        name="getEnabledVendorIds"
-        call={async () => {
-          return await Didomi.getEnabledVendorIds();
+          return await Didomi.getVendor("google");
         }}
         test={() => {
           return true;
@@ -105,35 +45,6 @@ export default function Getters() {
           return true;
         }}
       />
-
-      {/* 
-  getJavaScriptForWebView
-  getQueryStringForWebView
-  getPurpose
-  getRequiredPurposes
-  getRequiredPurposeIds
-  getRequiredVendors
-  getRequiredVendorIds
-  getText
-  getTranslatedText
-  getUserConsentStatusForPurpose
-  getUserConsentStatusForVendor
-  getUserConsentStatusForVendorAndRequiredPurposes
-  getUserLegitimateInterestStatusForPurpose
-  getUserLegitimateInterestForVendor
-  getUserLegitimateInterestStatusForVendorAndRequiredPurposes
-  getUserStatusForVendor
-  getVendor
-  isConsentRequired
-  shouldUserStatusBeCollected
-  isUserConsentStatusPartial
-  isUserStatusPartial
-  isNoticeVisible
-  isPreferencesVisible
-  isError
-  isReady
-  shouldConsentBeCollected
- */}
     </View>
   );
 }

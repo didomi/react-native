@@ -54,22 +54,16 @@ export enum DidomiEventType {
 
 export interface Vendor {
   id: string;
-  iabId: string
   name: string;
-  policyUrl: string;
-  urls: VendorUrls[];
-  namespace: string;
   namespaces: VendorNamespaces;
-  iabVendor: boolean;
+  policyUrl: string;
   purposeIds: string[];
-  flexiblePurposeIds: string[];
-  specialPurposeIds: string[];
+  flexibleIds: string[];
   legIntPurposeIds: string[];
+  flexiblePurposeIds: string[];
   specialFeatureIds: string[];
-  dataDeclaration: string[];
-  dataRetention: VendorDataRetention;
-  cookieMaxAgeSeconds: number;
-  usesNonCookieAccess: boolean;
+  specialPurposeIds: string[];
+  urls: VendorUrls[];
 }
 
 export interface VendorNamespaces {
@@ -90,27 +84,8 @@ export interface VendorDataRetention {
 
 export interface Purpose {
   id: string;
-  iabId: string;
   name: string;
   description: string;
-  descriptionLegal: string;
-  illustrations: string[];
-  custom: boolean;
-  essential: boolean;
-  specialFeature: boolean;
-  legitimateInterest: boolean;
-  consent: boolean;
-  category: PurposeCategory;
-}
-
-export interface PurposeCategory {
-  id: string;
-  purposeId: string;
-  icon: string;
-  type: string;
-  name: Map<string>;
-  description: Map<string>;
-  children: PurposeCategory[];
 }
 
 export interface Map<T> {

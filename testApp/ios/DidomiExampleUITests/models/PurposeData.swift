@@ -11,6 +11,5 @@ import Foundation
 struct PurposeData: Decodable {
   let id: String
   let name: String
-  let iabId: String
   let description: String
 }

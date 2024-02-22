@@ -85,18 +85,6 @@ class RNDidomi: RCTEventEmitter {
         resolve(Didomi.shared.isUserLegitimateInterestStatusPartial())
     }
     
-    @objc(getUserConsentStatusForPurpose:resolve:reject:)
-    func getUserConsentStatusForPurpose(purposeId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserConsentStatusForPurpose(purposeId: purposeId)
-        resolve(consentStatus.rawValue.consentStatusBool)
-    }
-    
-    @objc(getUserLegitimateInterestStatusForPurpose:resolve:reject:)
-    func getUserLegitimateInterestStatusForPurpose(purposeId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForPurpose(purposeId: purposeId)
-        resolve(consentStatus.rawValue.consentStatusBool)
-    }
-    
     @objc(getCurrentUserStatus:reject:)
     func getCurrentUserStatus(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
@@ -109,36 +97,6 @@ class RNDidomi: RCTEventEmitter {
         let encoder = JSONEncoder()
         let userStatus = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getUserStatus())) as? [String: Any]
         resolve(userStatus)
-    }
-    
-    @objc(getUserStatusForVendor:resolve:reject:)
-    func getUserStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let userStatus = Didomi.shared.getUserStatusForVendor(vendorId: vendorId)
-        resolve(userStatus.rawValue.consentStatusBool)
-    }
-    
-    @objc(getUserConsentStatusForVendor:resolve:reject:)
-    func getUserConsentStatusForVendor(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserConsentStatusForVendor(vendorId: vendorId)
-        resolve(consentStatus.rawValue.consentStatusBool)
-    }
-    
-    @objc(getUserLegitimateInterestStatusForVendor:resolve:reject:)
-    func getUserLegitimateInterestStatusForPurpose(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForVendor(vendorId: vendorId)
-        resolve(consentStatus.rawValue.consentStatusBool)
-    }
-    
-    @objc(getUserConsentStatusForVendorAndRequiredPurposes:resolve:reject:)
-    func getUserConsentStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserConsentStatusForVendorAndRequiredPurposes(vendorId: vendorId)
-        resolve(consentStatus.rawValue.consentStatusBool)
-    }
-    
-    @objc(getUserLegitimateInterestStatusForVendorAndRequiredPurposes:resolve:reject:)
-    func getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let consentStatus = Didomi.shared.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId: vendorId)
-        resolve(consentStatus.rawValue.consentStatusBool)
     }
     
     @objc(setCurrentUserStatus:resolve:reject:)
@@ -210,54 +168,6 @@ class RNDidomi: RCTEventEmitter {
         let encoder = JSONEncoder()
         let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getRequiredVendors())) as? [[String: Any]]
         resolve(vendors)
-    }
-    
-    @objc(getEnabledPurposes:reject:)
-    func getEnabledPurposes(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let encoder = JSONEncoder()
-        let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledPurposes())) as? [[String: Any]]
-        resolve(purposes)
-    }
-    
-    @objc(getEnabledPurposeIds:reject:)
-    func getEnabledPurposeIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(Array(Didomi.shared.getEnabledPurposeIds()))
-    }
-    
-    @objc(getDisabledPurposes:reject:)
-    func getDisabledPurposes(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let encoder = JSONEncoder()
-        let purposes = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledPurposes())) as? [[String: Any]]
-        resolve(purposes)
-    }
-    
-    @objc(getDisabledPurposeIds:reject:)
-    func getDisabledPurposeIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(Array(Didomi.shared.getDisabledPurposeIds()))
-    }
-    
-    @objc(getEnabledVendors:reject:)
-    func getEnabledVendors(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let encoder = JSONEncoder()
-        let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getEnabledVendors())) as? [[String: Any]]
-        resolve(vendors)
-    }
-    
-    @objc(getEnabledVendorIds:reject:)
-    func getEnabledVendorIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(Array(Didomi.shared.getEnabledVendorIds()))
-    }
-    
-    @objc(getDisabledVendors:reject:)
-    func getDisabledVendors(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        let encoder = JSONEncoder()
-        let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getDisabledVendors())) as? [[String: Any]]
-        resolve(vendors)
-    }
-    
-    @objc(getDisabledVendorIds:reject:)
-    func getDisabledVendorIds(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(Array(Didomi.shared.getDisabledVendorIds()))
     }
     
     @objc(getPurpose:resolve:reject:)
@@ -338,18 +248,25 @@ class RNDidomi: RCTEventEmitter {
 
     @objc(showPreferences:resolve:reject:)
     dynamic func showPreferences(view: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        if let containerController = RCTPresentedViewController(){
-            if view?.lowercased() == "vendors"{
-                DispatchQueue.main.async {
-                    Didomi.shared.showPreferences(controller: containerController, view: .vendors)
-                }
-            }
-            else {
-                DispatchQueue.main.async {
+        if let containerController = RCTPresentedViewController() {
+            DispatchQueue.main.async {
+                if let view = view {
+                    var preferencesView: Didomi.Views
+                    switch view.lowercased() {
+                    case "sensitive-personal-information":
+                        preferencesView = .sensitivePersonalInformation
+                    case "vendors":
+                        preferencesView = .vendors
+                    default:
+                        preferencesView = .purposes
+                    }
+                    Didomi.shared.showPreferences(controller: containerController, view: preferencesView)
+                } else {
                     Didomi.shared.showPreferences(controller: containerController)
                 }
             }
         }
+        
         resolve(0)
     }
 
@@ -404,13 +321,9 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
 
-    @objc(setUser:algorithm:secretId:salt:digest:resolve:reject:)
-    dynamic func setUser(id: String, algorithm: String?, secretId: String?, salt: String?, digest: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        if let algorithm = algorithm, let secretId = secretId, let digest = digest {
-            Didomi.shared.setUser(id: id, algorithm: algorithm, secretId: secretId, salt: salt, digest: digest)
-        } else {
-            Didomi.shared.setUser(id: id)
-        }
+    @objc(setUser:resolve:reject:)
+    dynamic func setUser(id: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        Didomi.shared.setUser(id: id)
         resolve(0)
     }
 
@@ -437,7 +350,6 @@ class RNDidomi: RCTEventEmitter {
                 salt: salt))
         resolve(0)
     }
-
 
     @objc(setUserWithHashAuthAndSetupUI:algorithm:secretId:digest:salt:resolve:reject:)
     dynamic func setUserWithHashAuthAndSetupUI(id: String, algorithm: String, secretId: String, digest: String, salt: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
@@ -562,86 +474,9 @@ class RNDidomi: RCTEventEmitter {
         }
         resolve(0)
     }
-
-    @objc public enum Views : Int, RawRepresentable {
-        
-        case purposes = 0
-        
-        case vendors
-    }
 }
 
 // MARK: Didomi Specific structs
-
-/// Struct used to represent a Purpose.
-public struct Purpose : Codable {
-    
-    /// ID of the purpose.
-    public var id: String?
-    
-    /// IAB ID that the purpose should be mapped to (if the purpose is a custom purpose should be treated as an IAB purpose).
-    public var iabId: String?
-    
-    /// Name of the purpose.
-    public var name: String?
-    
-    /// Description of the purpose.
-    public var description: String?
-    
-    /// Legal description of the purpose.
-    public var descriptionLegal: String?
-}
-
-public struct Vendor : Codable {
-    
-    /// Unique ID of the vendor.
-    public var id: String?
-    
-    /// IAB ID that the vendor should be mapped to (if vendor namespace is not **iab** and the vendor should be treated as an IAB vendor).
-    public var iabId: String?
-    
-    /// Name of the vendor.
-    public var name: String?
-    
-    /// URL to the privacy policy of the vendor.
-    public var policyUrl: String?
-    
-    /// Namespace of the vendor (IAB, didomi or custom).
-    public var namespace: String?
-    
-    /// Namespaces of the vendor (IAB, didomi or custom) and their corresponding IDs.
-    public var namespaces: [String : String]?
-    
-    /// Purpose IDs that the vendor is operating under the consent legal basis.
-    public var purposeIds: Set<String>?
-    
-    /// Purpose IDs that the vendor is operating under the legitimate interest legal basis.
-    public var legIntPurposeIds: Set<String>?
-
-    /// Set with IDs that represent features.
-    public var featureIds: Set<String>?
-
-    /// Set with IDs that represent Special Features. TCFv2 property.
-    public var specialFeatureIds: Set<String>?
-
-    /// Set with IDs that represent flexible purposes. TCFv2 property.
-    public var flexiblePurposeIds: Set<String>?
-
-    /// Set with IDs that represent Special Purposes. TCFv2 property.
-    public var specialPurposeIds: Set<String>?
-
-    /// Transient property : Set with IDs that represent essential purposes
-    public var essentialPurposeIds: Set<String>?
-
-    /// Cookie Max Age in Seconds.
-    public var cookieMaxAgeSeconds: Int?
-
-    /// If vendor uses other means of storage/access than cookies
-    public var usesNonCookieAccess: Bool?
-
-    /// URL used to download Device Storage Disclosures (done post initialization).
-    public var deviceStorageDisclosureUrl: String?
-}
 
 @objc public enum ConsentStatus : Int {
     
