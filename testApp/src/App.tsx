@@ -64,6 +64,11 @@ function App() {
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
 
+    Didomi.addVendorStatusListener("ipromote", () => {
+      setReceivedEvent({ name: "Vendor status ipromote" });
+      console.log("event received: Vendor status ipromote");
+    });
+
     /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
       setReceivedEvent({ name: DidomiEventType.READY, data });
       console.log("I'm ready");

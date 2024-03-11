@@ -225,6 +225,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          */
         override fun languageUpdateFailed(event: LanguageUpdateFailedEvent) = prepareEvent(EventTypes.LANGUAGE_UPDATE_FAILED.event, event.reason)
     }
+    private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
 
     override fun getName() = "Didomi"
 
@@ -930,6 +931,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun removeListeners(count: Int) {
         // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    @ReactMethod
+    fun listenToVendorStatus(vendorId: String) {
+        if (!vendorStatusListeners.contains(vendorId)) {
+            Didomi.getInstance().addVendorStatusListener(vendorId) {
+                prepareEvent("${EventTypes.VENDOR_STATUS_CHANGE_PREFIX.event}$vendorId", null)
+            }
+            vendorStatusListeners.add(vendorId)
+        }
     }
 
     private fun prepareEvent(eventName: String, params: String?) {

@@ -52,5 +52,7 @@ enum class EventTypes(val event: String) {
     SYNC_ERROR("on_sync_error"),
     // Language
     LANGUAGE_UPDATED("on_language_updated"),
-    LANGUAGE_UPDATE_FAILED("on_language_update_failed");
+    LANGUAGE_UPDATE_FAILED("on_language_update_failed"),
+    // Vendor Status
+    VENDOR_STATUS_CHANGE_PREFIX("on_vendor_status_change_");
 }

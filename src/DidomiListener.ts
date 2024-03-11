@@ -6,10 +6,12 @@ const { Didomi: RNDidomi } = NativeModules;
 enum InternalEventType {
   READY_CALLBACK = 'on_ready_callback',
   ERROR_CALLBACK = 'on_error_callback',
+  VENDOR_STATUS_CHANGE_PREFIX = 'on_vendor_status_change_',
 }
 
 export const DidomiListener = {
   listeners: new Map(),
+  vendorStatusListeners: new Map(),
   eventEmitter: new NativeEventEmitter(RNDidomi),
 
   init: () => {
@@ -98,5 +100,27 @@ export const DidomiListener = {
         listener
       );
     });
+  },
+
+  addVendorStatusListener: (
+    vendorId: string,
+    callback: () => void
+  ) => {
+    //let eventType = InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId;
+    let events = DidomiListener.vendorStatusListeners.get(vendorId);
+    if (!events) {
+      events = [];
+      DidomiListener.vendorStatusListeners.set(vendorId, events);
+
+      DidomiListener.eventEmitter.addListener(InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId, (_event: any) => {
+        let events = DidomiListener.vendorStatusListeners.get(vendorId);
+        if (events) {
+          events.forEach((el: any) => {
+            el(_event);
+          });
+        }
+      });
+    }
+    events.push(callback);
   },
 };

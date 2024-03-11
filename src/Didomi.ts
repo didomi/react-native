@@ -107,6 +107,20 @@ export const Didomi = {
   ) => DidomiListener.addEventListener(eventType, callback),
 
   /**
+   * Add a listener to be triggered when the user status for the selected vendor changes
+   * The callback will be registered after the SDK is ready
+   * @param vendorId: the id of the vendor
+   * @param callback: the callback to trigger when the user status for the selected vendor changes
+   */
+  addVendorStatusListener: (
+    vendorId: string,
+    callback: () => void
+  ) => {
+    RNDidomi.listenToVendorStatus(vendorId)
+    DidomiListener.addVendorStatusListener(vendorId, callback);
+  },
+
+  /**
    *  Remove an event listener
    *  @param listener:
    */
