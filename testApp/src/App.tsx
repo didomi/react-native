@@ -118,17 +118,8 @@ function App() {
         <View style={styles.container}>
           <Text style={styles.title}>METHODS</Text>
           <Methods
-            addVendorStatusListener={() => {
-              Didomi.removeAllEventListeners();
-              Didomi.addVendorStatusListener('ipromote', () => {
-                setReceivedEvent({ name: "Vendor status ipromote" });
-                console.log("event received: Vendor status ipromote");
-              });
-            }}
-            removeVendorStatusListener={() => {
-              Didomi.removeVendorStatusListener('ipromote');
-              registerAllListeners();
-            }}
+            onEventReceived={(eventName: string) => setReceivedEvent({ name: eventName }) }
+            registerAllListeners={() => registerAllListeners() }
            />
           <Text style={styles.title}>GETTERS</Text>
           <Getters />

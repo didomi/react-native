@@ -4,8 +4,8 @@ import { Didomi } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
 interface MethodsProps {
-  addVendorStatusListener: () => any;
-  removeVendorStatusListener: () => any;
+  onEventReceived: (eventName: string) => any;
+  registerAllListeners: () => any;
 }
 
 export default function Methods(props: MethodsProps) {
@@ -102,14 +102,23 @@ export default function Methods(props: MethodsProps) {
 
       <MethodCall
         name="Listen ipromote Vendor status"
-        call={props.addVendorStatusListener}
+        call={()=> {
+          Didomi.removeAllEventListeners();
+          Didomi.addVendorStatusListener('ipromote', () => {
+            props.onEventReceived("Vendor status ipromote");
+            console.log("event received: Vendor status ipromote");
+          });
+        }}
         test={() => {
           return true;
         }} />
 
       <MethodCall
         name="Restore event listeners"
-        call={props.removeVendorStatusListener}
+        call={() => {
+          Didomi.removeVendorStatusListener('ipromote');
+          props.registerAllListeners();
+        }}
         test={() => {
           return true;
         }} />
