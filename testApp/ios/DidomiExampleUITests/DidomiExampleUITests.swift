@@ -134,6 +134,22 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "hidePreferences", expected: "hidePreferences-OK")
   }
   
+  func testVendorStatusListener() throws {
+    let app = initApp()
+    tapButton(in: app, name: "reset")
+
+    tapButton(in: app, name: "Listen ipromote Vendor status")
+    assertResult(in: app, name: "Listen ipromote Vendor status", expected: "Listen ipromote Vendor status-OK")
+    
+    tapButton(in: app, name: "setUserAgreeToAll")
+    testLastEvent(app: app, name:"Vendor status ipromote -> true")
+
+    tapButton(in: app, name: "Restore event listeners")
+    assertResult(in: app, name: "Restore event listeners", expected: "Restore event listeners-OK")
+    
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    testLastEvent(app: app, name:"on_consent_changed")
+  }
   
   // MARK: GETTERS
   
@@ -523,7 +539,6 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
   }
 }
-
 
 // Utility methods
 extension DidomiExampleUITests {

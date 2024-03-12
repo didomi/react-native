@@ -6,6 +6,7 @@ import AppTrackingTransparency
 class RNDidomi: RCTEventEmitter {
     
     var didomiEventListener: EventListener
+    var vendorStatusListeners: Set<String> = Set()
 
     override init() {
         didomiEventListener = EventListener()
@@ -474,6 +475,28 @@ class RNDidomi: RCTEventEmitter {
         }
         resolve(0)
     }
+    
+    @objc(listenToVendorStatus:resolve:reject:)
+    dynamic func listenToVendorStatus(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        if (!vendorStatusListeners.contains(vendorId)) {
+            vendorStatusListeners.insert(vendorId)
+            Didomi.shared.addVendorStatusListener(id: vendorId) { vendorStatus in
+                let encoder = JSONEncoder()
+                let statusJson = try? JSONSerialization.jsonObject(with: encoder.encode(vendorStatus)) as? [String: Any]
+                self.dispatchEvent(withName: "on_vendor_status_change_\(vendorId)", body: statusJson)
+            }
+        }
+        resolve(0)
+    }
+
+    @objc(stopListeningToVendorStatus:resolve:reject:)
+    dynamic func stopListeningToVendorStatus(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        if (vendorStatusListeners.contains(vendorId)) {
+            Didomi.shared.removeVendorStatusListener(id: vendorId)
+            vendorStatusListeners.remove(vendorId)
+        }
+        resolve(0)
+    }
 }
 
 // MARK: Didomi Specific structs
@@ -499,7 +522,7 @@ extension RNDidomi {
     
     @objc(supportedEvents)
     override func supportedEvents() -> [String]! {
-        return [
+        var eventsSet = Set([
                 // Consent
                 "on_consent_changed",
                 // SDK lifecycle events
@@ -552,7 +575,11 @@ extension RNDidomi {
                 // Language
                 "on_language_updated",
                 "on_language_update_failed"
-        ]
+        ])
+        vendorStatusListeners.forEach {
+            eventsSet.insert("on_vendor_status_change_\($0)")
+        }
+        return Array(eventsSet)
     }
 
     private func initEventListener() {
@@ -721,7 +748,7 @@ extension RNDidomi {
     }
 
     /// Sends the specified event only if the react-native bridge is still valid
-    private func dispatchEvent(withName: String, body: String?) {
+    private func dispatchEvent(withName: String, body: Any?) {
         if self.bridge != nil {
             self.sendEvent(withName: withName, body: body)
         } else {

@@ -1,15 +1,17 @@
 import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
-import { DidomiEventType } from './DidomiTypes';
+import { DidomiEventType, VendorStatus } from './DidomiTypes';
 
 const { Didomi: RNDidomi } = NativeModules;
 
 enum InternalEventType {
   READY_CALLBACK = 'on_ready_callback',
   ERROR_CALLBACK = 'on_error_callback',
+  VENDOR_STATUS_CHANGE_PREFIX = 'on_vendor_status_change_',
 }
 
 export const DidomiListener = {
   listeners: new Map(),
+  vendorStatusListeners: new Map(),
   eventEmitter: new NativeEventEmitter(RNDidomi),
 
   init: () => {
@@ -98,5 +100,34 @@ export const DidomiListener = {
         listener
       );
     });
+  },
+
+  addVendorStatusListener: (
+    vendorId: string,
+    callback: (vendorStatus: VendorStatus) => void
+  ) => {
+    let events = DidomiListener.vendorStatusListeners.get(vendorId);
+    if (!events) {
+      events = [];
+      DidomiListener.vendorStatusListeners.set(vendorId, events);
+
+      DidomiListener.eventEmitter.addListener(InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId, (_event: any) => {
+        let events = DidomiListener.vendorStatusListeners.get(vendorId);
+        if (events) {
+          events.forEach((el: any) => {
+            el(_event);
+          });
+        }
+      });
+    }
+    events.push(callback);
+  },
+
+  removeVendorStatusListener: (vendorId: string) => {
+    let events = DidomiListener.vendorStatusListeners.get(vendorId);
+    if (events) {
+      DidomiListener.eventEmitter.removeAllListeners(InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId);
+      DidomiListener.vendorStatusListeners.set(vendorId, undefined);
+    }
   },
 };

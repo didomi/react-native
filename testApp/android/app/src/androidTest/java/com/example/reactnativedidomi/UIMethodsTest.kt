@@ -163,4 +163,27 @@ class UIMethodsTest: BaseUITest() {
         // Let some time after Didomi UI was closed
         Thread.sleep(1_000L)
     }
+
+    @Test
+    fun test_VendorStatusListener() {
+        testMethodCall("reset")
+
+        methodCall("Listen ipromote Vendor status")
+        waitForDisplayed(withText("Listen ipromote Vendor status-OK"))
+
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        assertText("setUserAgreeToAll-OK")
+
+        testLastEvent("Vendor status ipromote -> true")
+
+        tapButton("Restore event listeners")
+        waitForDisplayed(withText("Restore event listeners-OK"))
+
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        assertText("setUserDisagreeToAll-OK")
+
+        testLastEvent("on_consent_changed")
+    }
 }

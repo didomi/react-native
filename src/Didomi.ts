@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 
 const { Didomi: RNDidomi } = NativeModules;
@@ -105,6 +105,29 @@ export const Didomi = {
     eventType: DidomiEventType,
     callback: (data: any) => void
   ) => DidomiListener.addEventListener(eventType, callback),
+
+  /**
+   * Add a listener to be triggered when the user status for the selected vendor changes
+   * The callback will be registered after the SDK is ready
+   * @param vendorId: the id of the vendor
+   * @param callback: the callback to trigger when the user status for the selected vendor changes
+   */
+  addVendorStatusListener: (
+    vendorId: string,
+    callback: (vendorStatus: VendorStatus) => void
+  ) => {
+    RNDidomi.listenToVendorStatus(vendorId)
+    DidomiListener.addVendorStatusListener(vendorId, callback);
+  },
+
+  /**
+   * Remove one or multiple previously added vendor status listeners
+   * @param vendorId the id of the vendor
+   */
+  removeVendorStatusListener: (vendorId: string) => {
+    RNDidomi.stopListeningToVendorStatus(vendorId)
+    DidomiListener.removeVendorStatusListener(vendorId);
+  },
 
   /**
    *  Remove an event listener
