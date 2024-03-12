@@ -26,7 +26,7 @@ function App() {
     });
   };
 
-  React.useEffect(() => {
+  const registerAllListeners = () => {
     Didomi.removeAllEventListeners();
 
     registerListener(DidomiEventType.CONSENT_CHANGED);
@@ -63,11 +63,10 @@ function App() {
     //registerListener(DidomiEventType.SYNC_ERROR);
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
+  };
 
-    Didomi.addVendorStatusListener("ipromote", () => {
-      setReceivedEvent({ name: "Vendor status ipromote" });
-      console.log("event received: Vendor status ipromote");
-    });
+  React.useEffect(() => {
+    registerAllListeners();
 
     /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
       setReceivedEvent({ name: DidomiEventType.READY, data });
@@ -118,7 +117,19 @@ function App() {
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.title}>METHODS</Text>
-          <Methods />
+          <Methods
+            addVendorStatusListener={() => {
+              Didomi.removeAllEventListeners();
+              Didomi.addVendorStatusListener('ipromote', () => {
+                setReceivedEvent({ name: "Vendor status ipromote" });
+                console.log("event received: Vendor status ipromote");
+              });
+            }}
+            removeVendorStatusListener={() => {
+              Didomi.removeVendorStatusListener('ipromote');
+              registerAllListeners();
+            }}
+           />
           <Text style={styles.title}>GETTERS</Text>
           <Getters />
           <Text style={styles.title}>GETTERS PARAMS</Text>

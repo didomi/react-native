@@ -106,7 +106,6 @@ export const DidomiListener = {
     vendorId: string,
     callback: () => void
   ) => {
-    //let eventType = InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId;
     let events = DidomiListener.vendorStatusListeners.get(vendorId);
     if (!events) {
       events = [];
@@ -122,5 +121,13 @@ export const DidomiListener = {
       });
     }
     events.push(callback);
+  },
+
+  removeVendorStatusListener: (vendorId: string) => {
+    let events = DidomiListener.vendorStatusListeners.get(vendorId);
+    if (events) {
+      DidomiListener.eventEmitter.removeAllListeners(InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId);
+      DidomiListener.vendorStatusListeners.set(vendorId, undefined);
+    }
   },
 };

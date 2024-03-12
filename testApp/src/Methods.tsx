@@ -3,7 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import { Didomi } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
-export default function Methods() {
+interface MethodsProps {
+  addVendorStatusListener: () => any;
+  removeVendorStatusListener: () => any;
+}
+
+export default function Methods(props: MethodsProps) {
   return (
     <View style={styles.container}>
       <MethodCall
@@ -94,6 +99,20 @@ export default function Methods() {
           return true;
         }}
       />
+
+      <MethodCall
+        name="Listen ipromote Vendor status"
+        call={props.addVendorStatusListener}
+        test={() => {
+          return true;
+        }} />
+
+      <MethodCall
+        name="Restore event listeners"
+        call={props.removeVendorStatusListener}
+        test={() => {
+          return true;
+        }} />
 
       {/*
 setUser

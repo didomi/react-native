@@ -121,6 +121,15 @@ export const Didomi = {
   },
 
   /**
+   * Remove one or multiple previously added vendor status listeners
+   * @param vendorId the id of the vendor
+   */
+  removeVendorStatusListener: (vendorId: string) => {
+    RNDidomi.stopListeningToVendorStatus(vendorId)
+    DidomiListener.removeVendorStatusListener(vendorId);
+  },
+
+  /**
    *  Remove an event listener
    *  @param listener:
    */

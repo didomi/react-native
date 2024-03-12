@@ -943,6 +943,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         }
     }
 
+    @ReactMethod
+    fun stopListeningToVendorStatus(vendorId: String) {
+        if (vendorStatusListeners.contains(vendorId)) {
+            Didomi.getInstance().removeVendorStatusListener(vendorId)
+            vendorStatusListeners.remove(vendorId)
+        }
+    }
+
     private fun prepareEvent(eventName: String, params: String?) {
         Log.d("prepareEvent", "Sending $eventName")
         reactContext
