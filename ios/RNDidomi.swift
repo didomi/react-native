@@ -493,6 +493,7 @@ class RNDidomi: RCTEventEmitter {
             Didomi.shared.removeVendorStatusListener(id: vendorId)
             vendorStatusListeners.remove(vendorId)
         }
+        resolve(0)
     }
 }
 
