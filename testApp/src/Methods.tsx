@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Didomi } from '@didomi/react-native';
+import { Didomi, VendorStatus } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
 interface MethodsProps {
@@ -104,8 +104,8 @@ export default function Methods(props: MethodsProps) {
         name="Listen ipromote Vendor status"
         call={()=> {
           Didomi.removeAllEventListeners();
-          Didomi.addVendorStatusListener('ipromote', () => {
-            props.onEventReceived("Vendor status ipromote");
+          Didomi.addVendorStatusListener('ipromote', (vendorStatus: VendorStatus) => {
+            props.onEventReceived("Vendor status ipromote -> " + vendorStatus.enabled);
             console.log("event received: Vendor status ipromote");
           });
         }}

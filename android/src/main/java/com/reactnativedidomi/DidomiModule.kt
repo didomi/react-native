@@ -936,8 +936,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun listenToVendorStatus(vendorId: String) {
         if (!vendorStatusListeners.contains(vendorId)) {
-            Didomi.getInstance().addVendorStatusListener(vendorId) {
-                prepareEvent("${EventTypes.VENDOR_STATUS_CHANGE_PREFIX.event}$vendorId", null)
+            Didomi.getInstance().addVendorStatusListener(vendorId) { vendorStatus ->
+                val statusAsMap = objectToWritableMap(vendorStatus)
+                prepareEvent("${EventTypes.VENDOR_STATUS_CHANGE_PREFIX.event}$vendorId", statusAsMap)
             }
             vendorStatusListeners.add(vendorId)
         }
@@ -951,7 +952,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         }
     }
 
-    private fun prepareEvent(eventName: String, params: String?) {
+    private fun prepareEvent(eventName: String, params: Any?) {
         Log.d("prepareEvent", "Sending $eventName")
         reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)

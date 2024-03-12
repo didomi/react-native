@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 
 const { Didomi: RNDidomi } = NativeModules;
@@ -114,7 +114,7 @@ export const Didomi = {
    */
   addVendorStatusListener: (
     vendorId: string,
-    callback: () => void
+    callback: (vendorStatus: VendorStatus) => void
   ) => {
     RNDidomi.listenToVendorStatus(vendorId)
     DidomiListener.addVendorStatusListener(vendorId, callback);

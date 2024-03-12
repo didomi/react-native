@@ -1,5 +1,5 @@
 import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
-import { DidomiEventType } from './DidomiTypes';
+import { DidomiEventType, VendorStatus } from './DidomiTypes';
 
 const { Didomi: RNDidomi } = NativeModules;
 
@@ -104,7 +104,7 @@ export const DidomiListener = {
 
   addVendorStatusListener: (
     vendorId: string,
-    callback: () => void
+    callback: (vendorStatus: VendorStatus) => void
   ) => {
     let events = DidomiListener.vendorStatusListeners.get(vendorId);
     if (!events) {

@@ -480,8 +480,10 @@ class RNDidomi: RCTEventEmitter {
     dynamic func listenToVendorStatus(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         if (!vendorStatusListeners.contains(vendorId)) {
             vendorStatusListeners.insert(vendorId)
-            Didomi.shared.addVendorStatusListener(id: vendorId) { _ in
-                self.dispatchEvent(withName: "on_vendor_status_change_\(vendorId)", body: "")
+            Didomi.shared.addVendorStatusListener(id: vendorId) { vendorStatus in
+                let encoder = JSONEncoder()
+                let statusJson = try? JSONSerialization.jsonObject(with: encoder.encode(vendorStatus)) as? [String: Any]
+                self.dispatchEvent(withName: "on_vendor_status_change_\(vendorId)", body: statusJson)
             }
         }
         resolve(0)
@@ -746,7 +748,7 @@ extension RNDidomi {
     }
 
     /// Sends the specified event only if the react-native bridge is still valid
-    private func dispatchEvent(withName: String, body: String?) {
+    private func dispatchEvent(withName: String, body: Any?) {
         if self.bridge != nil {
             self.sendEvent(withName: withName, body: body)
         } else {

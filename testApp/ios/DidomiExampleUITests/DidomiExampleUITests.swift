@@ -142,7 +142,7 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "Listen ipromote Vendor status", expected: "Listen ipromote Vendor status-OK")
     
     tapButton(in: app, name: "setUserAgreeToAll")
-    testLastEvent(app: app, name:"Vendor status ipromote")
+    testLastEvent(app: app, name:"Vendor status ipromote -> true")
 
     tapButton(in: app, name: "Restore event listeners")
     assertResult(in: app, name: "Restore event listeners", expected: "Restore event listeners-OK")
@@ -539,7 +539,6 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
   }
 }
-
 
 // Utility methods
 extension DidomiExampleUITests {
