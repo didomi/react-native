@@ -175,7 +175,7 @@ class UIMethodsTest: BaseUITest() {
         Thread.sleep(2_000L)
         assertText("setUserAgreeToAll-OK")
 
-        testLastEvent("Vendor status ipromote")
+        testLastEvent("Vendor status ipromote -> true")
 
         tapButton("Restore event listeners")
         waitForDisplayed(withText("Restore event listeners-OK"))
