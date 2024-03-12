@@ -177,7 +177,7 @@ class UIMethodsTest: BaseUITest() {
 
         testLastEvent("Vendor status ipromote")
 
-        methodCall("Restore event listeners")
+        tapButton("Restore event listeners")
         waitForDisplayed(withText("Restore event listeners-OK"))
 
         tapButton("setUserDisagreeToAll")

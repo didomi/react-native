@@ -242,6 +242,14 @@ RCT_EXTERN_METHOD(setUserWithEncryptionAuthWithExpirationAndSetupUI:(NSString *)
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(listenToVendorStatus:(NSString *)vendorId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(stopListeningToVendorStatus:(NSString *)vendorId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(supportedEvents)
 
 @end
