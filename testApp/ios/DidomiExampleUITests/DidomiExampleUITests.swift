@@ -459,6 +459,38 @@ class DidomiExampleUITests: XCTestCase {
     tapButton(in: app, name: "setUserDisagreeToAll")
     assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
   }
+
+  func testCommitEnableCurrentUserStatusTransactionWithChanges() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: "commitEnableCurrentUserStatusTransaction")
+    assertResult(in: app, name: "commitEnableCurrentUserStatusTransaction", expected: "true")
+  }
+  
+  func testCommitEnableCurrentUserStatusTransactionWithoutChanges() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: "commitEnableCurrentUserStatusTransaction")
+    assertResult(in: app, name: "commitEnableCurrentUserStatusTransaction", expected: "false")
+  }
+  
+  func testCommitDisableCurrentUserStatusTransactionWithChanges() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: "commitDisableCurrentUserStatusTransaction")
+    assertResult(in: app, name: "commitDisableCurrentUserStatusTransaction", expected: "true")
+  }
+  
+  func testCommitDisableCurrentUserStatusTransactionWithoutChanges() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: "commitDisableCurrentUserStatusTransaction")
+    assertResult(in: app, name: "commitDisableCurrentUserStatusTransaction", expected: "false")
+  }
   
   // MARK: SET USER
   

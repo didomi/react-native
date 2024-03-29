@@ -2,6 +2,7 @@ import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
 import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
+import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
 const { Didomi: RNDidomi } = NativeModules;
 
@@ -722,4 +723,8 @@ export const Didomi = {
    */
   updateSelectedLanguage: (languageCode: string): Promise<void> =>
     RNDidomi.updateSelectedLanguage(languageCode),
+
+  openCurrentUserStatusTransaction: (): CurrentUserStatusTransaction => createCurrentUserStatusTransaction((enabledPurposes: string[], disabledPurposes: string[], enabledVendors: string[], disabledVendors: string[]): boolean => {
+    return RNDidomi.commitCurrentUserStatusTransaction(enabledPurposes, disabledPurposes, enabledVendors, disabledVendors);
+  }),
 };

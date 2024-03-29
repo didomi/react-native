@@ -952,10 +952,31 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         }
     }
 
+    @ReactMethod
+    fun commitCurrentUserStatusTransaction(
+        enabledPurposes: ReadableArray,
+        disabledPurposes: ReadableArray,
+        enabledVendors: ReadableArray,
+        disabledVendors: ReadableArray,
+        promise: Promise
+    ) {
+        val transaction = Didomi.getInstance().openCurrentUserStatusTransaction()
+        transaction.enablePurposes(*readableArrayToStringArray(enabledPurposes))
+        transaction.disablePurposes(*readableArrayToStringArray(disabledPurposes))
+        transaction.enableVendors(*readableArrayToStringArray(enabledVendors))
+        transaction.disableVendors(*readableArrayToStringArray(disabledVendors))
+        promise.resolve(transaction.commit())
+    }
+
     private fun prepareEvent(eventName: String, params: Any?) {
         Log.d("prepareEvent", "Sending $eventName")
         reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
             .emit(eventName, params)
+    }
+
+    // Required to transform from array to variadic.
+    private fun readableArrayToStringArray(readableArray: ReadableArray): Array<String> {
+        return Array(readableArray.size()) { i -> readableArray.getString(i) ?: "" }
     }
 }

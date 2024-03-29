@@ -497,6 +497,23 @@ class RNDidomi: RCTEventEmitter {
         }
         resolve(0)
     }
+    
+    @objc(commitCurrentUserStatusTransaction:disabledPurposes:enabledVendors:disabledVendors:resolve:reject:)
+    dynamic func commitCurrentUserStatusTransaction(
+       enabledPurposes: [String],
+       disabledPurposes: [String],
+       enabledVendors: [String],
+       disabledVendors: [String],
+       resolve:RCTPromiseResolveBlock,
+       reject:RCTPromiseRejectBlock
+    ) {
+        let transaction = Didomi.shared.openCurrentUserStatusTransaction()
+        transaction.enablePurposes(enabledPurposes)
+        transaction.disablePurposes(disabledPurposes)
+        transaction.enableVendors(enabledVendors)
+        transaction.disableVendors(disabledVendors)
+        resolve(transaction.commit())
+   }
 }
 
 // MARK: Didomi Specific structs

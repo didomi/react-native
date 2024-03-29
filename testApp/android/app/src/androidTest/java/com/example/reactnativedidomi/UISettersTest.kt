@@ -54,4 +54,40 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         assertText("setUserDisagreeToAll-OK")
     }
+
+    @Test
+    fun test_CommitEnableCurrentUserStatusTransactionWithChanges() {
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton("commitEnableCurrentUserStatusTransaction")
+        Thread.sleep(2_000L)
+        assertText("true")
+    }
+
+    @Test
+    fun test_CommitEnableCurrentUserStatusTransactionWithoutChanges() {
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton("commitEnableCurrentUserStatusTransaction")
+        Thread.sleep(2_000L)
+        assertText("false")
+    }
+
+    @Test
+    fun test_CommitDisableCurrentUserStatusTransactionWithChanges() {
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton("commitDisableCurrentUserStatusTransaction")
+        Thread.sleep(2_000L)
+        assertText("true")
+    }
+
+    @Test
+    fun test_CommitDisableCurrentUserStatusTransactionWithoutChanges() {
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton("commitDisableCurrentUserStatusTransaction")
+        Thread.sleep(2_000L)
+        assertText("false")
+    }
 }
