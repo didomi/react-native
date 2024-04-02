@@ -460,36 +460,37 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
   }
 
+  // MARK: CurrentUserStatusTransaction
   func testCommitEnableCurrentUserStatusTransactionWithChanges() throws {
     let app = initApp()
-
+    let buttonName = "commitEnableCurrentUserStatusTransaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
-    tapButton(in: app, name: "commitEnableCurrentUserStatusTransaction")
-    assertResult(in: app, name: "commitEnableCurrentUserStatusTransaction", expected: "true")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-true\"")
   }
   
   func testCommitEnableCurrentUserStatusTransactionWithoutChanges() throws {
     let app = initApp()
-
+    let buttonName = "commitEnableCurrentUserStatusTransaction"
     tapButton(in: app, name: "setUserAgreeToAll")
-    tapButton(in: app, name: "commitEnableCurrentUserStatusTransaction")
-    assertResult(in: app, name: "commitEnableCurrentUserStatusTransaction", expected: "false")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-false\"")
   }
   
   func testCommitDisableCurrentUserStatusTransactionWithChanges() throws {
     let app = initApp()
-
+    let buttonName = "commitDisableCurrentUserStatusTransaction"
     tapButton(in: app, name: "setUserAgreeToAll")
-    tapButton(in: app, name: "commitDisableCurrentUserStatusTransaction")
-    assertResult(in: app, name: "commitDisableCurrentUserStatusTransaction", expected: "true")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-true\"")
   }
   
   func testCommitDisableCurrentUserStatusTransactionWithoutChanges() throws {
     let app = initApp()
-
+    let buttonName = "commitDisableCurrentUserStatusTransaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
-    tapButton(in: app, name: "commitDisableCurrentUserStatusTransaction")
-    assertResult(in: app, name: "commitDisableCurrentUserStatusTransaction", expected: "false")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-false\"")
   }
   
   // MARK: SET USER

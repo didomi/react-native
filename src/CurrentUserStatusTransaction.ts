@@ -9,7 +9,7 @@ export interface CurrentUserStatusTransaction {
   disablePurposes(ids: string[]): CurrentUserStatusTransaction;
   disableVendor(id: string): CurrentUserStatusTransaction;
   disableVendors(ids: string[]): CurrentUserStatusTransaction;
-  commit(): boolean;
+  commit(): Promise<boolean>;
 }
 
 interface IDStatus {
@@ -17,7 +17,7 @@ interface IDStatus {
   disabled: string[];
 }
 
-type CommitCallback = (enabledPurposes: string[], disabledPurposes: string[], enabledVendors: string[], disabledVendors: string[]) => boolean;
+type CommitCallback = (enabledPurposes: string[], disabledPurposes: string[], enabledVendors: string[], disabledVendors: string[]) => Promise<boolean>;
 
 export const createCurrentUserStatusTransaction = (commitCallback: CommitCallback): CurrentUserStatusTransaction => {
 
@@ -66,7 +66,7 @@ export const createCurrentUserStatusTransaction = (commitCallback: CommitCallbac
   };
 
 
-  const commit = () => {
+  const commit = (): Promise<boolean> => {
     const vendorIdsFromStatus = getIdsFromStatus(vendorsStatus);
     const purposeIdsFromStatus = getIdsFromStatus(purposesStatus);
 

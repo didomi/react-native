@@ -61,7 +61,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton("commitEnableCurrentUserStatusTransaction")
         Thread.sleep(2_000L)
-        assertText("true")
+        assertText("\"commitEnableCurrentUserStatusTransaction-Updated-true\"")
     }
 
     @Test
@@ -70,7 +70,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton("commitEnableCurrentUserStatusTransaction")
         Thread.sleep(2_000L)
-        assertText("false")
+        assertText("\"commitEnableCurrentUserStatusTransaction-Updated-false\"")
     }
 
     @Test
@@ -79,7 +79,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton("commitDisableCurrentUserStatusTransaction")
         Thread.sleep(2_000L)
-        assertText("true")
+        assertText("\"commitDisableCurrentUserStatusTransaction-Updated-true\"")
     }
 
     @Test
@@ -88,6 +88,6 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton("commitDisableCurrentUserStatusTransaction")
         Thread.sleep(2_000L)
-        assertText("false")
+        assertText("\"commitDisableCurrentUserStatusTransaction-Updated-false\"")
     }
 }

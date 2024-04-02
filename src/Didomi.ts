@@ -724,7 +724,10 @@ export const Didomi = {
   updateSelectedLanguage: (languageCode: string): Promise<void> =>
     RNDidomi.updateSelectedLanguage(languageCode),
 
-  openCurrentUserStatusTransaction: (): CurrentUserStatusTransaction => createCurrentUserStatusTransaction((enabledPurposes: string[], disabledPurposes: string[], enabledVendors: string[], disabledVendors: string[]): boolean => {
-    return RNDidomi.commitCurrentUserStatusTransaction(enabledPurposes, disabledPurposes, enabledVendors, disabledVendors);
-  }),
+  openCurrentUserStatusTransaction: (): CurrentUserStatusTransaction => createCurrentUserStatusTransaction((
+    enabledPurposes: string[],
+    disabledPurposes: string[],
+    enabledVendors: string[],
+    disabledVendors: string[]
+  ): Promise<boolean> => RNDidomi.commitCurrentUserStatusTransaction(enabledPurposes, disabledPurposes, enabledVendors, disabledVendors)),
 };
