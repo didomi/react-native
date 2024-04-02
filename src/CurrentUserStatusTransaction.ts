@@ -1,27 +1,54 @@
 import { PurposeStatus, VendorStatus } from './DidomiTypes';
 
+// Transaction type exposed to client's app that allows the enabling and disabling of vendors and purposes.
 export interface CurrentUserStatusTransaction {
+  // Function to enable a specific purpose by its ID and returns the updated transaction
   enablePurpose(id: string): CurrentUserStatusTransaction;
+
+  // Function to enable multiple purposes at once by their IDs and returns the updated transaction
   enablePurposes(ids: string[]): CurrentUserStatusTransaction;
+
+  // Function to enable a specific vendor by its ID and returns the updated transaction
   enableVendor(id: string): CurrentUserStatusTransaction;
+
+  // Function to enable multiple vendors at once by their IDs and returns the updated transaction
   enableVendors(ids: string[]): CurrentUserStatusTransaction;
+
+  // Function to disable a specific purpose by its ID and returns the updated transaction
   disablePurpose(id: string): CurrentUserStatusTransaction;
+
+  // Function to disable multiple purposes at once by their IDs and returns the updated transaction
   disablePurposes(ids: string[]): CurrentUserStatusTransaction;
+
+  // Function to disable a specific vendor by its ID and returns the updated transaction
   disableVendor(id: string): CurrentUserStatusTransaction;
+
+  // Function to disable multiple vendors at once by their IDs and returns the updated transaction
   disableVendors(ids: string[]): CurrentUserStatusTransaction;
+
+  // Function to commit the changes made to the status of purposes and vendors
+  // Returns a Promise that resolves to a boolean indicating whether the commit was successful
   commit(): Promise<boolean>;
 }
 
-interface IDStatus {
+// Interface used to transfer enabled and disabled IDs between internal methods in a more convenient way.
+interface StatusIDs {
   enabled: string[];
   disabled: string[];
 }
 
-type CommitCallback = (enabledPurposes: string[], disabledPurposes: string[], enabledVendors: string[], disabledVendors: string[]) => Promise<boolean>;
+// Callback executed once changes are committed to the native implementation.
+type NativeCallback = (
+  enabledPurposes: string[],
+  disabledPurposes: string[],
+  enabledVendors: string[],
+  disabledVendors: string[]
+  ) => Promise<boolean>;
 
-export const createCurrentUserStatusTransaction = (commitCallback: CommitCallback): CurrentUserStatusTransaction => {
+// Create a `CurrentUserStatusTransaction` object based on the native implementation.
+export const createCurrentUserStatusTransaction = (nativeCallback: NativeCallback): CurrentUserStatusTransaction => {
 
-  // Partial statuses.
+  // Variable used to store statuses before changes are committed against the transaction.
   let purposesStatus: { [key: string]: PurposeStatus } = {};
   let vendorsStatus: { [key: string]: VendorStatus } = {};
 
@@ -65,12 +92,11 @@ export const createCurrentUserStatusTransaction = (commitCallback: CommitCallbac
     return transaction;
   };
 
-
   const commit = (): Promise<boolean> => {
     const vendorIdsFromStatus = getIdsFromStatus(vendorsStatus);
     const purposeIdsFromStatus = getIdsFromStatus(purposesStatus);
 
-    const result = commitCallback(
+    const result = nativeCallback(
       purposeIdsFromStatus.enabled,
       purposeIdsFromStatus.disabled,
       vendorIdsFromStatus.enabled,
@@ -79,22 +105,6 @@ export const createCurrentUserStatusTransaction = (commitCallback: CommitCallbac
 
     return result;
   };
-
-  const getIdsFromStatus = (status: { [key: string]: PurposeStatus } | { [key: string]: VendorStatus }): IDStatus => {
-    let enabled: string[] = [];
-    let disabled: string[] = [];
-    const keys = Object.keys(status);
-    keys.forEach((key) => {
-      const value = status[key];
-      if (value.enabled) {
-        enabled.push(key);
-      } else {
-        disabled.push(key);
-      }
-    });
-
-    return { enabled, disabled };
-  }
 
   const transaction: CurrentUserStatusTransaction = {
     enablePurpose,
@@ -109,4 +119,21 @@ export const createCurrentUserStatusTransaction = (commitCallback: CommitCallbac
   };
 
   return transaction;
+}
+
+// Separates and returns IDs from the `status` object into `enabled` and `disabled` based on their `enabled` state.
+const getIdsFromStatus = (status: { [key: string]: PurposeStatus } | { [key: string]: VendorStatus }): StatusIDs => {
+  let enabled: string[] = [];
+  let disabled: string[] = [];
+  const keys = Object.keys(status);
+  keys.forEach((key) => {
+    const value = status[key];
+    if (value.enabled) {
+      enabled.push(key);
+    } else {
+      disabled.push(key);
+    }
+  });
+
+  return { enabled, disabled };
 }
