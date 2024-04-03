@@ -11,11 +11,11 @@ export default function CurrentUserStatusTransactions() {
       {/* Single purposes */}
       <Getter
         name="enablePurpose[cookies]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.enablePurpose("cookies");
           const result = await transaction.commit();
-          return "enablePurpose[cookies]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -23,11 +23,11 @@ export default function CurrentUserStatusTransactions() {
 
       <Getter
         name="disablePurpose[cookies]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.disablePurpose("cookies");
           const result = await transaction.commit();
-          return "disablePurpose[cookies]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -36,11 +36,11 @@ export default function CurrentUserStatusTransactions() {
         {/* Multiple purposes */}
       <Getter
         name="enablePurposes[cookies]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.enablePurposes(["cookies"]);
           const result = await transaction.commit();
-          return "enablePurposes[cookies]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -48,11 +48,11 @@ export default function CurrentUserStatusTransactions() {
 
       <Getter
         name="disablePurposes[cookies]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.disablePurposes(["cookies"]);
           const result = await transaction.commit();
-          return "disablePurposes[cookies]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -61,11 +61,11 @@ export default function CurrentUserStatusTransactions() {
         {/* Single vendors */}
       <Getter
         name="enableVendor[ipromote]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.enableVendor("ipromote");
           const result = await transaction.commit();
-          return "enableVendor[ipromote]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -73,11 +73,11 @@ export default function CurrentUserStatusTransactions() {
 
       <Getter
         name="disableVendor[ipromote]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.disableVendor("ipromote");
           const result = await transaction.commit();
-          return "disableVendor[ipromote]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -86,11 +86,11 @@ export default function CurrentUserStatusTransactions() {
       {/* Multiple vendors */}
       <Getter
         name="enableVendors[ipromote]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.enableVendors(["ipromote"]);
           const result = await transaction.commit();
-          return "enableVendors[ipromote]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
@@ -98,11 +98,11 @@ export default function CurrentUserStatusTransactions() {
 
       <Getter
         name="disableVendors[ipromote]-transaction"
-        call={async () => {
+        call={async (name) => {
           const transaction = Didomi.openCurrentUserStatusTransaction();
           transaction.disableVendors(["ipromote"]);
           const result = await transaction.commit();
-          return "disableVendors[ipromote]-transaction-updated-" +result;
+          return name + "-updated-" +result;
         }}
         test={() => {
           return true;
