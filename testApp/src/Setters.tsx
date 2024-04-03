@@ -98,32 +98,6 @@ export default function Setters() {
           return true;
         }}
       />
-
-      <Getter
-        name="commitEnableCurrentUserStatusTransaction"
-        call={async () => {
-          const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.enablePurpose("cookies");
-          transaction.enableVendor("ipromote");
-          const result = await transaction.commit();
-          return "commitEnableCurrentUserStatusTransaction-Updated-" +result;
-        }}
-        test={() => {
-          return true;
-        }} />
-
-      <Getter
-        name="commitDisableCurrentUserStatusTransaction"
-        call={async () => {
-          const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.disablePurpose("cookies");
-          transaction.disableVendor("ipromote");
-          const result = await transaction.commit();
-          return "commitDisableCurrentUserStatusTransaction-Updated-" +result;
-        }}
-        test={() => {
-          return true;
-        }} />
     </View>
   );
 }

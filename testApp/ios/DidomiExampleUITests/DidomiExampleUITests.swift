@@ -459,38 +459,137 @@ class DidomiExampleUITests: XCTestCase {
     tapButton(in: app, name: "setUserDisagreeToAll")
     assertResult(in: app, name: "setUserDisagreeToAll", expected: "setUserDisagreeToAll-OK")
   }
+  
+  // MARK: CurrentUserStatusTransaction - single purpose
+  func testEnablePurposeTransactionWithChanges() throws {
+    let app = initApp()
+    let buttonName = "enablePurpose[cookies]-transaction"
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+  }
+  
+  func testEnablePurposeTransactionWithoutChanges() throws {
+    let app = initApp()
+    let buttonName = "enablePurpose[cookies]-transaction"
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+  }
+  
+  func testDisablePurposeTransactionWithChanges() throws {
+    let app = initApp()
+    let buttonName = "disablePurpose[cookies]-transaction"
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+  }
+  
+  func testDisablePurposeTransactionWithoutChanges() throws {
+    let app = initApp()
+    let buttonName = "disablePurpose[cookies]-transaction"
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+  }
+  
+  // MARK: CurrentUserStatusTransaction - multiple purposes
+  func testEnablePurposesTransactionWithChanges() throws {
+    let app = initApp()
+    let buttonName = "enablePurposes[cookies]-transaction"
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+  }
+  
+  func testEnablePurposesTransactionWithoutChanges() throws {
+    let app = initApp()
+    let buttonName = "enablePurposes[cookies]-transaction"
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+  }
+  
+  func testDisablePurposesTransactionWithChanges() throws {
+    let app = initApp()
+    let buttonName = "disablePurposes[cookies]-transaction"
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+  }
+  
+  func testDisablePurposesTransactionWithoutChanges() throws {
+    let app = initApp()
+    let buttonName = "disablePurposes[cookies]-transaction"
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+  }
 
-  // MARK: CurrentUserStatusTransaction
-  func testCommitEnableCurrentUserStatusTransactionWithChanges() throws {
+  // MARK: CurrentUserStatusTransaction - single vendor
+  func testEnableVendorTransactionWithChanges() throws {
     let app = initApp()
-    let buttonName = "commitEnableCurrentUserStatusTransaction"
+    let buttonName = "enableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
   }
   
-  func testCommitEnableCurrentUserStatusTransactionWithoutChanges() throws {
+  func testEnableVendorTransactionWithoutChanges() throws {
     let app = initApp()
-    let buttonName = "commitEnableCurrentUserStatusTransaction"
+    let buttonName = "enableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
   }
   
-  func testCommitDisableCurrentUserStatusTransactionWithChanges() throws {
+  func testDisableVendorTransactionWithChanges() throws {
     let app = initApp()
-    let buttonName = "commitDisableCurrentUserStatusTransaction"
+    let buttonName = "disableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
   }
   
-  func testCommitDisableCurrentUserStatusTransactionWithoutChanges() throws {
+  func testDisableVendorTransactionWithoutChanges() throws {
     let app = initApp()
-    let buttonName = "commitDisableCurrentUserStatusTransaction"
+    let buttonName = "disableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-Updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+  }
+  
+  // MARK: CurrentUserStatusTransaction - multiple vendor
+  func testEnableVendorsTransactionWithChanges() throws {
+    let app = initApp()
+    let buttonName = "enableVendors[ipromote]-transaction"
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+  }
+  
+  func testEnableVendorsTransactionWithoutChanges() throws {
+    let app = initApp()
+    let buttonName = "enableVendor[ipromote]-transaction"
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+  }
+  
+  func testDisableVendorsTransactionWithChanges() throws {
+    let app = initApp()
+    let buttonName = "disableVendors[ipromote]-transaction"
+    tapButton(in: app, name: "setUserAgreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+  }
+  
+  func testDisableVendorsTransactionWithoutChanges() throws {
+    let app = initApp()
+    let buttonName = "disableVendors[ipromote]-transaction"
+    tapButton(in: app, name: "setUserDisagreeToAll")
+    tapButton(in: app, name: buttonName)
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
   }
   
   // MARK: SET USER
