@@ -5,7 +5,7 @@ import Getter from './GetterCall';
 import { allPurposeIds } from './constants/constants';
 
 // UI element used to contain buttons related to tests that involve `CurrentUserStatusTransaction`.
-export default function CurrentUserStatusTransactions() {
+export default function CurrentUserStatusTransactionsList() {
 
   return (
     <View style={styles.container}>

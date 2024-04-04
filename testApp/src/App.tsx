@@ -7,7 +7,7 @@ import Getters from './Getters';
 import GettersParams from './GettersParams';
 import Setters from './Setters';
 import SetUser from './SetUser';
-import CurrentUserStatusTransactions from './CurrentUserStatusTransactions';
+import CurrentUserStatusTransactionsList from './CurrentUserStatusTransactionsList';
 import { TestEvent } from './Types';
 
 function App() {
@@ -129,7 +129,7 @@ function App() {
           <Text style={styles.title}>SETTERS</Text>
           <Setters />
           <Text style={styles.title}>Current User Status Transactions</Text>
-          <CurrentUserStatusTransactions />
+          <CurrentUserStatusTransactionsList />
           <Text style={styles.title}>SET USER</Text>
           <SetUser />
         </View>
