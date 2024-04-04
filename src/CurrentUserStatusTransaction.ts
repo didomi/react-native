@@ -46,6 +46,7 @@ type NativeCallback = (
   ) => Promise<boolean>;
 
 // Create a `CurrentUserStatusTransaction` object based on the native implementation.
+// Please note that this implementation delays the interaction with the native libraries until the changes are committed.
 export const createCurrentUserStatusTransaction = (nativeCallback: NativeCallback): CurrentUserStatusTransaction => {
 
   // Variable used to store statuses before changes are committed against the transaction.

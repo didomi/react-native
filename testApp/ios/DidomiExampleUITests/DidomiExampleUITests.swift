@@ -466,7 +466,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "enablePurpose[cookies]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-true\"")
   }
   
   func testEnablePurposeTransactionWithoutChanges() throws {
@@ -474,7 +474,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "enablePurpose[cookies]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-true\"")
   }
   
   func testDisablePurposeTransactionWithChanges() throws {
@@ -482,7 +482,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disablePurpose[cookies]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-false\"")
   }
   
   func testDisablePurposeTransactionWithoutChanges() throws {
@@ -490,7 +490,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disablePurpose[cookies]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-false\"")
   }
   
   // MARK: CurrentUserStatusTransaction - multiple purposes
@@ -499,7 +499,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "enablePurposes[cookies]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-true\"")
   }
   
   func testEnablePurposesTransactionWithoutChanges() throws {
@@ -507,7 +507,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "enablePurposes[cookies]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-true\"")
   }
   
   func testDisablePurposesTransactionWithChanges() throws {
@@ -515,7 +515,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disablePurposes[cookies]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-false\"")
   }
   
   func testDisablePurposesTransactionWithoutChanges() throws {
@@ -523,16 +523,16 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disablePurposes[cookies]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-false\"")
   }
 
-  // MARK: CurrentUserStatusTransaction - single vendor
+  // MARK: CurrentUserStatusTransaction - single vendors
   func testEnableVendorTransactionWithChanges() throws {
     let app = initApp()
     let buttonName = "enableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-true\"")
   }
   
   func testEnableVendorTransactionWithoutChanges() throws {
@@ -540,7 +540,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "enableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-true\"")
   }
   
   func testDisableVendorTransactionWithChanges() throws {
@@ -548,7 +548,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-false\"")
   }
   
   func testDisableVendorTransactionWithoutChanges() throws {
@@ -556,24 +556,24 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disableVendor[ipromote]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-false\"")
   }
   
-  // MARK: CurrentUserStatusTransaction - multiple vendor
+  // MARK: CurrentUserStatusTransaction - multiple vendors
   func testEnableVendorsTransactionWithChanges() throws {
     let app = initApp()
     let buttonName = "enableVendors[ipromote]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-true\"")
   }
   
   func testEnableVendorsTransactionWithoutChanges() throws {
     let app = initApp()
-    let buttonName = "enableVendor[ipromote]-transaction"
+    let buttonName = "enableVendors[ipromote]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-true\"")
   }
   
   func testDisableVendorsTransactionWithChanges() throws {
@@ -581,7 +581,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disableVendors[ipromote]-transaction"
     tapButton(in: app, name: "setUserAgreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-true-enabled-false\"")
   }
   
   func testDisableVendorsTransactionWithoutChanges() throws {
@@ -589,7 +589,7 @@ class DidomiExampleUITests: XCTestCase {
     let buttonName = "disableVendors[ipromote]-transaction"
     tapButton(in: app, name: "setUserDisagreeToAll")
     tapButton(in: app, name: buttonName)
-    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false\"")
+    assertResult(in: app, name: buttonName, expected: "\"\(buttonName)-updated-false-enabled-false\"")
   }
   
   // MARK: SET USER

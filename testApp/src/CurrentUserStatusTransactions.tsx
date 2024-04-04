@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Didomi } from '@didomi/react-native';
 import Getter from './GetterCall';
+import { allPurposeIds } from './constants/constants';
 
 // UI element used to contain buttons related to tests that involve `CurrentUserStatusTransaction`.
 export default function CurrentUserStatusTransactions() {
@@ -12,101 +13,119 @@ export default function CurrentUserStatusTransactions() {
       <Getter
         name="enablePurpose[cookies]-transaction"
         call={async (name) => {
+          const entity = "cookies";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.enablePurpose("cookies");
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.enablePurpose(entity);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.purposes[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
       <Getter
         name="disablePurpose[cookies]-transaction"
         call={async (name) => {
+          const entity = "cookies";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.disablePurpose("cookies");
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.disablePurpose(entity);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.purposes[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
-        {/* Multiple purposes */}
+      {/* Multiple purposes */}
       <Getter
         name="enablePurposes[cookies]-transaction"
         call={async (name) => {
+          const entity = "cookies";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.enablePurposes(["cookies"]);
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.enablePurposes([entity]);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.purposes[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
       <Getter
         name="disablePurposes[cookies]-transaction"
         call={async (name) => {
+          const entity = "cookies";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.disablePurposes(["cookies"]);
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.disablePurposes([entity]);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.purposes[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
-        {/* Single vendors */}
+      {/* Single vendors */}
       <Getter
         name="enableVendor[ipromote]-transaction"
         call={async (name) => {
+          const entity = "ipromote";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.enableVendor("ipromote");
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.enableVendor(entity);
+          transaction.enablePurposes(allPurposeIds);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.vendors[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
       <Getter
         name="disableVendor[ipromote]-transaction"
         call={async (name) => {
+          const entity = "ipromote";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.disableVendor("ipromote");
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.disableVendor(entity);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.vendors[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
       {/* Multiple vendors */}
       <Getter
         name="enableVendors[ipromote]-transaction"
         call={async (name) => {
+          const entity = "ipromote";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.enableVendors(["ipromote"]);
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.enableVendors([entity]);
+          transaction.enablePurposes(allPurposeIds);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.vendors[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
 
       <Getter
         name="disableVendors[ipromote]-transaction"
         call={async (name) => {
+          const entity = "ipromote";
           const transaction = Didomi.openCurrentUserStatusTransaction();
-          transaction.disableVendors(["ipromote"]);
-          const result = await transaction.commit();
-          return name + "-updated-" +result;
+          transaction.disableVendors([entity]);
+          const isUpdated = await transaction.commit();
+          const currentUserStatus = await Didomi.getCurrentUserStatus();
+          const isEnabled = currentUserStatus.vendors[entity].enabled;
+          return `${name}-updated-${isUpdated}-enabled-${isEnabled}`;
         }}
-        test={() => {
-          return true;
-        }} />
+        test={() => true}
+      />
     </View>
   );
 }

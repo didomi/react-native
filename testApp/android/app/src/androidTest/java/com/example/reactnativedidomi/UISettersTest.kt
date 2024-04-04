@@ -63,7 +63,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
     }
 
     @Test
@@ -73,7 +73,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
     }
 
     @Test
@@ -83,7 +83,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
     }
 
     @Test
@@ -93,7 +93,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
     }
 
     /** Multiple purposes */
@@ -104,7 +104,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
     }
 
     @Test
@@ -114,7 +114,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
     }
 
     @Test
@@ -124,7 +124,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
     }
 
     @Test
@@ -134,7 +134,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
     }
 
     /** Single vendors */
@@ -145,7 +145,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
     }
 
     @Test
@@ -155,7 +155,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
     }
 
     @Test
@@ -165,7 +165,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
     }
 
     @Test
@@ -175,7 +175,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
     }
 
     /** Multiple vendors */
@@ -186,7 +186,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
     }
 
     @Test
@@ -196,7 +196,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
     }
 
     @Test
@@ -206,7 +206,7 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-true\"")
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
     }
 
     @Test
@@ -216,6 +216,6 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         tapButton(buttonName)
         Thread.sleep(2_000L)
-        assertText("\"${buttonName}-updated-false\"")
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
     }
 }
