@@ -54,4 +54,168 @@ class UISettersTest: BaseUITest() {
         Thread.sleep(2_000L)
         assertText("setUserDisagreeToAll-OK")
     }
+
+    /** Single purposes */
+    @Test
+    fun test_EnablePurposeTransactionWithChange() {
+        val buttonName = "enablePurpose[cookies]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
+    }
+
+    @Test
+    fun test_EnablePurposeTransactionWithoutChange() {
+        val buttonName = "enablePurpose[cookies]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
+    }
+
+    @Test
+    fun test_DisablePurposeTransactionWithChange() {
+        val buttonName = "disablePurpose[cookies]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
+    }
+
+    @Test
+    fun test_DisablePurposeTransactionWithoutChange() {
+        val buttonName = "disablePurpose[cookies]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
+    }
+
+    /** Multiple purposes */
+    @Test
+    fun test_EnablePurposesTransactionWithChange() {
+        val buttonName = "enablePurposes[cookies]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
+    }
+
+    @Test
+    fun test_EnablePurposesTransactionWithoutChange() {
+        val buttonName = "enablePurposes[cookies]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
+    }
+
+    @Test
+    fun test_DisablePurposesTransactionWithChange() {
+        val buttonName = "disablePurposes[cookies]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
+    }
+
+    @Test
+    fun test_DisablePurposesTransactionWithoutChange() {
+        val buttonName = "disablePurposes[cookies]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
+    }
+
+    /** Single vendors */
+    @Test
+    fun test_EnableVendorTransactionWithChange() {
+        val buttonName = "enableVendor[ipromote]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
+    }
+
+    @Test
+    fun test_EnableVendorTransactionWithoutChange() {
+        val buttonName = "enableVendor[ipromote]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
+    }
+
+    @Test
+    fun test_DisableVendorTransactionWithChange() {
+        val buttonName = "disableVendor[ipromote]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
+    }
+
+    @Test
+    fun test_DisableVendorTransactionWithoutChange() {
+        val buttonName = "disableVendor[ipromote]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
+    }
+
+    /** Multiple vendors */
+    @Test
+    fun test_EnableVendorsTransactionWithChange() {
+        val buttonName = "enableVendors[ipromote]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-true\"")
+    }
+
+    @Test
+    fun test_EnableVendorsTransactionWithoutChange() {
+        val buttonName = "enableVendors[ipromote]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-true\"")
+    }
+
+    @Test
+    fun test_DisableVendorsTransactionWithChange() {
+        val buttonName = "disableVendors[ipromote]-transaction"
+        tapButton("setUserAgreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-true-enabled-false\"")
+    }
+
+    @Test
+    fun test_DisableVendorsTransactionWithoutChange() {
+        val buttonName = "disableVendors[ipromote]-transaction"
+        tapButton("setUserDisagreeToAll")
+        Thread.sleep(2_000L)
+        tapButton(buttonName)
+        Thread.sleep(2_000L)
+        assertText("\"${buttonName}-updated-false-enabled-false\"")
+    }
 }

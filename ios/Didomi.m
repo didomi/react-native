@@ -250,6 +250,13 @@ RCT_EXTERN_METHOD(stopListeningToVendorStatus:(NSString *)vendorId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(commitCurrentUserStatusTransaction:(NSArray<NSString *> *)enabledPurposes
+                  disabledPurposes:(NSArray<NSString *> *)disabledPurposes
+                  enabledVendors:(NSArray<NSString *> *)enabledVendors
+                  disabledVendors:(NSArray<NSString *> *)disabledVendors
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(supportedEvents)
 
 @end

@@ -4,7 +4,7 @@ import { convertResultToString } from './helpers/ResultHelper';
 
 interface GetterCallProps {
   name: string;
-  call: () => any;
+  call: (name: string) => any;
   test: (result: any) => boolean;
 }
 
@@ -16,7 +16,7 @@ export default function Getter(props: GetterCallProps) {
     <View style={styles.container}>
       <Button
         onPress={async () => {
-          setResult(await props.call());
+          setResult(await props.call(props.name));
           setCalled(true);
         }}
         title={props.name}
