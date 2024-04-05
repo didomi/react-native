@@ -37,16 +37,16 @@ class RNDidomi: RCTEventEmitter {
 
     @objc(onReady:reject:)
     func onReady(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        Didomi.shared.onReady {
-            self.dispatchEvent(withName: "on_ready_callback", body: nil)
+        Didomi.shared.onReady { [weak self] in
+            self?.dispatchEvent(withName: "on_ready_callback", body: nil)
         }
         resolve(0)
     }
 
     @objc(onError:reject:)
     func onError(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        Didomi.shared.onError { error in
-            self.dispatchEvent(withName: "on_error_callback", body: error.descriptionText)
+        Didomi.shared.onError { [weak self] error in
+            self?.dispatchEvent(withName: "on_error_callback", body: error.descriptionText)
         }
         resolve(0)
     }
@@ -480,10 +480,10 @@ class RNDidomi: RCTEventEmitter {
     dynamic func listenToVendorStatus(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         if (!vendorStatusListeners.contains(vendorId)) {
             vendorStatusListeners.insert(vendorId)
-            Didomi.shared.addVendorStatusListener(id: vendorId) { vendorStatus in
+            Didomi.shared.addVendorStatusListener(id: vendorId) { [weak self] vendorStatus in
                 let encoder = JSONEncoder()
                 let statusJson = try? JSONSerialization.jsonObject(with: encoder.encode(vendorStatus)) as? [String: Any]
-                self.dispatchEvent(withName: "on_vendor_status_change_\(vendorId)", body: statusJson)
+                self?.dispatchEvent(withName: "on_vendor_status_change_\(vendorId)", body: statusJson)
             }
         }
         resolve(0)
@@ -601,164 +601,164 @@ extension RNDidomi {
 
     private func initEventListener() {
     
-        didomiEventListener.onConsentChanged = { event in
-            self.dispatchEvent(withName: "on_consent_changed", body: "")
+        didomiEventListener.onConsentChanged = { [weak self] event in
+            self?.dispatchEvent(withName: "on_consent_changed", body: "")
         }
         
-        didomiEventListener.onError = { event in
-            self.dispatchEvent(withName: "on_error", body: event.descriptionText)
+        didomiEventListener.onError = { [weak self] event in
+            self?.dispatchEvent(withName: "on_error", body: event.descriptionText)
         }
         
-        didomiEventListener.onReady = { event in
-            self.dispatchEvent(withName: "on_ready", body: "")
+        didomiEventListener.onReady = { [weak self] event in
+            self?.dispatchEvent(withName: "on_ready", body: "")
         }
         
-        didomiEventListener.onHideNotice = { event in
-            self.dispatchEvent(withName: "on_hide_notice", body: "")
+        didomiEventListener.onHideNotice = { [weak self] event in
+            self?.dispatchEvent(withName: "on_hide_notice", body: "")
         }
         
-        didomiEventListener.onShowNotice = { event in
-            self.dispatchEvent(withName: "on_show_notice", body: "")
+        didomiEventListener.onShowNotice = { [weak self] event in
+            self?.dispatchEvent(withName: "on_show_notice", body: "")
         }
         
-        didomiEventListener.onNoticeClickAgree = { event in
-            self.dispatchEvent(withName: "on_notice_click_agree", body: "")
+        didomiEventListener.onNoticeClickAgree = { [weak self] event in
+            self?.dispatchEvent(withName: "on_notice_click_agree", body: "")
         }
         
-        didomiEventListener.onNoticeClickDisagree = { event in
-            self.dispatchEvent(withName: "on_notice_click_disagree", body: "")
+        didomiEventListener.onNoticeClickDisagree = { [weak self] event in
+            self?.dispatchEvent(withName: "on_notice_click_disagree", body: "")
         }
 
-        didomiEventListener.onNoticeClickViewVendors = { event in
-            self.dispatchEvent(withName: "on_notice_click_view_vendors", body: "")
+        didomiEventListener.onNoticeClickViewVendors = { [weak self] event in
+            self?.dispatchEvent(withName: "on_notice_click_view_vendors", body: "")
         }
 
-        didomiEventListener.onNoticeClickViewSPIPurposes = { event in
-            self.dispatchEvent(withName: "on_notice_click_view_spi_purposes", body: "")
+        didomiEventListener.onNoticeClickViewSPIPurposes = { [weak self] event in
+            self?.dispatchEvent(withName: "on_notice_click_view_spi_purposes", body: "")
         }
         
-        didomiEventListener.onNoticeClickMoreInfo = { event in
-            self.dispatchEvent(withName: "on_notice_click_more_info", body: "")
+        didomiEventListener.onNoticeClickMoreInfo = { [weak self] event in
+            self?.dispatchEvent(withName: "on_notice_click_more_info", body: "")
         }
 
-        didomiEventListener.onNoticeClickPrivacyPolicy = { event in
-            self.dispatchEvent(withName: "on_notice_click_privacy_policy", body: "")
+        didomiEventListener.onNoticeClickPrivacyPolicy = { [weak self] event in
+            self?.dispatchEvent(withName: "on_notice_click_privacy_policy", body: "")
         }
         
-        didomiEventListener.onHidePreferences = { event in
-            self.dispatchEvent(withName: "on_hide_preferences", body: "")
+        didomiEventListener.onHidePreferences = { [weak self] event in
+            self?.dispatchEvent(withName: "on_hide_preferences", body: "")
         }
         
-        didomiEventListener.onShowPreferences = { event in
-            self.dispatchEvent(withName: "on_show_preferences", body: "")
+        didomiEventListener.onShowPreferences = { [weak self] event in
+            self?.dispatchEvent(withName: "on_show_preferences", body: "")
         }
         
-        didomiEventListener.onPreferencesClickViewPurposes = { event in
-            self.dispatchEvent(withName: "on_preferences_click_view_purposes", body: "")
+        didomiEventListener.onPreferencesClickViewPurposes = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_view_purposes", body: "")
         }
         
-        didomiEventListener.onPreferencesClickViewVendors = { event in
-            self.dispatchEvent(withName: "on_preferences_click_view_vendors", body: "")
+        didomiEventListener.onPreferencesClickViewVendors = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_view_vendors", body: "")
         }
         
-        didomiEventListener.onPreferencesClickViewSPIPurposes = { event in
-            self.dispatchEvent(withName: "on_preferences_click_view_spi_purposes", body: "")
+        didomiEventListener.onPreferencesClickViewSPIPurposes = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_view_spi_purposes", body: "")
         }
         
-        didomiEventListener.onPreferencesClickAgreeToAll = { event in
-            self.dispatchEvent(withName: "on_preferences_click_agree_to_all", body: "")
+        didomiEventListener.onPreferencesClickAgreeToAll = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_agree_to_all", body: "")
         }
         
-        didomiEventListener.onPreferencesClickDisagreeToAll = { event in
-            self.dispatchEvent(withName: "on_preferences_click_disagree_to_all", body: "")
+        didomiEventListener.onPreferencesClickDisagreeToAll = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_disagree_to_all", body: "")
         }
         
-        didomiEventListener.onPreferencesClickAgreeToAllPurposes = { event in
-            self.dispatchEvent(withName: "on_preferences_click_agree_to_all_purposes", body: "")
+        didomiEventListener.onPreferencesClickAgreeToAllPurposes = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_agree_to_all_purposes", body: "")
         }
         
-        didomiEventListener.onPreferencesClickDisagreeToAllPurposes = { event in
-            self.dispatchEvent(withName: "on_preferences_click_disagree_to_all_purposes", body: "")
+        didomiEventListener.onPreferencesClickDisagreeToAllPurposes = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_disagree_to_all_purposes", body: "")
         }
         
-        didomiEventListener.onPreferencesClickResetAllPurposes = { event in
-            self.dispatchEvent(withName: "on_preferences_click_reset_all_purposes", body: "")
+        didomiEventListener.onPreferencesClickResetAllPurposes = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_reset_all_purposes", body: "")
         }
         
-        didomiEventListener.onPreferencesClickPurposeAgree = { event, purposeId in
-            self.dispatchEvent(withName: "on_preferences_click_purpose_agree", body: purposeId)
+        didomiEventListener.onPreferencesClickPurposeAgree = { [weak self] event, purposeId in
+            self?.dispatchEvent(withName: "on_preferences_click_purpose_agree", body: purposeId)
         }
         
-        didomiEventListener.onPreferencesClickPurposeDisagree = { event, purposeId in
-            self.dispatchEvent(withName: "on_preferences_click_purpose_disagree", body: purposeId)
+        didomiEventListener.onPreferencesClickPurposeDisagree = { [weak self] event, purposeId in
+            self?.dispatchEvent(withName: "on_preferences_click_purpose_disagree", body: purposeId)
         }
         
-        didomiEventListener.onPreferencesClickCategoryAgree = { event, categoryId in
-            self.dispatchEvent(withName: "on_preferences_click_category_agree", body: categoryId)
+        didomiEventListener.onPreferencesClickCategoryAgree = { [weak self] event, categoryId in
+            self?.dispatchEvent(withName: "on_preferences_click_category_agree", body: categoryId)
         }
         
-        didomiEventListener.onPreferencesClickCategoryDisagree = { event, categoryId in
-            self.dispatchEvent(withName: "on_preferences_click_category_disagree", body: categoryId)
+        didomiEventListener.onPreferencesClickCategoryDisagree = { [weak self] event, categoryId in
+            self?.dispatchEvent(withName: "on_preferences_click_category_disagree", body: categoryId)
         }
         
-        didomiEventListener.onPreferencesClickSaveChoices = { event in
-            self.dispatchEvent(withName: "on_preferences_click_save_choices", body: "")
+        didomiEventListener.onPreferencesClickSaveChoices = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_save_choices", body: "")
         }
         
-        didomiEventListener.onPreferencesClickAgreeToAllVendors = { event in
-            self.dispatchEvent(withName: "on_preferences_click_agree_to_all_vendors", body: "")
+        didomiEventListener.onPreferencesClickAgreeToAllVendors = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_agree_to_all_vendors", body: "")
         }
         
-        didomiEventListener.onPreferencesClickDisagreeToAllVendors = { event in
-            self.dispatchEvent(withName: "on_preferences_click_disagree_to_all_vendors", body: "")
+        didomiEventListener.onPreferencesClickDisagreeToAllVendors = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_disagree_to_all_vendors", body: "")
         }
         
-        didomiEventListener.onPreferencesClickVendorAgree = { event, vendorId in
-            self.dispatchEvent(withName: "on_preferences_click_vendor_agree", body: vendorId)
+        didomiEventListener.onPreferencesClickVendorAgree = { [weak self] event, vendorId in
+            self?.dispatchEvent(withName: "on_preferences_click_vendor_agree", body: vendorId)
         }
         
-        didomiEventListener.onPreferencesClickVendorDisagree = { event, vendorId in
-            self.dispatchEvent(withName: "on_preferences_click_vendor_disagree", body: vendorId)
+        didomiEventListener.onPreferencesClickVendorDisagree = { [weak self] event, vendorId in
+            self?.dispatchEvent(withName: "on_preferences_click_vendor_disagree", body: vendorId)
         }
         
-        didomiEventListener.onPreferencesClickVendorSaveChoices = { event in
-            self.dispatchEvent(withName: "on_preferences_click_vendor_save_choices", body: "")
+        didomiEventListener.onPreferencesClickVendorSaveChoices = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_vendor_save_choices", body: "")
         }
         
-        didomiEventListener.onPreferencesClickSPIPurposeAgree = { event, purposeId in
-            self.dispatchEvent(withName: "on_preferences_click_spi_purpose_agree", body: purposeId)
+        didomiEventListener.onPreferencesClickSPIPurposeAgree = { [weak self] event, purposeId in
+            self?.dispatchEvent(withName: "on_preferences_click_spi_purpose_agree", body: purposeId)
         }
         
-        didomiEventListener.onPreferencesClickSPIPurposeDisagree = { event, purposeId in
-            self.dispatchEvent(withName: "on_preferences_click_spi_purpose_disagree", body: purposeId)
+        didomiEventListener.onPreferencesClickSPIPurposeDisagree = { [weak self] event, purposeId in
+            self?.dispatchEvent(withName: "on_preferences_click_spi_purpose_disagree", body: purposeId)
         }
         
-        didomiEventListener.onPreferencesClickSPICategoryAgree = { event, categoryId in
-            self.dispatchEvent(withName: "on_preferences_click_spi_category_agree", body: categoryId)
+        didomiEventListener.onPreferencesClickSPICategoryAgree = { [weak self] event, categoryId in
+            self?.dispatchEvent(withName: "on_preferences_click_spi_category_agree", body: categoryId)
         }
         
-        didomiEventListener.onPreferencesClickSPICategoryDisagree = { event, categoryId in
-            self.dispatchEvent(withName: "on_preferences_click_spi_category_disagree", body: categoryId)
+        didomiEventListener.onPreferencesClickSPICategoryDisagree = { [weak self] event, categoryId in
+            self?.dispatchEvent(withName: "on_preferences_click_spi_category_disagree", body: categoryId)
         }
         
-        didomiEventListener.onPreferencesClickSPIPurposeSaveChoices = { event in
-            self.dispatchEvent(withName: "on_preferences_click_spi_purpose_save_choices", body: "")
+        didomiEventListener.onPreferencesClickSPIPurposeSaveChoices = { [weak self] event in
+            self?.dispatchEvent(withName: "on_preferences_click_spi_purpose_save_choices", body: "")
         }
         
-        didomiEventListener.onSyncDone = { event, organizationUserId in
-            self.dispatchEvent(withName: "on_sync_done", body: organizationUserId)
+        didomiEventListener.onSyncDone = { [weak self] event, organizationUserId in
+            self?.dispatchEvent(withName: "on_sync_done", body: organizationUserId)
         }
 
-        didomiEventListener.onSyncError = { event, error in
-            self.dispatchEvent(withName: "on_sync_error", body: error)
+        didomiEventListener.onSyncError = { [weak self] event, error in
+            self?.dispatchEvent(withName: "on_sync_error", body: error)
         }
         
-        didomiEventListener.onLanguageUpdated = { event, languageCode in
-            self.dispatchEvent(withName: "on_language_updated", body: languageCode)
+        didomiEventListener.onLanguageUpdated = { [weak self] event, languageCode in
+            self?.dispatchEvent(withName: "on_language_updated", body: languageCode)
         }
 
-        didomiEventListener.onLanguageUpdateFailed = { event, reason in
-            self.dispatchEvent(withName: "on_language_update_failed", body: reason)
+        didomiEventListener.onLanguageUpdateFailed = { [weak self] event, reason in
+            self?.dispatchEvent(withName: "on_language_update_failed", body: reason)
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)
