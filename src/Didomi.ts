@@ -724,11 +724,11 @@ export const Didomi = {
   updateSelectedLanguage: (languageCode: string): Promise<void> =>
     RNDidomi.updateSelectedLanguage(languageCode),
 
-    /**
-     * Creates a `CurrentUserStatusTransaction` object.
-     * This object provides mechanisms to stage updates to the user status regarding purposes and vendors, allowing for batch operations. 
-     * Updates made through its methods are queued and applied simultaneously to the user status only once the commit method of the returned object is called.
-     * @returns A new `CurrentUserStatusTransaction` object.
-     */
+  /**
+   * Creates a `CurrentUserStatusTransaction` object.
+   * This object provides mechanisms to stage updates to the user status regarding purposes and vendors, allowing for batch operations. 
+   * Updates made through its methods are queued and applied simultaneously to the user status only once the commit method of the returned object is called.
+   * @returns A new `CurrentUserStatusTransaction` object.
+   */
   openCurrentUserStatusTransaction: (): CurrentUserStatusTransaction => createCurrentUserStatusTransaction(RNDidomi.commitCurrentUserStatusTransaction),
 };
