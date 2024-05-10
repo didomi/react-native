@@ -49,6 +49,7 @@ enum class EventTypes(val event: String) {
     PREFERENCES_CLICK_SPI_PURPOSE_SAVE_CHOICES("on_preferences_click_spi_purpose_save_choices"),
     // Sync
     SYNC_DONE("on_sync_done"),
+    SYNC_READY("on_sync_ready"),
     SYNC_ERROR("on_sync_error"),
     // Language
     LANGUAGE_UPDATED("on_language_updated"),

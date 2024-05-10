@@ -22,6 +22,11 @@ export const DidomiListener = {
       DidomiListener.eventEmitter.addListener(eventTypeValue, (_event: any) => {
         let events = DidomiListener.listeners.get(eventTypeValue);
         if (events) {
+          if (eventTypeValue == "on_sync_ready") {
+            _event.syncAcknowledged = (): Promise<boolean> => { 
+              return RNDidomi.syncAcknowledge(_event.syncAcknowledgedIndex)
+            }
+          }
           events.forEach((el: any) => {
             el(_event);
           });

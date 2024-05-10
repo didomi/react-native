@@ -208,12 +208,18 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         /**
          * Sync finished
          */
+        @Deprecated("Use syncReady instead", replaceWith = ReplaceWith("syncReady()"))
         override fun syncDone(event: SyncDoneEvent) = prepareEvent(EventTypes.SYNC_DONE.event, event.organizationUserId)
 
         /**
          * Sync error
          */
         override fun syncError(event: SyncErrorEvent) = prepareEvent(EventTypes.SYNC_ERROR.event, event.error)
+
+        /**
+         * Sync ready
+         */
+        override fun syncReady(event: SyncReadyEvent) = prepareSyncReadyEvent(event)
 
         /**
          * Language updated
@@ -226,6 +232,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         override fun languageUpdateFailed(event: LanguageUpdateFailedEvent) = prepareEvent(EventTypes.LANGUAGE_UPDATE_FAILED.event, event.reason)
     }
     private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
+    private val syncAcknowledgedCallbacks: MutableMap<Int, () -> Boolean> = mutableMapOf()
+    private var syncAcknowledgeCallbackIndex = 0
 
     override fun getName() = "Didomi"
 
@@ -968,6 +976,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise.resolve(transaction.commit())
     }
 
+    @ReactMethod
+    fun syncAcknowledge(callbackIndex: Int, promise: Promise) {
+        val result = syncAcknowledgedCallbacks[callbackIndex]?.let { it() }
+        if (result != null) {
+            promise.resolve(result)
+        } else  {
+            promise.reject(java.lang.IllegalStateException("Native callback not found"))
+        }
+    }
+
     private fun prepareEvent(eventName: String, params: Any?) {
         Log.d("prepareEvent", "Sending $eventName")
         reactContext
@@ -975,8 +993,22 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             .emit(eventName, params)
     }
 
+    private fun prepareSyncReadyEvent(event: SyncReadyEvent) {
+        val eventName = EventTypes.SYNC_READY.event
+        Log.d("prepareEvent", "Sending $eventName")
+        val callbackIndex = syncAcknowledgeCallbackIndex++
+        syncAcknowledgedCallbacks[callbackIndex] = event.syncAcknowledged
+        val params = WritableNativeMap().apply {
+            putBoolean("statusApplied", event.statusApplied)
+            putInt("syncAcknowledgedIndex", callbackIndex)
+        }
+        reactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit(eventName, params)
+    }
+
     // Required to transform from array to variadic.
     private fun readableArrayToStringArray(readableArray: ReadableArray): Array<String> {
-        return Array(readableArray.size()) { i -> readableArray.getString(i) ?: "" }
+        return Array(readableArray.size()) { i -> readableArray.getString(i) }
     }
 }
