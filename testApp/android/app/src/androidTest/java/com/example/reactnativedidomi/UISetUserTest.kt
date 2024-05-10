@@ -1,5 +1,7 @@
 package com.example.reactnativedidomi
 
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
@@ -100,5 +102,21 @@ class UISetUserTest: BaseUITest() {
         tapButton("setUserWithEncryptionAuthWithExpirationAndSetupUI")
         Thread.sleep(2_000L)
         assertText("setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
+    }
+
+    @Test
+    fun test_SyncReadyEvent() {
+        tapButton("Listen user sync")
+        EspressoViewFinder.waitForDisplayed(withText("Listen user sync-OK"))
+
+        tapButton("setUserWithEncryptionAuthWithExpirationAndSetupUI")
+        Thread.sleep(2_000L)
+        assertText("setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
+
+        EspressoViewFinder.waitForDisplayed(ViewMatchers.withText(
+            "LAST RECEIVED EVENT: Sync Ready, status applied? true, acknowledged? false"))
+
+        tapButton("Restore event listeners")
+        EspressoViewFinder.waitForDisplayed(withText("Restore event listeners-OK"))
     }
 }
