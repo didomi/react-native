@@ -233,7 +233,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
     private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
     private val syncAcknowledgedCallbacks: MutableMap<Int, () -> Boolean> = mutableMapOf()
-    private var syncAcknowledgeCallbackIndex = 0
+    private var syncAcknowledgedCallbackIndex = 0
 
     override fun getName() = "Didomi"
 
@@ -977,13 +977,19 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun syncAcknowledge(callbackIndex: Int, promise: Promise) {
+    fun syncAcknowledged(callbackIndex: Int, promise: Promise) {
         val result = syncAcknowledgedCallbacks[callbackIndex]?.let { it() }
         if (result != null) {
             promise.resolve(result)
         } else  {
             promise.reject(java.lang.IllegalStateException("Native callback not found"))
         }
+    }
+
+    @ReactMethod
+    fun removeSyncAcknowledgedCallback(callbackIndex: Int, promise: Promise) {
+        syncAcknowledgedCallbacks.remove(callbackIndex)
+        promise.resolve(0)
     }
 
     private fun prepareEvent(eventName: String, params: Any?) {
@@ -996,7 +1002,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private fun prepareSyncReadyEvent(event: SyncReadyEvent) {
         val eventName = EventTypes.SYNC_READY.event
         Log.d("prepareEvent", "Sending $eventName")
-        val callbackIndex = syncAcknowledgeCallbackIndex++
+        val callbackIndex = syncAcknowledgedCallbackIndex++
         syncAcknowledgedCallbacks[callbackIndex] = event.syncAcknowledged
         val params = WritableNativeMap().apply {
             putBoolean("statusApplied", event.statusApplied)
