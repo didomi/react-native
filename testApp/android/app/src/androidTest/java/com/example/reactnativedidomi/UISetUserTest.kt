@@ -109,12 +109,12 @@ class UISetUserTest: BaseUITest() {
         tapButton("Listen user sync")
         EspressoViewFinder.waitForDisplayed(withText("Listen user sync-OK"))
 
-        tapButton("setUserWithEncryptionAuthWithExpirationAndSetupUI")
+        tapButton("setUserWithId")
         Thread.sleep(2_000L)
-        assertText("setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
+        assertText("setUserWithId-OK")
 
         EspressoViewFinder.waitForDisplayed(ViewMatchers.withText(
-            "LAST RECEIVED EVENT: Sync Ready, status applied? true, acknowledged? false"))
+            "LAST RECEIVED EVENT: Sync Ready, status applied? false, acknowledged? false"))
 
         tapButton("Restore event listeners")
         EspressoViewFinder.waitForDisplayed(withText("Restore event listeners-OK"))
