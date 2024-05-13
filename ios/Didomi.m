@@ -257,6 +257,14 @@ RCT_EXTERN_METHOD(commitCurrentUserStatusTransaction:(NSArray<NSString *> *)enab
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(syncAcknowledged:(int)callbackIndex
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(removeSyncAcknowledgedCallback:(int)callbackIndex
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(supportedEvents)
 
 @end
