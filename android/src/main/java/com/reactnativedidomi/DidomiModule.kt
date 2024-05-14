@@ -979,10 +979,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     @ReactMethod
     fun syncAcknowledged(callbackIndex: Int, promise: Promise) {
         val result = syncAcknowledgedCallbacks[callbackIndex]?.let { it() }
+        syncAcknowledgedCallbacks.remove(callbackIndex)
         if (result != null) {
             promise.resolve(result)
         } else  {
-            promise.reject(java.lang.IllegalStateException("Native callback not found"))
+            promise.reject(java.lang.IllegalStateException("SyncAcknowledged: Native callback not found. The method can be called only once."))
         }
     }
 

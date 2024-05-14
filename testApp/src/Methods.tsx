@@ -123,6 +123,9 @@ export default function Methods(props: MethodsProps) {
             let syncAcknowledged = await data.syncAcknowledged();
             console.log(' --> Acknowledged : ' + syncAcknowledged);
             props.onEventReceived("Sync Ready, status applied? " + data.statusApplied + ", acknowledged? "+syncAcknowledged);
+            let nextSyncAcknowledged = await data.syncAcknowledged();
+            // Should not be displayed because of previous error
+            props.onEventReceived("Sync Ready, acknowledge 2: " + nextSyncAcknowledged);
           });
         }}
         test={() => {

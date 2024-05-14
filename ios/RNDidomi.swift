@@ -524,9 +524,10 @@ class RNDidomi: RCTEventEmitter {
        reject:RCTPromiseRejectBlock
     ) {
         if let callback = syncAcknowledgedCallbacks[callbackIndex] {
+            syncAcknowledgedCallbacks.removeValue(forKey: callbackIndex)
             resolve(callback())
         } else {
-            reject("not_found", "Native callback not found", NSError())
+            reject("not_found", "SyncAcknowledged: Native callback not found. The method can be called only once.", NSError.init(domain: "Didomi", code: 404))
         }
     }
     
