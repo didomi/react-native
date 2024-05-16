@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Didomi, DidomiEventType, VendorStatus } from '@didomi/react-native';
 import MethodCall from './MethodCall';
+import { SyncReadyEvent } from 'src/DidomiTypes';
 
 interface MethodsProps {
   onEventReceived: (eventName: string) => any;
@@ -118,7 +119,7 @@ export default function Methods(props: MethodsProps) {
         call={()=> {
           Didomi.removeAllEventListeners();
           Didomi.removeVendorStatusListener('ipromote');
-          Didomi.addEventListener(DidomiEventType.SYNC_READY, async(data: any) => {
+          Didomi.addEventListener(DidomiEventType.SYNC_READY, async(data: SyncReadyEvent) => {
             console.log('event received: ' + DidomiEventType.SYNC_READY);
             let syncAcknowledged = await data.syncAcknowledged();
             console.log(' --> Acknowledged : ' + syncAcknowledged);

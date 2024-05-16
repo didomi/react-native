@@ -148,3 +148,8 @@ export interface VendorStatus {
   id: string;
   enabled: boolean;
 }
+
+export interface SyncReadyEvent {
+  statusApplied: boolean;
+  syncAcknowledged: () => Promise<boolean>;
+}
