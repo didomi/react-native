@@ -645,15 +645,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithHashParams(
+            userAuthParams = UserAuthWithHashParams(
                 organizationUserId,
                 algorithm,
                 secretId,
                 digest,
                 salt
             ),
-            null,
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -692,7 +691,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithHashParams(
+            userAuthParams = UserAuthWithHashParams(
                 organizationUserId,
                 algorithm,
                 secretId,
@@ -700,8 +699,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 salt,
                 expiration.toLong()
             ),
-            null,
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -734,14 +732,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithEncryptionParams(
+            userAuthParams = UserAuthWithEncryptionParams(
                 organizationUserId,
                 algorithm,
                 secretId,
                 initializationVector
             ),
-            null,
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -777,15 +774,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithEncryptionParams(
+            userAuthParams = UserAuthWithEncryptionParams(
                 organizationUserId,
                 algorithm,
                 secretId,
                 initializationVector,
                 expiration.toLong()
             ),
-            null,
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
