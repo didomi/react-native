@@ -20,7 +20,7 @@ concurrency:
 jobs:
   update:
     name: Update version and dependencies
-    runs-on: macos-latest # required for pod info / update
+    runs-on: macos-12 # required for pod info / update
 
     steps:
       - name: Checkout

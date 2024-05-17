@@ -652,6 +652,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 digest,
                 salt
             ),
+            null,
             currentActivity as? FragmentActivity
         )
         promise.resolve(0)
@@ -699,6 +700,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 salt,
                 expiration.toLong()
             ),
+            null,
             currentActivity as? FragmentActivity
         )
         promise.resolve(0)
@@ -738,6 +740,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 secretId,
                 initializationVector
             ),
+            null,
             currentActivity as? FragmentActivity
         )
         promise.resolve(0)
@@ -781,6 +784,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 initializationVector,
                 expiration.toLong()
             ),
+            null,
             currentActivity as? FragmentActivity
         )
         promise.resolve(0)
