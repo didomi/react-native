@@ -21,10 +21,20 @@ export const DidomiListener = {
       DidomiListener.eventEmitter.removeAllListeners(eventTypeValue);
       DidomiListener.eventEmitter.addListener(eventTypeValue, (_event: any) => {
         let events = DidomiListener.listeners.get(eventTypeValue);
-        if (events) {
+        if (events && events.length > 0) {
+          if (eventTypeValue == "on_sync_ready") {
+            _event.syncAcknowledged = (): Promise<boolean> => { 
+              return RNDidomi.syncAcknowledged(_event.syncAcknowledgedIndex)
+            }
+          }
           events.forEach((el: any) => {
             el(_event);
           });
+        } else {  // No listener for this event type
+          if (eventTypeValue == "on_sync_ready") {  
+            // We can remove syncAcknowledgedCallback as it will never be called
+            RNDidomi.removeSyncAcknowledgedCallback(_event.syncAcknowledgedIndex);
+          }
         }
       });
     });

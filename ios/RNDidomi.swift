@@ -7,6 +7,8 @@ class RNDidomi: RCTEventEmitter {
     
     var didomiEventListener: EventListener
     var vendorStatusListeners: Set<String> = Set()
+    var syncAcknowledgedCallbacks: Dictionary<Int, (() -> Bool)> = [:]
+    private var syncAcknowledgedCallbackIndex: Int = 0
 
     override init() {
         didomiEventListener = EventListener()
@@ -513,7 +515,31 @@ class RNDidomi: RCTEventEmitter {
         transaction.enableVendors(enabledVendors)
         transaction.disableVendors(disabledVendors)
         resolve(transaction.commit())
-   }
+    }
+    
+    @objc(syncAcknowledged:resolve:reject:)
+    dynamic func syncAcknowledged(
+       callbackIndex: Int,
+       resolve:RCTPromiseResolveBlock,
+       reject:RCTPromiseRejectBlock
+    ) {
+        if let callback = syncAcknowledgedCallbacks[callbackIndex] {
+            syncAcknowledgedCallbacks.removeValue(forKey: callbackIndex)
+            resolve(callback())
+        } else {
+            reject("not_found", "SyncAcknowledged: Native callback not found. The method can be called only once.", NSError.init(domain: "Didomi", code: 404))
+        }
+    }
+    
+    @objc(removeSyncAcknowledgedCallback:resolve:reject:)
+    dynamic func removeSyncAcknowledgedCallback(
+       callbackIndex: Int,
+       resolve:RCTPromiseResolveBlock,
+       reject:RCTPromiseRejectBlock
+    ) {
+        syncAcknowledgedCallbacks.removeValue(forKey: callbackIndex)
+        resolve(0)
+    }
 }
 
 // MARK: Didomi Specific structs
@@ -588,6 +614,7 @@ extension RNDidomi {
                 "on_preferences_click_spi_purpose_save_choices",
                 // Sync
                 "on_sync_done",
+                "on_sync_ready",
                 "on_sync_error",
                 // Language
                 "on_language_updated",
@@ -747,6 +774,17 @@ extension RNDidomi {
         
         didomiEventListener.onSyncDone = { [weak self] event, organizationUserId in
             self?.dispatchEvent(withName: "on_sync_done", body: organizationUserId)
+        }
+        
+        didomiEventListener.onSyncReady = { [weak self] event in
+            let callbackIndex = self?.syncAcknowledgedCallbackIndex ?? -1
+            self?.syncAcknowledgedCallbackIndex += 1
+            self?.syncAcknowledgedCallbacks[callbackIndex] = event.syncAcknowledged
+            let result = [
+                "statusApplied": event.statusApplied,
+                "syncAcknowledgedIndex": callbackIndex
+            ]
+            self?.dispatchEvent(withName: "on_sync_ready", body: result)
         }
 
         didomiEventListener.onSyncError = { [weak self] event, error in

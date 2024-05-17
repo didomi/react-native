@@ -670,6 +670,24 @@ class DidomiExampleUITests: XCTestCase {
     tapButton(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
   }
+  
+  func testSyncReadyEvent() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "Listen user sync")
+    assertResult(in: app, name: "Listen user sync", expected: "Listen user sync-OK")
+
+    tapButton(in: app, name: "setUserWithId")
+    assertResult(in: app, name: "setUserWithId", expected: "setUserWithId-OK")
+    
+    testLastEvent(app: app, name: "Sync Ready, status applied? true, acknowledged? true")
+    
+    tapButton(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI")
+    assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
+    
+    tapButton(in: app, name: "Restore event listeners")
+    assertResult(in: app, name: "Restore event listeners", expected: "Restore event listeners-OK")
+  }
 }
 
 // Utility methods

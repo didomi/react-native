@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Didomi, VendorStatus } from '@didomi/react-native';
+import { Didomi, DidomiEventType, VendorStatus } from '@didomi/react-native';
 import MethodCall from './MethodCall';
+import { SyncReadyEvent } from 'src/DidomiTypes';
 
 interface MethodsProps {
   onEventReceived: (eventName: string) => any;
@@ -107,6 +108,25 @@ export default function Methods(props: MethodsProps) {
           Didomi.addVendorStatusListener('ipromote', (vendorStatus: VendorStatus) => {
             props.onEventReceived("Vendor status ipromote -> " + vendorStatus.enabled);
             console.log("event received: Vendor status ipromote");
+          });
+        }}
+        test={() => {
+          return true;
+        }} />
+
+      <MethodCall
+        name="Listen user sync"
+        call={()=> {
+          Didomi.removeAllEventListeners();
+          Didomi.removeVendorStatusListener('ipromote');
+          Didomi.addEventListener(DidomiEventType.SYNC_READY, async(data: SyncReadyEvent) => {
+            console.log('event received: ' + DidomiEventType.SYNC_READY);
+            let syncAcknowledged = await data.syncAcknowledged();
+            console.log(' --> Acknowledged : ' + syncAcknowledged);
+            props.onEventReceived("Sync Ready, status applied? " + data.statusApplied + ", acknowledged? "+syncAcknowledged);
+            let nextSyncAcknowledged = await data.syncAcknowledged();
+            // Should not be displayed because of previous error
+            props.onEventReceived("Sync Ready, acknowledge 2: " + nextSyncAcknowledged);
           });
         }}
         test={() => {
