@@ -126,7 +126,7 @@ jobs:
   test_ios:
     name: Testing iOS
     needs: test_js
-    runs-on: macos-latest
+    runs-on: macos-12
     defaults:
       run:
         working-directory: testApp

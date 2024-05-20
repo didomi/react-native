@@ -645,14 +645,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithHashParams(
+            userAuthParams = UserAuthWithHashParams(
                 organizationUserId,
                 algorithm,
                 secretId,
                 digest,
                 salt
             ),
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -691,7 +691,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithHashParams(
+            userAuthParams = UserAuthWithHashParams(
                 organizationUserId,
                 algorithm,
                 secretId,
@@ -699,7 +699,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 salt,
                 expiration.toLong()
             ),
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -732,13 +732,13 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithEncryptionParams(
+            userAuthParams = UserAuthWithEncryptionParams(
                 organizationUserId,
                 algorithm,
                 secretId,
                 initializationVector
             ),
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -774,14 +774,14 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
-            UserAuthWithEncryptionParams(
+            userAuthParams = UserAuthWithEncryptionParams(
                 organizationUserId,
                 algorithm,
                 secretId,
                 initializationVector,
                 expiration.toLong()
             ),
-            currentActivity as? FragmentActivity
+            activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
