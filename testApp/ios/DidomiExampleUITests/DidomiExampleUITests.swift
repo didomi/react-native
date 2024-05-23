@@ -60,6 +60,30 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
   }
   
+  func testInitializeParameters() throws {
+    let app = initApp()
+    
+    tapButton(in: app, name: "Initialize FR")
+    assertResult(in: app, name: "Initialize FR", expected: "Initialize FR-OK")
+    
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+    
+    tapButton(in: app, name: "getUserStatus regulation")
+    assertResult(in: app, name: "getUserStatus regulation", expected: "\"gdpr\"")
+
+    tapButton(in: app, name: "Initialize US CA")
+    assertResult(in: app, name: "Initialize US CA", expected: "Initialize US CA-OK")
+    
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+    
+    tapButton(in: app, name: "getUserStatus regulation")
+    assertResult(in: app, name: "getUserStatus regulation", expected: "\"cpra\"")
+    
+    tapButton(in: app, name: "Initialize default notice")
+    assertResult(in: app, name: "Initialize default notice", expected: "Initialize default notice-OK")
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+  }
+  
   func testReset() throws {
     let app = initApp()
 
