@@ -7,6 +7,7 @@ interface InitializeProps {
   updateSdkState: (state: string) => any;
 }
 
+/** Methods related to SDK initialization */
 export default function InitializeMethods(props: InitializeProps) {
 
   const callInitialize = (
