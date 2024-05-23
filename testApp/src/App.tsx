@@ -120,7 +120,7 @@ function App() {
         <View style={styles.container}>
           <Text style={styles.title}>INITIALIZE</Text>
           <InitializeMethods
-            updateSdkState= { setSdkStatus }
+            updateSdkState={setSdkStatus}
            />
           <Text style={styles.title}>METHODS</Text>
           <Methods
