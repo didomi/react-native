@@ -57,6 +57,16 @@ export default function Getters() {
       />
 
       <Getter
+        name="getUserStatus regulation"
+        call={async () => {
+          return (await Didomi.getUserStatus()).regulation;
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Getter
         name="getUserStatus purposes"
         call={async () => {
           return (await Didomi.getUserStatus()).purposes;

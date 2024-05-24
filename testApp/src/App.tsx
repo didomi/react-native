@@ -9,6 +9,7 @@ import Setters from './Setters';
 import SetUser from './SetUser';
 import CurrentUserStatusTransactionsList from './CurrentUserStatusTransactionsList';
 import { TestEvent } from './Types';
+import InitializeMethods from './InitializeMethods';
 
 function App() {
   const [receivedEvent, setReceivedEvent] = useState<TestEvent>({
@@ -117,6 +118,10 @@ function App() {
       </View>
       <ScrollView>
         <View style={styles.container}>
+          <Text style={styles.title}>INITIALIZE</Text>
+          <InitializeMethods
+            updateSdkState={setSdkStatus}
+           />
           <Text style={styles.title}>METHODS</Text>
           <Methods
             onEventReceived={(eventName: string) => setReceivedEvent({ name: eventName }) }

@@ -323,6 +323,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         noticeId: String?,
         androidTvNoticeId: String?,
         androidTvEnabled: Boolean,
+        countryCode: String?,
+        regionCode: String?,
         promise: Promise
     ) {
         try {
@@ -339,7 +341,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 languageCode,
                 noticeId,
                 androidTvNoticeId,
-                androidTvEnabled
+                androidTvEnabled,
+                countryCode,
+                regionCode
             )
 
             val application = currentActivity?.application ?: throw IllegalStateException("No activity present")

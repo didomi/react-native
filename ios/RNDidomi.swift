@@ -20,8 +20,8 @@ class RNDidomi: RCTEventEmitter {
         return true
     }
 
-    @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:androidTvNoticeId:androidTvEnabled:resolve:reject:)
-    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil, androidTvNoticeId: String? = nil, androidTvEnabled: Bool = false, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+    @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:androidTvNoticeId:androidTvEnabled:countryCode:regionCode:resolve:reject:)
+    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil, androidTvNoticeId: String? = nil, androidTvEnabled: Bool = false, countryCode: String? = nil, regionCode: String? = nil, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
         
         Didomi.shared.initialize(DidomiInitializeParameters(
@@ -31,7 +31,9 @@ class RNDidomi: RCTEventEmitter {
             providerID: providerId,
             disableDidomiRemoteConfig: disableDidomiRemoteConfig,
             languageCode: languageCode ?? Locale.current.languageCode ?? "",
-            noticeID: noticeId
+            noticeID: noticeId,
+            countryCode: countryCode,
+            regionCode: regionCode
         ))
 
         resolve(0)

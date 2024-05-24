@@ -14,6 +14,8 @@ RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
                   noticeId:(nullable NSString *)noticeId
                   androidTvNoticeId:(nullable NSString *)androidTvNoticeId
                   androidTvEnabled:(BOOL)androidTvEnabled
+                  countryCode:(nullable NSString *)countryCode
+                  regionCode:(nullable NSString *)regionCode
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

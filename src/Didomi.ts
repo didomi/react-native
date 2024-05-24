@@ -19,6 +19,8 @@ export const Didomi = {
    *  @param noticeId: Notice id for the remote configuration.
    *  @param androidTvNoticeId: Notice id for the remote configuration when running on Android TV device (ignored on iOS / tvOS). Note that using remote configuration is mandatory for TV devices.
    *  @param androidTvEnabled: Whether to allow Didomi SDK to run on Android TV, default to "false".
+   *  @param countryCode: Override user country code when determining the privacy regulation to apply. Keep undefined to let the Didomi SDK determine the user country.
+   *  @param regionCode: Override user region code when determining the privacy regulation to apply. Keep undefined to let the Didomi SDK determine the user region. Ignored if countryCode is not set.
    */
   initialize: (
     apiKey: string,
@@ -29,7 +31,9 @@ export const Didomi = {
     languageCode?: string,
     noticeId?: string,
     androidTvNoticeId?: string,
-    androidTvEnabled: boolean = false
+    androidTvEnabled: boolean = false,
+    countryCode?: string,
+    regionCode?: string,
   ): Promise<void> => {
     // Init listener
     DidomiListener.init();
@@ -46,7 +50,9 @@ export const Didomi = {
       languageCode,
       noticeId,
       androidTvNoticeId,
-      androidTvEnabled
+      androidTvEnabled,
+      countryCode,
+      regionCode
     );
   },
 
