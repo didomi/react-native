@@ -695,6 +695,34 @@ class DidomiExampleUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
   }
   
+  func testSetUserWithHashAuthWithSynchronizedUsers() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithHashAuthWithSynchronizedUsers")
+    assertResult(in: app, name: "setUserWithHashAuthWithSynchronizedUsers", expected: "setUserWithHashAuthWithSynchronizedUsers-OK")
+  }
+  
+  func testSetUserWithHashAuthWithSynchronizedUsersAndSetupUI() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithHashAuthWithSynchronizedUsersAndSetupUI")
+    assertResult(in: app, name: "setUserWithHashAuthWithSynchronizedUsersAndSetupUI", expected: "setUserWithHashAuthWithSynchronizedUsersAndSetupUI-OK")
+  }
+  
+  func testSetUserWithEncryptionAuthWithSynchronizedUsers() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithEncryptionAuthWithSynchronizedUsers")
+    assertResult(in: app, name: "setUserWithEncryptionAuthWithSynchronizedUsers", expected: "setUserWithEncryptionAuthWithSynchronizedUsers-OK")
+  }
+  
+  func testSetUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI")
+    assertResult(in: app, name: "setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI", expected: "setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI-OK")
+  }
+  
   func testSyncReadyEvent() throws {
     let app = initApp()
 

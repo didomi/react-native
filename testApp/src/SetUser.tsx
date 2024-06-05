@@ -44,7 +44,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuth"
         call={async () => {
-          return Didomi.setUserWithHashAuth(userId, "hash-md5", secretId, "test-digest");
+          var userAuthParams = {id: userId, algorithm: "hash-md5", secretId: secretId, digest: "test-digest"};
+          return Didomi.setUserWithAuthParams(userAuthParams);
         }}
         test={() => {
           return true;
@@ -54,7 +55,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuthAndSetupUI"
         call={async () => {
-          return Didomi.setUserWithHashAuthAndSetupUI(userId, "hash-md5", secretId, "test-digest");
+          var userAuthParams = {id: userId, algorithm: "hash-md5", secretId: secretId, digest: "test-digest"};
+          return Didomi.setUserWithAuthParamsAndSetupUI(userAuthParams);
         }}
         test={() => {
           return true;
@@ -64,7 +66,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuthWithSaltAndExpiration"
         call={async () => {
-          return Didomi.setUserWithHashAuth(userId, "hash-md5", secretId, "test-digest", "test-salt", 3600);
+          var userAuthParams = {id: userId, algorithm: "hash-md5", secretId: secretId, digest: "test-digest", salt: "test-salt", expiration: 3600};
+          return Didomi.setUserWithAuthParams(userAuthParams);
         }}
         test={() => {
           return true;
@@ -74,7 +77,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithHashAuthWithSaltAndExpirationAndSetupUI"
         call={async () => {
-          return Didomi.setUserWithHashAuthAndSetupUI(userId, "hash-md5", secretId, "test-digest", "test-salt", 3600);
+          var userAuthParams = {id: userId, algorithm: "hash-md5", secretId: secretId, digest: "test-digest", salt: "test-salt", expiration: 3600};
+          return Didomi.setUserWithAuthParamsAndSetupUI(userAuthParams);
         }}
         test={() => {
           return true;
@@ -84,7 +88,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuth"
         call={async () => {
-          return Didomi.setUserWithEncryptionAuth(userId, "aes-256-cbc", secretId, "abcd");
+          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"};
+          return Didomi.setUserWithAuthParams(userAuthParams);
         }}
         test={() => {
           return true;
@@ -94,7 +99,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuthAndSetupUI"
         call={async () => {
-          return Didomi.setUserWithEncryptionAuthAndSetupUI(userId, "aes-256-cbc", secretId, "abcd");
+          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"};
+          return Didomi.setUserWithAuthParamsAndSetupUI(userAuthParams);
         }}
         test={() => {
           return true;
@@ -104,7 +110,8 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuthWithExpiration"
         call={async () => {
-          return Didomi.setUserWithEncryptionAuth(userId, "aes-256-cbc", secretId, "abcd", 3600);
+          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
+          return Didomi.setUserWithAuthParams(userAuthParams);
         }}
         test={() => {
           return true;
@@ -114,7 +121,76 @@ export default function SetUser() {
       <Setter
         name="setUserWithEncryptionAuthWithExpirationAndSetupUI"
         call={async () => {
-          return Didomi.setUserWithEncryptionAuthAndSetupUI(userId, "aes-256-cbc", secretId, "abcd", 3600);
+          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
+          return Didomi.setUserWithAuthParamsAndSetupUI(userAuthParams);
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Setter
+        name="setUserWithHashAuthWithSynchronizedUsers"
+        call={async () => {
+          var userAuthParams = {id: userId, algorithm: "hash-md5", secretId: secretId, digest: "test-digest"};
+
+          var synchronizedUsers = [
+            {id: userId + "1", algorithm: "hash-md5", secretId: secretId, digest: "test-digest"},
+            {id: userId + "2", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"}
+          ];
+
+          return Didomi.setUserWithAuthParams(userAuthParams, synchronizedUsers);
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Setter
+        name="setUserWithHashAuthWithSynchronizedUsersAndSetupUI"
+        call={async () => {
+          var userAuthParams = {id: userId, algorithm: "hash-md5", secretId: secretId, digest: "test-digest"};
+
+          var synchronizedUsers = [
+            {id: userId + "1", algorithm: "hash-md5", secretId: secretId, digest: "test-digest"},
+            {id: userId + "2", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"}
+          ];
+
+          return Didomi.setUserWithAuthParamsAndSetupUI(userAuthParams, synchronizedUsers);
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Setter
+        name="setUserWithEncryptionAuthWithSynchronizedUsers"
+        call={async () => {
+          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
+
+          var synchronizedUsers = [
+            {id: userId + "1", algorithm: "hash-md5", secretId: secretId, digest: "test-digest"},
+            {id: userId + "2", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"}
+          ];
+
+          return Didomi.setUserWithAuthParams(userAuthParams, synchronizedUsers);
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Setter
+        name="setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI"
+        call={async () => {
+          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
+
+          var synchronizedUsers = [
+            {id: userId + "1", algorithm: "hash-md5", secretId: secretId, digest: "test-digest"},
+            {id: userId + "2", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"}
+          ];
+
+          return Didomi.setUserWithAuthParamsAndSetupUI(userAuthParams, synchronizedUsers);
         }}
         test={() => {
           return true;
