@@ -604,9 +604,9 @@ export const Didomi = {
   },
 
   /**
-   *  Set user information with Encryption authentication
+   *  Set user information with authentication (Hash or Encryption)
    *
-   *  @param userAuthParams as UserAuthParams
+   *  @param userAuthParams as UserAuthParams (use UserAuthWithEncryptionParams or UserAuthWithHashParams)
    *  @param synchronizedUsers as UserAuthParams[] (optional)
    */
   setUserWithAuthParams: (
@@ -615,9 +615,9 @@ export const Didomi = {
   ): void => RNDidomi.setUserWithAuthParams(JSON.stringify(userAuthParams), JSON.stringify(synchronizedUsers)),
 
   /**
-   *  Set user information with Encryption authentication and check for missing consent
+   *  Set user information with authentication (Hash or Encryption) and check for missing consent
    *
-   *  @param userAuthParams as UserAuthParams
+   *  @param userAuthParams as UserAuthParams (use UserAuthWithEncryptionParams or UserAuthWithHashParams)
    *  @param synchronizedUsers as UserAuthParams[] (optional)
    */
   setUserWithAuthParamsAndSetupUI: (
