@@ -1,6 +1,7 @@
 import Didomi
 import AdSupport
 import AppTrackingTransparency
+import Foundation
 
 @objc(Didomi)
 class RNDidomi: RCTEventEmitter {
@@ -479,6 +480,48 @@ class RNDidomi: RCTEventEmitter {
         }
         resolve(0)
     }
+
+    @objc(setUserWithAuthParams:jsonSynchronizedUsers:resolve:reject:)
+    dynamic func setUserWithAuthParams(jsonUserAuthParams: String, jsonSynchronizedUsers: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        do {
+            let userAuthParams = try buildUserAuthParams(from: jsonUserAuthParams)
+            let synchronizedUsers = try jsonSynchronizedUsers.flatMap { try buildUserAuthParamsArray(from: $0) } ?? []
+            
+            Didomi.shared.setUser(
+                userAuthParams: userAuthParams,
+                synchronizedUsers: synchronizedUsers
+            )
+            resolve(0)
+        } catch {
+            reject("Error", "Error while setting user with auth params", error)
+        }
+    }
+
+    @objc(setUserWithAuthParamsAndSetupUI:jsonSynchronizedUsers:resolve:reject:)
+    dynamic func setUserWithAuthParamsAndSetupUI(jsonUserAuthParams: String, jsonSynchronizedUsers: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        do {
+            let userAuthParams = try buildUserAuthParams(from: jsonUserAuthParams)
+            let synchronizedUsers = try jsonSynchronizedUsers.flatMap { try buildUserAuthParamsArray(from: $0) } ?? []
+            
+            DispatchQueue.main.async {
+                if let containerController = RCTPresentedViewController() {
+                    Didomi.shared.setUser(
+                        userAuthParams: userAuthParams,
+                        synchronizedUsers: synchronizedUsers,
+                        containerController: containerController
+                    )
+                } else {
+                    Didomi.shared.setUser(
+                        userAuthParams: userAuthParams,
+                        synchronizedUsers: synchronizedUsers
+                    )
+                }
+            }
+            resolve(0)
+        } catch {
+            reject("Error", "Error while setting user with auth params", error)
+        }
+    }
     
     @objc(listenToVendorStatus:resolve:reject:)
     dynamic func listenToVendorStatus(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
@@ -811,6 +854,75 @@ extension RNDidomi {
         } else {
             // Event emitter is not valid anymore, remove event listener
             Didomi.shared.removeEventListener(listener: didomiEventListener)
+        }
+    }
+    
+    /// Build the user auth params from the JSON parameters
+    private func buildUserAuthParams(from jsonString: String) throws -> UserAuthParams {
+        let data = jsonString.data(using: .utf8)!
+        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+        
+        guard let id = json["id"] as? String,
+              let algorithm = json["algorithm"] as? String,
+              let secretID = json["secretId"] as? String else {
+            fatalError("Missing required parameters")
+        }
+        
+        let expiration = json["expiration"] as? CLong
+        let initializationVector = json["initializationVector"] as? String
+        let digest = json["digest"] as? String
+        let salt = json["salt"] as? String
+        
+        if let initializationVector = initializationVector {
+            if let expiration = expiration {
+                return UserAuthWithEncryptionParams(
+                    id: id,
+                    algorithm: algorithm,
+                    secretID: secretID,
+                    initializationVector: initializationVector,
+                    legacyExpiration: Double(expiration)
+                )
+            } else {
+                return UserAuthWithEncryptionParams(
+                    id: id,
+                    algorithm: algorithm,
+                    secretID: secretID,
+                    initializationVector: initializationVector
+                )
+            }
+        } else {
+            guard let digest = digest else {
+                fatalError("Missing required digest parameter")
+            }
+            if let expiration = expiration {
+                return UserAuthWithHashParams(
+                    id: id,
+                    algorithm: algorithm,
+                    secretID: secretID,
+                    digest: digest,
+                    salt: salt,
+                    legacyExpiration: Double(expiration)
+                )
+            } else {
+                return UserAuthWithHashParams(
+                    id: id,
+                    algorithm: algorithm,
+                    secretID: secretID,
+                    digest: digest,
+                    salt: salt
+                )
+            }
+        }
+    }
+    
+    /// Build the user auth params list from the JSON parameters
+    private func buildUserAuthParamsArray(from jsonString: String) throws -> [UserAuthParams] {
+        let jsonData = jsonString.data(using: .utf8)!
+        let jsonArray = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: Any]]
+        return try jsonArray.map { dictionary in
+            let jsonData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            return try buildUserAuthParams(from: jsonString)
         }
     }
 }

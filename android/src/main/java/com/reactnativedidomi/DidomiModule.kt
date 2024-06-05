@@ -15,8 +15,12 @@ import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
+import io.didomi.sdk.user.UserAuthParams
 import io.didomi.sdk.user.UserAuthWithEncryptionParams
 import io.didomi.sdk.user.UserAuthWithHashParams
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
@@ -231,6 +235,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          */
         override fun languageUpdateFailed(event: LanguageUpdateFailedEvent) = prepareEvent(EventTypes.LANGUAGE_UPDATE_FAILED.event, event.reason)
     }
+
     private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
     private val syncAcknowledgedCallbacks: MutableMap<Int, () -> Boolean> = mutableMapOf()
     private var syncAcknowledgedCallbackIndex = 0
@@ -619,6 +624,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithHashAuth(
         organizationUserId: String,
         algorithm: String,
@@ -640,6 +646,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithHashAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -662,6 +669,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithHashAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
@@ -685,6 +693,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithHashAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -709,6 +718,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithEncryptionAuth(
         organizationUserId: String,
         algorithm: String,
@@ -728,6 +738,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithEncryptionAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -748,6 +759,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithEncryptionAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
@@ -769,6 +781,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithEncryptionAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -788,6 +801,61 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             activity = currentActivity as? FragmentActivity
         )
         promise.resolve(0)
+    }
+
+    @ReactMethod
+    fun setUserWithAuthParams(
+        jsonUserAuthParams: String,
+        jsonSynchronizedUsers: String?,
+        promise: Promise
+    ) {
+        try {
+            val userAuthParams = buildUserAuthParams(JSONObject(jsonUserAuthParams))
+
+            val synchronizedUsers = jsonSynchronizedUsers?.let {
+                JSONArray(it).run {
+                    List(length()) { i -> buildUserAuthParams(getJSONObject(i)) }
+                }
+            } ?: emptyList()
+
+            Didomi.getInstance().setUser(
+                userAuthParams = userAuthParams,
+                synchronizedUsers = synchronizedUsers,
+            )
+
+            promise.resolve(0)
+        } catch (e: JSONException) {
+            Log.e("setUserWithAuthParams", "Error while parsing user with auth params", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun setUserWithAuthParamsAndSetupUI(
+        jsonUserAuthParams: String,
+        jsonSynchronizedUsers: String?,
+        promise: Promise
+    ) {
+        try {
+            val userAuthParams = buildUserAuthParams(JSONObject(jsonUserAuthParams))
+
+            val synchronizedUsers = jsonSynchronizedUsers?.let {
+                JSONArray(it).run {
+                    List(length()) { i -> buildUserAuthParams(getJSONObject(i)) }
+                }
+            } ?: emptyList()
+
+            Didomi.getInstance().setUser(
+                userAuthParams = userAuthParams,
+                synchronizedUsers = synchronizedUsers,
+                activity = currentActivity as? FragmentActivity,
+            )
+
+            promise.resolve(0)
+        } catch (e: JSONException) {
+            Log.e("setUserWithAuthParams", "Error while parsing user with auth params", e)
+            promise.reject(e)
+        }
     }
 
     @ReactMethod
@@ -1021,5 +1089,36 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     // Required to transform from array to variadic.
     private fun readableArrayToStringArray(readableArray: ReadableArray): Array<String> {
         return Array(readableArray.size()) { i -> readableArray.getString(i) }
+    }
+
+    private fun buildUserAuthParams(jsonParameters: JSONObject): UserAuthParams {
+
+        val id = jsonParameters.getString("id")
+        val algorithm = jsonParameters.getString("algorithm")
+        val secretId = jsonParameters.getString("secretId")
+
+        return if (jsonParameters.has("initializationVector")) {
+            val expiration = if (jsonParameters.has("expiration")) jsonParameters.getLong("expiration") else null
+            val initializationVector = jsonParameters.getString("initializationVector")
+            UserAuthWithEncryptionParams(
+                id = id,
+                algorithm = algorithm,
+                secretId = secretId,
+                initializationVector = initializationVector,
+                expiration = expiration
+            )
+        } else {
+            val expiration = if (jsonParameters.has("expiration")) jsonParameters.getLong("expiration") else null
+            val digest = jsonParameters.getString("digest")
+            val salt = if (jsonParameters.has("salt")) jsonParameters.getString("salt") else null
+            UserAuthWithHashParams(
+                id = id,
+                algorithm = algorithm,
+                secretId = secretId,
+                digest = digest,
+                salt = salt,
+                expiration = expiration
+            )
+        }
     }
 }
