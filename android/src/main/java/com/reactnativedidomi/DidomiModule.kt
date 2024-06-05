@@ -261,7 +261,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val set = mutableSetOf<String>()
 
         for (i in 0 until size()) {
-            set.add(getString(i).orEmpty())
+            set.add(getString(i))
         }
 
         return set
