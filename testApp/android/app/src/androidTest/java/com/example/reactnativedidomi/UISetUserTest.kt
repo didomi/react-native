@@ -105,6 +105,34 @@ class UISetUserTest: BaseUITest() {
     }
 
     @Test
+    fun test_SetUserWithHashAuthWithSynchronizedUsers() {
+        tapButton("setUserWithHashAuthWithSynchronizedUsers")
+        Thread.sleep(2_000L)
+        assertText("setUserWithHashAuthWithSynchronizedUsers-OK")
+    }
+
+    @Test
+    fun test_SetUserWithHashAuthWithSynchronizedUsersAndSetupUI() {
+        tapButton("setUserWithHashAuthWithSynchronizedUsersAndSetupUI")
+        Thread.sleep(2_000L)
+        assertText("setUserWithHashAuthWithSynchronizedUsersAndSetupUI-OK")
+    }
+
+    @Test
+    fun test_SetUserWithEncryptionAuthWithSynchronizedUsers() {
+        tapButton("setUserWithEncryptionAuthWithSynchronizedUsers")
+        Thread.sleep(2_000L)
+        assertText("setUserWithEncryptionAuthWithSynchronizedUsers-OK")
+    }
+
+    @Test
+    fun test_SetUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI() {
+        tapButton("setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI")
+        Thread.sleep(2_000L)
+        assertText("setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI-OK")
+    }
+
+    @Test
     fun test_SyncReadyEvent() {
         tapButton("Listen user sync")
         EspressoViewFinder.waitForDisplayed(withText("Listen user sync-OK"))

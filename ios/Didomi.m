@@ -81,16 +81,6 @@ RCT_EXTERN_METHOD(setUserAgreeToAll:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(setUserDisagreeToAll:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-//    @objc(onReady:)
-//    func onReady(callback: @escaping RCTResponseSenderBlock) {
-//        Didomi.shared.onReady(callback: callback)
-//    }
-
-//    @objc(onError:)
-//    func onError(callback: @escaping (Didomi.DidomiErrorEvent)) {
-//        Didomi.shared.onError(callback: callback)
-//    }
-
 RCT_EXTERN_METHOD(reset:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
@@ -241,6 +231,16 @@ RCT_EXTERN_METHOD(setUserWithEncryptionAuthWithExpirationAndSetupUI:(NSString *)
                   secretId:(NSString *)secretId
                   initializationVector:(NSString *)initializationVector
                   expiration: (double)expiration
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(setUserWithAuthParams:(NSString *)jsonUserAuthParams
+                  jsonSynchronizedUsers:(NSString)jsonSynchronizedUsers
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(setUserWithAuthParamsAndSetupUI:(NSString *)jsonUserAuthParams
+                  jsonSynchronizedUsers:(NSString)jsonSynchronizedUsers
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

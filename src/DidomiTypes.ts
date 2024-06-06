@@ -153,3 +153,19 @@ export interface SyncReadyEvent {
   statusApplied: boolean;
   syncAcknowledged: () => Promise<boolean>;
 }
+
+export interface UserAuthParams {
+  id: string;
+  algorithm: string;
+  secretId: string;
+  expiration?: number;
+}
+
+export interface UserAuthWithEncryptionParams extends UserAuthParams {
+  initializationVector: string;
+}
+
+export interface UserAuthWithHashParams extends UserAuthParams {
+  digest: string;
+  salt?: string;
+}

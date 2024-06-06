@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
@@ -464,6 +464,7 @@ export const Didomi = {
    *  @param digest Digest of the organization user ID and secret
    *  @param salt Salt used for computing the digest (optional)
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   *  @deprecated use {@link #setUserWithAuthParams()} instead.
    */
   setUserWithHashAuth: (
     id: string,
@@ -502,6 +503,7 @@ export const Didomi = {
    *  @param digest Digest of the organization user ID and secret
    *  @param salt Salt used for computing the digest (optional)
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   *  @deprecated use {@link #setUserWithAuthParamsAndSetupUI()} instead.
    */
   setUserWithHashAuthAndSetupUI: (
     id: string,
@@ -539,6 +541,7 @@ export const Didomi = {
    *  @param secretId ID of the secret used for computing the digest
    *  @param initializationVector Initialization Vector used for computing the user ID
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   *  @deprecated use {@link #setUserWithAuthParams()} instead.
    */
   setUserWithEncryptionAuth: (
     id: string,
@@ -573,6 +576,7 @@ export const Didomi = {
    *  @param secretId ID of the secret used for computing the digest
    *  @param initializationVector Initialization Vector used for computing the user ID
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
+   *  @deprecated use {@link #setUserWithAuthParamsAndSetupUI()} instead.
    */
   setUserWithEncryptionAuthAndSetupUI: (
     id: string,
@@ -598,6 +602,28 @@ export const Didomi = {
       );
     }
   },
+
+  /**
+   *  Set user information with authentication (Hash or Encryption)
+   *
+   *  @param userAuthParams as UserAuthParams (use UserAuthWithEncryptionParams or UserAuthWithHashParams)
+   *  @param synchronizedUsers as UserAuthParams[] (optional)
+   */
+  setUserWithAuthParams: (
+    userAuthParams: UserAuthParams,
+    synchronizedUsers?: UserAuthParams[] | undefined
+  ): void => RNDidomi.setUserWithAuthParams(JSON.stringify(userAuthParams), JSON.stringify(synchronizedUsers)),
+
+  /**
+   *  Set user information with authentication (Hash or Encryption) and check for missing consent
+   *
+   *  @param userAuthParams as UserAuthParams (use UserAuthWithEncryptionParams or UserAuthWithHashParams)
+   *  @param synchronizedUsers as UserAuthParams[] (optional)
+   */
+  setUserWithAuthParamsAndSetupUI: (
+    userAuthParams: UserAuthParams,
+    synchronizedUsers?: UserAuthParams[] | undefined
+  ): void => RNDidomi.setUserWithAuthParamsAndSetupUI(JSON.stringify(userAuthParams), JSON.stringify(synchronizedUsers)),
 
   /**
    * Show the consent notice (if required, not disabled in the config and not already displayed)
