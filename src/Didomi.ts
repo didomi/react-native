@@ -153,64 +153,56 @@ export const Didomi = {
   /**
    *  Method used to get an array of disabled purposes.
    *  @returns: array of disabled purposes.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().purposes.consent.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getDisabledPurposes: (): Promise<Purpose[]> => RNDidomi.getDisabledPurposes(),
 
   /**
    *  Method used to get a set of disabled purpose IDs.
    *  @returns: set that contains the IDs of disabled purposes.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().purposes.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getDisabledPurposeIds: (): Promise<string[]> => RNDidomi.getDisabledPurposeIds(),
 
   /**
    *  Method used to get an array of disabled vendors.
    *  @returns: array of disabled vendors.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().vendors.consent.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getDisabledVendors: (): Promise<Vendor[]> => RNDidomi.getDisabledVendors(),
 
   /**
    *  Method used to get a set of disabled vendor IDs.
    *  @returns: set that contains the IDs of disabled vendors.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().vendors.consent.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getDisabledVendorIds: (): Promise<string[]> => RNDidomi.getDisabledVendorIds(),
 
   /**
    *  Method used to get an array of enabled purposes.
    *  @returns: array of enabled purposes.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().purposes.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getEnabledPurposes: (): Promise<Purpose[]> => RNDidomi.getEnabledPurposes(),
 
   /**
    *  Method used to get a set of enabled purpose IDs.
    *  @returns: set that contains the IDs of enabled purposes.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().purposes.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getEnabledPurposeIds: (): Promise<string[]> => RNDidomi.getEnabledPurposeIds(),
 
   /**
    *  Method used to get an array of enabled vendors.
    *  @returns: array of enabled vendors.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().vendors.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getEnabledVendors: (): Promise<Vendor[]> => RNDidomi.getEnabledVendors(),
 
   /**
    *  Method used to get a set of enabled vendor IDs.
    *  @returns: set that contains the IDs of enabled vendors.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method
-   *  has been replaced by getUserStatus().vendors.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getEnabledVendorIds: (): Promise<string[]> => RNDidomi.getEnabledVendorIds(),
 
@@ -242,6 +234,7 @@ export const Didomi = {
   /**
    *  Get the configured purpose IDs
    *  @returns: set of purpose IDs.
+   *  @deprecated use {@link #getRequiredPurposes()} instead.
    */
   getRequiredPurposeIds: (): Promise<string[]> => RNDidomi.getRequiredPurposeIds(),
 
@@ -254,6 +247,7 @@ export const Didomi = {
   /**
    *  Get the configured vendor IDs
    *  @returns: set of vendor IDs.
+   *  @deprecated use {@link #getRequiredVendors()} instead.
    */
   getRequiredVendorIds: (): Promise<string[]> => RNDidomi.getRequiredVendorIds(),
 
@@ -292,9 +286,7 @@ export const Didomi = {
    *  Get the user consent status for a specific purpose
    *  @param purposeId: The purpose ID to check consent for
    *  @returns: The user consent status for the specified purpose
-   *  @deprecated use {@link #getUserStatus()} instead. Search the purposeId in
-   * getUserStatus().purposes.consent.enabled or
-   *  getUserStatus().purposes.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserConsentStatusForPurpose: (purposeId: string): Promise<boolean> => RNDidomi.getUserConsentStatusForPurpose(purposeId),
 
@@ -302,9 +294,7 @@ export const Didomi = {
    *  Get the user consent status for a specific vendor
    *  @param vendorId: The vendor ID to check consent for
    *  @returns: The user consent status for the specified vendor
-   *  @deprecated use {@link #getUserStatus()} instead. Search the vendorId in
-   *  getUserStatus().vendors.consent.enabled or
-   *  getUserStatus().vendors.consent.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserConsentStatusForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserConsentStatusForVendor(vendorId),
 
@@ -312,9 +302,7 @@ export const Didomi = {
    *  Get the user consent status for a specific vendor and all its purposes
    *  @param vendorId: The ID of the vendor
    *  @returns: The user consent status corresponding to the specified vendor and all its required purposes.
-   *  @deprecated use {@link #getUserStatus()} instead. The result of this method has been replaced
-   *  by getUserStatus().vendors.global_consent.enabled or
-   *  getUserStatus().vendors.global_consent.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserConsentStatusForVendorAndRequiredPurposes: (vendorId: string): Promise<boolean> => RNDidomi.getUserConsentStatusForVendorAndRequiredPurposes(vendorId),
 
@@ -322,9 +310,7 @@ export const Didomi = {
    *  Get the user legitimate interest status for a specific purpose.
    *  @param purposeId: purpose ID.
    *  @returns: LI status of a purpose.
-   *  @deprecated use {@link #getUserStatus()} instead. Search the purposeId in
-   *  getUserStatus().purposes.consent.enabled or
-   *  getUserStatus().purposes.consent.enabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserLegitimateInterestStatusForPurpose: (purposeId: string): Promise<boolean> => RNDidomi.getUserLegitimateInterestStatusForPurpose(purposeId),
 
@@ -332,9 +318,7 @@ export const Didomi = {
    *  Get the user legitimate interest status for a specific vendor.
    *  @param vendorId: vendor ID.
    *  @returns: LI status of a vendor.
-   *  @deprecated use {@link #getUserStatus()} instead. Search the vendorId in
-   *  getUserStatus().vendors.legitimate_interest.enabled or
-   *  getUserStatus().vendors.legitimate_interest.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserLegitimateInterestForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserLegitimateInterestStatusForVendor(vendorId),
 
@@ -342,9 +326,7 @@ export const Didomi = {
    *  Get the user LI status for a specific vendor and all its purposes.
    *  @param vendorId: vendor ID.
    *  @returns: The user LI status corresponding to the specified vendor and all its required purposes.
-   *  @deprecated use {@link #getUserStatus()} instead. Search the purposeId in
-   *  getUserStatus().vendors.global_legitimate_interest.enabled or
-   *  getUserStatus().vendors.global_legitimate_interest.disabled.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (vendorId: string): boolean => RNDidomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId),
 
@@ -357,6 +339,7 @@ export const Didomi = {
   /**
    *  Get the user consent status.
    *  @returns: status that represents user consent.
+   *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
   getUserStatus: (): Promise<UserStatus> => RNDidomi.getUserStatus(),
 
@@ -393,6 +376,7 @@ export const Didomi = {
    *  - The company is from the EU.
    *  - The user country is unknown and the app has chosen to collect consent when unknown.
    *  @returns: **true** if consent is required, **false** if it is not required.
+   *  @deprecated use {@link #shouldUserStatusBeCollected()} instead.
    */
   isConsentRequired: (): Promise<boolean> => RNDidomi.isConsentRequired(),
 
@@ -408,6 +392,7 @@ export const Didomi = {
   /**
    *  Determine if consent information is available for all purposes and vendors that are required
    *  @returns: **true** if consent is required and consent information is available, **false** otherwise.
+   *  @deprecated use {@link #isUserStatusPartial()} instead.
    */
   isUserConsentStatusPartial: (): Promise<boolean> => RNDidomi.isUserConsentStatusPartial(),
 
@@ -654,6 +639,7 @@ export const Didomi = {
    *  @param enabledVendorIds: set containing **enabled vendor ids**
    *  @param disabledVendorIds: set containing **disabled purpose ids**
    *  @returns: **true** if consent status has been updated, **false** otherwise.
+   *  @deprecated use {@link #setCurrentUserStatus()} instead.
    */
   setUserConsentStatus: (
     enabledPurposeIds: string[],
@@ -717,6 +703,7 @@ export const Didomi = {
    *  @param disabledConsentVendorIds: List of vendor IDs to disable for consent.
    *  @param enabledLIVendorIds: List of vendor IDs to enable for LI.
    *  @param disabledLIVendorIds: List of vendor IDs to disable for LI.
+   *  @deprecated use {@link #setCurrentUserStatus()} instead.
    */
   setUserStatusSets: (
     enabledConsentPurposeIds: string[],
