@@ -309,6 +309,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                         map.putArray(entry.key, Arguments.makeNativeArray(listValues))
                     }
                 }
+                is Boolean -> map.putBoolean(entry.key, value)
+                is Int -> map.putInt(entry.key, value)
+                is Double -> map.putDouble(entry.key, value)
                 else -> map.putString(entry.key, value.toString())
             }
         }
