@@ -351,8 +351,8 @@ class DidomiExampleUITests: XCTestCase {
     XCTAssertTrue(actual.contains("\"addtl_consent\":\"\""))
     XCTAssertTrue(actual.contains("\"consent_string\":\""))
     XCTAssertTrue(actual.contains("\"purposes\":{\""))
-    XCTAssertTrue(actual.contains("\"measure_content_performance\":")) // Key
-    XCTAssertTrue(actual.contains("\"id\":\"measure_content_performance\"")) // Value - id only because id/enabled can change position
+    XCTAssertTrue(actual.contains("\"measure_ad_performance\":")) // Key
+    XCTAssertTrue(actual.contains("\"id\":\"measure_ad_performance\"")) // Value - id only because id/enabled can change position
     XCTAssertTrue(actual.contains("\"vendors\":{\""))
     XCTAssertTrue(actual.contains("\"ipromote\":")) // Key
     XCTAssertTrue(actual.contains("\"id\":\"ipromote\"")) // Value - id only because id/enabled can change position

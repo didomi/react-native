@@ -41,7 +41,7 @@ class UIGettersParamsTest: BaseUITest() {
         assertTextContains("\"id\":\"ipromote\"")
         assertTextContains("\"name\":\"2KDirect, Inc. (dba iPromote)\"")
         assertTextContains("\"purposeIds\":[\"cookies\",\"create_ads_profile\",\"select_personalized_ads\"")
-        assertTextContains("\"specialPurposeIds\":[\"1\",\"2\"]")
+        assertTextContains("\"specialPurposeIds\":[\"1\",\"2\",\"3\"]")
     }
 
     @Test
