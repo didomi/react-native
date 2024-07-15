@@ -105,12 +105,12 @@ jobs:
 
     # Authenticate Cloud SDK
     - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
+      uses: 'google-github-actions/auth@v2'
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
     - name: Setup Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
+      uses: google-github-actions/setup-gcloud@v2
       with:
         project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
 
