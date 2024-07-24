@@ -32,6 +32,8 @@ def parsedPackage = new JsonSlurper().parseText(file("../package.json").text)
 android {
     compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
     buildToolsVersion getExtOrDefault("buildToolsVersion")
+    namespace "com.reactnativedidomi"
+    
     defaultConfig {
         minSdkVersion getExtOrIntegerDefault("minSdkVersion")
         targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
