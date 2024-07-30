@@ -7,13 +7,21 @@
 
 # Get last version from pod
 pod_last_version() {
-  lastversion=""
-  for line in $(pod trunk info Didomi-XCFramework); do
-    if [[ "$line" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-      lastversion=$line
+  version=""
+  temp_file=$(mktemp)
+  pod trunk info Didomi-XCFramework > "$temp_file"
+  
+  while IFS= read -r line; do
+    if [[ "$line" =~ ^[[:space:]]*-[[:space:]]*([0-9]+\.[0-9]+\.[0-9]+) ]]; then
+      current_version="${BASH_REMATCH[1]}"
+      if [[ -z "$version" || $(printf '%s\n' "$version" "$current_version" | sort -V | tail -n1) == "$current_version" ]]; then
+        version=$current_version
+      fi
     fi
-  done
-  echo "$lastversion"
+  done < "$temp_file"
+  
+  rm "$temp_file"
+  echo "$version"
 }
 
 changes=0
