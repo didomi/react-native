@@ -6,7 +6,7 @@
 #----------------------------------------------------------
 
 version=$(cat android/build.gradle | sed -n 's|.*io.didomi.sdk:android:\([^"]*\)".*|\1|p')
-if [[ -z $currentversion ]]; then
+if [[ -z $version ]]; then
   echo "Error while getting android SDK current version"
   exit 1
 fi
