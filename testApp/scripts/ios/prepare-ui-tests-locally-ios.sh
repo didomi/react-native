@@ -1,11 +1,10 @@
 # Delete `package-lock.json` and `yarn.lock`
 (
   [ -f package-lock.json ] && rm package-lock.json && echo "package-lock.json deleted"
-  # Comment this line locally because of failure with Xcode 15 (Yoga.cpp needs to be updated to work with Xcode 15)
-#   [ -f yarn.lock ] && rm yarn.lock && echo "yarn.lock deleted"
+  [ -f yarn.lock ] && rm yarn.lock && echo "yarn.lock deleted"
 )
 
-yarn install
+npm install
 
 # Update pods
 pod update --project-directory=./ios && pod install --project-directory=./ios
