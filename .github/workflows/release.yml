@@ -24,19 +24,19 @@ jobs:
         with:
           node-version: 20
 
-      - name: Cache node dependencies
+      - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
+
       - name: Install dependencies
-        run: yarn install
-      
+        run: npm install
+        
       - name: Run JS tests
-        run: yarn test
+        run: npm test
 
   test_android:
     name: Testing Android
@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Cache node dependencies
+      - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -63,7 +63,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v4
@@ -140,7 +140,7 @@ jobs:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Cache node dependencies
+      - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -149,7 +149,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Install pods
         run: cd ios && pod install
