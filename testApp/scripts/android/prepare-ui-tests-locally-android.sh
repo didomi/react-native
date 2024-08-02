@@ -4,7 +4,7 @@
   [ -f yarn.lock ] && rm yarn.lock && echo "yarn.lock deleted"
 )
 
-yarn install
+npm install
 
 #  Makes gradlew executable
 chmod +x ./android/gradlew
