@@ -14,24 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
-               BuildableName = "libReact.a"
-               BlueprintName = "React"
-               ReferencedContainer = "container:../node_modules/react-native/React/React.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "DidomiExample.app"
-               BlueprintName = "DidomiExample"
-               ReferencedContainer = "container:DidomiExample.xcodeproj">
+               BuildableName = "sample.app"
+               BlueprintName = "sample"
+               ReferencedContainer = "container:sample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -41,24 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DidomiExample.app"
-            BlueprintName = "DidomiExample"
-            ReferencedContainer = "container:DidomiExample.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5782FC4A2668DAA9009F822D"
-               BuildableName = "DidomiExampleUITests.xctest"
-               BlueprintName = "DidomiExampleUITests"
-               ReferencedContainer = "container:DidomiExample.xcodeproj">
+               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
+               BuildableName = "sampleTests.xctest"
+               BlueprintName = "sampleTests"
+               ReferencedContainer = "container:sample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -78,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DidomiExample.app"
-            BlueprintName = "DidomiExample"
-            ReferencedContainer = "container:DidomiExample.xcodeproj">
+            BuildableName = "sample.app"
+            BlueprintName = "sample"
+            ReferencedContainer = "container:sample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -95,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DidomiExample.app"
-            BlueprintName = "DidomiExample"
-            ReferencedContainer = "container:DidomiExample.xcodeproj">
+            BuildableName = "sample.app"
+            BlueprintName = "sample"
+            ReferencedContainer = "container:sample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
