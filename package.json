@@ -14,7 +14,6 @@
     "ios",
     "cpp",
     "react-native-didomi.podspec",
-    "!lib/typescript/testApp",
     "!lib/typescript/sample",
     "!lib/typescript/test",
     "!android/build",
@@ -26,8 +25,7 @@
   "workspaces": [
     ".",
     "sample",
-    "test",
-    "testApp"
+    "test"
   ],
   "scripts": {
     "test": "jest",
