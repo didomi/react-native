@@ -1,0 +1,787 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		76457C67AA8ACD41D9429BB1 /* libPods-Didomi-DidomiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2474A4ECD205A27522AD74D9 /* libPods-Didomi-DidomiTests.a */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		97BCCB952C612644004A174C /* DidomiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB942C612644004A174C /* DidomiUITests.swift */; };
+		97BCCB982C612656004A174C /* PurposeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB962C612656004A174C /* PurposeData.swift */; };
+		97BCCB992C612656004A174C /* VendorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB972C612656004A174C /* VendorData.swift */; };
+		97BCCB9C2C612662004A174C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB9A2C612662004A174C /* String.swift */; };
+		97BCCB9D2C612662004A174C /* XCUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB9B2C612662004A174C /* XCUIElement.swift */; };
+		97BCCB9F2C612B4C004A174C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 97BCCB9E2C612B4C004A174C /* main.jsbundle */; };
+		97CADCF52C60FB740078F82C /* didomi_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 97CADCF42C60FB740078F82C /* didomi_config.json */; };
+		B2C1C4D4C4696A16DA9E2BB8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB291E208CB482F751FBF0 /* PrivacyInfo.xcprivacy */; };
+		DB90173FFD20C1B39324A722 /* libPods-Didomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64BBCAE855AB59CEBCB15F55 /* libPods-Didomi.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = test;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00E356EE1AD99517003FC87E /* DidomiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DidomiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = test/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = test/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = test/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = test/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = test/main.m; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = test/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		2474A4ECD205A27522AD74D9 /* libPods-Didomi-DidomiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Didomi-DidomiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D75B2A57B13B8E5B3FE75C /* Pods-Didomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Didomi.release.xcconfig"; path = "Target Support Files/Pods-Didomi/Pods-Didomi.release.xcconfig"; sourceTree = "<group>"; };
+		2AFB291E208CB482F751FBF0 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = test/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.debug.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test.release.xcconfig"; path = "Target Support Files/Pods-test/Pods-test.release.xcconfig"; sourceTree = "<group>"; };
+		5B7EB9410499542E8C5724F5 /* Pods-test-testTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-testTests.debug.xcconfig"; path = "Target Support Files/Pods-test-testTests/Pods-test-testTests.debug.xcconfig"; sourceTree = "<group>"; };
+		64BBCAE855AB59CEBCB15F55 /* libPods-Didomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Didomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7733471056BBA3E5CE1AA532 /* Pods-Didomi-DidomiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Didomi-DidomiTests.release.xcconfig"; path = "Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests.release.xcconfig"; sourceTree = "<group>"; };
+		807C1CA04C5617D3500FE35A /* Pods-Didomi-DidomiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Didomi-DidomiTests.debug.xcconfig"; path = "Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests.debug.xcconfig"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = test/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-test-testTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test-testTests.release.xcconfig"; path = "Target Support Files/Pods-test-testTests/Pods-test-testTests.release.xcconfig"; sourceTree = "<group>"; };
+		97BCCB932C612644004A174C /* testTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "testTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		97BCCB942C612644004A174C /* DidomiUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DidomiUITests.swift; sourceTree = "<group>"; };
+		97BCCB962C612656004A174C /* PurposeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurposeData.swift; sourceTree = "<group>"; };
+		97BCCB972C612656004A174C /* VendorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VendorData.swift; sourceTree = "<group>"; };
+		97BCCB9A2C612662004A174C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		97BCCB9B2C612662004A174C /* XCUIElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElement.swift; sourceTree = "<group>"; };
+		97BCCB9E2C612B4C004A174C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		97CADCF42C60FB740078F82C /* didomi_config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = didomi_config.json; path = test/didomi_config.json; sourceTree = "<group>"; };
+		D774C58514861B1B6382743B /* Pods-Didomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Didomi.debug.xcconfig"; path = "Target Support Files/Pods-Didomi/Pods-Didomi.debug.xcconfig"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00E356EB1AD99517003FC87E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76457C67AA8ACD41D9429BB1 /* libPods-Didomi-DidomiTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB90173FFD20C1B39324A722 /* libPods-Didomi.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00E356EF1AD99517003FC87E /* DidomiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				97BCCB902C61254F004A174C /* extensions */,
+				97BCCB922C612596004A174C /* models */,
+				97BCCB942C612644004A174C /* DidomiUITests.swift */,
+				00E356F01AD99517003FC87E /* Supporting Files */,
+				97BCCB932C612644004A174C /* testTests-Bridging-Header.h */,
+			);
+			path = DidomiUITests;
+			sourceTree = "<group>";
+		};
+		00E356F01AD99517003FC87E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				00E356F11AD99517003FC87E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13B07FAE1A68108700A75B9A /* Didomi */ = {
+			isa = PBXGroup;
+			children = (
+				97CADCF32C60FB4E0078F82C /* Resources */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
+				13B07FB71A68108700A75B9A /* main.m */,
+				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				2AFB291E208CB482F751FBF0 /* PrivacyInfo.xcprivacy */,
+			);
+			name = Didomi;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				64BBCAE855AB59CEBCB15F55 /* libPods-Didomi.a */,
+				2474A4ECD205A27522AD74D9 /* libPods-Didomi-DidomiTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				13B07FAE1A68108700A75B9A /* Didomi */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				00E356EF1AD99517003FC87E /* DidomiUITests */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				BBD78D7AC51CEA395F1C20DB /* Pods */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* test.app */,
+				00E356EE1AD99517003FC87E /* DidomiTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		97BCCB902C61254F004A174C /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				97BCCB9A2C612662004A174C /* String.swift */,
+				97BCCB9B2C612662004A174C /* XCUIElement.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		97BCCB922C612596004A174C /* models */ = {
+			isa = PBXGroup;
+			children = (
+				97BCCB962C612656004A174C /* PurposeData.swift */,
+				97BCCB972C612656004A174C /* VendorData.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		97CADCF32C60FB4E0078F82C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				97CADCF42C60FB740078F82C /* didomi_config.json */,
+				97BCCB9E2C612B4C004A174C /* main.jsbundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B4392A12AC88292D35C810B /* Pods-test.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-test.release.xcconfig */,
+				5B7EB9410499542E8C5724F5 /* Pods-test-testTests.debug.xcconfig */,
+				89C6BE57DB24E9ADA2F236DE /* Pods-test-testTests.release.xcconfig */,
+				D774C58514861B1B6382743B /* Pods-Didomi.debug.xcconfig */,
+				24D75B2A57B13B8E5B3FE75C /* Pods-Didomi.release.xcconfig */,
+				807C1CA04C5617D3500FE35A /* Pods-Didomi-DidomiTests.debug.xcconfig */,
+				7733471056BBA3E5CE1AA532 /* Pods-Didomi-DidomiTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00E356ED1AD99517003FC87E /* DidomiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DidomiTests" */;
+			buildPhases = (
+				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				00E356EA1AD99517003FC87E /* Sources */,
+				00E356EB1AD99517003FC87E /* Frameworks */,
+				00E356EC1AD99517003FC87E /* Resources */,
+				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
+				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				00E356F51AD99517003FC87E /* PBXTargetDependency */,
+			);
+			name = DidomiTests;
+			productName = DidomiTests;
+			productReference = 00E356EE1AD99517003FC87E /* DidomiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		13B07F861A680F5B00A75B9A /* Didomi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Didomi" */;
+			buildPhases = (
+				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
+				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Didomi;
+			productName = test;
+			productReference = 13B07F961A680F5B00A75B9A /* test.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1210;
+				TargetAttributes = {
+					00E356ED1AD99517003FC87E = {
+						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1540;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1120;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Didomi Tests" */;
+			compatibilityVersion = "Xcode 12.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* Didomi */,
+				00E356ED1AD99517003FC87E /* DidomiTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00E356EC1AD99517003FC87E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				97CADCF52C60FB740078F82C /* didomi_config.json in Resources */,
+				97BCCB9F2C612B4C004A174C /* main.jsbundle in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B2C1C4D4C4696A16DA9E2BB8 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi/Pods-Didomi-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi/Pods-Didomi-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Didomi/Pods-Didomi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Didomi-DidomiTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Didomi-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi/Pods-Didomi-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi/Pods-Didomi-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Didomi/Pods-Didomi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Didomi-DidomiTests/Pods-Didomi-DidomiTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00E356EA1AD99517003FC87E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97BCCB9D2C612662004A174C /* XCUIElement.swift in Sources */,
+				97BCCB982C612656004A174C /* PurposeData.swift in Sources */,
+				97BCCB9C2C612662004A174C /* String.swift in Sources */,
+				97BCCB952C612644004A174C /* DidomiUITests.swift in Sources */,
+				97BCCB992C612656004A174C /* VendorData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* Didomi */;
+			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		00E356F61AD99517003FC87E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 807C1CA04C5617D3500FE35A /* Pods-Didomi-DidomiTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = M8WSGVXRUU;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DidomiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnative.test.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DidomiUITests/testTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/test.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/test";
+			};
+			name = Debug;
+		};
+		00E356F71AD99517003FC87E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7733471056BBA3E5CE1AA532 /* Pods-Didomi-DidomiTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = M8WSGVXRUU;
+				INFOPLIST_FILE = DidomiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnative.test.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DidmiUITests/testTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/test.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/test";
+			};
+			name = Release;
+		};
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D774C58514861B1B6382743B /* Pods-Didomi.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M8WSGVXRUU;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = test/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Didomi Tests";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnative.test;
+				PRODUCT_NAME = test;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 24D75B2A57B13B8E5B3FE75C /* Pods-Didomi.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M8WSGVXRUU;
+				INFOPLIST_FILE = test/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Didomi Tests";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.didomi.reactnative.test;
+				PRODUCT_NAME = test;
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CXX = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DFOLLY_CFG_NO_COROUTINES=1",
+					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				USE_HERMES = true;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CC = "";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				CXX = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD = "";
+				LDPLUSPLUS = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(SDKROOT)/usr/lib/swift\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-DFOLLY_NO_CONFIG",
+					"-DFOLLY_MOBILE=1",
+					"-DFOLLY_USE_LIBCPP=1",
+					"-DFOLLY_CFG_NO_COROUTINES=1",
+					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
+				SDKROOT = iphoneos;
+				USE_HERMES = true;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DidomiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				00E356F61AD99517003FC87E /* Debug */,
+				00E356F71AD99517003FC87E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Didomi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Didomi Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}

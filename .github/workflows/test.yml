@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: testApp
+        working-directory: test
     steps:
 
     - name: Checkout
@@ -94,7 +94,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug.apk 
-        path: testApp/android/app/build/outputs/apk/debug/app-debug.apk 
+        path: test/android/app/build/outputs/apk/debug/app-debug.apk 
         
     - name: Build Android Test
       run: |
@@ -104,7 +104,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-androidTest.apk 
-        path: testApp/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+        path: test/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
     # Authenticate Cloud SDK
     - id: 'auth'
@@ -131,7 +131,7 @@ jobs:
     runs-on: macos-12
     defaults:
       run:
-        working-directory: testApp
+        working-directory: test
     steps:
 
     - name: Checkout
@@ -162,9 +162,7 @@ jobs:
 
     - name: Run iOS Tests
       run: |
-        cp index.tsx index.js
         npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
-        rm index.js
         cd ios && TEST=1 && RCT_NO_LAUNCH_PACKAGER=1 xcodebuild \
         -workspace DidomiExample.xcworkspace \
         -scheme DidomiExample \
