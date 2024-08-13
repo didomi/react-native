@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "DidomiTests.xctest"
-               BlueprintName = "DidomiTests"
+               BlueprintIdentifier = "97F1303D2C6B4458009B8451"
+               BuildableName = "DidomiUITests.xctest"
+               BlueprintName = "DidomiUITests"
                ReferencedContainer = "container:Didomi Tests.xcodeproj">
             </BuildableReference>
          </TestableReference>

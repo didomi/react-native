@@ -23,7 +23,7 @@ target 'Didomi' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'DidomiTests' do
+  target 'DidomiUITests' do
     inherit! :complete
     # Pods for testing
   end
