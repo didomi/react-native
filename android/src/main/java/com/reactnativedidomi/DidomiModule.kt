@@ -464,6 +464,33 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun getTotalVendorCount(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().getTotalVendorCount())
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun getIabVendorCount(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().getIabVendorCount())
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun getNonIabVendorCount(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().getNonIabVendorCount())
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun getRequiredVendors(promise: Promise) {
         try {
             promise.resolve(setToWritableArray(Didomi.getInstance().requiredVendors))
