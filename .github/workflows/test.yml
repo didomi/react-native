@@ -128,7 +128,7 @@ jobs:
   
   ios:
     needs: js
-    runs-on: macos-12
+    runs-on: macos-14
     defaults:
       run:
         working-directory: test
@@ -164,8 +164,8 @@ jobs:
       run: |
         npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
         cd ios && TEST=1 && RCT_NO_LAUNCH_PACKAGER=1 xcodebuild \
-        -workspace DidomiExample.xcworkspace \
-        -scheme DidomiExample \
+        -workspace "Didomi Tests.xcworkspace" \
+        -scheme "Didomi Tests" \
         -sdk iphonesimulator \
-        -destination "platform=iOS Simulator,name=iPhone 14" \
+        -destination "platform=iOS Simulator,name=iPhone 15" \
         clean test
