@@ -8,9 +8,6 @@
 import XCTest
 
 class DidomiUITests: XCTestCase {
-    
-  let allPurposeIDs = "cookies,create_ads_profile,device_characteristics,geolocation_data,improve_products,market_research,measure_ad_performance,measure_content_performance,select_basic_ads,select_personalized_ads,use_limited_data_to_select_content"
-  let allVendorIDs = "1111,217,272"
   
   override func setUpWithError() throws {
     // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -186,7 +183,7 @@ class DidomiUITests: XCTestCase {
     \"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {
     Didomi.notice.hide();Didomi.setUserStatus({"purposes":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
     []}},"vendors":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
-    []}},"user_id":"","created":"","updated":"","source":{"type":"app","domain":"io.didomi.reactnativeapp"},"action":"webview"});});\"
+    []}},"user_id":"","created":"","updated":"","source":{"type":"app","domain":"io.didomi.reactnative.test"},"action":"webview"});});\"
     """.removeNewLinesAndTrailingSpaces()
     
     tapButton(in: app, name: "getJavaScriptForWebView")
@@ -310,11 +307,11 @@ class DidomiUITests: XCTestCase {
     
     // The text might change every time we call the getUserStatus method
     // so we'll only assert the first level parameters of the resulting json string.
-    XCTAssertTrue(actual.contains("{\"consent\":{\"enabled\":["))
-    XCTAssertTrue(actual.contains(",\"global_li\":{\"enabled\":["))
-    XCTAssertTrue(actual.contains(",\"global_consent\":{\"enabled\":["))
-    XCTAssertTrue(actual.contains(",\"legitimate_interest\":{\"enabled\":["))
-    XCTAssertTrue(actual.contains(",\"global\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"consent\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"global_li\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"global_consent\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"legitimate_interest\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"global\":{\"enabled\":["))
   }
   
   func testGetUserStatus_Vendors_global_consent() throws {
@@ -433,7 +430,7 @@ class DidomiUITests: XCTestCase {
     \"window.didomiOnReady = window.didomiOnReady || [];window.didomiOnReady.push(function (Didomi) {
     Didomi.notice.hide();Didomi.setUserStatus({"purposes":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
     []}},"vendors":{"consent":{"enabled":[],"disabled":[]},"legitimate_interest":{"enabled":[],"disabled":
-    []}},"user_id":"","created":"","updated":"","source":{"type":"app","domain":"io.didomi.reactnativeapp"},"action":"webview"});
+    []}},"user_id":"","created":"","updated":"","source":{"type":"app","domain":"io.didomi.reactnative.test"},"action":"webview"});
     console.log('extra JS!');});\"
     """.removeNewLinesAndTrailingSpaces()
     
