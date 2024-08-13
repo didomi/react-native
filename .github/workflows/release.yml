@@ -119,15 +119,20 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          install_components: 'beta'
 
       - name: Run Instrumentation Tests in Firebase Test Lab
         run: |
-          gcloud firebase test android run --type instrumentation \
-          --app android/app/build/outputs/apk/debug/app-debug.apk \
-          --test android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          gcloud beta firebase test android run \
+          --type=instrumentation \
+          --app=android/app/build/outputs/apk/debug/app-debug.apk \
+          --test=android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          --device="model=MediumPhone.arm,version=34,locale=en,orientation=portrait" \
+          --test-targets="package io.didomi.reactnative.test" \
+          --num-flaky-test-attempts=3 \
+          --num-uniform-shards=3 \
           --use-orchestrator \
-          --device model=MediumPhone.arm,version=33,locale=en,orientation=portrait \
-          --num-flaky-test-attempts=3
+          --quiet
 
   test_ios:
     name: Testing iOS
