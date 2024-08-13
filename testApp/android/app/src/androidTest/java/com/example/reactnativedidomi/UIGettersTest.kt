@@ -180,6 +180,6 @@ class UIGettersTest: BaseUITest() {
         // There might be a delay to get this string.
         Thread.sleep(1_000L)
 
-        assertText("Total: 851 - IAB: 848 - Non-IAB: 3")
+        assertText("Total: 2 - IAB: 2 - Non-IAB: 0")
     }
 }

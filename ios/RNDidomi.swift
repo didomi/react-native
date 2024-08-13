@@ -190,17 +190,17 @@ class RNDidomi: RCTEventEmitter {
         resolve(vendors)
     }
 
-    @objc(getTotalVendorCount:resolve:reject:)
+    @objc(getTotalVendorCount:reject:)
     func getTotalVendorCount(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getTotalVendorCount())
     }
 
-    @objc(getIABVendorCount:resolve:reject:)
+    @objc(getIABVendorCount:reject:)
     func getIABVendorCount(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getIABVendorCount())
     }
 
-    @objc(getNonIABVendorCount:resolve:reject:)
+    @objc(getNonIABVendorCount:reject:)
     func getNonIABVendorCount(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.getNonIABVendorCount())
     }
