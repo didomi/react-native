@@ -49,6 +49,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
@@ -87,7 +93,7 @@ jobs:
 
     - name: Build Android App
       run: |
-        npx react-native bundle --platform android --dev false --entry-file index.tsx --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+        npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
         cd android && ./gradlew assembleDebug --no-daemon
 
     - name: Upload Android App APK
