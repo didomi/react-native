@@ -410,7 +410,7 @@ class DidomiExampleUITests: XCTestCase {
     assertEqual(actual, expected)
   }
   
-  func testGetVendoCount() throws {
+  func testGetVendorCount() throws {
     let app = initApp()
 
     tapButton(in: app, name: "Get vendor count")
