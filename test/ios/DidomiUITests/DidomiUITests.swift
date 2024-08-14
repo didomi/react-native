@@ -406,6 +406,14 @@ class DidomiUITests: XCTestCase {
     let expected = VendorURLData(langId: "en", privacy: "https://www.ipromote.com/privacy-policy/", legIntClaim: "https://www.ipromote.com/privacy-policy/")
     assertEqual(actual, expected)
   }
+
+  func testGetVendorCount() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "Get vendor count")
+
+    assertResult(in: app, name: "Get vendor count", expected: "\"Total: 3 - IAB: 3 - Non-IAB: 0\"")
+  }
   
   func testGetText() throws {
     let app = initApp()

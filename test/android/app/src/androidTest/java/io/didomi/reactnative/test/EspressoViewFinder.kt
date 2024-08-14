@@ -3,7 +3,7 @@ package io.didomi.reactnative.test
 import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.PerformException
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -38,7 +38,7 @@ object EspressoViewFinder {
     ) {
 
         // wait for view
-        Espresso.onView(ViewMatchers.isRoot()).perform(createWaitForDisplayedViewAction(viewMatcher, timeOut))
+        onView(isRoot()).perform(createWaitForDisplayedViewAction(viewMatcher, timeOut))
 
         // call handler
         onDisplayedHandler?.invoke(viewMatcher)

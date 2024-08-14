@@ -172,4 +172,16 @@ class UIGettersTest : BaseUITest() {
         assertTextContains("\"didomi_dcs\":\"\"".trim()) // DCS feature flag is disabled (empty string)
         assertTextContains("\"regulation\":\"gdpr\"".trim())
     }
+
+    /** Vendor count */
+
+    @Test
+    fun test_getVendorCount() {
+        tapButton("Get vendor count")
+
+        // There might be a delay to get this string.
+        Thread.sleep(DELAY)
+
+        assertText("\"Total: 3 - IAB: 3 - Non-IAB: 0\"")
+    }
 }
