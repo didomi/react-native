@@ -378,8 +378,6 @@ export const Didomi = {
    */
   getNonIabVendorCount: (): Promise<number> => RNDidomi.getNonIabVendorCount(),
 
-
-
   /**
    *  Hide the notice if it is currently displayed
    */
