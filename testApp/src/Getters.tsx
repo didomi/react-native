@@ -106,6 +106,18 @@ export default function Getters() {
         }}
       />
 
+      <Getter
+        name="Get vendor count"
+        call={async () => {
+          return "Total: " + (await Didomi.getTotalVendorCount())
+            + " - IAB: " + (await Didomi.getIabVendorCount())
+            + " - Non-IAB: " + (await Didomi.getNonIabVendorCount());
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
       {/* 
   getJavaScriptForWebView
   getQueryStringForWebView

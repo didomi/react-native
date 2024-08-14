@@ -36,7 +36,7 @@ object EspressoViewFinder {
                          onDisplayedHandler: ((Matcher<View>) -> Unit)? = null) {
 
         // wait for view
-        Espresso.onView(ViewMatchers.isRoot()).perform(createWaitForDisplayedViewAction(viewMatcher, timeOut))
+        Espresso.onView(isRoot()).perform(createWaitForDisplayedViewAction(viewMatcher, timeOut))
 
         // call handler
         onDisplayedHandler?.invoke(viewMatcher)

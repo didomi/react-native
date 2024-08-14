@@ -361,6 +361,24 @@ export const Didomi = {
   getVendor: (vendorId: string): Promise<Vendor> => RNDidomi.getVendor(vendorId),
 
   /**
+   *  Get the total Vendor count.
+   *  @returns: total vendor count.
+   */
+  getTotalVendorCount: (): Promise<number> => RNDidomi.getTotalVendorCount(),
+
+  /**
+   *  Get the IAB Vendor count.
+   *  @returns: IAB vendor count.
+   */
+  getIabVendorCount: (): Promise<number> => RNDidomi.getIabVendorCount(),
+
+  /**
+   *  Get the non-IAB Vendor count.
+   *  @returns: non-IAB vendor count.
+   */
+  getNonIabVendorCount: (): Promise<number> => RNDidomi.getNonIabVendorCount(),
+
+  /**
    *  Hide the notice if it is currently displayed
    */
   hideNotice: (): Promise<void> => RNDidomi.hideNotice(),

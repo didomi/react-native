@@ -109,6 +109,15 @@ RCT_EXTERN_METHOD(getVendor:(NSString *)vendorId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getTotalVendorCount:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getIabVendorCount:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getNonIabVendorCount:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getJavaScriptForWebView:(NSString *)extra
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)

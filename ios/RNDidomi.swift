@@ -189,6 +189,21 @@ class RNDidomi: RCTEventEmitter {
         let vendors = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getVendor(vendorId: vendorId))) as? [String: Any]
         resolve(vendors)
     }
+
+    @objc(getTotalVendorCount:reject:)
+    func getTotalVendorCount(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.getTotalVendorCount())
+    }
+
+    @objc(getIabVendorCount:reject:)
+    func getIabVendorCount(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.getIABVendorCount())
+    }
+
+    @objc(getNonIabVendorCount:reject:)
+    func getNonIabVendorCount(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.getNonIABVendorCount())
+    }
     
     @objc(getJavaScriptForWebView:resolve:reject:)
     func getJavaScriptForWebView(_ extra: String? = "", resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
