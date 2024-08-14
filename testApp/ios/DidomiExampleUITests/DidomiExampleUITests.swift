@@ -415,7 +415,7 @@ class DidomiExampleUITests: XCTestCase {
 
     tapButton(in: app, name: "Get vendor count")
     
-    assertResult(in: app, name: "Get vendor count", expected: "Total: 3 - IAB: 3 - Non-IAB: 0")
+    assertResult(in: app, name: "Get vendor count", expected: "\"Total: 3 - IAB: 3 - Non-IAB: 0\"")
   }
   
   func testGetText() throws {
