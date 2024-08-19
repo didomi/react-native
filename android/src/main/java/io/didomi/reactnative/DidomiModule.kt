@@ -245,7 +245,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val map = mutableMapOf<String, Any>()
 
         EventTypes.entries.forEach {
-            map[it.event] = MapBuilder.of("registrationName", it.event)
+            map[it.event] = mapOf("registrationName" to it.event)
         }
 
         return map
