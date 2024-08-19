@@ -5,12 +5,12 @@ buildscript {
     def kotlin_version = project.properties["Didomi_kotlinVersion"]
 
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath "com.android.tools.build:gradle:8.5.1"
         // noinspection DifferentKotlinGradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -30,13 +30,12 @@ def getExtOrIntegerDefault(name) {
 def parsedPackage = new JsonSlurper().parseText(file("../package.json").text)
 
 android {
-    compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
-    buildToolsVersion getExtOrDefault("buildToolsVersion")
+    compileSdk getExtOrIntegerDefault("compileSdkVersion")
     namespace "com.reactnativedidomi"
     
     defaultConfig {
-        minSdkVersion getExtOrIntegerDefault("minSdkVersion")
-        targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
+        minSdk getExtOrIntegerDefault("minSdkVersion")
+        targetSdk getExtOrIntegerDefault("targetSdkVersion")
         versionCode 1
         versionName "${parsedPackage.version}"
 
@@ -58,8 +57,8 @@ android {
 }
 
 repositories {
-    mavenCentral()
     google()
+    mavenCentral()
 
     def found = false
     def defaultDir = null
