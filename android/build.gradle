@@ -30,7 +30,7 @@ def parsedPackage = new JsonSlurper().parseText(file("../package.json").text)
 
 android {
     compileSdk getExtOrIntegerDefault("compileSdkVersion")
-    namespace "com.reactnativedidomi"
+    namespace "io.didomi.reactnative"
     
     defaultConfig {
         minSdk getExtOrIntegerDefault("minSdkVersion")

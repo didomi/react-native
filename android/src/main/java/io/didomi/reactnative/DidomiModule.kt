@@ -1,6 +1,5 @@
 @file:Suppress("unused")
-
-package com.reactnativedidomi
+package io.didomi.reactnative
 
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
@@ -245,7 +244,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     override fun getConstants(): Map<String, Any> {
         val map = mutableMapOf<String, Any>()
 
-        EventTypes.values().forEach {
+        EventTypes.entries.forEach {
             map[it.event] = MapBuilder.of("registrationName", it.event)
         }
 
@@ -309,6 +308,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                         map.putArray(entry.key, Arguments.makeNativeArray(listValues))
                     }
                 }
+
                 is Boolean -> map.putBoolean(entry.key, value)
                 is Int -> map.putInt(entry.key, value)
                 is Double -> map.putDouble(entry.key, value)
@@ -590,6 +590,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    @Deprecated("Use shouldUserStatusBeCollected instead", replaceWith = ReplaceWith("shouldUserStatusBeCollected()"))
     fun isUserConsentStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserConsentStatusPartial)
@@ -1084,7 +1085,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         syncAcknowledgedCallbacks.remove(callbackIndex)
         if (result != null) {
             promise.resolve(result)
-        } else  {
+        } else {
             promise.reject(java.lang.IllegalStateException("SyncAcknowledged: Native callback not found. The method can be called only once."))
         }
     }
