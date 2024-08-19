@@ -1,4 +1,4 @@
-import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 import { DidomiEventType, VendorStatus } from './DidomiTypes';
 
 const { Didomi: RNDidomi } = NativeModules;
@@ -72,19 +72,11 @@ export const DidomiListener = {
 
   setOnReadyListener: (): Promise<void> => {
     return new Promise<void>((resolve) => {
-      let subscription: EmitterSubscription;
       const listener = (_event: any) => {
         resolve();
-        if (subscription) {
-          subscription.remove();
-        } else if ('removeListener' in DidomiListener.eventEmitter) {
-          DidomiListener.eventEmitter.removeListener(
-            InternalEventType.READY_CALLBACK,
-            listener
-          );
-        }
+        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.READY_CALLBACK);
       };
-      subscription = DidomiListener.eventEmitter.addListener(
+      DidomiListener.eventEmitter.addListener(
         InternalEventType.READY_CALLBACK,
         listener
       );
@@ -93,19 +85,11 @@ export const DidomiListener = {
 
   setOnErrorListener: (): Promise<void> => {
     return new Promise<void>((resolve) => {
-      let subscription: EmitterSubscription;
       const listener = (_event: any) => {
         resolve(_event);
-        if (subscription) {
-          subscription.remove();
-        } else if ('removeListener' in DidomiListener.eventEmitter) {
-          DidomiListener.eventEmitter.removeListener(
-            InternalEventType.ERROR_CALLBACK,
-            listener
-          );
-        }
+        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.ERROR_CALLBACK);
       };
-      subscription = DidomiListener.eventEmitter.addListener(
+      DidomiListener.eventEmitter.addListener(
         InternalEventType.ERROR_CALLBACK,
         listener
       );

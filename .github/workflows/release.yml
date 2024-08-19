@@ -129,6 +129,7 @@ jobs:
           --test=android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
           --device="model=MediumPhone.arm,version=34,locale=en,orientation=portrait" \
           --test-targets="package io.didomi.reactnative.test" \
+          --results-history-name="${{ github.ref_name }}" \
           --num-flaky-test-attempts=3 \
           --num-uniform-shards=3 \
           --use-orchestrator \
