@@ -244,8 +244,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     override fun getConstants(): Map<String, Any> {
         val map = mutableMapOf<String, Any>()
 
-        EventTypes.entries.forEach {
-            map[it.event] = mapOf("registrationName" to it.event)
+        EventTypes.values().forEach {
+            map[it.event] = MapBuilder.of("registrationName", it.event)
         }
 
         return map
