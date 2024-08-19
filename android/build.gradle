@@ -57,6 +57,7 @@ android {
 
 repositories {
     google()
+    mavenLocal()
     mavenCentral()
 
     def found = false
