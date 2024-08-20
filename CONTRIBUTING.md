@@ -4,56 +4,58 @@ We want this community to be friendly and respectful to each other. Please follo
 
 ## Development workflow
 
-To get started with the project, run `yarn` in the root directory to install the required dependencies for each package:
+To get started with the project, run `npm install` in the root directory to install the required dependencies for each package:
 
 ```sh
-yarn
+npm install
 ```
 
-> While it's possible to use [`npm`](https://github.com/npm/cli), the tooling is built around [`yarn`](https://classic.yarnpkg.com/), so you'll have an easier time if you use `yarn` for development.
-
-While developing, you can run the [testApp app](/testApp/) to test your changes. Any changes you make in your library's JavaScript code will be reflected in the testApp app without a rebuild. If you change any native code, then you'll need to rebuild the testApp app.
+While developing, you can run the [test app](/test/) or [sample app](/sample/) to check your changes. Any changes you make in your library's JavaScript code will be reflected in the testApp app without a rebuild. If you change any native code, then you'll need to rebuild the test / sample app.
 
 To start the packager:
 
 ```sh
-yarn testApp start
+npm install
 ```
 
-To run the testApp app on Android:
+To run the sample app on Android:
 
 ```sh
-yarn testApp android
+cd sample
+npx react-native run-android
 ```
 
-To run the testApp app on iOS:
+To run the sample app on iOS:
 
 ```sh
-yarn testApp ios
+cd sample
+cd ios && pod install
+cd ..
+npx react-native run-ios
 ```
 
 Make sure your code passes TypeScript and ESLint. Run the following to verify:
 
 ```sh
-yarn typescript
-yarn lint
+npm run typescript
+npm run lint
 ```
 
 To fix formatting errors, run the following:
 
 ```sh
-yarn lint --fix
+npm run lint --fix
 ```
 
 Remember to add tests for your change if possible. Run the unit tests by:
 
 ```sh
-yarn test
+npm test
 ```
 
-To edit the Objective-C files, open `testApp/ios/DidomiExample.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-didomi`.
+To edit the Objective-C files, open `test/ios/Didomi Tets.xcworkspace` in XCode and find the source files at `Pods > Development Pods > react-native-didomi`.
 
-To edit the Kotlin files, open `testApp/android` in Android studio and find the source files at `reactnativedidomi` under `Android`.
+To edit the Kotlin files, open `test/android` in Android studio and find the source files at `reactnativedidomi` under `Android`.
 
 ### Commit message convention
 
@@ -73,30 +75,6 @@ Our pre-commit hooks verify that your commit message matches this format when co
 [ESLint](https://eslint.org/), [Prettier](https://prettier.io/), [TypeScript](https://www.typescriptlang.org/)
 
 We use [TypeScript](https://www.typescriptlang.org/) for type checking, [ESLint](https://eslint.org/) with [Prettier](https://prettier.io/) for linting and formatting the code, and [Jest](https://jestjs.io/) for testing.
-
-Our pre-commit hooks verify that the linter and tests pass when committing.
-
-### Publishing to npm
-
-We use [release-it](https://github.com/release-it/release-it) to make it easier to publish new versions. It handles common tasks like bumping version based on semver, creating tags and releases etc.
-
-To publish new versions, run the following:
-
-```sh
-yarn release
-```
-
-### Scripts
-
-The `package.json` file contains various scripts for common tasks:
-
-- `yarn bootstrap`: setup project by installing all dependencies and pods.
-- `yarn typescript`: type-check files with TypeScript.
-- `yarn lint`: lint files with ESLint.
-- `yarn test`: run unit tests with Jest.
-- `yarn testApp start`: start the Metro server for the testApp app.
-- `yarn testApp android`: run the testApp app on Android.
-- `yarn testApp ios`: run the testApp app on iOS.
 
 ### Sending a pull request
 
