@@ -81,12 +81,12 @@ They can be run with:
 
 ```bash
 # test or sample Application
-cd test
+cd sample
 cd ios && pod install
-yarn ios
-# or yarn android
+cd ..
+npx react-native run-ios
+# or npx react-native run-android
 ```
-
 
 ## Suggesting improvements
 
