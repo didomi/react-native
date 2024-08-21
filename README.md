@@ -75,18 +75,18 @@ For complete instructions on installing and using the plugin, please read our do
 
 ## Example applications
 
-Sources contain 2 applications: ``/testApp`` (an app designed mostly for UI testing ) and ``/sampleApp`` (more human friendly app).
+Sources contain 2 applications: ``/test`` (an app designed mostly for UI testing ) and ``/sample`` (more human friendly app).
 
 They can be run with:
 
 ```bash
-# testApp or sampleApp
-cd testApp
+# test or sample Application
+cd sample
 cd ios && pod install
-yarn ios
-# or yarn android
+cd ..
+npx react-native run-ios
+# or npx react-native run-android
 ```
-
 
 ## Suggesting improvements
 

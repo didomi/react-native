@@ -24,19 +24,19 @@ jobs:
         with:
           node-version: 20
 
-      - name: Cache node dependencies
+      - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
+
       - name: Install dependencies
-        run: yarn install
-      
+        run: npm install
+        
       - name: Run JS tests
-        run: yarn test
+        run: npm test
 
   test_android:
     name: Testing Android
@@ -44,17 +44,23 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: testApp
+        working-directory: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Cache node dependencies
+      - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -63,7 +69,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v4
@@ -84,14 +90,14 @@ jobs:
 
       - name: Build Android App
         run: |
-          npx react-native bundle --platform android --dev false --entry-file index.tsx --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
           cd android && ./gradlew assembleDebug --no-daemon
 
       - name: Upload Android App APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug.apk 
-          path: testApp/android/app/build/outputs/apk/debug/app-debug.apk 
+          path: test/android/app/build/outputs/apk/debug/app-debug.apk 
           
       - name: Build Android Test
         run: |
@@ -101,7 +107,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-androidTest.apk 
-          path: testApp/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          path: test/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
       # Authenticate Cloud SDK
       - id: 'auth'
@@ -113,23 +119,29 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.FIREBASE_PROJECT_ID }}
+          install_components: 'beta'
 
       - name: Run Instrumentation Tests in Firebase Test Lab
         run: |
-          gcloud firebase test android run --type instrumentation \
-          --app android/app/build/outputs/apk/debug/app-debug.apk \
-          --test android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          gcloud beta firebase test android run \
+          --type=instrumentation \
+          --app=android/app/build/outputs/apk/debug/app-debug.apk \
+          --test=android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          --device="model=MediumPhone.arm,version=34,locale=en,orientation=portrait" \
+          --test-targets="package io.didomi.reactnative.test" \
+          --results-history-name="${{ github.ref_name }}" \
+          --num-flaky-test-attempts=3 \
+          --num-uniform-shards=3 \
           --use-orchestrator \
-          --device model=MediumPhone.arm,version=33,locale=en,orientation=portrait \
-          --num-flaky-test-attempts=3
+          --quiet
 
   test_ios:
     name: Testing iOS
     needs: test_js
-    runs-on: macos-12
+    runs-on: macos-14
     defaults:
       run:
-        working-directory: testApp
+        working-directory: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -140,7 +152,7 @@ jobs:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Cache node dependencies
+      - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -149,7 +161,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Install pods
         run: cd ios && pod install
@@ -160,10 +172,10 @@ jobs:
           npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
           rm index.js
           cd ios && TEST=1 && RCT_NO_LAUNCH_PACKAGER=1 xcodebuild \
-          -workspace DidomiExample.xcworkspace \
-          -scheme DidomiExample \
+          -workspace "Didomi Tests.xcworkspace" \
+          -scheme "Didomi Tests" \
           -sdk iphonesimulator \
-          -destination "platform=iOS Simulator,name=iPhone 11" \
+          -destination "platform=iOS Simulator,name=iPhone 15" \
           clean test
 
   release:

@@ -15,14 +15,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
+
+      - name: Cache Node dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
-      - run: yarn install
-      - run: yarn prepare
-      - run: npm publish --access public
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prepare and publish
+        run: |
+          npm run prepare
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
