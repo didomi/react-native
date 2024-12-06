@@ -14,9 +14,9 @@ import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
-import io.didomi.sdk.user.UserAuthParams
-import io.didomi.sdk.user.UserAuthWithEncryptionParams
-import io.didomi.sdk.user.UserAuthWithHashParams
+import io.didomi.sdk.user.model.UserAuthParams
+import io.didomi.sdk.user.model.UserAuthWithEncryptionParams
+import io.didomi.sdk.user.model.UserAuthWithHashParams
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
