@@ -12,15 +12,28 @@ import { TestEvent } from './Types';
 import InitializeMethods from './InitializeMethods';
 
 function App() {
-  const [receivedEvent, setReceivedEvent] = useState<TestEvent>({
-    name: 'NONE',
-  });
+  const MAX_EVENTS_DISPLAYED = 3;
+
+  const [receivedEvents, setReceivedEvents] = useState<TestEvent[]>([]);
 
   const [sdkStatus, setSdkStatus] = useState("NOT_READY");
 
+  function pushReceivedEvent(event: TestEvent) {
+    receivedEvents.forEach((el) => console.log("A -- "+el.name) );
+    receivedEvents.push(event);
+    if (receivedEvents.length > MAX_EVENTS_DISPLAYED) {
+      receivedEvents.shift();
+    }
+    receivedEvents.forEach((el) => console.log("B -- "+el.name) );
+    setReceivedEvents([
+      ...receivedEvents,
+      //event
+    ]);
+  }
+
   const registerListener = (eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
-      setReceivedEvent({ name: eventType, data });
+      pushReceivedEvent({ name: eventType, data });
       console.log('event received: ' + eventType);
       if (typeof data != "undefined" && data != "") {
         console.log(' -> data : ' + data);
@@ -105,6 +118,15 @@ function App() {
     init();
   }, []);
 
+  function displayEvents() {
+    return receivedEvents.map((event)=>{
+        return(
+            "\n> " + event.name
+              + (event.data ? "\n  " + JSON.stringify(event.data) : "")
+        )
+    })
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.title}>
@@ -112,8 +134,8 @@ function App() {
           SDK STATUS: {sdkStatus}
         </Text>
         <Text style={styles.title}>
-          LAST RECEIVED EVENT: {receivedEvent.name}
-          {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
+          LAST RECEIVED EVENTS:
+          { displayEvents() }
         </Text>
       </View>
       <ScrollView>
@@ -124,7 +146,7 @@ function App() {
            />
           <Text style={styles.title}>METHODS</Text>
           <Methods
-            onEventReceived={(eventName: string) => setReceivedEvent({ name: eventName }) }
+            onEventReceived={(eventName: string) => pushReceivedEvent({ name: eventName }) }
             registerAllListeners={() => registerAllListeners() }
            />
           <Text style={styles.title}>GETTERS</Text>

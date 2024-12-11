@@ -9,6 +9,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import io.didomi.reactnative.test.EspressoViewFinder.waitForDisplayed
+import org.hamcrest.Matchers.containsString
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -44,7 +45,7 @@ class UIMethodsTest : BaseUITest() {
     }
 
     private fun testLastEvent(event: String) {
-        waitForDisplayed(withText("LAST RECEIVED EVENT: $event"))
+        waitForDisplayed(withText(containsString("> $event")))
     }
 
     fun test_SDKInitOK() {
@@ -86,7 +87,7 @@ class UIMethodsTest : BaseUITest() {
         testMethodCall("updateSelectedLanguage")
 
         waitForDisplayed(withText("updateSelectedLanguage-OK"))
-        testLastEvent("on_language_updated\"fr\"")
+        testLastEvent("on_language_updated\n  \"fr\"")
     }
 
     @Test
