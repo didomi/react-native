@@ -1109,6 +1109,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val callbackIndex = syncAcknowledgedCallbackIndex++
         syncAcknowledgedCallbacks[callbackIndex] = event.syncAcknowledged
         val params = WritableNativeMap().apply {
+            putString("organizationUserId", event.organizationUserId)
             putBoolean("statusApplied", event.statusApplied)
             putInt("syncAcknowledgedIndex", callbackIndex)
         }
