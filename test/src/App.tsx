@@ -26,8 +26,7 @@ function App() {
     }
     receivedEvents.forEach((el) => console.log("B -- "+el.name) );
     setReceivedEvents([
-      ...receivedEvents,
-      //event
+      ...receivedEvents
     ]);
   }
 

@@ -35,7 +35,8 @@ class DidomiUITests: XCTestCase {
   }
   
   private func testLastEvent(app: XCUIApplication, name: String) {
-    let event = app.staticTexts["LAST RECEIVED EVENT: " + name]
+    let predicate = NSPredicate(format: "label CONTAINS %@", "> " + name)
+    let event = app.staticTexts.matching(predicate).firstMatch
     let exists = NSPredicate(format: "exists == 1")
     expectation(for: exists, evaluatedWith: event, handler: nil)
     waitForExpectations(timeout: 5, handler: nil)

@@ -8,13 +8,25 @@ import Setters from './Setters';
 import { TestEvent } from './Types';
 
 function App() {
-  const [receivedEvent, setReceivedEvent] = useState<TestEvent>({
-    name: 'NONE',
-  });
+  const MAX_EVENTS_DISPLAYED = 3;
+
+  const [receivedEvents, setReceivedEvents] = useState<TestEvent[]>([]);
+
+  function pushReceivedEvent(event: TestEvent) {
+    receivedEvents.forEach((el) => console.log("A -- "+el.name) );
+    receivedEvents.push(event);
+    if (receivedEvents.length > MAX_EVENTS_DISPLAYED) {
+      receivedEvents.shift();
+    }
+    receivedEvents.forEach((el) => console.log("B -- "+el.name) );
+    setReceivedEvents([
+      ...receivedEvents
+    ]);
+  }
 
   const registerListener = (eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
-      setReceivedEvent({ name: eventType, data });
+      pushReceivedEvent({ name: eventType, data });
       console.log('event received: ' + eventType);
     });
   };
@@ -81,13 +93,22 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function displayEvents() {
+    return receivedEvents.map((event)=>{
+        return(
+            "\n> " + event.name
+              + (event.data ? "\n  " + JSON.stringify(event.data) : "")
+        )
+    })
+  }
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.title}>
         <Text style={styles.title}>
-          LAST RECEIVED EVENT: {receivedEvent.name}
-          {receivedEvent.data ? JSON.stringify(receivedEvent.data) : null}
-        </Text>
+          LAST RECEIVED EVENTS: 
+          { displayEvents() }
+          </Text>
       </View>
       <ScrollView>
         <View style={styles.container}>

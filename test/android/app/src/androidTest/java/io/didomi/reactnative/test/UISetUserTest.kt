@@ -4,6 +4,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import org.hamcrest.Matchers.containsString
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -145,9 +146,9 @@ class UISetUserTest : BaseUITest() {
         assertText("setUserWithId-OK")
 
         EspressoViewFinder.waitForDisplayed(
-            withText(
-                "LAST RECEIVED EVENT: Sync Ready, status applied? true, acknowledged? true"
-            )
+            withText(containsString(
+                "> Sync Ready, OUID? abcd, status applied? true, acknowledged? true"
+            ))
         )
 
         tapButton("Restore event listeners")
