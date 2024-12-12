@@ -121,7 +121,7 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "updateSelectedLanguage")
     assertResult(in: app, name: "updateSelectedLanguage", expected: "updateSelectedLanguage-OK")
 
-    testLastEvent(app: app, name:"on_language_updated\"fr\"")
+    testLastEvent(app: app, name:"on_language_updated\n  \"fr\"")
   }
   
   func testShowNotice() throws {
@@ -738,7 +738,7 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "setUserWithId")
     assertResult(in: app, name: "setUserWithId", expected: "setUserWithId-OK")
     
-    testLastEvent(app: app, name: "Sync Ready, status applied? true, acknowledged? true")
+    testLastEvent(app: app, name: "Sync Ready, OUID? abcd, status applied? true, acknowledged? true")
     
     tapButton(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")
