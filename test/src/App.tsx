@@ -19,12 +19,10 @@ function App() {
   const [sdkStatus, setSdkStatus] = useState("NOT_READY");
 
   function pushReceivedEvent(event: TestEvent) {
-    receivedEvents.forEach((el) => console.log("A -- "+el.name) );
     receivedEvents.push(event);
     if (receivedEvents.length > MAX_EVENTS_DISPLAYED) {
       receivedEvents.shift();
     }
-    receivedEvents.forEach((el) => console.log("B -- "+el.name) );
     setReceivedEvents([
       ...receivedEvents
     ]);
