@@ -35,7 +35,8 @@ class DidomiUITests: XCTestCase {
   }
   
   private func testLastEvent(app: XCUIApplication, name: String) {
-    let event = app.staticTexts["LAST RECEIVED EVENT: " + name]
+    let predicate = NSPredicate(format: "label CONTAINS %@", "> " + name)
+    let event = app.staticTexts.matching(predicate).firstMatch
     let exists = NSPredicate(format: "exists == 1")
     expectation(for: exists, evaluatedWith: event, handler: nil)
     waitForExpectations(timeout: 5, handler: nil)
@@ -120,7 +121,7 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "updateSelectedLanguage")
     assertResult(in: app, name: "updateSelectedLanguage", expected: "updateSelectedLanguage-OK")
 
-    testLastEvent(app: app, name:"on_language_updated\"fr\"")
+    testLastEvent(app: app, name:"on_language_updated\n  \"fr\"")
   }
   
   func testShowNotice() throws {
@@ -737,7 +738,7 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "setUserWithId")
     assertResult(in: app, name: "setUserWithId", expected: "setUserWithId-OK")
     
-    testLastEvent(app: app, name: "Sync Ready, status applied? true, acknowledged? true")
+    testLastEvent(app: app, name: "Sync Ready, OUID? abcd, status applied? true, acknowledged? true")
     
     tapButton(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithExpirationAndSetupUI", expected: "setUserWithEncryptionAuthWithExpirationAndSetupUI-OK")

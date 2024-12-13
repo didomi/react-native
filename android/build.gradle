@@ -50,9 +50,14 @@ android {
         disable "GradleCompatible"
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17
+    }
+
 }
 
 repositories {
@@ -125,5 +130,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation "io.didomi.sdk:android:2.10.1"
+    implementation "io.didomi.sdk:android:2.17.0"
 }

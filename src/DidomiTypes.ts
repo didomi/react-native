@@ -150,6 +150,7 @@ export interface VendorStatus {
 }
 
 export interface SyncReadyEvent {
+  organizationUserId: string;
   statusApplied: boolean;
   syncAcknowledged: () => Promise<boolean>;
 }

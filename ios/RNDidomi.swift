@@ -841,6 +841,7 @@ extension RNDidomi {
             self?.syncAcknowledgedCallbackIndex += 1
             self?.syncAcknowledgedCallbacks[callbackIndex] = event.syncAcknowledged
             let result = [
+                "organizationUserId": event.organizationUserId,
                 "statusApplied": event.statusApplied,
                 "syncAcknowledgedIndex": callbackIndex
             ]
