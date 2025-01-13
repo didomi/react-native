@@ -353,6 +353,10 @@ export const Didomi = {
    */
   getUserStatusForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserStatusForVendor(vendorId),
 
+  /**
+   * Determine the regulation applicable for the user.
+   * @returns: the regulation applicable for the current user. If no regulation is applicable, will return "none".
+   */
   getApplicableRegulation: (): Promise<string> => RNDidomi.getApplicableRegulation(),
 
   /**

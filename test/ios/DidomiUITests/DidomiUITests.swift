@@ -408,6 +408,14 @@ class DidomiUITests: XCTestCase {
     assertEqual(actual, expected)
   }
 
+  func testGetAplicableRegulation() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "getApplicableRegulation")
+
+    assertResult(in: app, name: "getApplicableRegulation", expected: "\"gdpr\"")
+  }
+
   func testGetVendorCount() throws {
     let app = initApp()
 
