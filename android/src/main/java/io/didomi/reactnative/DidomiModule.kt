@@ -552,6 +552,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun getApplicableRegulation(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().applicableRegulation.value)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun hideNotice(promise: Promise) {
         try {
             Didomi.getInstance().hideNotice()

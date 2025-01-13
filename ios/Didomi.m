@@ -53,6 +53,9 @@ RCT_EXTERN_METHOD(getCurrentUserStatus:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(getUserStatus:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getApplicableRegulation:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(setCurrentUserStatus:(NSString *)currentUserStatusAsString
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)

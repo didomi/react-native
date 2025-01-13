@@ -353,6 +353,8 @@ export const Didomi = {
    */
   getUserStatusForVendor: (vendorId: string): Promise<boolean> => RNDidomi.getUserStatusForVendor(vendorId),
 
+  getApplicableRegulation: (): Promise<string> => RNDidomi.getApplicableRegulation(),
+
   /**
    *  Method used to get a Vendor based on its ID.
    *  @param vendorId: vendor ID used in the search.
