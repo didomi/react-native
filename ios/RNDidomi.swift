@@ -104,6 +104,11 @@ class RNDidomi: RCTEventEmitter {
         let userStatus = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getUserStatus())) as? [String: Any]
         resolve(userStatus)
     }
+
+    @objc(getApplicableRegulation:reject:)
+    func getApplicableRegulation(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.applicableRegulation.description)
+    }
     
     @objc(setCurrentUserStatus:resolve:reject:)
     func setCurrentUserStatus(currentUserStatusAsString: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
