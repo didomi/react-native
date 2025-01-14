@@ -149,6 +149,47 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "hideNotice", expected: "hideNotice-OK")
   }
   
+  func testShowPreferencesPurposes() {
+    let app = initApp()
+    
+    tapButton(in: app, name: "reset")
+    tapButton(in: app, name: "showPreferences Purposes")
+    assertResult(in: app, name: "showPreferences Purposes", expected: "showPreferences Purposes-OK")
+
+    // Check opening of preferences
+    let preferencesButton = app.staticTexts["Agree to all"]
+    preferencesButton.wait()
+    testLastEvent(app: app, name:"on_show_preferences")
+    
+    // Close notice
+    preferencesButton.tap()
+    
+    testLastEvent(app: app, name:"on_hide_notice")
+  }
+  
+  func testShowPreferencesVendors() {
+    let app = initApp()
+    
+    tapButton(in: app, name: "reset")
+    tapButton(in: app, name: "showPreferences Vendors")
+    assertResult(in: app, name: "showPreferences Vendors", expected: "showPreferences Vendors-OK")
+
+    // Check opening of vendors
+    let vendorsButton = app.staticTexts["Save"]
+    vendorsButton.wait()
+    testLastEvent(app: app, name:"on_show_preferences")
+    
+    // Close notice
+    vendorsButton.tap()
+    
+    // Close preferences
+    let preferencesButton = app.staticTexts["Agree to all"]
+    preferencesButton.wait()
+    preferencesButton.tap()
+    
+    testLastEvent(app: app, name:"on_hide_notice")
+  }
+  
   func testHidePreferences() throws {
     let app = initApp()
 

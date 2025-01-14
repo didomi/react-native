@@ -72,7 +72,7 @@ export default function Methods() {
         style={styles.input}
         onChangeText={onChangePreferences}
         value={preferenceType}
-        placeholder="View: purposes, vendors, sensitive-personal-information"
+        placeholder="View: purposes or vendors"
       />
 
       <MethodCall
