@@ -449,7 +449,7 @@ class DidomiUITests: XCTestCase {
     assertEqual(actual, expected)
   }
 
-  func testGetAplicableRegulation() throws {
+  func testGetApplicableRegulation() throws {
     let app = initApp()
 
     tapButton(in: app, name: "getApplicableRegulation")
