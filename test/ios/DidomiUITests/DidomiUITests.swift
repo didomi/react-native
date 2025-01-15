@@ -154,7 +154,6 @@ class DidomiUITests: XCTestCase {
     
     tapButton(in: app, name: "reset")
     tapButton(in: app, name: "showPreferences Purposes")
-    assertResult(in: app, name: "showPreferences Purposes", expected: "showPreferences Purposes-OK")
 
     // Check opening of preferences
     let preferencesButton = app.staticTexts["Agree to all"]
@@ -164,6 +163,7 @@ class DidomiUITests: XCTestCase {
     // Close notice
     preferencesButton.tap()
     
+    assertResult(in: app, name: "showPreferences Purposes", expected: "showPreferences Purposes-OK")
     testLastEvent(app: app, name:"on_hide_notice")
   }
   
@@ -172,7 +172,6 @@ class DidomiUITests: XCTestCase {
     
     tapButton(in: app, name: "reset")
     tapButton(in: app, name: "showPreferences Vendors")
-    assertResult(in: app, name: "showPreferences Vendors", expected: "showPreferences Vendors-OK")
 
     // Check opening of vendors
     let vendorsButton = app.staticTexts["Save"]
@@ -186,7 +185,8 @@ class DidomiUITests: XCTestCase {
     let preferencesButton = app.staticTexts["Agree to all"]
     preferencesButton.wait()
     preferencesButton.tap()
-    
+        
+    assertResult(in: app, name: "showPreferences Vendors", expected: "showPreferences Vendors-OK")
     testLastEvent(app: app, name:"on_hide_notice")
   }
   
