@@ -149,6 +149,47 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "hideNotice", expected: "hideNotice-OK")
   }
   
+  func testShowPreferencesPurposes() {
+    let app = initApp()
+    
+    tapButton(in: app, name: "reset")
+    tapButton(in: app, name: "showPreferences Purposes")
+
+    // Check opening of preferences
+    let preferencesButton = app.staticTexts["Agree to all"]
+    preferencesButton.wait()
+    testLastEvent(app: app, name:"on_show_preferences")
+    
+    // Close notice
+    preferencesButton.tap()
+    
+    assertResult(in: app, name: "showPreferences Purposes", expected: "showPreferences Purposes-OK")
+    testLastEvent(app: app, name:"on_hide_notice")
+  }
+  
+  func testShowPreferencesVendors() {
+    let app = initApp()
+    
+    tapButton(in: app, name: "reset")
+    tapButton(in: app, name: "showPreferences Vendors")
+
+    // Check opening of vendors
+    let vendorsButton = app.staticTexts["Save"]
+    vendorsButton.wait()
+    testLastEvent(app: app, name:"on_show_preferences")
+    
+    // Close notice
+    vendorsButton.tap()
+    
+    // Close preferences
+    let preferencesButton = app.staticTexts["Agree to all"]
+    preferencesButton.wait()
+    preferencesButton.tap()
+        
+    assertResult(in: app, name: "showPreferences Vendors", expected: "showPreferences Vendors-OK")
+    testLastEvent(app: app, name:"on_hide_notice")
+  }
+  
   func testHidePreferences() throws {
     let app = initApp()
 
@@ -408,7 +449,7 @@ class DidomiUITests: XCTestCase {
     assertEqual(actual, expected)
   }
 
-  func testGetAplicableRegulation() throws {
+  func testGetApplicableRegulation() throws {
     let app = initApp()
 
     tapButton(in: app, name: "getApplicableRegulation")

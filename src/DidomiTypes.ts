@@ -11,6 +11,9 @@ export enum DidomiEventType {
     NOTICE_CLICK_AGREE = "on_notice_click_agree",
     NOTICE_CLICK_DISAGREE = "on_notice_click_disagree",
     NOTICE_CLICK_VIEW_VENDORS = "on_notice_click_view_vendors",
+    /** 
+     * @deprecated SPI purposes are now displayed in preferences screen, use {@link #NOTICE_CLICK_MORE_INFO} instead.
+     */
     NOTICE_CLICK_VIEW_SPI_PURPOSES = "on_notice_click_view_spi_purposes",
     NOTICE_CLICK_MORE_INFO = "on_notice_click_more_info",
     NOTICE_CLICK_PRIVACY_POLICY = "on_notice_click_privacy_policy",
@@ -20,6 +23,9 @@ export enum DidomiEventType {
     // Preferences - Views
     PREFERENCES_CLICK_VIEW_PURPOSES = "on_preferences_click_view_purposes",
     PREFERENCES_CLICK_VIEW_VENDORS = "on_preferences_click_view_vendors",
+    /**
+     *  @deprecated SPI purposes are now displayed in preferences screen.
+     */
     PREFERENCES_CLICK_VIEW_SPI_PURPOSES = "on_preferences_click_view_spi_purposes",
     // Preferences - Purpose
     PREFERENCES_CLICK_AGREE_TO_ALL = "on_preferences_click_agree_to_all",
@@ -38,16 +44,33 @@ export enum DidomiEventType {
     PREFERENCES_CLICK_VENDOR_AGREE = "on_preferences_click_vendor_agree",
     PREFERENCES_CLICK_VENDOR_DISAGREE = "on_preferences_click_vendor_disagree",
     PREFERENCES_CLICK_VENDOR_SAVE_CHOICES = "on_preferences_click_vendor_save_choices",
-    // Preferences - Sensitive Personal Information
+    // Preferences - Sensitive Personal Information (deprecated)
+    /** 
+     * @deprecated SPI purposes are now treated as other purposes, use {@link #PREFERENCES_CLICK_PURPOSE_AGREE} instead.
+     */
     PREFERENCES_CLICK_SPI_PURPOSE_AGREE = "on_preferences_click_spi_purpose_agree",
+    /**
+     * @deprecated SPI purposes are now treated as other purposes, use {@link #PREFERENCES_CLICK_PURPOSE_DISAGREE} instead.
+     */
     PREFERENCES_CLICK_SPI_PURPOSE_DISAGREE = "on_preferences_click_spi_purpose_disagree",
+    /** 
+     * @deprecated SPI purposes are now treated as other purposes, use {@link #PREFERENCES_CLICK_CATEGORY_AGREE} instead.
+     */
     PREFERENCES_CLICK_SPI_CATEGORY_AGREE = "on_preferences_click_spi_category_agree",
+    /** 
+     * @deprecated SPI purposes are now treated as other purposes, use {@link #PREFERENCES_CLICK_CATEGORY_DISAGREE} instead.
+     */
     PREFERENCES_CLICK_SPI_CATEGORY_DISAGREE = "on_preferences_click_spi_category_disagree",
+    /** 
+     * @deprecated SPI purposes are now displayed in preferences screen, use {@link #PREFERENCES_CLICK_SAVE_CHOICES} instead.
+     */
     PREFERENCES_CLICK_SPI_PURPOSE_SAVE_CHOICES = "on_preferences_click_spi_purpose_save_choices",
     // Sync
     SYNC_READY = "on_sync_ready",
     SYNC_ERROR = "on_sync_error",
-    // @deprecated use {@link #SYNC_READY} instead.
+    /** 
+     * @deprecated use {@link #SYNC_READY} instead.
+     */
     SYNC_DONE = "on_sync_done",
     // Language
     LANGUAGE_UPDATED = "on_language_updated",
