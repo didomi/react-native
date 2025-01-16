@@ -274,8 +274,8 @@ class RNDidomi: RCTEventEmitter {
 
     @objc(showPreferences:resolve:reject:)
     dynamic func showPreferences(view: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        if let containerController = RCTPresentedViewController() {
-            DispatchQueue.main.async {
+        DispatchQueue.main.async {
+            if let containerController = RCTPresentedViewController() {
                 if let view = view {
                     let preferencesView: Didomi.Views = view.lowercased() == "vendors" ? .vendors : .purposes
                     Didomi.shared.showPreferences(controller: containerController, view: preferencesView)
