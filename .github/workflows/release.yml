@@ -168,9 +168,7 @@ jobs:
 
       - name: Run iOS Tests
         run: |
-          cp index.tsx index.js
           npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
-          rm index.js
           cd ios && TEST=1 && RCT_NO_LAUNCH_PACKAGER=1 xcodebuild \
           -workspace "Didomi Tests.xcworkspace" \
           -scheme "Didomi Tests" \
