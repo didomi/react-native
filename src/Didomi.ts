@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
@@ -22,6 +22,7 @@ export const Didomi = {
    *  @param countryCode: Override user country code when determining the privacy regulation to apply. Keep undefined to let the Didomi SDK determine the user country.
    *  @param regionCode: Override user region code when determining the privacy regulation to apply. Keep undefined to let the Didomi SDK determine the user region. Ignored if countryCode is not set.
    */
+  /** @deprecated Use initializeWithParameters instead */
   initialize: (
     apiKey: string,
     localConfigurationPath?: string,
@@ -53,6 +54,23 @@ export const Didomi = {
       androidTvEnabled,
       countryCode,
       regionCode
+    );
+  },
+
+  /**
+   * Initialize the Didomi SDK with parameters
+   * @param parameters: Parameters to initialize the Didomi SDK
+   * @returns: Promise that resolves we have called the native initialize method
+   */
+  initializeWithParameters: (parameters: DidomiInitializeParameters): Promise<void> => {
+    // Init listener
+    DidomiListener.init();
+
+    // Trigger native SDK init
+    return RNDidomi.initializeWithParameters(
+      DIDOMI_USER_AGENT_NAME,
+      DIDOMI_VERSION,
+      JSON.stringify(parameters)
     );
   },
 
@@ -473,7 +491,7 @@ export const Didomi = {
    *  @param digest Digest of the organization user ID and secret
    *  @param salt Salt used for computing the digest (optional)
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
-   *  @deprecated use {@link #setUserWithAuthParams()} instead.
+   *  @deprecated Use {@link setUserWithParameters} instead
    */
   setUserWithHashAuth: (
     id: string,
@@ -512,7 +530,7 @@ export const Didomi = {
    *  @param digest Digest of the organization user ID and secret
    *  @param salt Salt used for computing the digest (optional)
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
-   *  @deprecated use {@link #setUserWithAuthParamsAndSetupUI()} instead.
+   *  @deprecated Use {@link setUserWithParametersAndSetupUI} instead
    */
   setUserWithHashAuthAndSetupUI: (
     id: string,
@@ -550,7 +568,7 @@ export const Didomi = {
    *  @param secretId ID of the secret used for computing the digest
    *  @param initializationVector Initialization Vector used for computing the user ID
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
-   *  @deprecated use {@link #setUserWithAuthParams()} instead.
+   *  @deprecated Use {@link setUserWithParameters} instead
    */
   setUserWithEncryptionAuth: (
     id: string,
@@ -585,7 +603,7 @@ export const Didomi = {
    *  @param secretId ID of the secret used for computing the digest
    *  @param initializationVector Initialization Vector used for computing the user ID
    *  @param expiration Expiration date as timestamp (to prevent replay attacks)
-   *  @deprecated use {@link #setUserWithAuthParamsAndSetupUI()} instead.
+   *  @deprecated Use {@link setUserWithParametersAndSetupUI} instead
    */
   setUserWithEncryptionAuthAndSetupUI: (
     id: string,
@@ -617,6 +635,7 @@ export const Didomi = {
    *
    *  @param userAuthParams as UserAuthParams (use UserAuthWithEncryptionParams or UserAuthWithHashParams)
    *  @param synchronizedUsers as UserAuthParams[] (optional)
+   *  @deprecated Use {@link setUserWithParameters} instead
    */
   setUserWithAuthParams: (
     userAuthParams: UserAuthParams,
@@ -628,11 +647,26 @@ export const Didomi = {
    *
    *  @param userAuthParams as UserAuthParams (use UserAuthWithEncryptionParams or UserAuthWithHashParams)
    *  @param synchronizedUsers as UserAuthParams[] (optional)
+   *  @deprecated Use {@link setUserWithParametersAndSetupUI} instead
    */
   setUserWithAuthParamsAndSetupUI: (
     userAuthParams: UserAuthParams,
     synchronizedUsers?: UserAuthParams[] | undefined
   ): void => RNDidomi.setUserWithAuthParamsAndSetupUI(JSON.stringify(userAuthParams), JSON.stringify(synchronizedUsers)),
+
+  /**
+   *  Set user information with parameters
+   *
+   *  @param parameters as DidomiUserParameters
+   */
+  setUserWithParameters: (parameters: DidomiUserParameters): void => RNDidomi.setUserWithParameters(JSON.stringify(parameters)),
+
+  /**
+   *  Set user information with parameters and check for missing consent
+   *
+   *  @param parameters as DidomiUserParameters
+   */
+  setUserWithParametersAndSetupUI: (parameters: DidomiUserParameters): void => RNDidomi.setUserWithParametersAndSetupUI(JSON.stringify(parameters)),
 
   /**
    * Show the consent notice (if required, not disabled in the config and not already displayed)

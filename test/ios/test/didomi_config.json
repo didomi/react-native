@@ -24,5 +24,15 @@
         "es"
       ],
       "default": "en"
+    },
+    "underageNotice": {
+      "content": {
+        "description": {
+          "en": "underage notice text"
+        },
+        "disagree": {
+          "en": "Acknowledge"
+        }
+      }
     }
 }

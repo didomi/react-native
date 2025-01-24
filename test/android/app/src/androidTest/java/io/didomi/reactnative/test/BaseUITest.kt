@@ -3,11 +3,15 @@ package io.didomi.reactnative.test
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ScrollToAction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
+import androidx.test.espresso.matcher.ViewMatchers.withTagValue
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import io.didomi.reactnative.test.EspressoViewFinder.waitForDisplayed
 import org.hamcrest.CoreMatchers.endsWith
 import org.hamcrest.CoreMatchers.startsWith
+import org.hamcrest.core.Is.`is`
 
 /**
  * Class used to contain common logic used by the different test suite classes.
@@ -52,6 +56,13 @@ open class BaseUITest {
     protected fun assertText(text: String) {
         val matcher = withText(text)
         onView(matcher).perform(ScrollToAction())
+    }
+
+    protected fun assertResult(name: String, expected: String) {
+        // Wait for view to be displayed and get its text
+        onView(withTagValue(`is`("$name-result")))
+            .check(matches(isDisplayed()))
+            .check(matches(withText(expected.trim())))
     }
 
     protected fun assertTextStartsWith(text: String) {

@@ -19,6 +19,12 @@ RCT_EXTERN_METHOD(initialize:(NSString *)userAgentName
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(initializeWithParameters:(NSString *)userAgentName
+                  userAgentVersion:(NSString *)userAgentVersion
+                  parameters:(NSString *)parameters
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(onReady:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
@@ -253,6 +259,14 @@ RCT_EXTERN_METHOD(setUserWithAuthParams:(NSString *)jsonUserAuthParams
 
 RCT_EXTERN_METHOD(setUserWithAuthParamsAndSetupUI:(NSString *)jsonUserAuthParams
                   jsonSynchronizedUsers:(NSString)jsonSynchronizedUsers
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(setUserWithParameters:(NSString *)jsonParameters
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(setUserWithParametersAndSetupUI:(NSString *)jsonParameters
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
