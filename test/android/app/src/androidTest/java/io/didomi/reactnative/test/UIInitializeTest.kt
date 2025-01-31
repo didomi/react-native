@@ -38,7 +38,6 @@ class UIInitializeTest : BaseUITest() {
         waitForSdkToBeReady()
 
         tapButton("GetUserStatus Regulation")
-        Thread.sleep(DELAY)
         assertText("\"gdpr\"")
     }
 
@@ -48,7 +47,6 @@ class UIInitializeTest : BaseUITest() {
         waitForSdkToBeReady()
 
         tapButton("GetUserStatus Regulation")
-        Thread.sleep(DELAY)
         assertText("\"cpra\"")
     }
 
@@ -57,9 +55,8 @@ class UIInitializeTest : BaseUITest() {
         testMethodCall("Initialize underage notice")
         waitForSdkToBeReady()
 
-        tapButton("Setup UI")
-        Thread.sleep(DELAY)
-        assertText("\"underage notice text\"")
+        tapButton("SETUPUI")
+        assertText("underage notice text")
     }
 
     @Test
@@ -68,7 +65,6 @@ class UIInitializeTest : BaseUITest() {
         waitForSdkToBeReady()
 
         tapButton("GetUserStatus Regulation")
-        Thread.sleep(DELAY)
         assertText("\"gdpr\"")
     }
 }

@@ -21,8 +21,8 @@ export const Didomi = {
    *  @param androidTvEnabled: Whether to allow Didomi SDK to run on Android TV, default to "false".
    *  @param countryCode: Override user country code when determining the privacy regulation to apply. Keep undefined to let the Didomi SDK determine the user country.
    *  @param regionCode: Override user region code when determining the privacy regulation to apply. Keep undefined to let the Didomi SDK determine the user region. Ignored if countryCode is not set.
+   *  @deprecated Use {@link #initializeWithParameters} instead
    */
-  /** @deprecated Use initializeWithParameters instead */
   initialize: (
     apiKey: string,
     localConfigurationPath?: string,

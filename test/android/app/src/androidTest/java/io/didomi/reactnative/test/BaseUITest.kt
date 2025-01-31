@@ -17,12 +17,6 @@ import org.hamcrest.core.Is.`is`
  * Class used to contain common logic used by the different test suite classes.
  */
 open class BaseUITest {
-    protected fun agreeToAll() {
-        tapButton("setUserAgreeToAll".uppercase())
-        Thread.sleep(2_000L)
-        assertText("setUserAgreeToAll-OK")
-        scrollToTopOfList()
-    }
 
     protected fun disagreeToAll() {
         tapButton("setUserDisagreeToAll".uppercase())
@@ -31,7 +25,7 @@ open class BaseUITest {
         scrollToTopOfList()
     }
 
-    protected fun scrollToTopOfList() {
+    private fun scrollToTopOfList() {
         // We scroll back up because scrolling up does not work as expected on all elements.
         // We do seem to be able to scroll properly to these text views so we scroll up to the first one (METHODS).
         scrollToItem("METHODS")
@@ -56,6 +50,7 @@ open class BaseUITest {
     protected fun assertText(text: String) {
         val matcher = withText(text)
         onView(matcher).perform(ScrollToAction())
+        waitForDisplayed(matcher)
     }
 
     protected fun assertResult(name: String, expected: String) {
