@@ -29,6 +29,24 @@ class UISetUserTest : BaseUITest() {
     }
 
     @Test
+    fun test_Initialize() {
+        tapButton("Initialize FR")
+        Thread.sleep(DELAY)
+        assertText("Initialize FR-OK")
+        Thread.sleep(DELAY)
+        assertResult("ready", "SDK STATUS: READY")
+    }
+
+    @Test
+    fun test_InitializeWithParameters() {
+        tapButton("Initialize with parameters")
+        Thread.sleep(DELAY)
+        assertText("Initialize with parameters-OK")
+        Thread.sleep(DELAY)
+        assertResult("ready", "SDK STATUS: READY")
+    }
+
+    @Test
     fun test_ClearUser() {
         tapButton("clearUser")
         Thread.sleep(DELAY)
@@ -134,6 +152,20 @@ class UISetUserTest : BaseUITest() {
         tapButton("setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI")
         Thread.sleep(DELAY)
         assertText("setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI-OK")
+    }
+
+    @Test   
+    fun test_SetUserWithParameters() {
+        tapButton("setUserWithParameters")
+        Thread.sleep(DELAY)
+        assertText("setUserWithParameters-OK")
+    }
+
+    @Test
+    fun test_SetUserWithParametersAndSetupUI() {
+        tapButton("setUserWithParametersAndSetupUI")
+        Thread.sleep(DELAY)
+        assertText("setUserWithParametersAndSetupUI-OK")
     }
 
     @Test

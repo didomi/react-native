@@ -1,6 +1,7 @@
 package io.didomi.reactnative.test
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ScrollToAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -40,8 +41,10 @@ class UIMethodsTest : BaseUITest() {
     }
 
     private fun methodCall(method: String) {
-        waitForDisplayed(withText(method.uppercase()))
-        onView(withText(method.uppercase())).perform(click())
+        val matcher = withText(method.uppercase())
+        onView(matcher).perform(ScrollToAction())
+        waitForDisplayed(matcher)
+        onView(matcher).perform(click())
     }
 
     private fun testLastEvent(event: String) {
@@ -176,7 +179,7 @@ class UIMethodsTest : BaseUITest() {
         testMethodCall("reset")
 
         methodCall("Listen ipromote Vendor status")
-        waitForDisplayed(withText("Listen ipromote Vendor status-OK"))
+        assertText("Listen ipromote Vendor status-OK")
 
         tapButton("setUserAgreeToAll")
         Thread.sleep(DELAY_LONG)
@@ -185,7 +188,7 @@ class UIMethodsTest : BaseUITest() {
         testLastEvent("Vendor status ipromote -> true")
 
         tapButton("Restore event listeners")
-        waitForDisplayed(withText("Restore event listeners-OK"))
+        assertText("Restore event listeners-OK")
 
         tapButton("setUserDisagreeToAll")
         Thread.sleep(DELAY_LONG)

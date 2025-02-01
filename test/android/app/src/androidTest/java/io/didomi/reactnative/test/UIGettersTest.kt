@@ -52,8 +52,6 @@ class UIGettersTest : BaseUITest() {
 
         tapButton("isUserStatusPartial")
 
-        // There might be a delay to get this string.
-        Thread.sleep(DELAY)
         assertText("true")
 
         disagreeToAll()
@@ -71,16 +69,12 @@ class UIGettersTest : BaseUITest() {
 
         tapButton("shouldUserStatusBeCollected")
 
-        // There might be a delay to get this string.
-        Thread.sleep(DELAY)
         assertText("true")
 
         disagreeToAll()
 
         tapButton("shouldUserStatusBeCollected")
 
-        // There might be a delay to get this string.
-        Thread.sleep(DELAY)
         assertText("false")
     }
 
@@ -190,9 +184,6 @@ class UIGettersTest : BaseUITest() {
     @Test
     fun test_getVendorCount() {
         tapButton("Get vendor count")
-
-        // There might be a delay to get this string.
-        Thread.sleep(DELAY)
 
         assertText("\"Total: 3 - IAB: 3 - Non-IAB: 0\"")
     }

@@ -193,3 +193,37 @@ export interface UserAuthWithHashParams extends UserAuthParams {
   digest: string;
   salt?: string;
 }
+
+/**
+ * Object that contains the parameters for the initialize method.
+ */
+export interface DidomiInitializeParameters {
+  apiKey: string;
+  localConfigurationPath?: string;
+  remoteConfigurationUrl?: string;
+  providerId?: string;
+  disableDidomiRemoteConfig?: boolean;
+  languageCode?: string;
+  noticeId?: string;
+  androidTvNoticeId?: string;
+  androidTvEnabled?: boolean;
+  countryCode?: string;
+  regionCode?: string;
+  isUnderage?: boolean;
+}
+
+/**
+ * Object that contains the parameters for the setUser method.
+ */
+export interface DidomiUserParameters {
+  userId?: string;
+  userAuth?: UserAuthParams;
+  isUnderage?: boolean;
+}
+
+/**
+ * Object that contains the parameters for the setUser method including synchronized users.
+ */ 
+export interface DidomiMultiUserParameters extends DidomiUserParameters {
+  synchronizedUsers?: UserAuthParams[];
+}

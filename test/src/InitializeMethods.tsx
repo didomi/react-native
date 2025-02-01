@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Didomi } from '@didomi/react-native';
+import { Didomi, DidomiInitializeParameters } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
 interface InitializeProps {
@@ -11,6 +11,7 @@ interface InitializeProps {
 export default function InitializeMethods(props: InitializeProps) {
 
   const callInitialize = (
+    disableDidomiRemoteConfig: boolean = false,
     countryCode?: string, 
     regionCode?: string, 
     noticeId: string = "XWhEXzb9"
@@ -21,7 +22,7 @@ export default function InitializeMethods(props: InitializeProps) {
       undefined,
       undefined,
       undefined,
-      false,
+      disableDidomiRemoteConfig,
       undefined,
       noticeId,
       undefined,
@@ -34,12 +35,20 @@ export default function InitializeMethods(props: InitializeProps) {
     });
   };
 
+  const callInitializeWithParameters = (parameters: DidomiInitializeParameters) => {
+    props.updateSdkState("REINIT");
+    Didomi.initializeWithParameters(parameters);
+    Didomi.onReady().then(() => {
+      props.updateSdkState("READY");
+    });
+  };
+
   return (
     <View style={styles.container}>
       <MethodCall
         name="Initialize FR"
         call={async() => {
-          callInitialize("FR");
+          callInitialize(false, "FR");
         }}
         test={() => {
           return true;
@@ -49,7 +58,7 @@ export default function InitializeMethods(props: InitializeProps) {
       <MethodCall
         name="Initialize US CA"
         call={async() => {
-          callInitialize("US", "CA");
+          callInitialize(false, "US", "CA");
         }}
         test={() => {
           return true;
@@ -60,10 +69,40 @@ export default function InitializeMethods(props: InitializeProps) {
         name="Initialize default notice"
         call={async() => {
           callInitialize(
+            false,
             undefined, 
             undefined,
             "Ar7NPQ72"
           );
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
+        name="Initialize with parameters"
+        call={async() => {
+          callInitializeWithParameters({
+            apiKey: "9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba",
+            disableDidomiRemoteConfig: true,
+            noticeId: "Ar7NPQ72",
+        });
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
+        name="Initialize underage notice"
+        call={async() => {
+          callInitializeWithParameters({
+              apiKey: "9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba",
+              disableDidomiRemoteConfig: true,
+              noticeId: "Ar7NPQ72",
+              isUnderage: true
+          });
         }}
         test={() => {
           return true;
