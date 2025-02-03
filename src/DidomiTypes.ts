@@ -218,6 +218,7 @@ export interface DidomiInitializeParameters {
 export interface DidomiUserParameters {
   userId?: string;
   userAuth?: UserAuthParams;
+  dcsUserAuth?: UserAuthParams;
   isUnderage?: boolean;
 }
 

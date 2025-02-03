@@ -975,7 +975,8 @@ extension RNDidomi {
         let userAuthParamsJSON = json["userAuthParams"] as? [String: Any]
         let userAuthParams = try buildUserAuthParams(from: userAuthParamsJSON)
         let isUnderage = json["isUnderage"] as? Bool
-        let dcsUserAuth = try? buildUserAuthParams(from: json["dcsUserAuth"] as? String ?? "")
+        let dcsUserAuthJSON = json["dcsUserAuth"] as? [String: Any]
+        let dcsUserAuth = try? buildUserAuthParams(from: dcsUserAuthJSON)
         
         if let synchronizedUsers = json["synchronizedUsers"] as? [[String: Any]] {
             return DidomiMultiUserParameters(
