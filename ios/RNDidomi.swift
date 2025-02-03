@@ -36,8 +36,8 @@ class RNDidomi: RCTEventEmitter {
         androidTvEnabled: Bool = false,
         countryCode: String? = nil,
         regionCode: String? = nil,
-        resolve:RCTPromiseResolveBlock,
-        reject:RCTPromiseRejectBlock
+        resolve: RCTPromiseResolveBlock,
+        reject: RCTPromiseRejectBlock
     ) {
         Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
         
@@ -68,8 +68,8 @@ class RNDidomi: RCTEventEmitter {
         do {
             let parameters = try buildInitializeParameters(from: jsonParameters)
             
-            if let userAgentName = try? getJsonValue(from: jsonParameters, key: "userAgentName") as? String,
-               let userAgentVersion = try? getJsonValue(from: jsonParameters, key: "userAgentVersion") as? String {
+            if let userAgentName = try? jsonParameters.getJSONValue(for: "userAgentName") as? String,
+               let userAgentVersion = try? jsonParameters.getJSONValue(for: "userAgentVersion") as? String {
                 Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
             }
             
@@ -78,36 +78,6 @@ class RNDidomi: RCTEventEmitter {
         } catch {
             reject("Error", "Error while initializing with parameters", error)
         }
-    }
-
-    private func buildInitializeParameters(from jsonString: String) throws -> DidomiInitializeParameters {
-        let json = try getJsonValue(from: jsonString) as? [String: Any] ?? [:]
-        
-        return DidomiInitializeParameters(
-            apiKey: json["apiKey"] as? String ?? "",
-            localConfigurationPath: json["localConfigurationPath"] as? String,
-            remoteConfigurationURL: json["remoteConfigurationURL"] as? String,
-            providerID: json["providerId"] as? String,
-            disableDidomiRemoteConfig: json["disableDidomiRemoteConfig"] as? Bool ?? false,
-            languageCode: json["languageCode"] as? String ?? Locale.current.languageCode ?? "",
-            noticeID: json["noticeId"] as? String,
-            countryCode: json["countryCode"] as? String,
-            regionCode: json["regionCode"] as? String,
-            isUnderage: json["isUnderage"] as? Bool ?? false
-        )
-    }
-
-    private func getJsonValue(from jsonString: String) throws -> Any? {
-        guard let data = jsonString.data(using: .utf8),
-              let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-            throw NSError(domain: "Didomi", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"])
-        }
-        return json
-    }
-
-    private func getJsonValue(from jsonString: String, key: String) throws -> Any? {
-        let json = try getJsonValue(from: jsonString) as? [String: Any] ?? [:]
-        return json[key]
     }
 
     @objc(onReady:reject:)
@@ -612,7 +582,7 @@ class RNDidomi: RCTEventEmitter {
         reject: RCTPromiseRejectBlock
     ) {
         do {
-            let parameters = try buildDidomiUserParameters(from: jsonParameters, containerController: nil)
+            let parameters = try buildUserParameters(from: jsonParameters, containerController: nil)
             Didomi.shared.setUser(parameters)
             resolve(0)
         } catch {
@@ -633,7 +603,7 @@ class RNDidomi: RCTEventEmitter {
                     return
                 }
                 let containerController = RCTPresentedViewController()
-                let parameters = try strongSelf.buildDidomiUserParameters(
+                let parameters = try strongSelf.buildUserParameters(
                     from: jsonParameters,
                     containerController: containerController
                 )
@@ -980,11 +950,27 @@ extension RNDidomi {
         }
     }
 
-    private func buildDidomiUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
-        guard let data = jsonString.data(using: .utf8),
-              let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-            throw NSError(domain: "Didomi", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"])
-        }
+    // Build parameters object used when calling `initialize`.
+    private func buildInitializeParameters(from jsonString: String) throws -> DidomiInitializeParameters {
+        let json = try jsonString.toJSON()
+        
+        return DidomiInitializeParameters(
+            apiKey: json["apiKey"] as? String ?? "",
+            localConfigurationPath: json["localConfigurationPath"] as? String,
+            remoteConfigurationURL: json["remoteConfigurationURL"] as? String,
+            providerID: json["providerId"] as? String,
+            disableDidomiRemoteConfig: json["disableDidomiRemoteConfig"] as? Bool ?? false,
+            languageCode: json["languageCode"] as? String ?? Locale.current.languageCode ?? "",
+            noticeID: json["noticeId"] as? String,
+            countryCode: json["countryCode"] as? String,
+            regionCode: json["regionCode"] as? String,
+            isUnderage: json["isUnderage"] as? Bool ?? false
+        )
+    }
+    
+    // Build parameters object used when calling `setUser`.
+    private func buildUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
+        let json = try jsonString.toJSON()
         
         let userAuthParamsJSON = json["userAuthParams"] as? [String: Any]
         let userAuthParams = try buildUserAuthParams(from: userAuthParamsJSON)
@@ -1011,10 +997,7 @@ extension RNDidomi {
     
     /// Build the user auth params from the JSON parameters
     private func buildUserAuthParams(from jsonString: String) throws -> UserAuthParams {
-        guard let data = jsonString.data(using: .utf8),
-              let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-            throw NSError(domain: "Didomi", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON format"])
-        }
+        let json = try jsonString.toJSON()
         return try buildUserAuthParams(from: json)
     }
     
@@ -1075,10 +1058,7 @@ extension RNDidomi {
     
     /// Build the user auth params list from the JSON parameters
     private func buildUserAuthParamsArray(from jsonString: String) throws -> [UserAuthParams] {
-        guard let jsonData = jsonString.data(using: .utf8),
-              let jsonArray = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [[String: Any]] else {
-            throw NSError(domain: "Didomi", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON array format"])
-        }
+        let jsonArray = try jsonString.toJSONArray()
         return try jsonArray.map { try buildUserAuthParams(from: $0) }
     }
 }
