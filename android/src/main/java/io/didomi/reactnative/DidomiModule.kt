@@ -382,7 +382,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
             Didomi.getInstance().setUserAgent(userAgentName, userAgentVersion)
 
-            val parameters = buildInitializeParameters(jsonParameters)
+            val parameters = buildDidomiInitializeParameters(jsonParameters)
 
             val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
             Didomi.getInstance().initialize(application, parameters)
@@ -1192,7 +1192,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         return Array(readableArray.size()) { i -> readableArray.getString(i) }
     }
 
-    private fun buildInitializeParameters(jsonParameters: String): DidomiInitializeParameters {
+    private fun buildDidomiInitializeParameters(jsonParameters: String): DidomiInitializeParameters {
         val jsonObject = JSONObject(jsonParameters)
         
         return DidomiInitializeParameters(

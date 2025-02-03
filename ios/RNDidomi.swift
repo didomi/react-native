@@ -66,7 +66,7 @@ class RNDidomi: RCTEventEmitter {
         reject: RCTPromiseRejectBlock
     ) {
         do {
-            let parameters = try buildInitializeParameters(from: jsonParameters)
+            let parameters = try buildDidomiInitializeParameters(from: jsonParameters)
             
             if let userAgentName = try? jsonParameters.getJSONValue(for: "userAgentName") as? String,
                let userAgentVersion = try? jsonParameters.getJSONValue(for: "userAgentVersion") as? String {
@@ -582,7 +582,7 @@ class RNDidomi: RCTEventEmitter {
         reject: RCTPromiseRejectBlock
     ) {
         do {
-            let parameters = try buildUserParameters(from: jsonParameters, containerController: nil)
+            let parameters = try buildDidomiUserParameters(from: jsonParameters, containerController: nil)
             Didomi.shared.setUser(parameters)
             resolve(0)
         } catch {
@@ -603,7 +603,7 @@ class RNDidomi: RCTEventEmitter {
                     return
                 }
                 let containerController = RCTPresentedViewController()
-                let parameters = try strongSelf.buildUserParameters(
+                let parameters = try strongSelf.buildDidomiUserParameters(
                     from: jsonParameters,
                     containerController: containerController
                 )
@@ -951,7 +951,7 @@ extension RNDidomi {
     }
 
     // Build parameters object used when calling `initialize`.
-    private func buildInitializeParameters(from jsonString: String) throws -> DidomiInitializeParameters {
+    private func buildDidomiInitializeParameters(from jsonString: String) throws -> DidomiInitializeParameters {
         let json = try jsonString.toJSON()
         
         return DidomiInitializeParameters(
@@ -969,7 +969,7 @@ extension RNDidomi {
     }
     
     // Build parameters object used when calling `setUser`.
-    private func buildUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
+    private func buildDidomiUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
         let json = try jsonString.toJSON()
         
         let userAuthParamsJSON = json["userAuthParams"] as? [String: Any]
