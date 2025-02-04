@@ -322,7 +322,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use initializeWithParameters instead", replaceWith = ReplaceWith("initializeWithParameters()"))
     fun initialize(
         userAgentName: String,
         userAgentVersion: String,
@@ -628,7 +627,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use shouldUserStatusBeCollected instead", replaceWith = ReplaceWith("shouldUserStatusBeCollected()"))
     fun isUserConsentStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserConsentStatusPartial)
@@ -693,7 +691,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithHashAuth(
         organizationUserId: String,
         algorithm: String,
@@ -715,7 +712,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithHashAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -738,7 +734,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithHashAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
@@ -762,7 +757,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithHashAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -787,7 +781,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithEncryptionAuth(
         organizationUserId: String,
         algorithm: String,
@@ -807,7 +800,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithEncryptionAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -828,7 +820,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithEncryptionAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
@@ -850,7 +841,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithEncryptionAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
