@@ -58,28 +58,61 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
   }
   
-  func testInitializeParameters() throws {
+  func testInitializeFR() throws {
     let app = initApp()
     
     tapButton(in: app, name: "Initialize FR")
     assertResult(in: app, name: "Initialize FR", expected: "Initialize FR-OK")
-    
     assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
     
     tapButton(in: app, name: "getUserStatus regulation")
     assertResult(in: app, name: "getUserStatus regulation", expected: "\"gdpr\"")
-
+  }
+  
+  func testInitializeUSCA() throws {
+    let app = initApp()
+    
     tapButton(in: app, name: "Initialize US CA")
     assertResult(in: app, name: "Initialize US CA", expected: "Initialize US CA-OK")
-    
     assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
     
     tapButton(in: app, name: "getUserStatus regulation")
     assertResult(in: app, name: "getUserStatus regulation", expected: "\"cpra\"")
+  }
+  
+  func testInitializeDefaultNotice() throws {
+    let app = initApp()
     
     tapButton(in: app, name: "Initialize default notice")
     assertResult(in: app, name: "Initialize default notice", expected: "Initialize default notice-OK")
     assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+  }
+  
+  func testInitializeWithParameters() throws {
+    let app = initApp()
+    
+    tapButton(in: app, name: "Initialize with parameters")
+    assertResult(in: app, name: "Initialize with parameters", expected: "Initialize with parameters-OK")
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+  }
+  
+  func testInitializeUnderageNotice() throws {
+    let app = initApp()
+    
+    tapButton(in: app, name: "Initialize underage notice")
+    assertResult(in: app, name: "Initialize underage notice", expected: "Initialize underage notice-OK")
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+    
+    tapButton(in: app, name: "setupUI")
+    assertResult(in: app, name: "setupUI", expected: "setupUI-OK")
+
+    let noticeText = app.textViews["underage notice text"]
+    noticeText.wait()
+
+    let noticeButton = app.buttons["Acknowledge"]
+    noticeButton.wait()
+    noticeButton.tap()
+    testLastEvent(app: app, name:"on_hide_notice")
   }
   
   func testReset() throws {
@@ -777,6 +810,20 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI")
     assertResult(in: app, name: "setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI", expected: "setUserWithEncryptionAuthWithSynchronizedUsersAndSetupUI-OK")
   }
+
+  func testSetUserWithParameters() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithParameters")
+    assertResult(in: app, name: "setUserWithParameters", expected: "setUserWithParameters-OK")
+  }
+
+  func testSetUserWithParametersAndSetupUI() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithParametersAndSetupUI")
+    assertResult(in: app, name: "setUserWithParametersAndSetupUI", expected: "setUserWithParametersAndSetupUI-OK")
+  } 
   
   func testSyncReadyEvent() throws {
     let app = initApp()

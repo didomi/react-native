@@ -11,10 +11,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.didomi.sdk.Didomi
 import io.didomi.sdk.DidomiInitializeParameters
+import io.didomi.sdk.DidomiMultiUserParameters
+import io.didomi.sdk.DidomiUserParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
 import io.didomi.sdk.user.model.UserAuthParams
+import io.didomi.sdk.user.model.UserAuth
 import io.didomi.sdk.user.model.UserAuthWithEncryptionParams
 import io.didomi.sdk.user.model.UserAuthWithHashParams
 import org.json.JSONArray
@@ -351,7 +354,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 androidTvNoticeId,
                 androidTvEnabled,
                 countryCode,
-                regionCode
+                regionCode,
+                false
             )
 
             val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
@@ -359,6 +363,30 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
             promise.resolve(0)
 
+        } catch (e: Exception) {
+            Log.e("initialize", "Error while initializing the Didomi SDK", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun initializeWithParameters(
+        userAgentName: String,
+        userAgentVersion: String,
+        jsonParameters: String,
+        promise: Promise
+    ) {
+        try {
+            Didomi.getInstance().addEventListener(eventListener)
+
+            Didomi.getInstance().setUserAgent(userAgentName, userAgentVersion)
+
+            val parameters = buildDidomiInitializeParameters(jsonParameters)
+
+            val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
+            Didomi.getInstance().initialize(application, parameters)
+
+            promise.resolve(0)
         } catch (e: Exception) {
             Log.e("initialize", "Error while initializing the Didomi SDK", e)
             promise.reject(e)
@@ -599,7 +627,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use shouldUserStatusBeCollected instead", replaceWith = ReplaceWith("shouldUserStatusBeCollected()"))
     fun isUserConsentStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserConsentStatusPartial)
@@ -664,7 +691,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithHashAuth(
         organizationUserId: String,
         algorithm: String,
@@ -686,7 +712,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithHashAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -709,7 +734,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithHashAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
@@ -733,7 +757,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithHashAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -758,7 +781,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithEncryptionAuth(
         organizationUserId: String,
         algorithm: String,
@@ -778,7 +800,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithEncryptionAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -799,7 +820,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParams instead", replaceWith = ReplaceWith("setUserWithAuthParams()"))
     fun setUserWithEncryptionAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
@@ -821,7 +841,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    @Deprecated("Use setUserWithAuthParamsAndSetupUI instead", replaceWith = ReplaceWith("setUserWithAuthParamsAndSetupUI()"))
     fun setUserWithEncryptionAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
@@ -894,6 +913,37 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             promise.resolve(0)
         } catch (e: JSONException) {
             Log.e("setUserWithAuthParams", "Error while parsing user with auth params", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun setUserWithParameters(
+        jsonUserParameters: String,
+        promise: Promise
+    ) {
+        try {
+            val userParameters = buildDidomiUserParameters(JSONObject(jsonUserParameters))
+            Didomi.getInstance().setUser(userParameters)
+            promise.resolve(0)
+        } catch (e: JSONException) {
+            Log.e("setUserWithParameters", "Error while parsing user with parameters", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    fun setUserWithParametersAndSetupUI(
+        jsonUserParameters: String,
+        promise: Promise
+    ) {
+        try {
+            val userParameters = buildDidomiUserParameters(JSONObject(jsonUserParameters), currentActivity as? FragmentActivity)
+
+            Didomi.getInstance().setUser(userParameters)
+            promise.resolve(0)
+        } catch (e: JSONException) {
+            Log.e("setUserWithParameters", "Error while parsing user with parameters", e)
             promise.reject(e)
         }
     }
@@ -1132,6 +1182,58 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         return Array(readableArray.size()) { i -> readableArray.getString(i) }
     }
 
+    private fun buildDidomiInitializeParameters(jsonParameters: String): DidomiInitializeParameters {
+        val jsonObject = JSONObject(jsonParameters)
+        
+        return DidomiInitializeParameters(
+            apiKey = jsonObject.getString("apiKey"),
+            localConfigurationPath = jsonObject.opt("localConfigurationPath")?.toString(),
+            remoteConfigurationUrl = jsonObject.opt("remoteConfigurationUrl")?.toString(),
+            providerId = jsonObject.opt("providerId")?.toString(),
+            disableDidomiRemoteConfig = (jsonObject.opt("disableDidomiRemoteConfig") as? Boolean) ?: false,
+            languageCode = jsonObject.opt("languageCode")?.toString(),
+            noticeId = jsonObject.opt("noticeId")?.toString(),
+            tvNoticeId = jsonObject.opt("androidTvNoticeId")?.toString(),
+            androidTvEnabled = (jsonObject.opt("androidTvEnabled") as? Boolean) ?: false,
+            countryCode = jsonObject.opt("countryCode")?.toString(),
+            regionCode = jsonObject.opt("regionCode")?.toString(),
+            isUnderage = (jsonObject.opt("isUnderage") as? Boolean) ?: false
+        )
+    }
+
+    private fun buildDidomiUserParameters(
+        jsonParameters: JSONObject,
+        activity: FragmentActivity? = null
+    ): DidomiUserParameters {
+        val userAuthParams = if (jsonParameters.has("userAuthParams")) {
+            buildUserAuthParams(jsonParameters.getJSONObject("userAuthParams"))
+        } else null
+        
+        val dcsUserAuth = if (jsonParameters.has("dcsUserAuth")) {
+            buildUserAuthParams(jsonParameters.getJSONObject("dcsUserAuth"))
+        } else null
+
+        val isUnderage = jsonParameters.opt("isUnderage") as? Boolean
+
+        if (jsonParameters.has("synchronizedUsers")) {
+            val synchronizedUsers = buildUserAuthParamsArray(jsonParameters.getJSONArray("synchronizedUsers"))
+            return DidomiMultiUserParameters(
+                userAuth = userAuthParams as UserAuth,
+                dcsUserAuth = dcsUserAuth,
+                synchronizedUsers = synchronizedUsers,
+                activity = activity,
+                isUnderage = isUnderage
+            )
+        } else {
+            return DidomiUserParameters(
+                userAuth = userAuthParams as UserAuth,
+                dcsUserAuth = dcsUserAuth,
+                activity = activity,
+                isUnderage = isUnderage
+            )
+        }
+    }
+
     private fun buildUserAuthParams(jsonParameters: JSONObject): UserAuthParams {
 
         val id = jsonParameters.getString("id")
@@ -1161,5 +1263,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 expiration = expiration
             )
         }
+    }
+
+    private fun buildUserAuthParamsArray(jsonArray: JSONArray): Array<UserAuthParams> {
+        return Array(jsonArray.length()) { i -> buildUserAuthParams(jsonArray.getJSONObject(i)) }
     }
 }

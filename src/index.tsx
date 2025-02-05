@@ -12,5 +12,6 @@ export {
     PurposeStatus,
     VendorStatus,
     UserAuthWithEncryptionParams,
-    UserAuthWithHashParams
+    UserAuthWithHashParams,
+    DidomiInitializeParameters
 } from './DidomiTypes';

@@ -22,10 +22,26 @@ class RNDidomi: RCTEventEmitter {
     }
 
     @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:androidTvNoticeId:androidTvEnabled:countryCode:regionCode:resolve:reject:)
-    func initialize(userAgentName: String, userAgentVersion: String, apiKey: String, localConfigurationPath: String?, remoteConfigurationURL: String?, providerId: String?, disableDidomiRemoteConfig: Bool = false, languageCode: String? = nil, noticeId: String? = nil, androidTvNoticeId: String? = nil, androidTvEnabled: Bool = false, countryCode: String? = nil, regionCode: String? = nil, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+    func initialize(
+        userAgentName: String,
+        userAgentVersion: String,
+        apiKey: String,
+        localConfigurationPath: String?,
+        remoteConfigurationURL: String?,
+        providerId: String?,
+        disableDidomiRemoteConfig: Bool = false,
+        languageCode: String? = nil,
+        noticeId: String? = nil,
+        androidTvNoticeId: String? = nil,
+        androidTvEnabled: Bool = false,
+        countryCode: String? = nil,
+        regionCode: String? = nil,
+        resolve: RCTPromiseResolveBlock,
+        reject: RCTPromiseRejectBlock
+    ) {
         Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
         
-        Didomi.shared.initialize(DidomiInitializeParameters(
+        let parameters = DidomiInitializeParameters(
             apiKey: apiKey,
             localConfigurationPath: localConfigurationPath,
             remoteConfigurationURL: remoteConfigurationURL,
@@ -35,9 +51,33 @@ class RNDidomi: RCTEventEmitter {
             noticeID: noticeId,
             countryCode: countryCode,
             regionCode: regionCode
-        ))
+        )
+        Didomi.shared.initialize(parameters)
 
         resolve(0)
+    }
+
+    @objc(initializeWithParameters:userAgentVersion:parameters:resolve:reject:)
+    func initializeWithParameters(
+        userAgentName: String,
+        userAgentVersion: String,
+        jsonParameters: String,
+        resolve: RCTPromiseResolveBlock,
+        reject: RCTPromiseRejectBlock
+    ) {
+        do {
+            let parameters = try buildDidomiInitializeParameters(from: jsonParameters)
+            
+            if let userAgentName = try? jsonParameters.getJSONValue(for: "userAgentName") as? String,
+               let userAgentVersion = try? jsonParameters.getJSONValue(for: "userAgentVersion") as? String {
+                Didomi.shared.setUserAgent(name: userAgentName, version: userAgentVersion)
+            }
+            
+            Didomi.shared.initialize(parameters)
+            resolve(0)
+        } catch {
+            reject("Error", "Error while initializing with parameters", error)
+        }
     }
 
     @objc(onReady:reject:)
@@ -534,6 +574,46 @@ class RNDidomi: RCTEventEmitter {
             reject("Error", "Error while setting user with auth params", error)
         }
     }
+
+    @objc(setUserWithParameters:resolve:reject:)
+    dynamic func setUserWithParameters(
+        jsonParameters: String,
+        resolve: RCTPromiseResolveBlock,
+        reject: RCTPromiseRejectBlock
+    ) {
+        do {
+            let parameters = try buildDidomiUserParameters(from: jsonParameters, containerController: nil)
+            Didomi.shared.setUser(parameters)
+            resolve(0)
+        } catch {
+            reject("Error", "Error while setting user with parameters", error)
+        }
+    }
+
+    @objc(setUserWithParametersAndSetupUI:resolve:reject:)
+    dynamic func setUserWithParametersAndSetupUI(
+        jsonParameters: String,
+        resolve: @escaping RCTPromiseResolveBlock,
+        reject: @escaping RCTPromiseRejectBlock
+    ) {
+        DispatchQueue.main.async { [weak self] in
+            do {
+                guard let strongSelf = self else {
+                    resolve(0)
+                    return
+                }
+                let containerController = RCTPresentedViewController()
+                let parameters = try strongSelf.buildDidomiUserParameters(
+                    from: jsonParameters,
+                    containerController: containerController
+                )
+                Didomi.shared.setUser(parameters)
+                resolve(0)
+            } catch {
+                reject("Error", "Error while setting user with parameters", error)
+            }
+        }
+    }
     
     @objc(listenToVendorStatus:resolve:reject:)
     dynamic func listenToVendorStatus(vendorId: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
@@ -869,16 +949,65 @@ extension RNDidomi {
             Didomi.shared.removeEventListener(listener: didomiEventListener)
         }
     }
+
+    // Build parameters object used when calling `initialize`.
+    private func buildDidomiInitializeParameters(from jsonString: String) throws -> DidomiInitializeParameters {
+        let json = try jsonString.toJSON()
+        
+        return DidomiInitializeParameters(
+            apiKey: json["apiKey"] as? String ?? "",
+            localConfigurationPath: json["localConfigurationPath"] as? String,
+            remoteConfigurationURL: json["remoteConfigurationURL"] as? String,
+            providerID: json["providerId"] as? String,
+            disableDidomiRemoteConfig: json["disableDidomiRemoteConfig"] as? Bool ?? false,
+            languageCode: json["languageCode"] as? String ?? Locale.current.languageCode ?? "",
+            noticeID: json["noticeId"] as? String,
+            countryCode: json["countryCode"] as? String,
+            regionCode: json["regionCode"] as? String,
+            isUnderage: json["isUnderage"] as? Bool ?? false
+        )
+    }
+    
+    // Build parameters object used when calling `setUser`.
+    private func buildDidomiUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
+        let json = try jsonString.toJSON()
+        
+        let userAuthParamsJSON = json["userAuthParams"] as? [String: Any]
+        let userAuthParams = try buildUserAuthParams(from: userAuthParamsJSON)
+        let isUnderage = json["isUnderage"] as? Bool
+        let dcsUserAuthJSON = json["dcsUserAuth"] as? [String: Any]
+        let dcsUserAuth = try? buildUserAuthParams(from: dcsUserAuthJSON)
+        
+        if let synchronizedUsers = json["synchronizedUsers"] as? [[String: Any]] {
+            return DidomiMultiUserParameters(
+                userAuth: userAuthParams,
+                dcsUserAuth: dcsUserAuth,
+                synchronizedUsers: try synchronizedUsers.map { try buildUserAuthParams(from: $0) },
+                containerController: containerController,
+                isUnderage: isUnderage
+            )
+        } else {
+            return DidomiUserParameters(
+                userAuth: userAuthParams,
+                dcsUserAuth: dcsUserAuth,
+                containerController: containerController,
+                isUnderage: isUnderage
+            )
+        }
+    }
     
     /// Build the user auth params from the JSON parameters
     private func buildUserAuthParams(from jsonString: String) throws -> UserAuthParams {
-        let data = jsonString.data(using: .utf8)!
-        let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-        
-        guard let id = json["id"] as? String,
+        let json = try jsonString.toJSON()
+        return try buildUserAuthParams(from: json)
+    }
+    
+    private func buildUserAuthParams(from json: [String: Any]?) throws -> UserAuthParams {
+        guard let json = json,
+              let id = json["id"] as? String,
               let algorithm = json["algorithm"] as? String,
               let secretID = json["secretId"] as? String else {
-            fatalError("Missing required parameters")
+            throw NSError(domain: "Didomi", code: 400, userInfo: [NSLocalizedDescriptionKey: "Missing required parameters: id, algorithm or secretId"])
         }
         
         let expiration = json["expiration"] as? CLong
@@ -905,7 +1034,7 @@ extension RNDidomi {
             }
         } else {
             guard let digest = digest else {
-                fatalError("Missing required digest parameter")
+                throw NSError(domain: "Didomi", code: 400, userInfo: [NSLocalizedDescriptionKey: "Missing required digest parameter"])
             }
             if let expiration = expiration {
                 return UserAuthWithHashParams(
@@ -930,13 +1059,8 @@ extension RNDidomi {
     
     /// Build the user auth params list from the JSON parameters
     private func buildUserAuthParamsArray(from jsonString: String) throws -> [UserAuthParams] {
-        let jsonData = jsonString.data(using: .utf8)!
-        let jsonArray = try JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: Any]]
-        return try jsonArray.map { dictionary in
-            let jsonData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
-            let jsonString = String(data: jsonData, encoding: .utf8)!
-            return try buildUserAuthParams(from: jsonString)
-        }
+        let jsonArray = try jsonString.toJSONArray()
+        return try jsonArray.map { try buildUserAuthParams(from: $0) }
     }
 }
 
