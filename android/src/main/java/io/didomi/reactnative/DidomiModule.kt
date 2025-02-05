@@ -1213,19 +1213,23 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             buildUserAuthParams(jsonParameters.getJSONObject("dcsUserAuth"))
         } else null
 
+        val isUnderage = jsonParameters.opt("isUnderage") as? Boolean
+
         if (jsonParameters.has("synchronizedUsers")) {
             val synchronizedUsers = buildUserAuthParamsArray(jsonParameters.getJSONArray("synchronizedUsers"))
             return DidomiMultiUserParameters(
                 userAuth = userAuthParams as UserAuth,
                 dcsUserAuth = dcsUserAuth,
                 synchronizedUsers = synchronizedUsers,
-                activity = activity
+                activity = activity,
+                isUnderage = isUnderage
             )
         } else {
             return DidomiUserParameters(
                 userAuth = userAuthParams as UserAuth,
                 dcsUserAuth = dcsUserAuth,
-                activity = activity
+                activity = activity,
+                isUnderage = isUnderage
             )
         }
     }
