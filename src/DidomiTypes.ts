@@ -195,36 +195,118 @@ export interface UserAuthWithHashParams extends UserAuthParams {
 }
 
 /**
- * Object that contains the parameters for the initialize method.
+ * Initialization parameters for Didomi SDK
+ * @interface
  */
 export interface DidomiInitializeParameters {
+  /**
+   * Public API key of the organization from the Didomi Console.
+   * @property
+   */
   apiKey: string;
+  /**
+   * Path to your local config file. Defaults to didomi_config.json if nil.
+   * @property
+   */
   localConfigurationPath?: string;
+  /**
+   * URL to a remote configuration file to load during initialization. This parameter is not used yet. Set it to nil for now.
+   * @property
+   */
   remoteConfigurationUrl?: string;
+  /**
+   * The provider ID (if any).
+   * @property
+   */
   providerId?: string;
+  /** 
+   * Whether to disable loading the remove configuration from the Didomi config. Keep this to `false` for loading configuration from the Didomi Console.
+   * @property
+   * @deprecated In the future, it will be mandatory to create your notice from the console (see https://developers.didomi.io/cmp/mobile-sdk/android/setup#from-the-console-recommended for more information).
+   */
   disableDidomiRemoteConfig?: boolean;
+  /** 
+   * Language in which the consent UI should be displayed. By default, the consent UI is displayed in the language configured in the device settings.
+   * This property allows you to override the default setting and specify a language to display the UI in. String containing the language code e.g.: "es", "fr", etc.
+   * @property
+   */
   languageCode?: string;
+  /**
+   * ID of the notice configuration to load from the Didomi Console.
+   * @property
+   */
   noticeId?: string;
+  /**
+   * ID of the notice to display on Android TV
+   * @property
+   */
   androidTvNoticeId?: string;
+  /**
+   * Enable/disable Android TV specific features
+   * @property
+   */
   androidTvEnabled?: boolean;
+  /** 
+   * Override user country code when determining the privacy regulation to apply.
+   * Keep `undefined` to let the Didomi SDK determine the user country.
+   * @property
+   */
   countryCode?: string;
+  /** 
+   * Override user region code when determining the privacy regulation to apply.
+   * Keep `undefined` to let the Didomi SDK determine the user region.
+   * Ignored if `countryCode` is not set.
+   * @property
+   */
   regionCode?: string;
+  /**
+   * If set to `true`, the SDK will only display the underage notice (`false` by default).
+   * @property
+   */
   isUnderage?: boolean;
 }
 
 /**
  * Object that contains the parameters for the setUser method.
+ * @interface
  */
 export interface DidomiUserParameters {
+  /**
+   * @property
+   */
   userId?: string;
+  /**
+   * Main user authentication
+   * - [UserAuthWithEncryptionParams] (encryption)
+   * - [UserAuthWithHashParams] (hash)
+   * - [UserAuthWithoutParams] (ID only)
+   * @property
+   */
   userAuth?: UserAuthParams;
+  /**
+   * User authentication for Didomi Consent String
+   * - [UserAuthWithEncryptionParams] (encryption)
+   * - [UserAuthWithHashParams] (hash)
+   * @property
+   */
   dcsUserAuth?: UserAuthParams;
+  /**
+   * If the user is underage (undefined will keep the previous setting)
+   * @property
+   */
   isUnderage?: boolean;
 }
 
 /**
  * Object that contains the parameters for the setUser method including synchronized users.
+ * @interface
  */ 
 export interface DidomiMultiUserParameters extends DidomiUserParameters {
+  /**
+   * Synchronized user list
+   * - [UserAuthWithEncryptionParams] (encryption)
+   * - [UserAuthWithHashParams] (hash)
+   * @property
+   */
   synchronizedUsers?: UserAuthParams[];
 }
