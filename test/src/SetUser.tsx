@@ -201,7 +201,7 @@ export default function SetUser() {
         name="setUserWithParameters"
         call={async () => {
 
-          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
+          var userAuth = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
 
           var dcsUserAuth = {id: userId + "-dcs", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
 
@@ -210,7 +210,7 @@ export default function SetUser() {
             {id: userId + "2", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"}
           ];
 
-          var parameters = {userAuthParams: userAuthParams, dcsUserAuth: dcsUserAuth, synchronizedUsers: synchronizedUsers, isUnderage: false};
+          var parameters = {userAuth: userAuth, dcsUserAuth: dcsUserAuth, synchronizedUsers: synchronizedUsers, isUnderage: false};
 
           return Didomi.setUserWithParameters(parameters);
         }}
@@ -222,14 +222,14 @@ export default function SetUser() {
       <Setter
         name="setUserWithParametersAndSetupUI"
         call={async () => {
-          var userAuthParams = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
+          var userAuth = {id: userId, algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd", expiration: 3600};
 
           var synchronizedUsers = [
             {id: userId + "1", algorithm: "hash-md5", secretId: secretId, digest: "test-digest"},
             {id: userId + "2", algorithm: "aes-256-cbc", secretId: secretId, initializationVector: "abcd"}
           ];
 
-          var parameters = {userAuthParams: userAuthParams, synchronizedUsers: synchronizedUsers, isUnderage: false};
+          var parameters = {userAuth: userAuth, synchronizedUsers: synchronizedUsers, isUnderage: false};
 
           return await Didomi.setUserWithParametersAndSetupUI(parameters);
         }}
