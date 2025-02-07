@@ -972,15 +972,15 @@ extension RNDidomi {
     private func buildDidomiUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
         let json = try jsonString.toJSON()
         
-        let userAuthParamsJSON = json["userAuthParams"] as? [String: Any]
-        let userAuthParams = try buildUserAuthParams(from: userAuthParamsJSON)
-        let isUnderage = json["isUnderage"] as? Bool
+        let userAuthJSON = json["userAuth"] as? [String: Any]
+        let userAuth = try buildUserAuthParams(from: userAuthJSON)
         let dcsUserAuthJSON = json["dcsUserAuth"] as? [String: Any]
         let dcsUserAuth = try? buildUserAuthParams(from: dcsUserAuthJSON)
+        let isUnderage = json["isUnderage"] as? Bool
         
         if let synchronizedUsers = json["synchronizedUsers"] as? [[String: Any]] {
             return DidomiMultiUserParameters(
-                userAuth: userAuthParams,
+                userAuth: userAuth,
                 dcsUserAuth: dcsUserAuth,
                 synchronizedUsers: try synchronizedUsers.map { try buildUserAuthParams(from: $0) },
                 containerController: containerController,
@@ -988,7 +988,7 @@ extension RNDidomi {
             )
         } else {
             return DidomiUserParameters(
-                userAuth: userAuthParams,
+                userAuth: userAuth,
                 dcsUserAuth: dcsUserAuth,
                 containerController: containerController,
                 isUnderage: isUnderage

@@ -178,8 +178,11 @@ export interface SyncReadyEvent {
   syncAcknowledged: () => Promise<boolean>;
 }
 
-export interface UserAuthParams {
+export interface UserAuth {
   id: string;
+}
+
+export interface UserAuthParams extends UserAuth {
   algorithm: string;
   secretId: string;
   expiration?: number;
@@ -282,7 +285,7 @@ export interface DidomiUserParameters {
    * - [UserAuthWithoutParams] (ID only)
    * @property
    */
-  userAuth?: UserAuthParams;
+  userAuth?: UserAuth;
   /**
    * User authentication for Didomi Consent String
    * - [UserAuthWithEncryptionParams] (encryption)
