@@ -268,7 +268,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         val set = mutableSetOf<String>()
 
         for (i in 0 until size()) {
-            set.add(getString(i))
+            getString(i)?.also { set.add(it) }
         }
 
         return set
@@ -1178,9 +1178,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     // Required to transform from array to variadic.
-    private fun readableArrayToStringArray(readableArray: ReadableArray): Array<String> {
-        return Array(readableArray.size()) { i -> readableArray.getString(i) }
-    }
+    private fun readableArrayToStringArray(readableArray: ReadableArray) = readableArray.toSet().toTypedArray()
 
     private fun buildDidomiInitializeParameters(jsonParameters: String): DidomiInitializeParameters {
         val jsonObject = JSONObject(jsonParameters)
