@@ -432,7 +432,8 @@ class DidomiUITests: XCTestCase {
     XCTAssertTrue(actual.contains("\"user_id\":\""))
     XCTAssertTrue(actual.contains("\"created\":\""))
     XCTAssertTrue(actual.contains("\"updated\":\""))
-    XCTAssertTrue(actual.contains("\"didomi_dcs\":\"\"")) // DCS feature flag is disabled (empty string)
+    XCTAssertTrue(actual.contains("\"didomi_dcs\":\"\"")) // DCS feature is disabled (empty string)
+    XCTAssertTrue(actual.contains("\"gpp_string\":\"\"")) // GPP feature is disabled (empty string)
     XCTAssertTrue(actual.contains("\"regulation\":\"gdpr\""))
   }
   
