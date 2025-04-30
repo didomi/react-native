@@ -181,7 +181,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
-          name: android-app
+          name: ios-test-results
           path: /Users/runner/Library/Developer/Xcode/DerivedData/**/*.xcresult
           retention-days: 5
 
