@@ -183,7 +183,7 @@ jobs:
           clean test
 
       # Archive Result if failure
-      - name: Archive Android artifacts
+      - name: Archive iOS artifacts
         if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
