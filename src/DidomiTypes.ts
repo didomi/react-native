@@ -159,6 +159,7 @@ export interface CurrentUserStatus {
   consent_string: string;
   addtl_consent: string;
   didomi_dcs: string;
+  gpp_string: string;
   regulation: string;
 }
 
