@@ -130,5 +130,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation "io.didomi.sdk:android:2.25.1"
+    implementation "io.didomi.sdk:android:2.27.0"
 }
