@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:8.5.2"
+        classpath "com.android.tools.build:gradle:8.11.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -130,5 +130,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    implementation("com.google.code.gson:gson:2.13.1")
     implementation "io.didomi.sdk:android:2.27.0"
 }
