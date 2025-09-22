@@ -358,7 +358,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 false
             )
 
-            val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
+            val application = reactContext.currentActivity?.application ?: throw IllegalStateException("No activity present")
             Didomi.getInstance().initialize(application, parameters)
 
             promise.resolve(0)
@@ -383,7 +383,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
             val parameters = buildDidomiInitializeParameters(jsonParameters)
 
-            val application = currentActivity?.application ?: throw IllegalStateException("No activity present")
+            val application = reactContext.currentActivity?.application ?: throw IllegalStateException("No activity present")
             Didomi.getInstance().initialize(application, parameters)
 
             promise.resolve(0)
@@ -409,7 +409,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun setupUI(promise: Promise) {
         try {
             runOnUiThread {
-                Didomi.getInstance().setupUI(currentActivity as? FragmentActivity)
+                Didomi.getInstance().setupUI(reactContext.currentActivity as? FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
@@ -686,7 +686,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod
     fun setUserAndSetupUI(organizationUserId: String, promise: Promise) {
-        Didomi.getInstance().setUser(organizationUserId, currentActivity as? FragmentActivity)
+        Didomi.getInstance().setUser(organizationUserId, reactContext.currentActivity as? FragmentActivity)
         promise.resolve(0)
     }
 
@@ -728,7 +728,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 digest,
                 salt
             ),
-            activity = currentActivity as? FragmentActivity
+            activity = reactContext.currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -775,7 +775,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 salt,
                 expiration.toLong()
             ),
-            activity = currentActivity as? FragmentActivity
+            activity = reactContext.currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -814,7 +814,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 secretId,
                 initializationVector
             ),
-            activity = currentActivity as? FragmentActivity
+            activity = reactContext.currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -857,7 +857,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 initializationVector,
                 expiration.toLong()
             ),
-            activity = currentActivity as? FragmentActivity
+            activity = reactContext.currentActivity as? FragmentActivity
         )
         promise.resolve(0)
     }
@@ -907,7 +907,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             Didomi.getInstance().setUser(
                 userAuthParams = userAuthParams,
                 synchronizedUsers = synchronizedUsers,
-                activity = currentActivity as? FragmentActivity,
+                activity = reactContext.currentActivity as? FragmentActivity,
             )
 
             promise.resolve(0)
@@ -938,7 +938,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         promise: Promise
     ) {
         try {
-            val userParameters = buildDidomiUserParameters(JSONObject(jsonUserParameters), currentActivity as? FragmentActivity)
+            val userParameters = buildDidomiUserParameters(JSONObject(jsonUserParameters), reactContext.currentActivity as? FragmentActivity)
 
             Didomi.getInstance().setUser(userParameters)
             promise.resolve(0)
@@ -952,7 +952,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     fun showNotice(promise: Promise) {
         try {
             runOnUiThread {
-                Didomi.getInstance().showNotice(currentActivity as? FragmentActivity)
+                Didomi.getInstance().showNotice(reactContext.currentActivity as? FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
@@ -966,8 +966,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         try {
             runOnUiThread {
                 view?.also {
-                    Didomi.getInstance().showPreferences(currentActivity as? FragmentActivity, view)
-                } ?: Didomi.getInstance().showPreferences(currentActivity as? FragmentActivity)
+                    Didomi.getInstance().showPreferences(reactContext.currentActivity as? FragmentActivity, view)
+                } ?: Didomi.getInstance().showPreferences(reactContext.currentActivity as? FragmentActivity)
             }
             promise.resolve(0)
         } catch (e: Exception) {
