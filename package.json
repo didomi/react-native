@@ -20,7 +20,9 @@
     "!ios/build",
     "!**/__tests__",
     "!**/__fixtures__",
-    "!**/__mocks__"
+    "!**/__mocks__",
+    "app.plugin.js",
+    "plugin/"
   ],
   "workspaces": [
     ".",
@@ -89,5 +91,10 @@
   },
   "dependencies": {
     "@expo/config-plugins": "^54.0.2"
+  },
+  "expo": {
+    "plugins": [
+      "./plugin/withDidomi.js"
+    ]
   }
 }
