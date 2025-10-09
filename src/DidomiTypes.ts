@@ -75,6 +75,8 @@ export enum DidomiEventType {
     // Language
     LANGUAGE_UPDATED = "on_language_updated",
     LANGUAGE_UPDATE_FAILED = "on_language_update_failed",
+    // Integrations
+    INTEGRATION_ERROR = "on_integration_error",
 }
 
 export interface Vendor {
@@ -176,6 +178,11 @@ export interface SyncReadyEvent {
   organizationUserId: string;
   statusApplied: boolean;
   syncAcknowledged: () => Promise<boolean>;
+}
+
+export interface IntegrationErrorEvent {
+  integrationName: string;
+  reason: string;
 }
 
 export interface UserAuth {

@@ -756,6 +756,8 @@ extension RNDidomi {
                 // Language
                 "on_language_updated",
                 "on_language_update_failed"
+                // Integrations
+                "on_integration_error"
         ])
         vendorStatusListeners.forEach {
             eventsSet.insert("on_vendor_status_change_\($0)")
@@ -935,6 +937,14 @@ extension RNDidomi {
 
         didomiEventListener.onLanguageUpdateFailed = { [weak self] event, reason in
             self?.dispatchEvent(withName: "on_language_update_failed", body: reason)
+        }
+
+        didomiEventListener.onIntegrationError = { [weak self] event in
+            let result = [
+                "integrationName": event.integrationName,
+                "reson": event.reason
+            ]
+            self?.dispatchEvent(withName: "on_sync_ready", body: result)
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)

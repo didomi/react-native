@@ -75,6 +75,7 @@ function App() {
     //registerListener(DidomiEventType.SYNC_ERROR);
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
+    registerListener(DidomiEventType.INTEGRATION_ERROR);
   };
 
   React.useEffect(() => {
@@ -96,16 +97,10 @@ function App() {
     });*/
 
     async function init() {
-      await Didomi.initialize(
-        '9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba',
-        undefined,
-        undefined,
-        undefined,
-        false,
-        undefined,
-        "Ar7NPQ72",
-        undefined
-      );
+      await Didomi.initializeWithParameters({
+        apiKey: "9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba",
+        noticeId: "Ar7NPQ72"
+      });
       console.log('Finished init');
 
       Didomi.onReady().then(() => {
