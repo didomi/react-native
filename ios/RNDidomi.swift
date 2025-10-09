@@ -755,7 +755,7 @@ extension RNDidomi {
                 "on_sync_error",
                 // Language
                 "on_language_updated",
-                "on_language_update_failed"
+                "on_language_update_failed",
                 // Integrations
                 "on_integration_error"
         ])
@@ -941,10 +941,10 @@ extension RNDidomi {
 
         didomiEventListener.onIntegrationError = { [weak self] event in
             let result = [
-                "integrationName": event.integrationName,
+                "integrationName": event.sdkName,
                 "reson": event.reason
             ]
-            self?.dispatchEvent(withName: "on_sync_ready", body: result)
+            self?.dispatchEvent(withName: "on_integration_error", body: result)
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)
