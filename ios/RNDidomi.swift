@@ -941,7 +941,7 @@ extension RNDidomi {
 
         didomiEventListener.onIntegrationError = { [weak self] event in
             let result = [
-                "integrationName": event.sdkName,
+                "integrationName": event.integrationName,
                 "reson": event.reason
             ]
             self?.dispatchEvent(withName: "on_integration_error", body: result)
