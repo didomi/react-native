@@ -1185,7 +1185,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private fun prepareIntegrationErrorEvent(event: IntegrationErrorEvent) {
         val eventName = EventTypes.INTEGRATION_ERROR_EVENT.event
         Log.d("prepareEvent", "Sending $eventName")
-        println("DIDOMI: prepareEvent $eventName")
         val params = WritableNativeMap().apply {
             putString("integrationName", event.integrationName)
             putString("reason", event.reason)
