@@ -65,5 +65,8 @@ enum class EventTypes(val event: String) {
     LANGUAGE_UPDATE_FAILED("on_language_update_failed"),
 
     // Vendor Status
-    VENDOR_STATUS_CHANGE_PREFIX("on_vendor_status_change_");
+    VENDOR_STATUS_CHANGE_PREFIX("on_vendor_status_change_"),
+
+    // Integrations
+    INTEGRATION_ERROR_EVENT("on_integration_error")
 }

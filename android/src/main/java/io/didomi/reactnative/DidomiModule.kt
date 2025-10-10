@@ -236,6 +236,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
          * Language update failed
          */
         override fun languageUpdateFailed(event: LanguageUpdateFailedEvent) = prepareEvent(EventTypes.LANGUAGE_UPDATE_FAILED.event, event.reason)
+
+        /*
+         * Error while using an external SDK integration
+         */
+        override fun integrationError(event: IntegrationErrorEvent) = prepareIntegrationErrorEvent(event)
     }
 
     private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
@@ -1171,6 +1176,18 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             putString("organizationUserId", event.organizationUserId)
             putBoolean("statusApplied", event.statusApplied)
             putInt("syncAcknowledgedIndex", callbackIndex)
+        }
+        reactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit(eventName, params)
+    }
+
+    private fun prepareIntegrationErrorEvent(event: IntegrationErrorEvent) {
+        val eventName = EventTypes.INTEGRATION_ERROR_EVENT.event
+        Log.d("prepareEvent", "Sending $eventName")
+        val params = WritableNativeMap().apply {
+            putString("integrationName", event.integrationName)
+            putString("reason", event.reason)
         }
         reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)

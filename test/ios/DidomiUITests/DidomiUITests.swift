@@ -207,7 +207,8 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "showPreferences Vendors")
 
     // Check opening of vendors
-    let vendorsButton = app.staticTexts["Save"]
+    let vendorsView = app.otherElements["vendors_view"]
+    let vendorsButton = vendorsView.staticTexts["Save"]
     vendorsButton.wait()
     testLastEvent(app: app, name:"on_show_preferences")
     
