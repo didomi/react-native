@@ -38,8 +38,7 @@ open class BaseUITest {
 
     protected fun tapButton(name: String) {
         val matcher = withText(name.uppercase())
-        onView(matcher).perform(ScrollToAction())
-        onView(matcher).perform(click())
+        onView(matcher).perform(ScrollToAction(), click())
     }
 
     private fun scrollToItem(name: String) {

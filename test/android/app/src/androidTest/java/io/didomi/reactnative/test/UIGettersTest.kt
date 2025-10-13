@@ -163,7 +163,8 @@ class UIGettersTest : BaseUITest() {
         assertTextContains("\"user_id\":\"".trim())
         assertTextContains("\"created\":\"".trim())
         assertTextContains("\"updated\":\"".trim())
-        assertTextContains("\"didomi_dcs\":\"\"".trim()) // DCS feature flag is disabled (empty string)
+        assertTextContains("\"didomi_dcs\":\"\"".trim()) // DCS feature is disabled (empty string)
+        assertTextContains("\"gpp_string\":\"\"".trim()) // GPP feature is disabled (empty string)
         assertTextContains("\"regulation\":\"gdpr\"".trim())
     }
 
