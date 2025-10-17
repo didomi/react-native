@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters, UserAuthWithEncryptionParams, UserAuthWithHashParams, DidomiMultiUserParameters } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
@@ -638,8 +638,8 @@ export const Didomi = {
    *  @deprecated Use {@link setUserWithParameters} instead
    */
   setUserWithAuthParams: (
-    userAuthParams: UserAuthParams,
-    synchronizedUsers?: UserAuthParams[] | undefined
+    userAuthParams: UserAuthParams | UserAuthWithEncryptionParams | UserAuthWithHashParams,
+    synchronizedUsers?: Array<UserAuthParams | UserAuthWithEncryptionParams | UserAuthWithHashParams> | undefined
   ): void => RNDidomi.setUserWithAuthParams(JSON.stringify(userAuthParams), JSON.stringify(synchronizedUsers)),
 
   /**
@@ -650,8 +650,8 @@ export const Didomi = {
    *  @deprecated Use {@link setUserWithParametersAndSetupUI} instead
    */
   setUserWithAuthParamsAndSetupUI: (
-    userAuthParams: UserAuthParams,
-    synchronizedUsers?: UserAuthParams[] | undefined
+    userAuthParams: UserAuthParams | UserAuthWithEncryptionParams | UserAuthWithHashParams,
+    synchronizedUsers?: Array<UserAuthParams | UserAuthWithEncryptionParams | UserAuthWithHashParams> | undefined
   ): void => RNDidomi.setUserWithAuthParamsAndSetupUI(JSON.stringify(userAuthParams), JSON.stringify(synchronizedUsers)),
 
   /**
@@ -659,14 +659,14 @@ export const Didomi = {
    *
    *  @param parameters as DidomiUserParameters
    */
-  setUserWithParameters: (parameters: DidomiUserParameters): void => RNDidomi.setUserWithParameters(JSON.stringify(parameters)),
+  setUserWithParameters: (parameters: DidomiUserParameters | DidomiMultiUserParameters): void => RNDidomi.setUserWithParameters(JSON.stringify(parameters)),
 
   /**
    *  Set user information with parameters and check for missing consent
    *
    *  @param parameters as DidomiUserParameters
    */
-  setUserWithParametersAndSetupUI: (parameters: DidomiUserParameters): void => RNDidomi.setUserWithParametersAndSetupUI(JSON.stringify(parameters)),
+  setUserWithParametersAndSetupUI: (parameters: DidomiUserParameters | DidomiMultiUserParameters): void => RNDidomi.setUserWithParametersAndSetupUI(JSON.stringify(parameters)),
 
   /**
    * Show the consent notice (if required, not disabled in the config and not already displayed)
