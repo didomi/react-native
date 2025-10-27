@@ -21,7 +21,7 @@ export default function Methods() {
       <MethodCall
         name="initialize"
         call={() => {
-          Didomi.initializeWithParameters({ apiKey: apiKey, noticeId: "mBcaPUEX", androidTvEnabled: true, androidTvNoticeId: "mBcaPUEX" }).catch((err) => {
+          Didomi.initializeWithParameters({ apiKey: apiKey, noticeId: "XWhEXzb9", androidTvEnabled: true, androidTvNoticeId: "mBcaPUEX" }).catch((err) => {
             console.log(err);
             return false
           });
