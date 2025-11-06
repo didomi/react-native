@@ -21,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Cache Node dependencies
         uses: actions/cache@v4
         with:
@@ -29,9 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -39,7 +39,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install -g npm@latest
 
       - name: Prepare and publish
         run: |
