@@ -11,10 +11,18 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Allows GitHub Actions to generate OIDC tokens. See https://docs.github.com/en/actions/concepts/security/openid-connect.
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Cache Node dependencies
         uses: actions/cache@v4
@@ -24,9 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -34,11 +39,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install -g npm@latest
 
       - name: Prepare and publish
         run: |
           npm run prepare
           npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
