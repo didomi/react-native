@@ -37,9 +37,10 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+          always-auth: false
 
       - name: Install dependencies
-        run: npm install -g npm@latest
+        run: npm install
 
       - name: Prepare and publish
         run: |
