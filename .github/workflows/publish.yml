@@ -40,7 +40,7 @@ jobs:
           always-auth: false
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Prepare and publish
         run: |
