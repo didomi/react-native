@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       
       - name: Run JS tests
         run: npm test
@@ -68,11 +68,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install bob
-        run: npm install -g react-native-builder-bob
-
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v4
@@ -163,11 +160,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install bob
-        run: npm install -g react-native-builder-bob
-
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install pods
         run: cd ios && pod install

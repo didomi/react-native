@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         
       - name: Run JS tests
         run: npm test
@@ -69,7 +69,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Cache Gradle Wrapper
         uses: actions/cache@v4
@@ -161,7 +161,7 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install pods
         run: cd ios && pod install
