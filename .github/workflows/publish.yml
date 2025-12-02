@@ -45,4 +45,4 @@ jobs:
       - name: Prepare and publish
         run: |
           npm run prepare
-          npm publish --access public
+          npm publish --access public --provenance
