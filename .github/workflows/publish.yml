@@ -37,7 +37,11 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
-          always-auth: false
+
+      - name: Update npm
+        run: |
+          npm install -g npm@latest
+          npm --version
 
       - name: Install dependencies
         run: npm install
