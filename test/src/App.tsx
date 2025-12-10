@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Didomi, DidomiEventType } from '@didomi/react-native';
 import Methods from './Methods';
 import Getters from './Getters';
@@ -120,40 +121,42 @@ function App() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.title}>
-        <Text testID='ready-result' style={styles.title}>
-          SDK STATUS: {sdkStatus}
-        </Text>
-        <Text style={styles.title}>
-          LAST RECEIVED EVENTS:
-          { displayEvents() }
-        </Text>
-      </View>
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.title}>INITIALIZE</Text>
-          <InitializeMethods
-            updateSdkState={setSdkStatus}
-           />
-          <Text style={styles.title}>METHODS</Text>
-          <Methods
-            onEventReceived={(eventName: string) => pushReceivedEvent({ name: eventName }) }
-            registerAllListeners={() => registerAllListeners() }
-           />
-          <Text style={styles.title}>GETTERS</Text>
-          <Getters />
-          <Text style={styles.title}>GETTERS PARAMS</Text>
-          <GettersParams />
-          <Text style={styles.title}>SETTERS</Text>
-          <Setters />
-          <Text style={styles.title}>Current User Status Transactions</Text>
-          <CurrentUserStatusTransactionsList />
-          <Text style={styles.title}>SET USER</Text>
-          <SetUser />
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.title}>
+          <Text testID='ready-result' style={styles.title}>
+            SDK STATUS: {sdkStatus}
+          </Text>
+          <Text style={styles.title}>
+            LAST RECEIVED EVENTS:
+            { displayEvents() }
+          </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <ScrollView>
+          <View style={styles.container}>
+            <Text style={styles.title}>INITIALIZE</Text>
+            <InitializeMethods
+              updateSdkState={setSdkStatus}
+             />
+            <Text style={styles.title}>METHODS</Text>
+            <Methods
+              onEventReceived={(eventName: string) => pushReceivedEvent({ name: eventName }) }
+              registerAllListeners={() => registerAllListeners() }
+             />
+            <Text style={styles.title}>GETTERS</Text>
+            <Getters />
+            <Text style={styles.title}>GETTERS PARAMS</Text>
+            <GettersParams />
+            <Text style={styles.title}>SETTERS</Text>
+            <Setters />
+            <Text style={styles.title}>Current User Status Transactions</Text>
+            <CurrentUserStatusTransactionsList />
+            <Text style={styles.title}>SET USER</Text>
+            <SetUser />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
