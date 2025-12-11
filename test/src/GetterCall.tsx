@@ -16,7 +16,11 @@ export default function Getter(props: GetterCallProps) {
     <View style={styles.container}>
       <Button
         onPress={async () => {
-          setResult(await props.call(props.name));
+          try {
+            setResult(await props.call(props.name));
+          } catch (error) {
+            setResult(`Error: ${error instanceof Error ? error.message : String(error)}` as any);
+          }
           setCalled(true);
         }}
         title={props.name}

@@ -15,7 +15,11 @@ export default function Setter(props: SetterCallProps) {
     <View style={styles.container}>
       <Button
         onPress={async () => {
-          setResult(await props.call());
+          try {
+            setResult(await props.call());
+          } catch (error) {
+            setResult(`Error: ${error instanceof Error ? error.message : String(error)}` as any);
+          }
           setCalled(true);
         }}
         title={props.name}
