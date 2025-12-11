@@ -28,7 +28,11 @@ export const DidomiListener = {
             }
           }
           events.forEach((el: any) => {
-            el(_event);
+            try {
+              el(_event);
+            } catch (err) {
+              console.error('Didomi event listener error:', err);
+            }
           });
         } else {  // No listener for this event type
           if (eventTypeValue == "on_sync_ready") {  
@@ -43,6 +47,13 @@ export const DidomiListener = {
   reset: () => {
     // Reset listeners
     DidomiListener.listeners = new Map();
+    // Clear vendor status listeners and their native event emitters
+    DidomiListener.vendorStatusListeners.forEach((_, vendorId) => {
+      DidomiListener.eventEmitter.removeAllListeners(
+        InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId
+      );
+    });
+    DidomiListener.vendorStatusListeners = new Map();
   },
 
   addEventListener: (
@@ -71,8 +82,14 @@ export const DidomiListener = {
   },
 
   setOnReadyListener: (): Promise<void> => {
-    return new Promise<void>((resolve) => {
+    return new Promise<void>((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.READY_CALLBACK);
+        reject(new Error('Didomi SDK ready timeout'));
+      }, 30000);
+
       const listener = (_event: any) => {
+        clearTimeout(timeoutId);
         resolve();
         DidomiListener.eventEmitter.removeAllListeners(InternalEventType.READY_CALLBACK);
       };
@@ -84,8 +101,14 @@ export const DidomiListener = {
   },
 
   setOnErrorListener: (): Promise<void> => {
-    return new Promise<void>((resolve) => {
+    return new Promise<void>((resolve, reject) => {
+      const timeoutId = setTimeout(() => {
+        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.ERROR_CALLBACK);
+        reject(new Error('Didomi SDK error listener timeout'));
+      }, 30000);
+
       const listener = (_event: any) => {
+        clearTimeout(timeoutId);
         resolve(_event);
         DidomiListener.eventEmitter.removeAllListeners(InternalEventType.ERROR_CALLBACK);
       };
@@ -109,7 +132,11 @@ export const DidomiListener = {
         let events = DidomiListener.vendorStatusListeners.get(vendorId);
         if (events) {
           events.forEach((el: any) => {
-            el(_event);
+            try {
+              el(_event);
+            } catch (err) {
+              console.error('Didomi vendor status listener error:', err);
+            }
           });
         }
       });
@@ -118,10 +145,9 @@ export const DidomiListener = {
   },
 
   removeVendorStatusListener: (vendorId: string) => {
-    let events = DidomiListener.vendorStatusListeners.get(vendorId);
-    if (events) {
+    if (DidomiListener.vendorStatusListeners.has(vendorId)) {
       DidomiListener.eventEmitter.removeAllListeners(InternalEventType.VENDOR_STATUS_CHANGE_PREFIX + vendorId);
-      DidomiListener.vendorStatusListeners.set(vendorId, undefined);
+      DidomiListener.vendorStatusListeners.delete(vendorId);
     }
   },
 };
