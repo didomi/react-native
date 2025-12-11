@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -11,6 +11,7 @@ import SetUser from './SetUser';
 import CurrentUserStatusTransactionsList from './CurrentUserStatusTransactionsList';
 import { TestEvent } from './Types';
 import InitializeMethods from './InitializeMethods';
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
   const MAX_EVENTS_DISPLAYED = 3;
@@ -19,17 +20,16 @@ function App() {
 
   const [sdkStatus, setSdkStatus] = useState("NOT_READY");
 
-  function pushReceivedEvent(event: TestEvent) {
-    receivedEvents.push(event);
-    if (receivedEvents.length > MAX_EVENTS_DISPLAYED) {
-      receivedEvents.shift();
-    }
-    setReceivedEvents([
-      ...receivedEvents
-    ]);
-  }
+  const pushReceivedEvent = useCallback((event: TestEvent) => {
+    setReceivedEvents(prevEvents => {
+      const newEvents = [...prevEvents, event];
+      return newEvents.length > MAX_EVENTS_DISPLAYED
+        ? newEvents.slice(-MAX_EVENTS_DISPLAYED)
+        : newEvents;
+    });
+  }, [MAX_EVENTS_DISPLAYED]);
 
-  const registerListener = (eventType: DidomiEventType) => {
+  const registerListener = useCallback((eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
       pushReceivedEvent({ name: eventType, data });
       console.log('event received: ' + eventType);
@@ -37,9 +37,9 @@ function App() {
         console.log(' -> data : ' + data);
       }
     });
-  };
+  }, [pushReceivedEvent]);
 
-  const registerAllListeners = () => {
+  const registerAllListeners = useCallback(() => {
     Didomi.removeAllEventListeners();
 
     registerListener(DidomiEventType.CONSENT_CHANGED);
@@ -77,25 +77,10 @@ function App() {
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
     registerListener(DidomiEventType.INTEGRATION_ERROR);
-  };
+  }, [registerListener]);
 
   React.useEffect(() => {
     registerAllListeners();
-
-    /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
-      setReceivedEvent({ name: DidomiEventType.READY, data });
-      console.log("I'm ready");
-    });
-
-    Didomi.addEventListener(DidomiEventType.SHOW_NOTICE, (data: any) => {
-      setReceivedEvent({ name: DidomiEventType.SHOW_NOTICE, data });
-      console.log('Show notice');
-    });
-
-    Didomi.addEventListener(DidomiEventType.CONSENT_CHANGED, (data: any) => {
-      setReceivedEvent({ name: DidomiEventType.CONSENT_CHANGED, data });
-      console.log('Consent changed');
-    });*/
 
     async function init() {
       await Didomi.initializeWithParameters({
@@ -109,7 +94,12 @@ function App() {
       });
     }
     init();
-  }, []);
+
+    // Cleanup on unmount
+    return () => {
+      Didomi.removeAllEventListeners();
+    };
+  }, [registerAllListeners]);
 
   function displayEvents() {
     return receivedEvents.map((event)=>{
@@ -121,42 +111,44 @@ function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.title}>
-          <Text testID='ready-result' style={styles.title}>
-            SDK STATUS: {sdkStatus}
-          </Text>
-          <Text style={styles.title}>
-            LAST RECEIVED EVENTS:
-            { displayEvents() }
-          </Text>
-        </View>
-        <ScrollView>
-          <View style={styles.container}>
-            <Text style={styles.title}>INITIALIZE</Text>
-            <InitializeMethods
-              updateSdkState={setSdkStatus}
-             />
-            <Text style={styles.title}>METHODS</Text>
-            <Methods
-              onEventReceived={(eventName: string) => pushReceivedEvent({ name: eventName }) }
-              registerAllListeners={() => registerAllListeners() }
-             />
-            <Text style={styles.title}>GETTERS</Text>
-            <Getters />
-            <Text style={styles.title}>GETTERS PARAMS</Text>
-            <GettersParams />
-            <Text style={styles.title}>SETTERS</Text>
-            <Setters />
-            <Text style={styles.title}>Current User Status Transactions</Text>
-            <CurrentUserStatusTransactionsList />
-            <Text style={styles.title}>SET USER</Text>
-            <SetUser />
+    <ErrorBoundary>
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.title}>
+            <Text testID='ready-result' style={styles.title}>
+              SDK STATUS: {sdkStatus}
+            </Text>
+            <Text style={styles.title}>
+              LAST RECEIVED EVENTS:
+              { displayEvents() }
+            </Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+          <ScrollView>
+            <View style={styles.container}>
+              <Text style={styles.title}>INITIALIZE</Text>
+              <InitializeMethods
+                updateSdkState={setSdkStatus}
+               />
+              <Text style={styles.title}>METHODS</Text>
+              <Methods
+                onEventReceived={(eventName: string) => pushReceivedEvent({ name: eventName }) }
+                registerAllListeners={() => registerAllListeners() }
+               />
+              <Text style={styles.title}>GETTERS</Text>
+              <Getters />
+              <Text style={styles.title}>GETTERS PARAMS</Text>
+              <GettersParams />
+              <Text style={styles.title}>SETTERS</Text>
+              <Setters />
+              <Text style={styles.title}>Current User Status Transactions</Text>
+              <CurrentUserStatusTransactionsList />
+              <Text style={styles.title}>SET USER</Text>
+              <SetUser />
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
 }
 
