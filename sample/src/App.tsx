@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Didomi, DidomiEventType } from '@didomi/react-native';
 import Methods from './Methods';
 import Getters from './Getters';
@@ -101,24 +102,26 @@ function App() {
   }
   
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.title}>
-        <Text style={styles.title}>
-          LAST RECEIVED EVENTS: 
-          { displayEvents() }
-          </Text>
-      </View>
-      <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.title}>METHODS</Text>
-          <Methods />
-          <Text style={styles.title}>GETTERS</Text>
-          <Getters />
-          <Text style={styles.title}>SETTERS</Text>
-          <Setters />
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.title}>
+          <Text style={styles.title}>
+            LAST RECEIVED EVENTS:
+            { displayEvents() }
+            </Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+        <ScrollView>
+          <View style={styles.container}>
+            <Text style={styles.title}>METHODS</Text>
+            <Methods />
+            <Text style={styles.title}>GETTERS</Text>
+            <Getters />
+            <Text style={styles.title}>SETTERS</Text>
+            <Setters />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

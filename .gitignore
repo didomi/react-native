@@ -79,3 +79,6 @@ package-lock.json
 Podfile.lock
 yarn.lock
 index.android.bundle
+
+# AI generated files
+CLAUDE.md

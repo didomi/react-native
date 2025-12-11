@@ -365,10 +365,11 @@ class DidomiUITests: XCTestCase {
     
     // The text might change every time we call the getUserStatus method
     // so we'll only assert the first level parameters of the resulting json string.
-    XCTAssertTrue(actual.contains("{\"legitimate_interest\":{\"enabled\":["))
-    XCTAssertTrue(actual.contains(",\"global\":{\"enabled\":["))
-    XCTAssertTrue(actual.contains(",\"essential\":["))
-    XCTAssertTrue(actual.contains(",\"consent\":{\"enabled\":["))
+    // Note: JSON key ordering is not guaranteed, so we check for key presence without relying on order.
+    XCTAssertTrue(actual.contains("\"legitimate_interest\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"global\":{\"enabled\":["))
+    XCTAssertTrue(actual.contains("\"essential\":["))
+    XCTAssertTrue(actual.contains("\"consent\":{\"enabled\":["))
   }
   
   func testGetUserStatus_Vendors() throws {

@@ -137,7 +137,7 @@ jobs:
   
   ios:
     needs: js
-    runs-on: macos-14
+    runs-on: macos-15
     defaults:
       run:
         working-directory: test
@@ -173,7 +173,7 @@ jobs:
           -workspace "Didomi Tests.xcworkspace" \
           -scheme "Didomi Tests" \
           -sdk iphonesimulator \
-          -destination "platform=iOS Simulator,name=iPhone 15" \
+          -destination "platform=iOS Simulator,name=iPhone 17" \
           clean test
 
       # Archive Result if failure
