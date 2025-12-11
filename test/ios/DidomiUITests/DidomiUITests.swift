@@ -505,7 +505,7 @@ class DidomiUITests: XCTestCase {
     let app = initApp()
 
     tapButton(in: app, name: "getText [Key = '0']")
-    assertResult(in: app, name: "getText [Key = '0']", expected: "")
+    assertResult(in: app, name: "getText [Key = '0']", expected: "{}")
   }
   
   func testGetTranslatedText() throws {

@@ -349,7 +349,7 @@ class RNDidomi: RCTEventEmitter {
     @objc(getText:resolve:reject:)
     dynamic func getText(key: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let text = Didomi.shared.getText(key: key)
-        resolve(text)
+        resolve(text ?? [:])
     }
 
     @objc(setLogLevel:resolve:reject:)
