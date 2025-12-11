@@ -104,7 +104,8 @@ export default function Methods(props: MethodsProps) {
       <MethodCall
         name="Listen ipromote Vendor status"
         call={()=> {
-          Didomi.removeAllEventListeners();
+          // Remove only the ipromote vendor listener if it exists, then add it
+          Didomi.removeVendorStatusListener('ipromote');
           Didomi.addVendorStatusListener('ipromote', (vendorStatus: VendorStatus) => {
             props.onEventReceived("Vendor status ipromote -> " + vendorStatus.enabled);
             console.log("event received: Vendor status ipromote");
@@ -117,7 +118,7 @@ export default function Methods(props: MethodsProps) {
       <MethodCall
         name="Listen user sync"
         call={()=> {
-          Didomi.removeAllEventListeners();
+          // Remove vendor listener and add sync ready listener
           Didomi.removeVendorStatusListener('ipromote');
           Didomi.addEventListener(DidomiEventType.SYNC_READY, async(data: SyncReadyEvent) => {
             console.log('event received: ' + DidomiEventType.SYNC_READY);
