@@ -3,14 +3,16 @@
  * @param result result to be converted.
  * @returns formatted string.
  */
-const convertResultToString = (result: any) => {
-  if (Array.isArray(result) && typeof result[0] == "string") {
-    return result.sort().toString();
+const convertResultToString = (result: any): string => {
+  if (Array.isArray(result) && result.length > 0 && typeof result[0] === "string") {
+    // Create a copy before sorting to avoid mutating the original array
+    return [...result].sort().toString();
   }
-  if (Array.isArray(result) && typeof result[0] == "object") {
+  if (Array.isArray(result) && result.length > 0 && typeof result[0] === "object") {
+    // Map and sort without mutating the original array
     return result.map(entity => entity.id).sort().toString();
   }
-  return JSON.stringify(result) || result
+  return JSON.stringify(result) ?? String(result);
 };
 
 export { convertResultToString };
