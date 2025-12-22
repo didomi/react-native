@@ -26,6 +26,7 @@ export default function Setters() {
             consent_string: '',
             addtl_consent: '',
             didomi_dcs: '',
+            gpp_string: '',
             regulation: ''
           });
         }}
@@ -52,6 +53,7 @@ export default function Setters() {
             consent_string: '',
             addtl_consent: '',
             didomi_dcs: '',
+            gpp_string: '',
             regulation: ''
           });
         }}

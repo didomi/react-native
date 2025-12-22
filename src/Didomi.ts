@@ -78,8 +78,8 @@ export const Didomi = {
    * Listen to SDK ready state
    */
   onReady: (): Promise<void> => {
-    var promise = DidomiListener.setOnReadyListener();
-    RNDidomi.onReady();
+    const promise = DidomiListener.setOnReadyListener();
+    RNDidomi.onReady().catch((err: Error) => console.error('Didomi onReady native error:', err));
     return promise;
   },
 
@@ -87,8 +87,8 @@ export const Didomi = {
    * Listen to SDK errors
    */
   onError: (): Promise<void> => {
-    var promise = DidomiListener.setOnErrorListener();
-    RNDidomi.onError();
+    const promise = DidomiListener.setOnErrorListener();
+    RNDidomi.onError().catch((err: Error) => console.error('Didomi onError native error:', err));
     return promise;
   },
 
@@ -137,11 +137,11 @@ export const Didomi = {
    * @param vendorId: the id of the vendor
    * @param callback: the callback to trigger when the user status for the selected vendor changes
    */
-  addVendorStatusListener: (
+  addVendorStatusListener: async (
     vendorId: string,
     callback: (vendorStatus: VendorStatus) => void
-  ) => {
-    RNDidomi.listenToVendorStatus(vendorId)
+  ): Promise<void> => {
+    await RNDidomi.listenToVendorStatus(vendorId);
     DidomiListener.addVendorStatusListener(vendorId, callback);
   },
 
@@ -346,7 +346,7 @@ export const Didomi = {
    *  @returns: The user LI status corresponding to the specified vendor and all its required purposes.
    *  @deprecated use {@link #getCurrentUserStatus()} instead.
    */
-  getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (vendorId: string): boolean => RNDidomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId),
+  getUserLegitimateInterestStatusForVendorAndRequiredPurposes: (vendorId: string): Promise<boolean> => RNDidomi.getUserLegitimateInterestStatusForVendorAndRequiredPurposes(vendorId),
 
   /**
    *  Get the current user consent status.

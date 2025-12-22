@@ -105,8 +105,8 @@ export interface VendorUrls {
 
 export interface VendorDataRetention {
   stdRetention: number;
-  purposes: Map<number>;
-  specialPurposes: Map<number>;
+  purposes: StringMap<number>;
+  specialPurposes: StringMap<number>;
 }
 
 export interface Purpose {
@@ -115,10 +115,14 @@ export interface Purpose {
   description: string;
 }
 
-export interface Map<T> {
+export interface StringMap<T> {
   [index: string]: T;
-  [index: number]: T;
 }
+
+/**
+ * @deprecated Use StringMap instead to avoid shadowing the native Map type
+ */
+export type Map<T> = StringMap<T>;
 
 export interface UserStatus {
   purposes: UserStatusPurposes;
@@ -153,8 +157,8 @@ export interface UserStatusIds {
 }
 
 export interface CurrentUserStatus {
-  purposes: Map<PurposeStatus>;
-  vendors: Map<VendorStatus>;
+  purposes: StringMap<PurposeStatus>;
+  vendors: StringMap<VendorStatus>;
   user_id: string;
   created: string;
   updated: string;

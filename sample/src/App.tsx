@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -7,28 +7,28 @@ import Methods from './Methods';
 import Getters from './Getters';
 import Setters from './Setters';
 import { TestEvent } from './Types';
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
   const MAX_EVENTS_DISPLAYED = 3;
 
   const [receivedEvents, setReceivedEvents] = useState<TestEvent[]>([]);
 
-  function pushReceivedEvent(event: TestEvent) {
-    receivedEvents.push(event);
-    if (receivedEvents.length > MAX_EVENTS_DISPLAYED) {
-      receivedEvents.shift();
-    }
-    setReceivedEvents([
-      ...receivedEvents
-    ]);
-  }
+  const pushReceivedEvent = useCallback((event: TestEvent) => {
+    setReceivedEvents(prevEvents => {
+      const newEvents = [...prevEvents, event];
+      return newEvents.length > MAX_EVENTS_DISPLAYED
+        ? newEvents.slice(-MAX_EVENTS_DISPLAYED)
+        : newEvents;
+    });
+  }, [MAX_EVENTS_DISPLAYED]);
 
-  const registerListener = (eventType: DidomiEventType) => {
+  const registerListener = useCallback((eventType: DidomiEventType) => {
     Didomi.addEventListener(eventType, (data: any) => {
       pushReceivedEvent({ name: eventType, data });
       console.log('event received: ' + eventType);
     });
-  };
+  }, [pushReceivedEvent]);
 
   React.useEffect(() => {
     Didomi.removeAllEventListeners();
@@ -74,23 +74,11 @@ function App() {
       console.log('error');
     });
 
-    /*Didomi.addEventListener(DidomiEventType.READY, (data: any) => {
-      setReceivedEvent({ name: DidomiEventType.READY, data });
-      console.log("I'm ready");
-    });
-
-    Didomi.addEventListener(DidomiEventType.SHOW_NOTICE, (data: any) => {
-      setReceivedEvent({ name: DidomiEventType.SHOW_NOTICE, data });
-      console.log('Show notice');
-    });
-
-    Didomi.addEventListener(DidomiEventType.CONSENT_CHANGED, (data: any) => {
-      setReceivedEvent({ name: DidomiEventType.CONSENT_CHANGED, data });
-      console.log('Consent changed');
-    });*/
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // Cleanup on unmount
+    return () => {
+      Didomi.removeAllEventListeners();
+    };
+  }, [registerListener]);
 
   function displayEvents() {
     return receivedEvents.map((event)=>{
@@ -102,26 +90,28 @@ function App() {
   }
   
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.title}>
-          <Text style={styles.title}>
-            LAST RECEIVED EVENTS:
-            { displayEvents() }
-            </Text>
-        </View>
-        <ScrollView>
-          <View style={styles.container}>
-            <Text style={styles.title}>METHODS</Text>
-            <Methods />
-            <Text style={styles.title}>GETTERS</Text>
-            <Getters />
-            <Text style={styles.title}>SETTERS</Text>
-            <Setters />
+    <ErrorBoundary>
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.title}>
+            <Text style={styles.title}>
+              LAST RECEIVED EVENTS:
+              { displayEvents() }
+              </Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+          <ScrollView>
+            <View style={styles.container}>
+              <Text style={styles.title}>METHODS</Text>
+              <Methods />
+              <Text style={styles.title}>GETTERS</Text>
+              <Getters />
+              <Text style={styles.title}>SETTERS</Text>
+              <Setters />
+            </View>
+          </ScrollView>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </ErrorBoundary>
   );
 }
 
