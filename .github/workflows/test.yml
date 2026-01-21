@@ -166,6 +166,9 @@ jobs:
       - name: Install pods
         run: cd ios && pod install
 
+      - name: List all simulators
+        run: xcrun xctrace list devices
+
       - name: Run iOS Tests
         run: |
           npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
