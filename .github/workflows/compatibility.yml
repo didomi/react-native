@@ -17,10 +17,6 @@ jobs:
       fail-fast: false
       matrix:
         react-native-version:
-          - '0.73.10'
-          - '0.74.7'
-          - '0.75.5'
-          - '0.76.6'
           - '0.77.2'
           - '0.78.2'
           - '0.79.2'
