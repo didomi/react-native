@@ -1,10 +1,6 @@
 name: Compatibility
 
 on:
-  push:
-    branches:
-      - "**"
-      - "!main" # Prevent when pushing on main
   workflow_dispatch:
 
 jobs:
