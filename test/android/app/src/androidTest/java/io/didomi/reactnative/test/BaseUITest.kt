@@ -41,7 +41,7 @@ open class BaseUITest {
         onView(matcher).perform(ScrollToAction(), click())
     }
 
-    private fun scrollToItem(name: String) {
+    protected fun scrollToItem(name: String) {
         val matcher = withText(name.uppercase())
         onView(matcher).perform(ScrollToAction())
     }
