@@ -1,0 +1,79 @@
+name: Compatibility
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compatibility:
+    runs-on: macos-15
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.react-native-version }}
+      cancel-in-progress: true
+    strategy:
+      fail-fast: false
+      matrix:
+        react-native-version:
+          - '0.77.2'
+          - '0.78.2'
+          - '0.79.2'
+          - '0.80.0'
+          - '0.81.5'
+          - '0.82.1'
+          - '0.83.2'
+
+    steps:
+      - name: Checkout SDK
+        uses: actions/checkout@v6
+        with:
+          path: sdk
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build SDK
+        working-directory: sdk
+        run: |
+          npm install
+          npm run prepare
+          npm pack
+
+      - name: Create RN Project
+        run: |
+          npx @react-native-community/cli init CompatTest \
+            --version ${{ matrix.react-native-version }} \
+            --skip-git-init \
+            --skip-install
+
+      - name: Install Dependencies
+        working-directory: CompatTest
+        run: |
+          npm install
+          npm install ../sdk/didomi-react-native-*.tgz
+
+      - name: Build Android
+        working-directory: CompatTest/android
+        run: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Install Pods
+        working-directory: CompatTest/ios
+        run: pod install
+
+      - name: Build iOS
+        working-directory: CompatTest/ios
+        run: |
+          xcodebuild build \
+            -workspace CompatTest.xcworkspace \
+            -scheme CompatTest \
+            -sdk iphonesimulator \
+            -destination "platform=iOS Simulator,name=iPhone 16" \
+            CODE_SIGNING_ALLOWED=NO

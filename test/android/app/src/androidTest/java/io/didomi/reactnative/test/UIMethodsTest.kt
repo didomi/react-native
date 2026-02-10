@@ -101,7 +101,9 @@ class UIMethodsTest : BaseUITest() {
 
     @Test
     fun test_HidePreferences() {
+        scrollToItem("showPreferences Purposes") // Scroll to the next item to be able to check button's status
         testMethodCall("hidePreferences")
+        testLastEvent("on_hide_preferences")
     }
 
     @Test
