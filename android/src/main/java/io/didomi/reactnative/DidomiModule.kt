@@ -331,7 +331,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun initialize(
+    override fun initialize(
         userAgentName: String,
         userAgentVersion: String,
         apiKey: String,
@@ -379,7 +379,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun initializeWithParameters(
+    override fun initializeWithParameters(
         userAgentName: String,
         userAgentVersion: String,
         jsonParameters: String,
@@ -403,19 +403,19 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun onReady(promise: Promise) {
+    override fun onReady(promise: Promise) {
         Didomi.getInstance().onReady { prepareEvent(EventTypes.READY_CALLBACK.event, null) }
         promise.resolve(0)
     }
 
     @ReactMethod
-    fun onError(promise: Promise) {
+    override fun onError(promise: Promise) {
         Didomi.getInstance().onError { prepareEvent(EventTypes.ERROR_CALLBACK.event, null) }
         promise.resolve(0)
     }
 
     @ReactMethod
-    fun setupUI(promise: Promise) {
+    override fun setupUI(promise: Promise) {
         try {
             runOnUiThread {
                 Didomi.getInstance().setupUI(reactContext.currentActivity as? FragmentActivity)
@@ -428,7 +428,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setLogLevel(level: Double, promise: Promise) {
+    override fun setLogLevel(level: Double, promise: Promise) {
         Didomi.getInstance().setLogLevel(
             when (level.toInt()) {
                 0 -> Log.INFO
@@ -443,7 +443,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getJavaScriptForWebView(extra: String?, promise: Promise) {
+    override fun getJavaScriptForWebView(extra: String?, promise: Promise) {
         try {
             extra?.also {
                 promise.resolve(Didomi.getInstance().getJavaScriptForWebView(extra))
@@ -456,7 +456,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getQueryStringForWebView(promise: Promise) {
+    override fun getQueryStringForWebView(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().queryStringForWebView)
         } catch (e: DidomiNotReadyException) {
@@ -465,7 +465,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getPurpose(purposeId: String, promise: Promise) {
+    override fun getPurpose(purposeId: String, promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().getPurpose(purposeId)))
         } catch (e: DidomiNotReadyException) {
@@ -474,7 +474,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getRequiredPurposes(promise: Promise) {
+    override fun getRequiredPurposes(promise: Promise) {
         try {
             promise.resolve(setToWritableArray(Didomi.getInstance().requiredPurposes))
         } catch (e: DidomiNotReadyException) {
@@ -483,7 +483,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getRequiredPurposeIds(promise: Promise) {
+    override fun getRequiredPurposeIds(promise: Promise) {
         try {
             promise.resolve(setOfStringToWritableArray(Didomi.getInstance().requiredPurposeIds))
         } catch (e: DidomiNotReadyException) {
@@ -492,7 +492,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getVendor(vendorId: String, promise: Promise) {
+    override fun getVendor(vendorId: String, promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().getVendor(vendorId)))
         } catch (e: DidomiNotReadyException) {
@@ -501,7 +501,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getTotalVendorCount(promise: Promise) {
+    override fun getTotalVendorCount(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().getTotalVendorCount())
         } catch (e: DidomiNotReadyException) {
@@ -510,7 +510,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getIabVendorCount(promise: Promise) {
+    override fun getIabVendorCount(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().getIabVendorCount())
         } catch (e: DidomiNotReadyException) {
@@ -519,7 +519,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getNonIabVendorCount(promise: Promise) {
+    override fun getNonIabVendorCount(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().getNonIabVendorCount())
         } catch (e: DidomiNotReadyException) {
@@ -528,7 +528,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getRequiredVendors(promise: Promise) {
+    override fun getRequiredVendors(promise: Promise) {
         try {
             promise.resolve(setToWritableArray(Didomi.getInstance().requiredVendors))
         } catch (e: DidomiNotReadyException) {
@@ -537,7 +537,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getRequiredVendorIds(promise: Promise) {
+    override fun getRequiredVendorIds(promise: Promise) {
         try {
             promise.resolve(setOfStringToWritableArray(Didomi.getInstance().requiredVendorIds))
         } catch (e: DidomiNotReadyException) {
@@ -546,7 +546,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getText(textKey: String, promise: Promise) {
+    override fun getText(textKey: String, promise: Promise) {
         try {
             val map = Didomi.getInstance().getText(textKey)
             val writableMap = WritableNativeMap()
@@ -562,7 +562,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getTranslatedText(key: String, promise: Promise) {
+    override fun getTranslatedText(key: String, promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().getTranslatedText(key))
         } catch (e: DidomiNotReadyException) {
@@ -571,7 +571,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getCurrentUserStatus(promise: Promise) {
+    override fun getCurrentUserStatus(promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().currentUserStatus))
         } catch (e: DidomiNotReadyException) {
@@ -580,7 +580,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getUserStatus(promise: Promise) {
+    override fun getUserStatus(promise: Promise) {
         try {
             promise.resolve(objectToWritableMap(Didomi.getInstance().userStatus))
         } catch (e: DidomiNotReadyException) {
@@ -589,7 +589,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun getApplicableRegulation(promise: Promise) {
+    override fun getApplicableRegulation(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().applicableRegulation.value)
         } catch (e: DidomiNotReadyException) {
@@ -598,7 +598,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun hideNotice(promise: Promise) {
+    override fun hideNotice(promise: Promise) {
         try {
             Didomi.getInstance().hideNotice()
             promise.resolve(0)
@@ -608,7 +608,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun hidePreferences(promise: Promise) {
+    override fun hidePreferences(promise: Promise) {
         try {
             Didomi.getInstance().hidePreferences()
             promise.resolve(0)
@@ -618,7 +618,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isConsentRequired(promise: Promise) {
+    override fun isConsentRequired(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isConsentRequired)
         } catch (e: DidomiNotReadyException) {
@@ -627,7 +627,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun shouldUserStatusBeCollected(promise: Promise) {
+    override fun shouldUserStatusBeCollected(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().shouldUserStatusBeCollected())
         } catch (e: DidomiNotReadyException) {
@@ -636,7 +636,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isUserConsentStatusPartial(promise: Promise) {
+    override fun isUserConsentStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserConsentStatusPartial)
         } catch (e: DidomiNotReadyException) {
@@ -645,7 +645,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isUserStatusPartial(promise: Promise) {
+    override fun isUserStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserStatusPartial)
         } catch (e: DidomiNotReadyException) {
@@ -654,7 +654,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isUserLegitimateInterestStatusPartial(promise: Promise) {
+    override fun isUserLegitimateInterestStatusPartial(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isUserLegitimateInterestStatusPartial)
         } catch (e: DidomiNotReadyException) {
@@ -663,7 +663,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isNoticeVisible(promise: Promise) {
+    override fun isNoticeVisible(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isNoticeVisible())
         } catch (e: DidomiNotReadyException) {
@@ -672,7 +672,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isPreferencesVisible(promise: Promise) {
+    override fun isPreferencesVisible(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isPreferencesVisible())
         } catch (e: DidomiNotReadyException) {
@@ -681,35 +681,35 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun isError(promise: Promise) {
+    override fun isError(promise: Promise) {
         promise.resolve(Didomi.getInstance().isError)
     }
 
     @ReactMethod
-    fun isReady(promise: Promise) {
+    override fun isReady(promise: Promise) {
         promise.resolve(Didomi.getInstance().isReady)
     }
 
     @ReactMethod
-    fun clearUser(promise: Promise) {
+    override fun clearUser(promise: Promise) {
         Didomi.getInstance().clearUser()
         promise.resolve(0)
     }
 
     @ReactMethod
-    fun setUser(organizationUserId: String, promise: Promise) {
+    override fun setUser(organizationUserId: String, promise: Promise) {
         Didomi.getInstance().setUser(organizationUserId)
         promise.resolve(0)
     }
 
     @ReactMethod
-    fun setUserAndSetupUI(organizationUserId: String, promise: Promise) {
+    override fun setUserAndSetupUI(organizationUserId: String, promise: Promise) {
         Didomi.getInstance().setUser(organizationUserId, reactContext.currentActivity as? FragmentActivity)
         promise.resolve(0)
     }
 
     @ReactMethod
-    fun setUserWithHashAuth(
+    override fun setUserWithHashAuth(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -730,7 +730,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithHashAuthAndSetupUI(
+    override fun setUserWithHashAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -752,7 +752,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithHashAuthWithExpiration(
+    override fun setUserWithHashAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -775,7 +775,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithHashAuthWithExpirationAndSetupUI(
+    override fun setUserWithHashAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -799,7 +799,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuth(
+    override fun setUserWithEncryptionAuth(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -818,7 +818,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuthAndSetupUI(
+    override fun setUserWithEncryptionAuthAndSetupUI(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -838,7 +838,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuthWithExpiration(
+    override fun setUserWithEncryptionAuthWithExpiration(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -859,7 +859,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithEncryptionAuthWithExpirationAndSetupUI(
+    override fun setUserWithEncryptionAuthWithExpirationAndSetupUI(
         organizationUserId: String,
         algorithm: String,
         secretId: String,
@@ -881,7 +881,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithAuthParams(
+    override fun setUserWithAuthParams(
         jsonUserAuthParams: String,
         jsonSynchronizedUsers: String?,
         promise: Promise
@@ -908,7 +908,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithAuthParamsAndSetupUI(
+    override fun setUserWithAuthParamsAndSetupUI(
         jsonUserAuthParams: String,
         jsonSynchronizedUsers: String?,
         promise: Promise
@@ -936,7 +936,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithParameters(
+    override fun setUserWithParameters(
         jsonUserParameters: String,
         promise: Promise
     ) {
@@ -951,7 +951,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserWithParametersAndSetupUI(
+    override fun setUserWithParametersAndSetupUI(
         jsonUserParameters: String,
         promise: Promise
     ) {
@@ -967,7 +967,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun showNotice(promise: Promise) {
+    override fun showNotice(promise: Promise) {
         try {
             runOnUiThread {
                 Didomi.getInstance().showNotice(reactContext.currentActivity as? FragmentActivity)
@@ -980,7 +980,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun forceShowNotice(promise: Promise) {
+    override fun forceShowNotice(promise: Promise) {
         try {
             runOnUiThread {
                 Didomi.getInstance().forceShowNotice(reactContext.currentActivity as? FragmentActivity)
@@ -993,7 +993,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun showPreferences(view: String?, promise: Promise) {
+    override fun showPreferences(view: String?, promise: Promise) {
         try {
             runOnUiThread {
                 view?.also {
@@ -1008,7 +1008,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun reset(promise: Promise) {
+    override fun reset(promise: Promise) {
         try {
             Didomi.getInstance().reset()
             promise.resolve(0)
@@ -1018,7 +1018,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserAgreeToAll(promise: Promise) {
+    override fun setUserAgreeToAll(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().setUserAgreeToAll())
         } catch (e: DidomiNotReadyException) {
@@ -1027,7 +1027,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserDisagreeToAll(promise: Promise) {
+    override fun setUserDisagreeToAll(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().setUserDisagreeToAll())
         } catch (e: DidomiNotReadyException) {
@@ -1036,7 +1036,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setCurrentUserStatus(
+    override fun setCurrentUserStatus(
         currentUserStatusAsString: String,
         promise: Promise
     ) {
@@ -1051,7 +1051,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserStatus(
+    override fun setUserStatus(
         purposesConsentStatus: Boolean,
         purposesLIStatus: Boolean,
         vendorsConsentStatus: Boolean,
@@ -1073,7 +1073,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserConsentStatus(
+    override fun setUserConsentStatus(
         enabledPurposeIds: ReadableArray,
         disabledPurposeIds: ReadableArray,
         enabledVendorIds: ReadableArray,
@@ -1100,7 +1100,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun setUserStatusSets(
+    override fun setUserStatusSets(
         enabledConsentPurposeIds: ReadableArray,
         disabledConsentPurposeIds: ReadableArray,
         enabledLIPurposeIds: ReadableArray,
@@ -1130,7 +1130,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun shouldConsentBeCollected(promise: Promise) {
+    override fun shouldConsentBeCollected(promise: Promise) {
         try {
             @Suppress("DEPRECATION")
             promise.resolve(Didomi.getInstance().shouldConsentBeCollected())
@@ -1140,7 +1140,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun updateSelectedLanguage(languageCode: String, promise: Promise) {
+    override fun updateSelectedLanguage(languageCode: String, promise: Promise) {
         try {
             Didomi.getInstance().updateSelectedLanguage(languageCode)
             promise.resolve(0)
@@ -1151,18 +1151,18 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
 
     @Suppress("UNUSED_PARAMETER")
     @ReactMethod
-    fun addListener(eventName: String) {
+    override fun addListener(eventName: String) {
         // Keep: Required for RN built in Event Emitter Calls.
     }
 
     @Suppress("UNUSED_PARAMETER")
     @ReactMethod
-    fun removeListeners(count: Double) {
+    override fun removeListeners(count: Double) {
         // Keep: Required for RN built in Event Emitter Calls.
     }
 
     @ReactMethod
-    fun listenToVendorStatus(vendorId: String, promise: Promise) {
+    override fun listenToVendorStatus(vendorId: String, promise: Promise) {
         if (!vendorStatusListeners.contains(vendorId)) {
             Didomi.getInstance().addVendorStatusListener(vendorId) { vendorStatus ->
                 val statusAsMap = objectToWritableMap(vendorStatus)
@@ -1174,7 +1174,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun stopListeningToVendorStatus(vendorId: String, promise: Promise) {
+    override fun stopListeningToVendorStatus(vendorId: String, promise: Promise) {
         if (vendorStatusListeners.contains(vendorId)) {
             Didomi.getInstance().removeVendorStatusListener(vendorId)
             vendorStatusListeners.remove(vendorId)
@@ -1183,7 +1183,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun commitCurrentUserStatusTransaction(
+    override fun commitCurrentUserStatusTransaction(
         enabledPurposes: ReadableArray,
         disabledPurposes: ReadableArray,
         enabledVendors: ReadableArray,
@@ -1199,7 +1199,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun syncAcknowledged(callbackIndex: Double, promise: Promise) {
+    override fun syncAcknowledged(callbackIndex: Double, promise: Promise) {
         val index = callbackIndex.toInt()
         val result = syncAcknowledgedCallbacks[index]?.let { it() }
         syncAcknowledgedCallbacks.remove(index)
@@ -1211,7 +1211,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
-    fun removeSyncAcknowledgedCallback(callbackIndex: Double, promise: Promise) {
+    override fun removeSyncAcknowledgedCallback(callbackIndex: Double, promise: Promise) {
         syncAcknowledgedCallbacks.remove(callbackIndex.toInt())
         promise.resolve(0)
     }
