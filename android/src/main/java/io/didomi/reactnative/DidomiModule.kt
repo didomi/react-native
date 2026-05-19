@@ -24,7 +24,11 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(reactContext) {
+
+    companion object {
+        const val NAME = "Didomi"
+    }
 
     val gson = Gson()
 
@@ -247,7 +251,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private val syncAcknowledgedCallbacks: MutableMap<Int, () -> Boolean> = mutableMapOf()
     private var syncAcknowledgedCallbackIndex = 0
 
-    override fun getName() = "Didomi"
+    override fun getName() = NAME
 
     override fun getConstants(): Map<String, Any> {
         val map = mutableMapOf<String, Any>()
@@ -424,9 +428,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun setLogLevel(level: Int, promise: Promise) {
+    fun setLogLevel(level: Double, promise: Promise) {
         Didomi.getInstance().setLogLevel(
-            when (level) {
+            when (level.toInt()) {
                 0 -> Log.INFO
                 1 -> Log.DEBUG
                 2 -> Log.WARN
@@ -650,6 +654,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun isUserLegitimateInterestStatusPartial(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().isUserLegitimateInterestStatusPartial)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun isNoticeVisible(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isNoticeVisible())
@@ -745,7 +758,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         secretId: String,
         digest: String,
         salt: String?,
-        expiration: Int,
+        expiration: Double,
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
@@ -768,7 +781,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         secretId: String,
         digest: String,
         salt: String?,
-        expiration: Int,
+        expiration: Double,
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
@@ -830,7 +843,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         algorithm: String,
         secretId: String,
         initializationVector: String,
-        expiration: Int,
+        expiration: Double,
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
@@ -851,7 +864,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         algorithm: String,
         secretId: String,
         initializationVector: String,
-        expiration: Int,
+        expiration: Double,
         promise: Promise
     ) {
         Didomi.getInstance().setUser(
@@ -967,6 +980,19 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun forceShowNotice(promise: Promise) {
+        try {
+            runOnUiThread {
+                Didomi.getInstance().forceShowNotice(reactContext.currentActivity as? FragmentActivity)
+            }
+            promise.resolve(0)
+        } catch (e: Exception) {
+            Log.e("forceShowNotice", "An error occurred while force-showing the notice", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun showPreferences(view: String?, promise: Promise) {
         try {
             runOnUiThread {
@@ -1047,6 +1073,33 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
+    fun setUserConsentStatus(
+        enabledPurposeIds: ReadableArray,
+        disabledPurposeIds: ReadableArray,
+        enabledVendorIds: ReadableArray,
+        disabledVendorIds: ReadableArray,
+        promise: Promise
+    ) {
+        try {
+            @Suppress("DEPRECATION")
+            promise.resolve(
+                Didomi.getInstance().setUserStatus(
+                    enabledPurposeIds.toSet(),
+                    disabledPurposeIds.toSet(),
+                    emptySet(),
+                    emptySet(),
+                    enabledVendorIds.toSet(),
+                    disabledVendorIds.toSet(),
+                    emptySet(),
+                    emptySet()
+                )
+            )
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     fun setUserStatusSets(
         enabledConsentPurposeIds: ReadableArray,
         disabledConsentPurposeIds: ReadableArray,
@@ -1104,12 +1157,12 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @Suppress("UNUSED_PARAMETER")
     @ReactMethod
-    fun removeListeners(count: Int) {
+    fun removeListeners(count: Double) {
         // Keep: Required for RN built in Event Emitter Calls.
     }
 
     @ReactMethod
-    fun listenToVendorStatus(vendorId: String) {
+    fun listenToVendorStatus(vendorId: String, promise: Promise) {
         if (!vendorStatusListeners.contains(vendorId)) {
             Didomi.getInstance().addVendorStatusListener(vendorId) { vendorStatus ->
                 val statusAsMap = objectToWritableMap(vendorStatus)
@@ -1117,14 +1170,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             }
             vendorStatusListeners.add(vendorId)
         }
+        promise.resolve(0)
     }
 
     @ReactMethod
-    fun stopListeningToVendorStatus(vendorId: String) {
+    fun stopListeningToVendorStatus(vendorId: String, promise: Promise) {
         if (vendorStatusListeners.contains(vendorId)) {
             Didomi.getInstance().removeVendorStatusListener(vendorId)
             vendorStatusListeners.remove(vendorId)
         }
+        promise.resolve(0)
     }
 
     @ReactMethod
@@ -1144,9 +1199,10 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun syncAcknowledged(callbackIndex: Int, promise: Promise) {
-        val result = syncAcknowledgedCallbacks[callbackIndex]?.let { it() }
-        syncAcknowledgedCallbacks.remove(callbackIndex)
+    fun syncAcknowledged(callbackIndex: Double, promise: Promise) {
+        val index = callbackIndex.toInt()
+        val result = syncAcknowledgedCallbacks[index]?.let { it() }
+        syncAcknowledgedCallbacks.remove(index)
         if (result != null) {
             promise.resolve(result)
         } else {
@@ -1155,8 +1211,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod
-    fun removeSyncAcknowledgedCallback(callbackIndex: Int, promise: Promise) {
-        syncAcknowledgedCallbacks.remove(callbackIndex)
+    fun removeSyncAcknowledgedCallback(callbackIndex: Double, promise: Promise) {
+        syncAcknowledgedCallbacks.remove(callbackIndex.toInt())
         promise.resolve(0)
     }
 

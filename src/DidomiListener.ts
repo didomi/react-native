@@ -1,7 +1,8 @@
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeEventEmitter } from 'react-native';
+import NativeDidomi from './specs/NativeDidomi';
 import { DidomiEventType, VendorStatus } from './DidomiTypes';
 
-const { Didomi: RNDidomi } = NativeModules;
+const RNDidomi = NativeDidomi as any;
 
 enum InternalEventType {
   READY_CALLBACK = 'on_ready_callback',

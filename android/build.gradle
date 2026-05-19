@@ -17,6 +17,7 @@ buildscript {
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
+apply plugin: "com.facebook.react"
 
 def getExtOrDefault(name) {
     return project.properties["Didomi_" + name].toString()
@@ -26,12 +27,16 @@ def getExtOrIntegerDefault(name) {
     return project.properties["Didomi_" + name].toInteger()
 }
 
+def isNewArchitectureEnabled() {
+    return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
 def parsedPackage = new JsonSlurper().parseText(file("../package.json").text)
 
 android {
     compileSdk getExtOrIntegerDefault("compileSdkVersion")
     namespace "io.didomi.reactnative"
-    
+
     defaultConfig {
         minSdk getExtOrIntegerDefault("minSdkVersion")
         targetSdk getExtOrIntegerDefault("targetSdkVersion")
@@ -39,6 +44,22 @@ android {
         versionName "${parsedPackage.version}"
 
         multiDexEnabled = true
+
+        buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    sourceSets {
+        main {
+            if (isNewArchitectureEnabled()) {
+                java.srcDirs += ['src/newarch/java']
+            } else {
+                java.srcDirs += ['src/oldarch/java']
+            }
+        }
     }
 
     buildTypes {
@@ -58,6 +79,12 @@ android {
         jvmTarget = JavaVersion.VERSION_17
     }
 
+}
+
+react {
+    jsRootDir = file("../src/specs")
+    libraryName = "RNDidomiSpec"
+    codegenJavaPackageName = "io.didomi.reactnative"
 }
 
 repositories {

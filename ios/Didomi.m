@@ -50,6 +50,12 @@ RCT_EXTERN_METHOD(shouldUserStatusBeCollected:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(isUserLegitimateInterestStatusPartial:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(isUserConsentStatusPartial:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(isError:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(isUserStatusPartial:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

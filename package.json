@@ -98,5 +98,14 @@
     "plugins": [
       "./plugin/withDidomi.js"
     ]
+  },
+  "codegenConfig": {
+    "name": "RNDidomiSpec",
+    "type": "modules",
+    "jsSrcsDir": "src/specs",
+    "android": {
+      "javaPackageName": "io.didomi.reactnative"
+    },
+    "includesGeneratedCode": false
   }
 }

@@ -1,10 +1,10 @@
-import { NativeModules } from 'react-native';
+import NativeDidomi from './specs/NativeDidomi';
 import { DidomiListener } from './DidomiListener';
 import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters, UserAuthWithEncryptionParams, UserAuthWithHashParams, DidomiMultiUserParameters } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
-const { Didomi: RNDidomi } = NativeModules;
+const RNDidomi = NativeDidomi as any;
 
 export const Didomi = {
   /**
