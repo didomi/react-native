@@ -179,7 +179,7 @@ RCT_EXTERN_METHOD(getText:(NSString *)key
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(setLogLevel:(int)minLevel
+RCT_EXTERN_METHOD(setLogLevel:(double)minLevel
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
@@ -291,11 +291,11 @@ RCT_EXTERN_METHOD(commitCurrentUserStatusTransaction:(NSArray<NSString *> *)enab
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(syncAcknowledged:(int)callbackIndex
+RCT_EXTERN_METHOD(syncAcknowledged:(double)callbackIndex
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(removeSyncAcknowledgedCallback:(int)callbackIndex
+RCT_EXTERN_METHOD(removeSyncAcknowledgedCallback:(double)callbackIndex
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

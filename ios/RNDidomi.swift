@@ -358,10 +358,10 @@ class RNDidomi: RCTEventEmitter {
     }
 
     @objc(setLogLevel:resolve:reject:)
-    dynamic func setLogLevel(minLevel: UInt8, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+    dynamic func setLogLevel(minLevel: Double, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         var level: UInt8
-        
-        switch minLevel {
+
+        switch Int(minLevel) {
         case 0:
             level = 1
         case 1:
@@ -373,7 +373,7 @@ class RNDidomi: RCTEventEmitter {
         default:
             level = 17
         }
-        
+
         Didomi.shared.setLogLevel(minLevel: level)
         resolve(0)
     }
@@ -661,25 +661,26 @@ class RNDidomi: RCTEventEmitter {
     
     @objc(syncAcknowledged:resolve:reject:)
     dynamic func syncAcknowledged(
-       callbackIndex: Int,
+       callbackIndex: Double,
        resolve:RCTPromiseResolveBlock,
        reject:RCTPromiseRejectBlock
     ) {
-        if let callback = syncAcknowledgedCallbacks[callbackIndex] {
-            syncAcknowledgedCallbacks.removeValue(forKey: callbackIndex)
+        let key = Int(callbackIndex)
+        if let callback = syncAcknowledgedCallbacks[key] {
+            syncAcknowledgedCallbacks.removeValue(forKey: key)
             resolve(callback())
         } else {
             reject("not_found", "SyncAcknowledged: Native callback not found. The method can be called only once.", NSError.init(domain: "Didomi", code: 404))
         }
     }
-    
+
     @objc(removeSyncAcknowledgedCallback:resolve:reject:)
     dynamic func removeSyncAcknowledgedCallback(
-       callbackIndex: Int,
+       callbackIndex: Double,
        resolve:RCTPromiseResolveBlock,
        reject:RCTPromiseRejectBlock
     ) {
-        syncAcknowledgedCallbacks.removeValue(forKey: callbackIndex)
+        syncAcknowledgedCallbacks.removeValue(forKey: Int(callbackIndex))
         resolve(0)
     }
 }
