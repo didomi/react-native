@@ -36,5 +36,20 @@ target 'sample' do
       :mac_catalyst_enabled => false,
       # :ccache_enabled => true
     )
+
+    # Xcode 26 / Clang 21 enforces consteval more strictly, breaking fmt v9's FMT_STRING macro.
+    # fmt/base.h gates FMT_USE_CONSTEVAL on Apple clang < 14; widen that to all Apple clang versions.
+    fmt_base = File.join(__dir__, 'Pods/fmt/include/fmt/base.h')
+    if File.exist?(fmt_base)
+      contents = File.read(fmt_base)
+      patched = contents.sub(
+        '#elif defined(__apple_build_version__) && __apple_build_version__ < 14000029L',
+        '#elif defined(__apple_build_version__)'
+      )
+      if patched != contents
+        File.chmod(0644, fmt_base)
+        File.write(fmt_base, patched)
+      end
+    end
   end
 end
