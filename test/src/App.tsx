@@ -14,7 +14,7 @@ import InitializeMethods from './InitializeMethods';
 import ErrorBoundary from './ErrorBoundary';
 
 function App() {
-  const MAX_EVENTS_DISPLAYED = 3;
+  const MAX_EVENTS_DISPLAYED = 6;
 
   const [receivedEvents, setReceivedEvents] = useState<TestEvent[]>([]);
 
