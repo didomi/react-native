@@ -1268,7 +1268,9 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             androidTvEnabled = (jsonObject.opt("androidTvEnabled") as? Boolean) ?: false,
             countryCode = jsonObject.opt("countryCode")?.toString(),
             regionCode = jsonObject.opt("regionCode")?.toString(),
-            isUnderage = (jsonObject.opt("isUnderage") as? Boolean) ?: false
+            isUnderage = (jsonObject.opt("isUnderage") as? Boolean) ?: false,
+            sdkPath = jsonObject.opt("sdkPath")?.toString(),
+            apiPath = jsonObject.opt("apiPath")?.toString()
         )
     }
 

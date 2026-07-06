@@ -980,7 +980,9 @@ extension RNDidomi {
             noticeID: json["noticeId"] as? String,
             countryCode: json["countryCode"] as? String,
             regionCode: json["regionCode"] as? String,
-            isUnderage: json["isUnderage"] as? Bool ?? false
+            isUnderage: json["isUnderage"] as? Bool ?? false,
+            sdkPath: json["sdkPath"] as? String,
+            apiPath: json["apiPath"] as? String
         )
     }
     

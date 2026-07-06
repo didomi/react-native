@@ -279,6 +279,18 @@ export interface DidomiInitializeParameters {
    * @property
    */
   isUnderage?: boolean;
+  /**
+   * Base URL used to load all static files (didomi_config.json, GVL, IAB vendor list).
+   * Defaults to the Didomi SDK CDN if not set. Must use HTTPS.
+   * @property
+   */
+  sdkPath?: string;
+  /**
+   * Base URL used for all API requests (Consents API, cross-device sync, API Events).
+   * Defaults to the Didomi API if not set. Must use HTTPS.
+   * @property
+   */
+  apiPath?: string;
 }
 
 /**
