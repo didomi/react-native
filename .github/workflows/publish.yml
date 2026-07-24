@@ -50,3 +50,29 @@ jobs:
         run: |
           npm run prepare
           npm publish --access public --provenance
+
+  notify:
+    name: Notify Slack
+    needs: build
+    # Release context is only available when triggered by a release (not workflow_dispatch)
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send release announcement to Slack
+        env:
+          SLACK_WEBHOOK: ${{ secrets.RELEASES_SLACK_WEBHOOK }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          RELEASE_BODY: ${{ github.event.release.body }}
+          RELEASE_URL: ${{ github.event.release.html_url }}
+        run: |
+          # Extract the changelog from the release body:
+          # drop the "More info" trailer and the leading "- " list markers.
+          # Trailing blank lines are stripped by the command substitution.
+          changelog=$(printf '%s\n' "$RELEASE_BODY" | tr -d '\r' | sed -e '/^More info:/,$d' -e 's/^- //')
+
+          text=$(printf '*React-Native SDK version `%s`* is now available :rocket:\n```%s```\nhttps://www.npmjs.com/package/@didomi/react-native/v/%s\n%s' \
+            "$RELEASE_TAG" "$changelog" "$RELEASE_TAG" "$RELEASE_URL")
+
+          jq -n --arg text "$text" '{ text: $text }' \
+            | curl --silent --show-error --fail -X POST -H 'Content-Type: application/json' -d @- "$SLACK_WEBHOOK"
