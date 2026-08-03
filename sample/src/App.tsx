@@ -65,6 +65,8 @@ function App() {
     registerListener(DidomiEventType.PREFERENCES_CLICK_VIEW_VENDORS);
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
+    registerListener(DidomiEventType.SHOW_WIDGET);
+    registerListener(DidomiEventType.HIDE_WIDGET);
 
     Didomi.onReady().then(() => {
       console.log('ready');

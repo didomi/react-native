@@ -245,6 +245,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
          * Error while using an external SDK integration
          */
         override fun integrationError(event: IntegrationErrorEvent) = prepareIntegrationErrorEvent(event)
+
+        /**
+         * A widget was displayed
+         */
+        override fun showWidget(event: ShowWidgetEvent) = prepareShowWidgetEvent(event)
+
+        /**
+         * A widget was hidden
+         */
+        override fun hideWidget(event: HideWidgetEvent) = prepareEvent(EventTypes.HIDE_WIDGET.event, null)
     }
 
     private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
@@ -1244,6 +1254,18 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         val params = WritableNativeMap().apply {
             putString("integrationName", event.integrationName)
             putString("reason", event.reason)
+        }
+        reactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+            .emit(eventName, params)
+    }
+
+    private fun prepareShowWidgetEvent(event: ShowWidgetEvent) {
+        val eventName = EventTypes.SHOW_WIDGET.event
+        Log.d("prepareEvent", "Sending $eventName")
+        val params = WritableNativeMap().apply {
+            putString("widgetId", event.widgetId)
+            putString("layerName", event.layerName)
         }
         reactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)

@@ -68,5 +68,9 @@ enum class EventTypes(val event: String) {
     VENDOR_STATUS_CHANGE_PREFIX("on_vendor_status_change_"),
 
     // Integrations
-    INTEGRATION_ERROR_EVENT("on_integration_error")
+    INTEGRATION_ERROR_EVENT("on_integration_error"),
+
+    // Widgets
+    SHOW_WIDGET("on_show_widget"),
+    HIDE_WIDGET("on_hide_widget")
 }

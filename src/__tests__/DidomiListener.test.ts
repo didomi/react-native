@@ -31,3 +31,39 @@ describe('test remove listener', () => {
     expect(DidomiListener.listeners.get(DidomiEventType.ERROR).length).toBe(0);
   });
 });
+
+describe('test widget listeners', () => {
+  it('add and remove show widget listener', () => {
+    const callback = () => {};
+    DidomiListener.addEventListener(DidomiEventType.SHOW_WIDGET, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.SHOW_WIDGET).length
+    ).toBe(1);
+    DidomiListener.removeEventListener(DidomiEventType.SHOW_WIDGET, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.SHOW_WIDGET).length
+    ).toBe(0);
+  });
+
+  it('add and remove hide widget listener', () => {
+    const callback = () => {};
+    DidomiListener.addEventListener(DidomiEventType.HIDE_WIDGET, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.HIDE_WIDGET).length
+    ).toBe(1);
+    DidomiListener.removeEventListener(DidomiEventType.HIDE_WIDGET, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.HIDE_WIDGET).length
+    ).toBe(0);
+  });
+
+  it('registers the widget events with the native event emitter', () => {
+    DidomiListener.eventEmitter.addListener = jest.fn();
+    DidomiListener.init();
+    const registered = (
+      DidomiListener.eventEmitter.addListener as jest.Mock
+    ).mock.calls.map((call) => call[0]);
+    expect(registered).toContain('on_show_widget');
+    expect(registered).toContain('on_hide_widget');
+  });
+});

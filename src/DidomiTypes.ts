@@ -77,6 +77,9 @@ export enum DidomiEventType {
     LANGUAGE_UPDATE_FAILED = "on_language_update_failed",
     // Integrations
     INTEGRATION_ERROR = "on_integration_error",
+    // Widgets
+    SHOW_WIDGET = "on_show_widget",
+    HIDE_WIDGET = "on_hide_widget",
 }
 
 export interface Vendor {
@@ -188,6 +191,24 @@ export interface SyncReadyEvent {
 export interface IntegrationErrorEvent {
   integrationName: string;
   reason: string;
+}
+
+/**
+ * A widget was displayed.
+ * Emitted with the {@link DidomiEventType#SHOW_WIDGET} event type.
+ * @interface
+ */
+export interface ShowWidgetEvent {
+  /**
+   * Identifier of the widget that was displayed, as resolved by the Rules Engine.
+   * @property
+   */
+  widgetId?: string;
+  /**
+   * Name of the layer at which the widget was displayed.
+   * @property
+   */
+  layerName?: string;
 }
 
 export interface UserAuth {

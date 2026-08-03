@@ -13,5 +13,6 @@ export {
     VendorStatus,
     UserAuthWithEncryptionParams,
     UserAuthWithHashParams,
-    DidomiInitializeParameters
+    DidomiInitializeParameters,
+    ShowWidgetEvent
 } from './DidomiTypes';

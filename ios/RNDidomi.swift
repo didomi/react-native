@@ -763,7 +763,10 @@ extension RNDidomi {
                 "on_language_updated",
                 "on_language_update_failed",
                 // Integrations
-                "on_integration_error"
+                "on_integration_error",
+                // Widgets
+                "on_show_widget",
+                "on_hide_widget"
         ])
         vendorStatusListeners.forEach {
             eventsSet.insert("on_vendor_status_change_\($0)")
@@ -951,6 +954,20 @@ extension RNDidomi {
                 "reason": event.reason
             ]
             self?.dispatchEvent(withName: "on_integration_error", body: result)
+        }
+
+        // The iOS SDK names the property `widgetID` while Android names it `widgetId`.
+        // The event key must stay `widgetId` so both platforms match the JS type.
+        didomiEventListener.onShowWidget = { [weak self] event in
+            let result: [String: Any] = [
+                "widgetId": event.widgetID as Any,
+                "layerName": event.layerName as Any
+            ]
+            self?.dispatchEvent(withName: "on_show_widget", body: result)
+        }
+
+        didomiEventListener.onHideWidget = { [weak self] event in
+            self?.dispatchEvent(withName: "on_hide_widget", body: "")
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)

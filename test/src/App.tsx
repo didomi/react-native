@@ -77,6 +77,8 @@ function App() {
     registerListener(DidomiEventType.LANGUAGE_UPDATED);
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
     registerListener(DidomiEventType.INTEGRATION_ERROR);
+    registerListener(DidomiEventType.SHOW_WIDGET);
+    registerListener(DidomiEventType.HIDE_WIDGET);
   }, [registerListener]);
 
   React.useEffect(() => {
