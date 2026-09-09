@@ -85,16 +85,16 @@ export const DidomiListener = {
   setOnReadyListener: (): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       const timeoutId = setTimeout(() => {
-        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.READY_CALLBACK);
+        subscription.remove();
         reject(new Error('Didomi SDK ready timeout'));
       }, 30000);
 
       const listener = (_event: any) => {
         clearTimeout(timeoutId);
         resolve();
-        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.READY_CALLBACK);
+        subscription.remove();
       };
-      DidomiListener.eventEmitter.addListener(
+      const subscription = DidomiListener.eventEmitter.addListener(
         InternalEventType.READY_CALLBACK,
         listener
       );
@@ -104,16 +104,16 @@ export const DidomiListener = {
   setOnErrorListener: (): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       const timeoutId = setTimeout(() => {
-        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.ERROR_CALLBACK);
+        subscription.remove();
         reject(new Error('Didomi SDK error listener timeout'));
       }, 30000);
 
       const listener = (_event: any) => {
         clearTimeout(timeoutId);
         resolve(_event);
-        DidomiListener.eventEmitter.removeAllListeners(InternalEventType.ERROR_CALLBACK);
+        subscription.remove();
       };
-      DidomiListener.eventEmitter.addListener(
+      const subscription = DidomiListener.eventEmitter.addListener(
         InternalEventType.ERROR_CALLBACK,
         listener
       );

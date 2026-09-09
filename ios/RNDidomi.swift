@@ -10,6 +10,7 @@ class RNDidomi: RCTEventEmitter {
     var vendorStatusListeners: Set<String> = Set()
     var syncAcknowledgedCallbacks: Dictionary<Int, (() -> Bool)> = [:]
     private var syncAcknowledgedCallbackIndex: Int = 0
+    private var hasListeners = false
 
     override init() {
         didomiEventListener = EventListener()
@@ -19,6 +20,20 @@ class RNDidomi: RCTEventEmitter {
 
     override static func requiresMainQueueSetup() -> Bool {
         return true
+    }
+
+    override func startObserving() {
+        hasListeners = true
+    }
+
+    override func stopObserving() {
+        hasListeners = false
+    }
+
+    override func invalidate() {
+        hasListeners = false
+        Didomi.shared.removeEventListener(listener: didomiEventListener)
+        super.invalidate()
     }
 
     @objc(initialize:userAgentVersion:apiKey:localConfigurationPath:remoteConfigurationURL:providerId:disableDidomiRemoteConfig:languageCode:noticeId:androidTvNoticeId:androidTvEnabled:countryCode:regionCode:resolve:reject:)
@@ -973,13 +988,10 @@ extension RNDidomi {
         Didomi.shared.addEventListener(listener: didomiEventListener)
     }
 
-    /// Sends the specified event only if the react-native bridge is still valid
+    /// Observation state works with both the legacy bridge and Bridgeless mode.
     private func dispatchEvent(withName: String, body: Any?) {
-        if self.bridge != nil {
+        if hasListeners {
             self.sendEvent(withName: withName, body: body)
-        } else {
-            // Event emitter is not valid anymore, remove event listener
-            Didomi.shared.removeEventListener(listener: didomiEventListener)
         }
     }
 
