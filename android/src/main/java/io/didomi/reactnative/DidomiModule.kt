@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.bridge.UiThreadUtil.runOnUiThread
 import com.facebook.react.common.MapBuilder
-import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.didomi.sdk.Didomi
@@ -1228,14 +1227,11 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
 
     private fun prepareEvent(eventName: String, params: Any?) {
         Log.d("prepareEvent", "Sending $eventName")
-        reactContext
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            .emit(eventName, params)
+        reactContext.emitDeviceEvent(eventName, params)
     }
 
     private fun prepareSyncReadyEvent(event: SyncReadyEvent) {
         val eventName = EventTypes.SYNC_READY.event
-        Log.d("prepareEvent", "Sending $eventName")
         val callbackIndex = syncAcknowledgedCallbackIndex++
         syncAcknowledgedCallbacks[callbackIndex] = event.syncAcknowledged
         val params = WritableNativeMap().apply {
@@ -1243,33 +1239,25 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             putBoolean("statusApplied", event.statusApplied)
             putInt("syncAcknowledgedIndex", callbackIndex)
         }
-        reactContext
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            .emit(eventName, params)
+        prepareEvent(eventName, params)
     }
 
     private fun prepareIntegrationErrorEvent(event: IntegrationErrorEvent) {
         val eventName = EventTypes.INTEGRATION_ERROR_EVENT.event
-        Log.d("prepareEvent", "Sending $eventName")
         val params = WritableNativeMap().apply {
             putString("integrationName", event.integrationName)
             putString("reason", event.reason)
         }
-        reactContext
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            .emit(eventName, params)
+        prepareEvent(eventName, params)
     }
 
     private fun prepareShowWidgetEvent(event: ShowWidgetEvent) {
         val eventName = EventTypes.SHOW_WIDGET.event
-        Log.d("prepareEvent", "Sending $eventName")
         val params = WritableNativeMap().apply {
             putString("widgetId", event.widgetId)
             putString("layerName", event.layerName)
         }
-        reactContext
-            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-            .emit(eventName, params)
+        prepareEvent(eventName, params)
     }
 
     // Required to transform from array to variadic.

@@ -711,8 +711,33 @@ class DidomiUITests: XCTestCase {
   
   func testClearUser() throws {
     let app = initApp()
+    let scrollView = app.scrollViews.firstMatch
+    let button = app.buttons["clearUser"]
+    scrollView.wait()
+    button.wait()
 
-    tapButton(in: app, name: "clearUser")
+    // Scroll explicitly so the tap does not also have to reveal the button.
+    for _ in 0..<12 {
+      if scrollView.frame.contains(button.frame) {
+        break
+      }
+      if button.frame.maxY > scrollView.frame.maxY {
+        scrollView.swipeUp()
+      } else {
+        scrollView.swipeDown()
+      }
+    }
+
+    let readyToTap = NSPredicate { _, _ in
+      button.exists && scrollView.frame.contains(button.frame) && button.isHittable
+    }
+    let expectation = XCTNSPredicateExpectation(predicate: readyToTap, object: button)
+    guard XCTWaiter.wait(for: [expectation], timeout: 10) == .completed else {
+      XCTFail("clearUser button did not become fully visible and hittable")
+      return
+    }
+
+    button.tap()
     assertResult(in: app, name: "clearUser", expected: "clearUser-OK")
   }
   
