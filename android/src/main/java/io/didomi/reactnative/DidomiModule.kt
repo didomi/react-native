@@ -607,6 +607,24 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
+    override fun getUserCountryCode(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().userCountryCode)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    override fun getUserRegionCode(promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().userRegionCode)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     override fun hideNotice(promise: Promise) {
         try {
             Didomi.getInstance().hideNotice()
