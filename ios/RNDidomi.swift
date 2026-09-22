@@ -169,7 +169,17 @@ class RNDidomi: RCTEventEmitter {
     func getApplicableRegulation(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.applicableRegulation.description)
     }
-    
+
+    @objc(getUserCountryCode:reject:)
+    func getUserCountryCode(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.userCountryCode)
+    }
+
+    @objc(getUserRegionCode:reject:)
+    func getUserRegionCode(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.userRegionCode)
+    }
+
     @objc(setCurrentUserStatus:resolve:reject:)
     func setCurrentUserStatus(currentUserStatusAsString: String, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         guard let jsonData = currentUserStatusAsString.data(using: .utf8) else {

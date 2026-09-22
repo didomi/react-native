@@ -355,6 +355,18 @@ export const Didomi = {
   getCurrentUserStatus: (): Promise<CurrentUserStatus> => RNDidomi.getCurrentUserStatus(),
 
   /**
+   *  Get the country code determined for the user (for example "FR" or "US").
+   *  @returns the user country code, or null when unknown.
+   */
+  getUserCountryCode: (): Promise<string | null> => RNDidomi.getUserCountryCode(),
+
+  /**
+   *  Get the region code determined for the user (for example "CA").
+   *  @returns the user region code, or null when unknown.
+   */
+  getUserRegionCode: (): Promise<string | null> => RNDidomi.getUserRegionCode(),
+
+  /**
    *  Get the user consent status.
    *  @returns: status that represents user consent.
    *  @deprecated use {@link #getCurrentUserStatus()} instead.
