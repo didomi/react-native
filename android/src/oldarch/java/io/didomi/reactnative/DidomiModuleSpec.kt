@@ -65,6 +65,8 @@ abstract class DidomiModuleSpec(reactContext: ReactApplicationContext) :
     open fun getCurrentUserStatus(promise: Promise): Unit = stub()
     open fun getUserStatus(promise: Promise): Unit = stub()
     open fun getApplicableRegulation(promise: Promise): Unit = stub()
+    open fun getUserCountryCode(promise: Promise): Unit = stub()
+    open fun getUserRegionCode(promise: Promise): Unit = stub()
     open fun hideNotice(promise: Promise): Unit = stub()
     open fun hidePreferences(promise: Promise): Unit = stub()
     open fun isConsentRequired(promise: Promise): Unit = stub()
