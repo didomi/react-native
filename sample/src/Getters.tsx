@@ -27,6 +27,16 @@ export default function Getters() {
       />
 
       <Getter
+        name="isWidgetVisible"
+        call={async () => {
+          return await Didomi.isWidgetVisible();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <Getter
         name="getUserStatus"
         call={async () => {
           return await Didomi.getUserStatus();
