@@ -34,12 +34,12 @@ class DidomiUITests: XCTestCase {
     }
   }
   
-  private func testLastEvent(app: XCUIApplication, name: String) {
+  private func testLastEvent(app: XCUIApplication, name: String, timeout: TimeInterval = 5) {
     let predicate = NSPredicate(format: "label CONTAINS %@", "> " + name)
     let event = app.staticTexts.matching(predicate).firstMatch
     let exists = NSPredicate(format: "exists == 1")
     expectation(for: exists, evaluatedWith: event, handler: nil)
-    waitForExpectations(timeout: 5, handler: nil)
+    waitForExpectations(timeout: timeout, handler: nil)
   }
   
   func testOnReadyEvent() throws {
@@ -231,6 +231,27 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "hidePreferences", expected: "hidePreferences-OK")
   }
   
+  func testShowWidget() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "Initialize widget notice")
+    assertResult(in: app, name: "Initialize widget notice", expected: "Initialize widget notice-OK")
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+
+    tapButton(in: app, name: "showWidget")
+    assertResult(in: app, name: "showWidget", expected: "showWidget-OK")
+
+    // The Web SDK and the widget bundle are loaded from the network, hence the extended timeout
+    testLastEvent(app: app, name: "on_show_widget", timeout: 20)
+    let widgetId = NSPredicate(format: "label CONTAINS %@", "\"widgetId\":\"widget_cpra\"")
+    XCTAssertTrue(app.staticTexts.matching(widgetId).firstMatch.exists)
+
+    // The widget covers the app: restart it to restore the default notice for the other tests
+    app.terminate()
+    app.activate()
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+  }
+
   func testVendorStatusListener() throws {
     let app = initApp()
     tapButton(in: app, name: "reset")
