@@ -12,6 +12,7 @@ import io.didomi.sdk.Didomi
 import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.DidomiMultiUserParameters
 import io.didomi.sdk.DidomiUserParameters
+import io.didomi.sdk.DidomiWidgetParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
@@ -699,6 +700,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     }
 
     @ReactMethod
+    override fun isWidgetVisible(widgetId: String?, promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().isWidgetVisible(widgetId?.let { DidomiWidgetParameters(widgetId = it) }))
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
     override fun isPreferencesVisible(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isPreferencesVisible())
@@ -1030,6 +1040,35 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             promise.resolve(0)
         } catch (e: Exception) {
             Log.e("showPreferences", "An error occurred while showing the notice", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    override fun showWidget(widgetId: String?, layerName: String?, promise: Promise) {
+        try {
+            runOnUiThread {
+                Didomi.getInstance().showWidget(
+                    reactContext.currentActivity as? FragmentActivity,
+                    DidomiWidgetParameters(widgetId = widgetId, layerName = layerName)
+                )
+            }
+            promise.resolve(0)
+        } catch (e: Exception) {
+            Log.e("showWidget", "An error occurred while showing the widget", e)
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    override fun hideWidget(promise: Promise) {
+        try {
+            runOnUiThread {
+                Didomi.getInstance().hideWidget()
+            }
+            promise.resolve(0)
+        } catch (e: Exception) {
+            Log.e("hideWidget", "An error occurred while hiding the widget", e)
             promise.reject(e)
         }
     }

@@ -1,6 +1,6 @@
 import NativeDidomi from './specs/NativeDidomi';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters, UserAuthWithEncryptionParams, UserAuthWithHashParams, DidomiMultiUserParameters } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters, UserAuthWithEncryptionParams, UserAuthWithHashParams, DidomiMultiUserParameters, DidomiWidgetParameters } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
@@ -468,6 +468,13 @@ export const Didomi = {
    */
   isPreferencesVisible: (): Promise<boolean> => RNDidomi.isPreferencesVisible(),
 
+  /**
+   *  Check if a widget is currently displayed.
+   *  @param widgetId: optional identifier of the widget to check. If not provided, any widget is considered.
+   *  @returns: **true** if the widget (or any widget if no ID is provided) is displayed, **false** otherwise.
+   */
+  isWidgetVisible: (widgetId?: string): Promise<boolean> => RNDidomi.isWidgetVisible(widgetId ?? null),
+
   isError: (): Promise<boolean> => RNDidomi.isError(),
 
   /**
@@ -690,6 +697,19 @@ export const Didomi = {
    *  @param view: It can be `purposes` or `vendors`. Note: `sensitive-personal-information` is deprecated and should not be used, as SPI purposes are now displayed in the `purposes` screen.
    */
   showPreferences: (view?: string): Promise<void> => RNDidomi.showPreferences(view),
+
+  /**
+   *  Show a widget when/if the SDK is ready.
+   *  Widgets are only available when the notice is rendered by the Web SDK.
+   *  @param parameters: optional widget parameters. If `widgetId` is not provided, the widget is selected by the Rules Engine.
+   *  If `layerName` is not provided, the widget is displayed at its default layer.
+   */
+  showWidget: (parameters?: DidomiWidgetParameters): Promise<void> => RNDidomi.showWidget(parameters?.widgetId ?? null, parameters?.layerName ?? null),
+
+  /**
+   *  Hide the currently displayed widget, if any. Unsaved changes are discarded.
+   */
+  hideWidget: (): Promise<void> => RNDidomi.hideWidget(),
 
   /**
    *  Remove all consents for the user
