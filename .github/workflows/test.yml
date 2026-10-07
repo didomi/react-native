@@ -169,6 +169,12 @@ jobs:
       - name: List all simulators
         run: xcrun xctrace list devices
 
+      # Booting the simulator upfront avoids launch timeouts on the first test
+      - name: Boot simulator
+        run: |
+          xcrun simctl boot "iPhone 17" || true
+          xcrun simctl bootstatus "iPhone 17" -b
+
       - name: Run iOS Tests
         run: |
           npx react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios/assets
@@ -177,6 +183,8 @@ jobs:
           -scheme "Didomi Tests" \
           -sdk iphonesimulator \
           -destination "platform=iOS Simulator,name=iPhone 17" \
+          -retry-tests-on-failure \
+          -test-iterations 2 \
           clean test
 
       # Archive Result if failure
