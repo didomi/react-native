@@ -470,6 +470,7 @@ export const Didomi = {
 
   /**
    *  Check if a widget is currently displayed.
+   *  **Beta**: this API is in beta - Privacy widget feature is still in development
    *  @param widgetId: optional identifier of the widget to check. If not provided, any widget is considered.
    *  @returns: **true** if the widget (or any widget if no ID is provided) is displayed, **false** otherwise.
    */
@@ -700,6 +701,7 @@ export const Didomi = {
 
   /**
    *  Show a widget when/if the SDK is ready.
+   *  **Beta**: this API is in beta - Privacy widget feature is still in development
    *  Widgets are only available when the notice is rendered by the Web SDK.
    *  @param parameters: optional widget parameters. If `widgetId` is not provided, the widget is selected by the Rules Engine.
    *  If `layerName` is not provided, the widget is displayed at its default layer.
@@ -708,6 +710,7 @@ export const Didomi = {
 
   /**
    *  Hide the currently displayed widget, if any. Unsaved changes are discarded.
+   *  **Beta**: this API is in beta - Privacy widget feature is still in development
    */
   hideWidget: (): Promise<void> => RNDidomi.hideWidget(),
 
