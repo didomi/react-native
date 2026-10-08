@@ -12,6 +12,7 @@ import io.didomi.sdk.Didomi
 import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.DidomiMultiUserParameters
 import io.didomi.sdk.DidomiUserParameters
+import io.didomi.sdk.DidomiWidgetParameters
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
@@ -425,14 +426,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
 
     @ReactMethod
     override fun setupUI(promise: Promise) {
-        try {
-            runOnUiThread {
-                Didomi.getInstance().setupUI(reactContext.currentActivity as? FragmentActivity)
-            }
-            promise.resolve(0)
-        } catch (e: Exception) {
-            Log.e("setupUI", "An error occurred while setting up the UI", e)
-            promise.reject(e)
+        resolveOnUiThread(promise, "setupUI", "An error occurred while setting up the UI") {
+            Didomi.getInstance().setupUI(reactContext.currentActivity as? FragmentActivity)
         }
     }
 
@@ -693,6 +688,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     override fun isNoticeVisible(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().isNoticeVisible())
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    override fun isWidgetVisible(widgetId: String?, promise: Promise) {
+        try {
+            promise.resolve(Didomi.getInstance().isWidgetVisible(widgetId?.let { DidomiWidgetParameters(widgetId = it) }))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -995,42 +999,41 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
 
     @ReactMethod
     override fun showNotice(promise: Promise) {
-        try {
-            runOnUiThread {
-                Didomi.getInstance().showNotice(reactContext.currentActivity as? FragmentActivity)
-            }
-            promise.resolve(0)
-        } catch (e: Exception) {
-            Log.e("showNotice", "An error occurred while showing the notice", e)
-            promise.reject(e)
+        resolveOnUiThread(promise, "showNotice", "An error occurred while showing the notice") {
+            Didomi.getInstance().showNotice(reactContext.currentActivity as? FragmentActivity)
         }
     }
 
     @ReactMethod
     override fun forceShowNotice(promise: Promise) {
-        try {
-            runOnUiThread {
-                Didomi.getInstance().forceShowNotice(reactContext.currentActivity as? FragmentActivity)
-            }
-            promise.resolve(0)
-        } catch (e: Exception) {
-            Log.e("forceShowNotice", "An error occurred while force-showing the notice", e)
-            promise.reject(e)
+        resolveOnUiThread(promise, "forceShowNotice", "An error occurred while force-showing the notice") {
+            Didomi.getInstance().forceShowNotice(reactContext.currentActivity as? FragmentActivity)
         }
     }
 
     @ReactMethod
     override fun showPreferences(view: String?, promise: Promise) {
-        try {
-            runOnUiThread {
-                view?.also {
-                    Didomi.getInstance().showPreferences(reactContext.currentActivity as? FragmentActivity, view)
-                } ?: Didomi.getInstance().showPreferences(reactContext.currentActivity as? FragmentActivity)
-            }
-            promise.resolve(0)
-        } catch (e: Exception) {
-            Log.e("showPreferences", "An error occurred while showing the notice", e)
-            promise.reject(e)
+        resolveOnUiThread(promise, "showPreferences", "An error occurred while showing the notice") {
+            view?.also {
+                Didomi.getInstance().showPreferences(reactContext.currentActivity as? FragmentActivity, view)
+            } ?: Didomi.getInstance().showPreferences(reactContext.currentActivity as? FragmentActivity)
+        }
+    }
+
+    @ReactMethod
+    override fun showWidget(widgetId: String?, layerName: String?, promise: Promise) {
+        resolveOnUiThread(promise, "showWidget", "An error occurred while showing the widget") {
+            Didomi.getInstance().showWidget(
+                reactContext.currentActivity as? FragmentActivity,
+                DidomiWidgetParameters(widgetId = widgetId, layerName = layerName)
+            )
+        }
+    }
+
+    @ReactMethod
+    override fun hideWidget(promise: Promise) {
+        resolveOnUiThread(promise, "hideWidget", "An error occurred while hiding the widget") {
+            Didomi.getInstance().hideWidget()
         }
     }
 
@@ -1276,6 +1279,23 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             putString("layerName", event.layerName)
         }
         prepareEvent(eventName, params)
+    }
+
+    /**
+     * Run [block] on the UI thread, then resolve the [promise] (or reject it if [block] throws).
+     * The block runs later on the UI thread, so its exceptions (e.g. DidomiNotReadyException) must be
+     * caught there: an uncaught exception on the UI thread would crash the app.
+     */
+    private fun resolveOnUiThread(promise: Promise, tag: String, errorMessage: String, block: () -> Unit) {
+        runOnUiThread {
+            try {
+                block()
+                promise.resolve(0)
+            } catch (e: Exception) {
+                Log.e(tag, errorMessage, e)
+                promise.reject(e)
+            }
+        }
     }
 
     // Required to transform from array to variadic.

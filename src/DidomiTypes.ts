@@ -194,8 +194,11 @@ export interface IntegrationErrorEvent {
 }
 
 /**
- * A widget was displayed.
- * Emitted with the {@link DidomiEventType#SHOW_WIDGET} event type.
+ * A widget layer was displayed.
+ * Emitted with the {@link DidomiEventType#SHOW_WIDGET} event type when the widget is displayed, and again
+ * each time the user navigates to another layer of the same widget (e.g. from `notice` to `purposes` and back),
+ * with no {@link DidomiEventType#HIDE_WIDGET} in between. The widget is closed only when
+ * {@link DidomiEventType#HIDE_WIDGET} is emitted.
  * @interface
  */
 export interface ShowWidgetEvent {
@@ -205,7 +208,24 @@ export interface ShowWidgetEvent {
    */
   widgetId?: string;
   /**
-   * Name of the layer at which the widget was displayed.
+   * Name of the layer that was displayed.
+   * @property
+   */
+  layerName?: string;
+}
+
+/**
+ * Parameters used to display a widget.
+ * @interface
+ */
+export interface DidomiWidgetParameters {
+  /**
+   * Identifier of the widget to display. If not provided, the widget is selected by the Rules Engine.
+   * @property
+   */
+  widgetId?: string;
+  /**
+   * Name of the layer at which the widget should be displayed (e.g. `notice`, `purposes` or `vendors`). If not provided, the default layer is used.
    * @property
    */
   layerName?: string;
