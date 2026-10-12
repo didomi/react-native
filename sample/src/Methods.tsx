@@ -5,7 +5,7 @@ import MethodCall from './MethodCall';
 
 export default function Methods() {
   const [apiKey, onChangeApiKey] = React.useState(
-    '9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba'
+    'cb52b806-a594-4ce4-b6a3-f686d2a63553'
   );
   const [language, onChangeLanguage] = React.useState('');
   const [preferenceType, onChangePreferences] = React.useState('');
@@ -21,7 +21,7 @@ export default function Methods() {
       <MethodCall
         name="initialize"
         call={() => {
-          Didomi.initializeWithParameters({ apiKey: apiKey, noticeId: "XWhEXzb9", androidTvEnabled: true, androidTvNoticeId: "mBcaPUEX" }).catch((err) => {
+          Didomi.initializeWithParameters({ apiKey: apiKey, noticeId: "CUat7GQY", androidTvEnabled: true, androidTvNoticeId: "CUat7GQY" }).catch((err) => {
             console.log(err);
             return false
           });
