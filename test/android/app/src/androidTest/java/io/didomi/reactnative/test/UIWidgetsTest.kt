@@ -39,11 +39,18 @@ class UIWidgetsTest : BaseUITest() {
     fun test_ShowWidget() {
         tapButton("showWidget")
 
-        // The widget is displayed in a dialog covering the app: look for the event in the app window
+        // The widget is displayed in a dialog covering the app: look for the events in the app window.
+        // The test app hides the widget 2 seconds after it is displayed, logging its visibility first.
+        val appWindow = withDecorView(`is`(appDecorView()))
         waitForDisplayed(
             withText(allOf(containsString("> on_show_widget"), containsString("\"widgetId\":\"widget_cpra\""))),
-            rootMatcher = withDecorView(`is`(appDecorView()))
+            rootMatcher = appWindow
         )
+        waitForDisplayed(withText(containsString("> isWidgetVisible widget_cpra -> true")), rootMatcher = appWindow)
+        waitForDisplayed(withText(containsString("> on_hide_widget")), rootMatcher = appWindow)
+
+        tapButton("isWidgetVisible")
+        assertText("false")
     }
 
     private fun appDecorView(): View {

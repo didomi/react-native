@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Didomi, DidomiEventType, VendorStatus } from '@didomi/react-native';
+import { Didomi, DidomiEventType, ShowWidgetEvent, VendorStatus } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 import { SyncReadyEvent } from '../../src/DidomiTypes';
 
@@ -104,6 +104,16 @@ export default function Methods(props: MethodsProps) {
       <MethodCall
         name="showWidget"
         call={() => {
+          // The widget covers the app, so it is automatically hidden once displayed
+          const onShowWidget = (event: ShowWidgetEvent) => {
+            Didomi.removeEventListener(DidomiEventType.SHOW_WIDGET, onShowWidget);
+            setTimeout(async () => {
+              const visible = await Didomi.isWidgetVisible(event?.widgetId);
+              props.onEventReceived("isWidgetVisible " + event?.widgetId + " -> " + visible);
+              Didomi.hideWidget();
+            }, 2000);
+          };
+          Didomi.addEventListener(DidomiEventType.SHOW_WIDGET, onShowWidget);
           Didomi.showWidget({ widgetId: 'widget_cpra' });
         }}
         test={() => {
