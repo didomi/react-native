@@ -86,6 +86,26 @@ export default function Methods() {
       />
 
       <MethodCall
+        name="showWidget"
+        call={() => {
+          Didomi.showWidget({ widgetId: 'widget_cpra' });
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
+        name="hideWidget"
+        call={() => {
+          Didomi.hideWidget();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
         name="reset"
         call={() => {
           Didomi.reset();

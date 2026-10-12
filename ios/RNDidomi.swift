@@ -358,6 +358,29 @@ class RNDidomi: RCTEventEmitter {
         resolve(0)
     }
 
+    @objc(showWidget:layerName:resolve:reject:)
+    dynamic func showWidget(widgetId: String?, layerName: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        DispatchQueue.main.async {
+            let parameters = DidomiWidgetParameters(widgetID: widgetId, layerName: layerName)
+            Didomi.shared.showWidget(controller: RCTPresentedViewController(), parameters: parameters)
+        }
+
+        resolve(0)
+    }
+
+    @objc(hideWidget:reject:)
+    dynamic func hideWidget(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        DispatchQueue.main.async {
+            Didomi.shared.hideWidget()
+        }
+        resolve(0)
+    }
+
+    @objc(isWidgetVisible:resolve:reject:)
+    dynamic func isWidgetVisible(widgetId: String?, resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        resolve(Didomi.shared.isWidgetVisible(parameters: DidomiWidgetParameters(widgetID: widgetId, layerName: nil)))
+    }
+
     @objc(hidePreferences:reject:)
     dynamic func hidePreferences(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         DispatchQueue.main.async {

@@ -102,6 +102,26 @@ export default function Methods(props: MethodsProps) {
       />
 
       <MethodCall
+        name="showWidget"
+        call={() => {
+          Didomi.showWidget({ widgetId: 'widget_cpra' });
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
+        name="hideWidget"
+        call={() => {
+          Didomi.hideWidget();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
         name="Listen ipromote Vendor status"
         call={()=> {
           // Remove only the ipromote vendor listener if it exists, then add it

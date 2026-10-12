@@ -13,6 +13,7 @@
 		93A9F4BA21BA813BE755EBA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44C63D04295076FF117E997 /* AppDelegate.swift */; };
 		97BCCB9F2C612B4C004A174C /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 97BCCB9E2C612B4C004A174C /* main.jsbundle */; };
 		97CADCF52C60FB740078F82C /* didomi_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 97CADCF42C60FB740078F82C /* didomi_config.json */; };
+		97CADCF72C60FB740078F82C /* didomi_config_widgets.json in Resources */ = {isa = PBXBuildFile; fileRef = 97CADCF62C60FB740078F82C /* didomi_config_widgets.json */; };
 		97F130492C6B4F92009B8451 /* DidomiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB942C612644004A174C /* DidomiUITests.swift */; };
 		97F1304A2C6B4F97009B8451 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB9A2C612662004A174C /* String.swift */; };
 		97F1304B2C6B4F9A009B8451 /* XCUIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BCCB9B2C612662004A174C /* XCUIElement.swift */; };
@@ -51,6 +52,7 @@
 		97BCCB9B2C612662004A174C /* XCUIElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElement.swift; sourceTree = "<group>"; };
 		97BCCB9E2C612B4C004A174C /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		97CADCF42C60FB740078F82C /* didomi_config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = didomi_config.json; path = test/didomi_config.json; sourceTree = "<group>"; };
+		97CADCF62C60FB740078F82C /* didomi_config_widgets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = didomi_config_widgets.json; path = test/didomi_config_widgets.json; sourceTree = "<group>"; };
 		97F1303E2C6B4458009B8451 /* DidomiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DidomiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44C63D04295076FF117E997 /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = test/AppDelegate.swift; sourceTree = "<group>"; };
 		D774C58514861B1B6382743B /* Pods-Didomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Didomi.debug.xcconfig"; path = "Target Support Files/Pods-Didomi/Pods-Didomi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				97CADCF42C60FB740078F82C /* didomi_config.json */,
+				97CADCF62C60FB740078F82C /* didomi_config_widgets.json */,
 				97BCCB9E2C612B4C004A174C /* main.jsbundle */,
 			);
 			name = Resources;
@@ -280,6 +283,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				97CADCF52C60FB740078F82C /* didomi_config.json in Resources */,
+				97CADCF72C60FB740078F82C /* didomi_config_widgets.json in Resources */,
 				97BCCB9F2C612B4C004A174C /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B2C1C4D4C4696A16DA9E2BB8 /* PrivacyInfo.xcprivacy in Resources */,

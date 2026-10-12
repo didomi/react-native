@@ -39,6 +39,9 @@ export interface Spec extends TurboModule {
   showPreferences(view: string | null): Promise<void>;
   hidePreferences(): Promise<void>;
   isPreferencesVisible(): Promise<boolean>;
+  showWidget(widgetId: string | null, layerName: string | null): Promise<void>;
+  hideWidget(): Promise<void>;
+  isWidgetVisible(widgetId: string | null): Promise<boolean>;
 
   isConsentRequired(): Promise<boolean>;
   shouldUserStatusBeCollected(): Promise<boolean>;

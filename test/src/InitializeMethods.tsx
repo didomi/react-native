@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Didomi, DidomiInitializeParameters } from '@didomi/react-native';
 import MethodCall from './MethodCall';
 
@@ -102,6 +102,21 @@ export default function InitializeMethods(props: InitializeProps) {
               disableDidomiRemoteConfig: true,
               noticeId: "Ar7NPQ72",
               isUnderage: true
+          });
+        }}
+        test={() => {
+          return true;
+        }}
+      />
+
+      <MethodCall
+        name="Initialize widget notice"
+        call={async() => {
+          callInitializeWithParameters({
+              apiKey: "9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba",
+              // Local configuration with widgets and no automatic widget rule
+              localConfigurationPath: Platform.OS === 'ios' ? "didomi_config_widgets" : "didomi_config_widgets.json",
+              disableDidomiRemoteConfig: true
           });
         }}
         test={() => {

@@ -1,0 +1,157 @@
+{
+    "app": {
+        "name": "Test app",
+        "vendors": {
+            "iab": {
+                "all": false,
+                "stacks": {
+                    "auto": false
+                },
+                "enabled": true,
+                "version": 2,
+                "minorVersion": 2,
+                "gvlSpecificationVersion": 3,
+                "include": [
+                    490,
+                    147
+                ]
+            },
+            "didomi": [
+                "google"
+            ],
+            "custom": [
+                {
+                    "id": "google",
+                    "didomiId": "google",
+                    "name": "Google Advertising Products",
+                    "policyUrl": "https://business.safety.google/privacy/",
+                    "purposeIds": [
+                        "cookies",
+                        "create_ads_profile",
+                        "select_personalized_ads"
+                    ],
+                    "legIntPurposeIds": [
+                        "select_basic_ads",
+                        "measure_ad_performance",
+                        "market_research",
+                        "improve_products"
+                    ],
+                    "usesNonCookieAccess": false,
+                    "type": "3rd_party",
+                    "lang_urls": [
+                        {
+                            "langId": "en",
+                            "privacy": "https://business.safety.google/privacy/",
+                            "legIntClaim": "https://policies.google.com/privacy#europeanrequirements"
+                        }
+                    ],
+                    "namespaces": {
+                        "num": 2,
+                        "iab2": 755,
+                        "didomi": "google"
+                    }
+                }
+            ]
+        }
+    },
+    "notice": {
+        "content": {
+            "popup": {
+                "en": "Text in English",
+                "es": "Texto en español",
+                "pt": "Texto em português",
+                "fr": "Texte en français"
+            },
+            "dismiss": {
+                "en": "Accept all"
+            },
+            "deny": {
+                "en": "Reject all"
+            },
+            "learnMore": {
+                "en": "Manage privacy settings"
+            }
+        },
+        "position": "popup",
+        "closeOnClick": false,
+        "closeOnScroll": false,
+        "showDataProcessing": false,
+        "closeOnScrollThreshold": 0,
+        "daysBeforeShowingAgain": 30,
+        "closeOnScrollThresholdType": "",
+        "enableBulkActionOnPurposes": true,
+        "closeOnClickNavigationDelay": 0,
+        "type": "optin",
+        "denyOptions": {
+            "button": "primary"
+        },
+        "denyAsPrimary": true,
+        "denyAppliesToLI": true,
+        "enableWebView": true
+    },
+    "languages": {
+        "default": "en",
+        "enabled": [
+            "es",
+            "pt",
+            "en",
+            "fr"
+        ]
+    },
+    "preferences": {
+        "content": {
+            "text": {
+                "en": "Preferences text in English"
+            }
+        },
+        "showWhenConsentIsMissing": false,
+        "enableAllButtons": true,
+        "storageDisclosure": {
+            "enable": true
+        },
+        "denyAppliesToLI": true,
+        "controlType": "toggles",
+        "combineLIAndConsent": true
+    },
+    "regulation": {
+        "name": "gdpr",
+        "group": {
+            "name": "optin"
+        }
+    },
+    "id": "945f7e5a-9f0a-4477-baf1-bf810707806f",
+    "version": "1.0.0",
+    "rules": [
+        {
+            "id": "rule_cpra",
+            "priority": 3,
+            "scenarios": [
+                {
+                    "parameters": {
+                        "territories": [
+                            "US-CA"
+                        ]
+                    },
+                    "scenarioId": "geo_in_list"
+                }
+            ],
+            "triggerMode": "manual",
+            "targetWidgetId": "widget_cpra"
+        }
+    ],
+    "widgets": {
+        "widget_cop": {
+            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/NL7TGFDE/4qKUgHGF/widget-agTqkmk7.en.js"
+        },
+        "widget_gpc": {
+            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/Btba3hwV/AyXBPXAm/widget-n9LHkiCT.en.js"
+        },
+        "widget_cpra": {
+            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/HacCYnLW/6mDVphxT/widget-i44BcgLB.en.js"
+        },
+        "widget_underage": {
+            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/gC8XQhbM/WAAriM9P/widget-kp3bfLR8.en.js"
+        }
+    },
+    "defaultWidgetId": "widget_cpra"
+}

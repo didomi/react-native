@@ -177,6 +177,18 @@ RCT_EXTERN_METHOD(hidePreferences:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(isPreferencesVisible:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(showWidget:(nullable NSString *)widgetId
+                  layerName:(nullable NSString *)layerName
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(hideWidget:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(isWidgetVisible:(nullable NSString *)widgetId
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getTranslatedText:(NSString *)key
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
