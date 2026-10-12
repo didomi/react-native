@@ -1,29 +1,391 @@
 {
-  "app": {
-    "name": "Didomi Sample",
-    "privacyPolicyURL": "http://www.website.com/privacy",
-    "vendors": {
-      "didomi": [
-        "google",
-        "amazon",
-        "facebook",
-        "twitter"
-      ],
-      "iab": {
-        "version": 2,
-        "all": true
-      }
+    "ui": {
+        "version": "2.0.0"
     },
-    "gdprAppliesGlobally": true,
-    "gdprAppliesWhenUnknown": true,
-    "country": "fr"
-  },
-  "languages": {
-    "enabled": [
-      "fr",
-      "en",
-      "es"
+    "user": {
+        "bots": {
+            "consentRequired": false
+        },
+        "country": "US",
+        "region": "CA"
+    },
+    "notice": {
+        "position": "bottom",
+        "showDataProcessing": true,
+        "daysBeforeShowingAgain": 30,
+        "content": {
+            "title": {
+                "en": "Your Privacy"
+            },
+            "notice": {
+                "en": "We collect some sensitive and not sensitive personal data like your ip address or the browser's cookies and we share or sell it to third parties. This also helps us in keeping our service operative, improving our products and delivering personalized ads. You can choose to opt-out from the share and from the sale of the data by using the options below. \nPlease visit our <a href=\"{privacyPolicyURL}\" target=\"_blank\">Privacy Policy</a> for more information about your rights."
+            },
+            "manageSpiChoices": {
+                "en": "Limit the use of My Sensitive Personal Information"
+            },
+            "dismiss": {
+                "en": "Agree and Close"
+            },
+            "learnMore": {
+                "en": "Do not Share or Sell my Personal Information"
+            },
+            "dismissAriaLabel": {
+                "en": "Agree and Close"
+            },
+            "learnMoreAriaLabel": {
+                "en": "Do not Share or Sell my Personal Information"
+            },
+            "activeElements": [
+                "learnMore",
+                "dismiss"
+            ]
+        },
+        "partnersLink": {
+            "enabled": false
+        },
+        "enable": true,
+        "denyOptions": {
+            "button": "none"
+        },
+        "denyAppliesToLI": true,
+        "enableWebView": true
+    },
+    "languages": {
+        "default": "en",
+        "enabled": [
+            "en",
+            "fr"
+        ]
+    },
+    "app": {
+        "essentialPurposes": [
+            "strictlyn-4zKdbmaY"
+        ],
+        "vendors": {
+            "custom": [
+                {
+                    "id": "datadog-Pywnkw8B",
+                    "didomiId": "datadog-Pywnkw8B",
+                    "name": "Datadog",
+                    "policyUrl": "https://www.datadoghq.com/legal/privacy/",
+                    "purposeIds": [],
+                    "legIntPurposeIds": [
+                        "strictlyn-4zKdbmaY"
+                    ],
+                    "usesNonCookieAccess": false,
+                    "type": "3rd_party",
+                    "lang_urls": [
+                        {
+                            "langId": "en",
+                            "privacy": "https://www.datadoghq.com/legal/privacy/",
+                            "legIntClaim": "https://www.datadoghq.com/legal/privacy/"
+                        }
+                    ],
+                    "namespaces": {
+                        "num": 37645
+                    }
+                },
+                {
+                    "id": "googleana-4TXnJigR",
+                    "didomiId": "googleana-4TXnJigR",
+                    "name": "Google Analytics Products",
+                    "policyUrl": "https://business.safety.google/privacy/",
+                    "purposeIds": [],
+                    "legIntPurposeIds": [
+                        "allowshar-q3bi8YA2"
+                    ],
+                    "usesNonCookieAccess": false,
+                    "type": "3rd_party",
+                    "lang_urls": [],
+                    "namespaces": {
+                        "num": 1
+                    }
+                }
+            ],
+            "google": {
+                "fullATP": true
+            }
+        },
+        "apiKey": "8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c",
+        "customPurposes": [
+            {
+                "id": "strictlyn-4zKdbmaY",
+                "name": {
+                    "en": "Strictly Necessary Cookies"
+                },
+                "description": {
+                    "en": "These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in or filling in forms.    You can set your browser to block or alert you about these cookies, but some parts of the site will not then work. These cookies do not store any personally identifiable information."
+                },
+                "namespaces": {
+                    "num": 19534
+                }
+            },
+            {
+                "id": "allowshar-q3bi8YA2",
+                "name": {
+                    "en": "Allow Share Or Sale of Personal Data for Targeted Advertising"
+                },
+                "description": {
+                    "en": "If you switch this toggle to “no,” we will not sell or share your personal information with third parties for advertising targeted to this device."
+                },
+                "namespaces": {
+                    "num": 19381
+                }
+            }
+        ],
+        "deploymentId": "K2VmiHBi",
+        "consentDuration": 31622400,
+        "consentString": {
+            "version": 2,
+            "signatureEnabled": false
+        },
+        "sdkVersion": null
+    },
+    "preferences": {
+        "categories": [
+            {
+                "type": "purpose",
+                "purposeId": "allowshar-q3bi8YA2"
+            },
+            {
+                "type": "purpose",
+                "purposeId": "strictlyn-4zKdbmaY"
+            }
+        ],
+        "sectionTitle": {
+            "en": "You allow"
+        },
+        "content": {
+            "title": {
+                "en": "Sell and Share Personal Information"
+            },
+            "text": {
+                "en": "<p>We and our partners place cookies and access, collect, use your sensitive and not sensitive personal information for the following purposes.</p><ul><li>Auditing Interactions with Consumers</li><li>Security</li><li>Debugging/Repair</li><li>Certain Short-term Uses</li><li>Performing Services</li><li>Internal Research for Tech Development</li><li>Quality and Safety Maintenance and Verification</li></ul><p>In addition, we share and sell to 3rd parties the following data categories.</p><ul><li>Identifiers (Shared with 3rd parties and retained for 12 months)</li><li>Commercial Purchasing Information (Shared with 3rd parties and retained for 12 months)</li></ul>"
+            },
+            "titleAriaLabel": {
+                "en": "Sell and Share Personal Information"
+            },
+            "activeElements": [
+                "crossButton",
+                "title",
+                "viewAllPartners",
+                "save"
+            ]
+        },
+        "vendorsLayer": {
+            "enabled": true
+        },
+        "denyAppliesToLI": true,
+        "sensitivePersonalInformation": {
+            "title": {
+                "en": "Sensitive Personal Information"
+            },
+            "description": {
+                "en": "Collected sensitive personal information includes your precise geolocation and your passport number. These information are retained for no more than 24 months and they are not shared or sold to 3rd parties."
+            },
+            "sectionTitle": {
+                "en": "Check information you want to limit:"
+            },
+            "categories": [
+                {
+                    "id": "sensitive-personal-information",
+                    "name": {
+                        "en": "Limit the use of all my sensitive personal information"
+                    },
+                    "type": "category",
+                    "children": [
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_precise_geolocation"
+                        },
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_racial_origin_religious_beliefs_union_membership"
+                        },
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_written_communication_content"
+                        },
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_genetic_data"
+                        },
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_biometric_data"
+                        },
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_personal_health_data"
+                        },
+                        {
+                            "type": "purpose",
+                            "purposeId": "disclose_sex_life_sexual_orientation"
+                        }
+                    ]
+                }
+            ]
+        },
+        "vendorsCount": {
+            "enabled": false
+        },
+        "vendorsDisclosure": {
+            "enabled": false
+        },
+        "combineLIAndConsent": true,
+        "storageDisclosure": {
+            "enable": false
+        }
+    },
+    "id": "3c185b11-59af-4661-9cf6-b95d18369619",
+    "version": "1.0.0",
+    "regulation": {
+        "group": {
+            "name": "mixed"
+        },
+        "name": "cpra",
+        "id": 4
+    },
+    "integrations": {
+        "gpp": {
+            "version": 1,
+            "sections": [
+                {
+                    "id": 8,
+                    "name": "usca",
+                    "fields": {
+                        "SaleOptOut": {
+                            "type": "purposes",
+                            "ids": [
+                                "allowshar-q3bi8YA2"
+                            ],
+                            "transformer": "gppReverseDefaultStatus"
+                        },
+                        "SharingOptOut": {
+                            "type": "purposes",
+                            "ids": [
+                                "allowshar-q3bi8YA2"
+                            ],
+                            "transformer": "gppReverseDefaultStatus"
+                        },
+                        "PersonalDataConsents": {
+                            "type": "purposes",
+                            "ids": [],
+                            "transformer": "gppReverseDefaultStatus"
+                        },
+                        "SaleOptOutNotice": {
+                            "type": "constant",
+                            "value": true
+                        },
+                        "SharingOptOutNotice": {
+                            "type": "constant",
+                            "value": true
+                        },
+                        "SensitiveDataLimitUseNotice": {
+                            "type": "constant",
+                            "value": null
+                        },
+                        "SensitiveDataProcessing": [
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            },
+                            {
+                                "type": "constant",
+                                "value": null
+                            }
+                        ],
+                        "Gpc": {
+                            "type": "gpc"
+                        },
+                        "MspaCoveredTransaction": {
+                            "type": "constant",
+                            "value": false
+                        },
+                        "MspaOptOutOptionMode": {
+                            "type": "constant",
+                            "value": null
+                        },
+                        "MspaServiceProviderMode": {
+                            "type": "constant",
+                            "value": null
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "rules": [
+        {
+            "id": "rule_cpra",
+            "priority": 1,
+            "scenarios": [
+                {
+                    "parameters": {
+                        "territories": [
+                            "US-CA"
+                        ]
+                    },
+                    "scenarioId": "geo_in_list"
+                }
+            ],
+            "triggerMode": "manual",
+            "targetWidgetId": "widget_cpra"
+        },
+        {
+            "id": "rule_gdpr",
+            "priority": 2,
+            "scenarios": [
+                {
+                    "parameters": {
+                        "territories": [
+                            "FR",
+                            "GB",
+                            "DE"
+                        ]
+                    },
+                    "scenarioId": "geo_in_list"
+                }
+            ],
+            "triggerMode": "automatic",
+            "targetWidgetId": "widget_gdpr"
+        }
     ],
-    "default": "fr"
-  }
+    "widgets": {
+        "widget_cpra": {
+            "bundleUrl": "https://sdk.privacy-center.org/widgets/8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c/ntjBVBBf/pGE9feWe/widget.en.js"
+        },
+        "widget_gdpr": {
+            "bundleUrl": "https://sdk.privacy-center.org/widgets/8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c/kmEVwEmF/rr48zGXY/widget.en.js"
+        }
+    },
+    "defaultWidgetId": "widget_cpra"
 }

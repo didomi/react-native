@@ -241,10 +241,14 @@ class DidomiUITests: XCTestCase {
     tapButton(in: app, name: "showWidget")
     assertResult(in: app, name: "showWidget", expected: "showWidget-OK")
 
-    // The Web SDK and the widget bundle are loaded from the network, hence the extended timeout
+    // The Web SDK and the widget bundle are loaded from the network, hence the extended timeout.
+    // The test app hides the widget 2 seconds after it is displayed, logging its visibility first.
     testLastEvent(app: app, name: "on_show_widget", timeout: 20)
-    let widgetId = NSPredicate(format: "label CONTAINS %@", "\"widgetId\":\"widget_cpra\"")
-    XCTAssertTrue(app.staticTexts.matching(widgetId).firstMatch.exists)
+    testLastEvent(app: app, name: "isWidgetVisible widget_cpra -> true", timeout: 10)
+    testLastEvent(app: app, name: "on_hide_widget", timeout: 10)
+
+    tapButton(in: app, name: "isWidgetVisible")
+    assertResult(in: app, name: "isWidgetVisible", expected: "false")
 
     // The widget covers the app: restart it to restore the default notice for the other tests
     app.terminate()
