@@ -381,10 +381,24 @@
     ],
     "widgets": {
         "widget_cpra": {
-            "bundleUrl": "https://sdk.privacy-center.org/widgets/8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c/ntjBVBBf/pGE9feWe/widget.en.js"
+            "defaultLanguage": "en",
+            "artifacts": {
+                "web": {
+                    "en": {
+                        "modern": "https://sdk.privacy-center.org/widgets/8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c/ntjBVBBf/pGE9feWe/widget.en.js"
+                    }
+                }
+            }
         },
         "widget_gdpr": {
-            "bundleUrl": "https://sdk.privacy-center.org/widgets/8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c/kmEVwEmF/rr48zGXY/widget.en.js"
+            "defaultLanguage": "en",
+            "artifacts": {
+                "web": {
+                    "en": {
+                        "modern": "https://sdk.privacy-center.org/widgets/8983bdb1-e1c7-4c63-abc3-c6e4d60ead3c/kmEVwEmF/rr48zGXY/widget.en.js"
+                    }
+                }
+            }
         }
     },
     "defaultWidgetId": "widget_cpra"

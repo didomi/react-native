@@ -141,16 +141,44 @@
     ],
     "widgets": {
         "widget_cop": {
-            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/NL7TGFDE/4qKUgHGF/widget-agTqkmk7.en.js"
+            "defaultLanguage": "en",
+            "artifacts": {
+                "web": {
+                    "en": {
+                        "modern": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/NL7TGFDE/4qKUgHGF/widget-agTqkmk7.en.js"
+                    }
+                }
+            }
         },
         "widget_gpc": {
-            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/Btba3hwV/AyXBPXAm/widget-n9LHkiCT.en.js"
+            "defaultLanguage": "en",
+            "artifacts": {
+                "web": {
+                    "en": {
+                        "modern": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/Btba3hwV/AyXBPXAm/widget-n9LHkiCT.en.js"
+                    }
+                }
+            }
         },
         "widget_cpra": {
-            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/HacCYnLW/6mDVphxT/widget-i44BcgLB.en.js"
+            "defaultLanguage": "en",
+            "artifacts": {
+                "web": {
+                    "en": {
+                        "modern": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/HacCYnLW/6mDVphxT/widget-i44BcgLB.en.js"
+                    }
+                }
+            }
         },
         "widget_underage": {
-            "bundleUrl": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/gC8XQhbM/WAAriM9P/widget-kp3bfLR8.en.js"
+            "defaultLanguage": "en",
+            "artifacts": {
+                "web": {
+                    "en": {
+                        "modern": "https://sdk.privacy-center.org/widgets/ccd26148-1e19-4c39-b1af-a51e09b1137d/gC8XQhbM/WAAriM9P/widget-kp3bfLR8.en.js"
+                    }
+                }
+            }
         }
     },
     "defaultWidgetId": "widget_cpra"
