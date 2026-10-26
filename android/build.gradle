@@ -165,5 +165,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation("com.google.code.gson:gson:2.13.1")
-    implementation "io.didomi.sdk:android:2.52.1"
+    implementation "io.didomi.sdk:android:2.53.0"
 }
