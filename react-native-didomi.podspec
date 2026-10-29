@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
-  s.dependency "Didomi-XCFramework", "2.53.0"
+  s.dependency "Didomi-XCFramework", "2.53.1"
 
   install_modules_dependencies(s)
 end
