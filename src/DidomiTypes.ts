@@ -80,6 +80,7 @@ export enum DidomiEventType {
     // Widgets
     SHOW_WIDGET = "on_show_widget",
     HIDE_WIDGET = "on_hide_widget",
+    WIDGET_SWITCH_LAYER = "on_widget_switch_layer",
 }
 
 export interface Vendor {
@@ -212,6 +213,30 @@ export interface ShowWidgetEvent {
    * @property
    */
   layerName?: string;
+}
+
+/**
+ * The user navigated to another layer of a widget (e.g. with a "Learn more" or "View vendors" button).
+ * Emitted with the {@link DidomiEventType#WIDGET_SWITCH_LAYER} event type. It is not emitted when the widget
+ * is closed, when the backdrop is clicked, or when the user agrees or disagrees.
+ * @interface
+ */
+export interface WidgetSwitchLayerEvent {
+  /**
+   * Identifier of the widget, as resolved by the Rules Engine.
+   * @property
+   */
+  widgetId?: string;
+  /**
+   * Name of the layer the user navigated from.
+   * @property
+   */
+  layerName?: string;
+  /**
+   * Name of the layer the user navigated to.
+   * @property
+   */
+  targetLayerName?: string;
 }
 
 /**

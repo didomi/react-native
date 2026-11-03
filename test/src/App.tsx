@@ -79,6 +79,7 @@ function App() {
     registerListener(DidomiEventType.INTEGRATION_ERROR);
     registerListener(DidomiEventType.SHOW_WIDGET);
     registerListener(DidomiEventType.HIDE_WIDGET);
+    registerListener(DidomiEventType.WIDGET_SWITCH_LAYER);
   }, [registerListener]);
 
   React.useEffect(() => {

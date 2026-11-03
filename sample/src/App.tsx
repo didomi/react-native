@@ -67,6 +67,7 @@ function App() {
     registerListener(DidomiEventType.LANGUAGE_UPDATE_FAILED);
     registerListener(DidomiEventType.SHOW_WIDGET);
     registerListener(DidomiEventType.HIDE_WIDGET);
+    registerListener(DidomiEventType.WIDGET_SWITCH_LAYER);
 
     Didomi.onReady().then(() => {
       console.log('ready');
