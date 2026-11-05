@@ -73,5 +73,6 @@ enum class EventTypes(val event: String) {
     // Widgets
     SHOW_WIDGET("on_show_widget"),
     HIDE_WIDGET("on_hide_widget"),
-    WIDGET_SWITCH_LAYER("on_widget_switch_layer")
+    WIDGET_SWITCH_LAYER("on_widget_switch_layer"),
+    WIDGET_CUSTOM_ACTION("on_widget_custom_action")
 }

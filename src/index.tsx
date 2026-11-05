@@ -16,5 +16,6 @@ export {
     DidomiInitializeParameters,
     ShowWidgetEvent,
     WidgetSwitchLayerEvent,
+    WidgetCustomActionEvent,
     DidomiWidgetParameters
 } from './DidomiTypes';

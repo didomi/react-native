@@ -80,6 +80,7 @@ function App() {
     registerListener(DidomiEventType.SHOW_WIDGET);
     registerListener(DidomiEventType.HIDE_WIDGET);
     registerListener(DidomiEventType.WIDGET_SWITCH_LAYER);
+    registerListener(DidomiEventType.WIDGET_CUSTOM_ACTION);
   }, [registerListener]);
 
   React.useEffect(() => {

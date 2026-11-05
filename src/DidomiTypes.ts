@@ -81,6 +81,7 @@ export enum DidomiEventType {
     SHOW_WIDGET = "on_show_widget",
     HIDE_WIDGET = "on_hide_widget",
     WIDGET_SWITCH_LAYER = "on_widget_switch_layer",
+    WIDGET_CUSTOM_ACTION = "on_widget_custom_action",
 }
 
 export interface Vendor {
@@ -237,6 +238,30 @@ export interface WidgetSwitchLayerEvent {
    * @property
    */
   targetLayerName?: string;
+}
+
+/**
+ * The user clicked a custom action button in a widget.
+ * Emitted with the {@link DidomiEventType#WIDGET_CUSTOM_ACTION} event type. It does not change the widget visibility
+ * or the user consent.
+ * @interface
+ */
+export interface WidgetCustomActionEvent {
+  /**
+   * Identifier of the widget, as resolved by the Rules Engine.
+   * @property
+   */
+  widgetId: string;
+  /**
+   * Name of the layer where the custom action button was clicked.
+   * @property
+   */
+  layerName: string;
+  /**
+   * Client-defined action identifier, passed through unchanged.
+   * @property
+   */
+  customActionId: string;
 }
 
 /**
