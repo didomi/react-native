@@ -156,6 +156,8 @@ class RNDidomi: RCTEventEmitter {
         let encoder = JSONEncoder()
         let status = Didomi.shared.getCurrentUserStatus()
         var currentUserStatus = try? JSONSerialization.jsonObject(with: encoder.encode(status)) as? [String: Any]
+        // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
+        currentUserStatus?["regulation"] = status.regulation.description
         currentUserStatus?["regulation_configuration"] = dictionary(from: status.regulationConfiguration) ?? NSNull()
         resolve(currentUserStatus)
     }

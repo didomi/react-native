@@ -66,7 +66,7 @@ class UICustomRegulationTest : BaseUITest() {
         // There might be a delay to get this string.
         Thread.sleep(DELAY)
 
-        assertTextContains("\"regulation\":\"gdpr\"")
+        assertTextContains("\"regulation\":\"custom\"")
         assertTextContains("\"regulation_configuration\":{")
         assertTextContains("\"tokenStorageName\":\"didomi_token_abcd\"")
     }

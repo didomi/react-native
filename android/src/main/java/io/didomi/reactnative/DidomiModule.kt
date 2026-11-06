@@ -604,6 +604,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         try {
             val currentUserStatus = Didomi.getInstance().currentUserStatus
             val writableMap = objectToWritableMap(currentUserStatus)
+            // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
+            writableMap.putString("regulation", currentUserStatus.regulation.value)
             writableMap.putMap("regulation_configuration", regulationConfigurationToWritableMap(currentUserStatus.regulationConfiguration))
             promise.resolve(writableMap)
         } catch (e: DidomiNotReadyException) {

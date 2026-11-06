@@ -552,7 +552,7 @@ class DidomiUITests: XCTestCase {
     let statusText = app.staticTexts["getCurrentUserStatus-result"]
     statusText.wait()
     let status = statusText.label
-    XCTAssertTrue(status.contains("\"regulation\":\"gdpr\""))
+    XCTAssertTrue(status.contains("\"regulation\":\"custom\""))
     XCTAssertTrue(status.contains("\"regulation_configuration\":{"))
     XCTAssertTrue(status.contains("\"tokenStorageName\":\"didomi_token_abcd\""))
 
