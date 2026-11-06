@@ -125,6 +125,16 @@ export default function Getters() {
           return true;
         }}
       />
+
+      <Getter
+        name="getApplicableRegulationConfiguration"
+        call={async () => {
+          return await Didomi.getApplicableRegulationConfiguration();
+        }}
+        test={() => {
+          return true;
+        }}
+      />
       
       <Getter
         name="Get vendor count"

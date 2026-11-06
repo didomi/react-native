@@ -3,6 +3,7 @@ jest.mock('../specs/NativeDidomi', () => ({
   default: {
     getUserCountryCode: jest.fn(),
     getUserRegionCode: jest.fn(),
+    getApplicableRegulationConfiguration: jest.fn(),
     showWidget: jest.fn(),
     hideWidget: jest.fn(),
     isWidgetVisible: jest.fn(),
@@ -35,6 +36,26 @@ describe('getUserRegionCode', () => {
   it('resolves null when unknown', async () => {
     RNDidomi.getUserRegionCode.mockResolvedValue(null);
     await expect(Didomi.getUserRegionCode()).resolves.toBeNull();
+  });
+});
+
+describe('getApplicableRegulationConfiguration', () => {
+  it('resolves the configuration returned by the native module', async () => {
+    const configuration = {
+      id: 'abcd',
+      versionId: 'v1',
+      numericalId: 123,
+      regulationName: 'gdpr',
+      tokenStorageName: 'didomi_token_abcd',
+      mixed: false,
+    };
+    RNDidomi.getApplicableRegulationConfiguration.mockResolvedValue(configuration);
+    await expect(Didomi.getApplicableRegulationConfiguration()).resolves.toEqual(configuration);
+  });
+
+  it('resolves null when no regulation configuration is provided', async () => {
+    RNDidomi.getApplicableRegulationConfiguration.mockResolvedValue(null);
+    await expect(Didomi.getApplicableRegulationConfiguration()).resolves.toBeNull();
   });
 });
 

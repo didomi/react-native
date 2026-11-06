@@ -518,6 +518,50 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "getApplicableRegulation", expected: "\"gdpr\"")
   }
 
+  func testGetApplicableRegulationConfiguration() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "getApplicableRegulationConfiguration")
+
+    // No regulation configuration with the default configuration
+    assertResult(in: app, name: "getApplicableRegulationConfiguration", expected: "null")
+  }
+
+  func testCustomRegulation() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "Initialize custom regulation")
+    assertResult(in: app, name: "Initialize custom regulation", expected: "Initialize custom regulation-OK")
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+
+    tapButton(in: app, name: "getApplicableRegulation")
+    assertResult(in: app, name: "getApplicableRegulation", expected: "\"custom\"")
+
+    tapButton(in: app, name: "getApplicableRegulationConfiguration")
+    let configurationText = app.staticTexts["getApplicableRegulationConfiguration-result"]
+    configurationText.wait()
+    let configuration = configurationText.label
+    XCTAssertTrue(configuration.contains("\"id\":\"abcd\""))
+    XCTAssertTrue(configuration.contains("\"versionId\":\"v1\""))
+    XCTAssertTrue(configuration.contains("\"numericalId\":123"))
+    XCTAssertTrue(configuration.contains("\"regulationName\":\"gdpr\""))
+    XCTAssertTrue(configuration.contains("\"tokenStorageName\":\"didomi_token_abcd\""))
+    XCTAssertTrue(configuration.contains("\"mixed\":false"))
+
+    tapButton(in: app, name: "getCurrentUserStatus")
+    let statusText = app.staticTexts["getCurrentUserStatus-result"]
+    statusText.wait()
+    let status = statusText.label
+    XCTAssertTrue(status.contains("\"regulation\":\"gdpr\""))
+    XCTAssertTrue(status.contains("\"regulation_configuration\":{"))
+    XCTAssertTrue(status.contains("\"tokenStorageName\":\"didomi_token_abcd\""))
+
+    // Restart the app to restore the default notice for the other tests
+    app.terminate()
+    app.activate()
+    assertResult(in: app, name: "ready", expected: "SDK STATUS: READY")
+  }
+
   func testGetVendorCount() throws {
     let app = initApp()
 

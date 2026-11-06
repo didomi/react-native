@@ -9,6 +9,7 @@ export {
     UserStatusVendors,
     UserStatusIds,
     CurrentUserStatus,
+    RegulationConfiguration,
     PurposeStatus,
     VendorStatus,
     UserAuthWithEncryptionParams,

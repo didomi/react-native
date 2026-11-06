@@ -172,6 +172,16 @@ export interface CurrentUserStatus {
   didomi_dcs: string;
   gpp_string: string;
   regulation: string;
+  regulation_configuration?: RegulationConfiguration | null;
+}
+
+export interface RegulationConfiguration {
+  id: string;
+  versionId: string | null;
+  numericalId: number | null;
+  regulationName: string;
+  tokenStorageName: string;
+  mixed: boolean;
 }
 
 export interface PurposeStatus {

@@ -68,6 +68,9 @@ RCT_EXTERN_METHOD(getUserStatus:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(getApplicableRegulation:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getApplicableRegulationConfiguration:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getUserCountryCode:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 

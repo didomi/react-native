@@ -123,6 +123,21 @@ export default function InitializeMethods(props: InitializeProps) {
           return true;
         }}
       />
+
+      <MethodCall
+        name="Initialize custom regulation"
+        call={async() => {
+          callInitializeWithParameters({
+              apiKey: "9bf8a7e4-db9a-4ff2-a45c-ab7d2b6eadba",
+              // Local configuration with a regulation configuration (custom regulation)
+              localConfigurationPath: Platform.OS === 'ios' ? "didomi_config_custom_regulation" : "didomi_config_custom_regulation.json",
+              disableDidomiRemoteConfig: true
+          });
+        }}
+        test={() => {
+          return true;
+        }}
+      />
     </View>
   );
 }
