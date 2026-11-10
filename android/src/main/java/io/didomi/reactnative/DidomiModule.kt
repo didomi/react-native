@@ -255,6 +255,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
          * A widget was hidden
          */
         override fun hideWidget(event: HideWidgetEvent) = prepareEvent(EventTypes.HIDE_WIDGET.event, null)
+
+        /**
+         * The user navigated to another layer of a widget
+         */
+        override fun widgetSwitchLayer(event: WidgetSwitchLayerEvent) = prepareWidgetSwitchLayerEvent(event)
+
+        /**
+         * A custom action button was clicked in a widget
+         */
+        override fun widgetCustomAction(event: WidgetCustomActionEvent) = prepareWidgetCustomActionEvent(event)
     }
 
     private val vendorStatusListeners: MutableSet<String> = mutableSetOf()
@@ -1277,6 +1287,26 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         val params = WritableNativeMap().apply {
             putString("widgetId", event.widgetId)
             putString("layerName", event.layerName)
+        }
+        prepareEvent(eventName, params)
+    }
+
+    private fun prepareWidgetSwitchLayerEvent(event: WidgetSwitchLayerEvent) {
+        val eventName = EventTypes.WIDGET_SWITCH_LAYER.event
+        val params = WritableNativeMap().apply {
+            putString("widgetId", event.widgetId)
+            putString("layerName", event.layerName)
+            putString("targetLayerName", event.targetLayerName)
+        }
+        prepareEvent(eventName, params)
+    }
+
+    private fun prepareWidgetCustomActionEvent(event: WidgetCustomActionEvent) {
+        val eventName = EventTypes.WIDGET_CUSTOM_ACTION.event
+        val params = WritableNativeMap().apply {
+            putString("widgetId", event.widgetId)
+            putString("layerName", event.layerName)
+            putString("customActionId", event.customActionId)
         }
         prepareEvent(eventName, params)
     }

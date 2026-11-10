@@ -15,5 +15,7 @@ export {
     UserAuthWithHashParams,
     DidomiInitializeParameters,
     ShowWidgetEvent,
+    WidgetSwitchLayerEvent,
+    WidgetCustomActionEvent,
     DidomiWidgetParameters
 } from './DidomiTypes';

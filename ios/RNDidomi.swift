@@ -814,7 +814,9 @@ extension RNDidomi {
                 "on_integration_error",
                 // Widgets
                 "on_show_widget",
-                "on_hide_widget"
+                "on_hide_widget",
+                "on_widget_switch_layer",
+                "on_widget_custom_action"
         ])
         vendorStatusListeners.forEach {
             eventsSet.insert("on_vendor_status_change_\($0)")
@@ -1016,6 +1018,24 @@ extension RNDidomi {
 
         didomiEventListener.onHideWidget = { [weak self] event in
             self?.dispatchEvent(withName: "on_hide_widget", body: "")
+        }
+
+        didomiEventListener.onWidgetSwitchLayer = { [weak self] event in
+            let result: [String: Any] = [
+                "widgetId": event.widgetID as Any,
+                "layerName": event.layerName as Any,
+                "targetLayerName": event.targetLayerName as Any
+            ]
+            self?.dispatchEvent(withName: "on_widget_switch_layer", body: result)
+        }
+
+        didomiEventListener.onWidgetCustomAction = { [weak self] event in
+            let result: [String: Any] = [
+                "widgetId": event.widgetID,
+                "layerName": event.layerName,
+                "customActionId": event.customActionID
+            ]
+            self?.dispatchEvent(withName: "on_widget_custom_action", body: result)
         }
 
         Didomi.shared.addEventListener(listener: didomiEventListener)

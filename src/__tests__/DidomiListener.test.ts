@@ -57,6 +57,30 @@ describe('test widget listeners', () => {
     ).toBe(0);
   });
 
+  it('add and remove widget switch layer listener', () => {
+    const callback = () => {};
+    DidomiListener.addEventListener(DidomiEventType.WIDGET_SWITCH_LAYER, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.WIDGET_SWITCH_LAYER).length
+    ).toBe(1);
+    DidomiListener.removeEventListener(DidomiEventType.WIDGET_SWITCH_LAYER, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.WIDGET_SWITCH_LAYER).length
+    ).toBe(0);
+  });
+
+  it('add and remove widget custom action listener', () => {
+    const callback = () => {};
+    DidomiListener.addEventListener(DidomiEventType.WIDGET_CUSTOM_ACTION, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.WIDGET_CUSTOM_ACTION).length
+    ).toBe(1);
+    DidomiListener.removeEventListener(DidomiEventType.WIDGET_CUSTOM_ACTION, callback);
+    expect(
+      DidomiListener.listeners.get(DidomiEventType.WIDGET_CUSTOM_ACTION).length
+    ).toBe(0);
+  });
+
   it('registers the widget events with the native event emitter', () => {
     DidomiListener.eventEmitter.addListener = jest.fn();
     DidomiListener.init();
@@ -65,5 +89,7 @@ describe('test widget listeners', () => {
     ).mock.calls.map((call) => call[0]);
     expect(registered).toContain('on_show_widget');
     expect(registered).toContain('on_hide_widget');
+    expect(registered).toContain('on_widget_switch_layer');
+    expect(registered).toContain('on_widget_custom_action');
   });
 });
