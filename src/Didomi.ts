@@ -387,11 +387,15 @@ export const Didomi = {
    * Determine the regulation applicable for the user.
    * @returns: the regulation applicable for the current user. If no regulation is applicable, will return "none".
    * If a regulation configuration is provided, will return "custom" (see {@link #getApplicableRegulationConfiguration()}).
+   * **Beta**: "custom" is in beta and may change in future releases.
    */
   getApplicableRegulation: (): Promise<string> => RNDidomi.getApplicableRegulation(),
 
   /**
    * Determine the regulation configuration applicable for the user (identity and version).
+   *
+   * **Beta**: this API is in beta and may change in future releases.
+   *
    * @returns: the regulation configuration applicable for the current user, or null if no regulation configuration is provided.
    */
   getApplicableRegulationConfiguration: (): Promise<RegulationConfiguration | null> => RNDidomi.getApplicableRegulationConfiguration(),

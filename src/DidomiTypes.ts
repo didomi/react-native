@@ -172,9 +172,19 @@ export interface CurrentUserStatus {
   didomi_dcs: string;
   gpp_string: string;
   regulation: string;
+  /**
+   * Regulation configuration applicable for the user (if a regulation configuration is provided).
+   *
+   * **Beta**: this API is in beta and may change in future releases.
+   */
   regulation_configuration?: RegulationConfiguration | null;
 }
 
+/**
+ * Regulation configuration applicable for the user (identity and version).
+ *
+ * **Beta**: this API is in beta and may change in future releases.
+ */
 export interface RegulationConfiguration {
   id: string;
   versionId: string | null;
