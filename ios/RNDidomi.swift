@@ -176,7 +176,8 @@ class RNDidomi: RCTEventEmitter {
 
     @objc(getApplicableRegulationConfiguration:reject:)
     func getApplicableRegulationConfiguration(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
-        resolve(dictionary(from: Didomi.shared.applicableRegulationConfiguration))
+        // NSNull so that JS receives null (nil is received as undefined)
+        resolve(dictionary(from: Didomi.shared.applicableRegulationConfiguration) ?? NSNull())
     }
 
     private func dictionary(from configuration: Regulation.Configuration?) -> [String: Any]? {
