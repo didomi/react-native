@@ -1,6 +1,7 @@
 package io.didomi.reactnative.test
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.NoMatchingViewException
 import androidx.test.espresso.action.ScrollToAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -72,6 +73,24 @@ open class BaseUITest {
     protected fun assertTextContains(text: String) {
         val matcher = withSubstring(text)
         onView(matcher).perform(ScrollToAction())
+    }
+
+    /**
+     * Wait for a result text to be rendered and scroll to it, as it can be rendered out of the screen.
+     */
+    protected fun scrollToResult(text: String, timeOutMs: Long = 20_000L) {
+        val matcher = withText(text)
+        val timeOutTimeStamp = System.currentTimeMillis() + timeOutMs
+        while (true) {
+            try {
+                onView(matcher).perform(ScrollToAction())
+                break
+            } catch (e: NoMatchingViewException) {
+                if (System.currentTimeMillis() > timeOutTimeStamp) throw e
+                Thread.sleep(200L)
+            }
+        }
+        waitForDisplayed(matcher)
     }
 
     protected fun waitForSdkToBeReady() {

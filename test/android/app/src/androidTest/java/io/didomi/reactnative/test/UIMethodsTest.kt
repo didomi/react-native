@@ -35,9 +35,12 @@ class UIMethodsTest : BaseUITest() {
     }
 
     private fun testMethodCall(method: String) {
-        waitForDisplayed(withText(method.uppercase()))
-        onView(withText(method.uppercase())).perform(click())
-        waitForDisplayed(withText("$method-OK"))
+        // The button and its result can be out of the screen, depending on the screen size
+        val matcher = withText(method.uppercase())
+        onView(matcher).perform(ScrollToAction())
+        waitForDisplayed(matcher)
+        onView(matcher).perform(click())
+        scrollToResult("$method-OK")
     }
 
     private fun methodCall(method: String) {

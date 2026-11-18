@@ -2,7 +2,11 @@
     "app": {
         "vendors": {
             "iab": {
-                "all": true,
+                "include": [
+                    28,
+                    755
+                ],
+                "all": false,
                 "version": 2,
                 "minorVersion": 2,
                 "gvlSpecificationVersion": 3,
