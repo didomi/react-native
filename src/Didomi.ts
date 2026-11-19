@@ -1,6 +1,6 @@
 import NativeDidomi from './specs/NativeDidomi';
 import { DidomiListener } from './DidomiListener';
-import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters, UserAuthWithEncryptionParams, UserAuthWithHashParams, DidomiMultiUserParameters, DidomiWidgetParameters } from './DidomiTypes';
+import { DidomiEventType, Purpose, Vendor, UserStatus, CurrentUserStatus, RegulationConfiguration, VendorStatus, UserAuthParams, DidomiInitializeParameters, DidomiUserParameters, UserAuthWithEncryptionParams, UserAuthWithHashParams, DidomiMultiUserParameters, DidomiWidgetParameters } from './DidomiTypes';
 import { DIDOMI_USER_AGENT_NAME, DIDOMI_VERSION } from './Constants';
 import { CurrentUserStatusTransaction, createCurrentUserStatusTransaction } from './CurrentUserStatusTransaction';
 
@@ -386,8 +386,19 @@ export const Didomi = {
   /**
    * Determine the regulation applicable for the user.
    * @returns: the regulation applicable for the current user. If no regulation is applicable, will return "none".
+   * If a regulation configuration is provided, will return "custom" (see {@link #getApplicableRegulationConfiguration()}).
+   * **Beta**: "custom" is in beta and may change in future releases.
    */
   getApplicableRegulation: (): Promise<string> => RNDidomi.getApplicableRegulation(),
+
+  /**
+   * Determine the regulation configuration applicable for the user (identity and version).
+   *
+   * **Beta**: this API is in beta and may change in future releases.
+   *
+   * @returns: the regulation configuration applicable for the current user, or null if no regulation configuration is provided.
+   */
+  getApplicableRegulationConfiguration: (): Promise<RegulationConfiguration | null> => RNDidomi.getApplicableRegulationConfiguration(),
 
   /**
    *  Method used to get a Vendor based on its ID.

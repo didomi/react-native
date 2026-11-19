@@ -171,7 +171,38 @@ export interface CurrentUserStatus {
   addtl_consent: string;
   didomi_dcs: string;
   gpp_string: string;
+  /**
+   * Current regulation ("custom" if a regulation configuration is provided, see {@link regulation_configuration}).
+   *
+   * **Beta**: "custom" is in beta and may change in future releases.
+   */
   regulation: string;
+  /**
+   * Regulation configuration applicable for the user (if a regulation configuration is provided).
+   *
+   * **Beta**: this API is in beta and may change in future releases.
+   */
+  regulation_configuration?: RegulationConfiguration | null;
+}
+
+/**
+ * Regulation configuration defined in the console, applicable when the regulation is "custom" (identity and version).
+ *
+ * **Beta**: this API is in beta and may change in future releases.
+ */
+export interface RegulationConfiguration {
+  /** The regulation configuration id (`regulation.config.id`) */
+  id: string;
+  /** The regulation configuration version id (`regulation.config.versionId`) */
+  versionId: string | null;
+  /** The regulation configuration numerical id (`regulation.config.numericalId`) */
+  numericalId: number | null;
+  /** The regulation name from the configuration (`regulation.name`), for example `gdpr` */
+  regulationName: string;
+  /** Key under which the consent token is saved (`regulation.cookies.didomiTokenStorageName`) */
+  tokenStorageName: string;
+  /** Whether the regulation configuration belongs to the `mixed` group (`regulation.group`) */
+  mixed: boolean;
 }
 
 export interface PurposeStatus {

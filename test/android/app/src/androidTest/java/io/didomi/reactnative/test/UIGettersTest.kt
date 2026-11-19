@@ -180,6 +180,17 @@ class UIGettersTest : BaseUITest() {
         assertText("\"gdpr\"")
     }
 
+    @Test
+    fun test_getApplicableRegulationConfiguration() {
+        tapButton("getApplicableRegulationConfiguration")
+
+        // There might be a delay to get this string.
+        Thread.sleep(DELAY)
+
+        // No regulation configuration with the default configuration
+        assertText("null")
+    }
+
     /** Vendor count */
 
     @Test

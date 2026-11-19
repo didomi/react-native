@@ -13,6 +13,7 @@ import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.DidomiMultiUserParameters
 import io.didomi.sdk.DidomiUserParameters
 import io.didomi.sdk.DidomiWidgetParameters
+import io.didomi.sdk.Regulation
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
@@ -309,6 +310,20 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         return gson.fromJson(json, object : TypeToken<O>() {}.type)
     }
 
+    private fun regulationConfigurationToWritableMap(configuration: Regulation.Configuration?): WritableMap? {
+        configuration ?: return null
+
+        val numericalId = configuration.numericalId
+        return Arguments.createMap().apply {
+            putString("id", configuration.id)
+            putString("versionId", configuration.versionId)
+            if (numericalId != null) putInt("numericalId", numericalId) else putNull("numericalId")
+            putString("regulationName", configuration.regulationName)
+            putString("tokenStorageName", configuration.tokenStorageName)
+            putBoolean("mixed", configuration.mixed)
+        }
+    }
+
     private fun setOfStringToWritableArray(set: Set<String?>?): WritableArray {
         val array = WritableNativeArray()
 
@@ -587,7 +602,12 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     @ReactMethod
     override fun getCurrentUserStatus(promise: Promise) {
         try {
-            promise.resolve(objectToWritableMap(Didomi.getInstance().currentUserStatus))
+            val currentUserStatus = Didomi.getInstance().currentUserStatus
+            val writableMap = objectToWritableMap(currentUserStatus)
+            // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
+            writableMap.putString("regulation", currentUserStatus.regulation.value)
+            writableMap.putMap("regulation_configuration", regulationConfigurationToWritableMap(currentUserStatus.regulationConfiguration))
+            promise.resolve(writableMap)
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -606,6 +626,15 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     override fun getApplicableRegulation(promise: Promise) {
         try {
             promise.resolve(Didomi.getInstance().applicableRegulation.value)
+        } catch (e: DidomiNotReadyException) {
+            promise.reject(e)
+        }
+    }
+
+    @ReactMethod
+    override fun getApplicableRegulationConfiguration(promise: Promise) {
+        try {
+            promise.resolve(regulationConfigurationToWritableMap(Didomi.getInstance().applicableRegulationConfiguration))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }

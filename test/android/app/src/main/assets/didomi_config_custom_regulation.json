@@ -1,0 +1,61 @@
+{
+    "app": {
+        "vendors": {
+            "iab": {
+                "include": [
+                    28,
+                    755
+                ],
+                "all": false,
+                "version": 2,
+                "minorVersion": 2,
+                "gvlSpecificationVersion": 3,
+                "enabled": true,
+                "requireUpdatedGVL": true
+            }
+        },
+        "consentString": {
+            "version": 2,
+            "signatureEnabled": false
+        }
+    },
+    "regulation": {
+        "cookies": {
+            "didomiTokenStorageName": "didomi_token_abcd"
+        },
+        "group": {
+            "name": "optin"
+        },
+        "name": "gdpr",
+        "id": 1,
+        "config": {
+            "id": "abcd",
+            "versionId": "v1",
+            "numericalId": 123
+        }
+    },
+    "integrations": {
+        "vendors": {
+            "google": {
+                "enable": false,
+                "refresh": true,
+                "eprivacy": false,
+                "passTargetingVariables": false
+            },
+            "salesforce-dmp": {
+                "enable": false,
+                "namespace": null
+            },
+            "refreshOnConsent": false
+        },
+        "gpp": {
+            "version": 1,
+            "sections": [
+                {
+                    "id": 2,
+                    "name": "tcfeuv2"
+                }
+            ]
+        }
+    }
+}

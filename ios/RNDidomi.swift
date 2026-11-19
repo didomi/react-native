@@ -154,7 +154,11 @@ class RNDidomi: RCTEventEmitter {
     @objc(getCurrentUserStatus:reject:)
     func getCurrentUserStatus(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         let encoder = JSONEncoder()
-        let currentUserStatus = try? JSONSerialization.jsonObject(with: encoder.encode(Didomi.shared.getCurrentUserStatus())) as? [String: Any]
+        let status = Didomi.shared.getCurrentUserStatus()
+        var currentUserStatus = try? JSONSerialization.jsonObject(with: encoder.encode(status)) as? [String: Any]
+        // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
+        currentUserStatus?["regulation"] = status.regulation.description
+        currentUserStatus?["regulation_configuration"] = dictionary(from: status.regulationConfiguration) ?? NSNull()
         resolve(currentUserStatus)
     }
     
@@ -168,6 +172,26 @@ class RNDidomi: RCTEventEmitter {
     @objc(getApplicableRegulation:reject:)
     func getApplicableRegulation(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
         resolve(Didomi.shared.applicableRegulation.description)
+    }
+
+    @objc(getApplicableRegulationConfiguration:reject:)
+    func getApplicableRegulationConfiguration(resolve:RCTPromiseResolveBlock, reject:RCTPromiseRejectBlock) {
+        // NSNull so that JS receives null (nil is received as undefined)
+        resolve(dictionary(from: Didomi.shared.applicableRegulationConfiguration) ?? NSNull())
+    }
+
+    private func dictionary(from configuration: Regulation.Configuration?) -> [String: Any]? {
+        guard let configuration = configuration else {
+            return nil
+        }
+        return [
+            "id": configuration.id,
+            "versionId": configuration.versionId ?? NSNull(),
+            "numericalId": configuration.numericalId ?? NSNull(),
+            "regulationName": configuration.regulationName,
+            "tokenStorageName": configuration.tokenStorageName,
+            "mixed": configuration.mixed
+        ]
     }
 
     @objc(getUserCountryCode:reject:)

@@ -79,6 +79,7 @@ export interface Spec extends TurboModule {
   setUserDisagreeToAll(): Promise<boolean>;
 
   getApplicableRegulation(): Promise<string>;
+  getApplicableRegulationConfiguration(): Promise<Object | null>;
   getUserCountryCode(): Promise<string | null>;
   getUserRegionCode(): Promise<string | null>;
   getPurpose(purposeId: string): Promise<Object>;
