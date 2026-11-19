@@ -133,6 +133,7 @@ jobs:
           --num-flaky-test-attempts=3 \
           --num-uniform-shards=3 \
           --use-orchestrator \
+          --environment-variables clearPackageData=true \
           --quiet
   
   ios:
