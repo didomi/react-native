@@ -1386,7 +1386,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         jsonParameters: JSONObject,
         activity: FragmentActivity? = null
     ): DidomiUserParameters {
-        val userAuth = if (jsonParameters.has("userAuth")) {
+        val userAuth = if (!jsonParameters.isNull("userAuth")) {
             buildUserAuthParams(jsonParameters.getJSONObject("userAuth"))
         } else null
         
@@ -1402,7 +1402,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         if (jsonParameters.has("synchronizedUsers")) {
             val synchronizedUsers = buildUserAuthParamsArray(jsonParameters.getJSONArray("synchronizedUsers"))
             return DidomiMultiUserParameters(
-                userAuth = userAuth as UserAuth,
+                userAuth = userAuth as UserAuth?,
                 dcsUserAuth = dcsUserAuth,
                 synchronizedUsers = synchronizedUsers,
                 activity = activity,
@@ -1411,7 +1411,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             )
         } else {
             return DidomiUserParameters(
-                userAuth = userAuth as UserAuth,
+                userAuth = userAuth as UserAuth?,
                 dcsUserAuth = dcsUserAuth,
                 activity = activity,
                 isUnderage = isUnderage,
