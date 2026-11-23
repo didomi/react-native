@@ -15,6 +15,7 @@ export {
     UserAuthWithEncryptionParams,
     UserAuthWithHashParams,
     DidomiInitializeParameters,
+    DidomiUserContext,
     ShowWidgetEvent,
     WidgetSwitchLayerEvent,
     WidgetCustomActionEvent,
