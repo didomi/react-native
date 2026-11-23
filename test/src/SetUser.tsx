@@ -250,7 +250,6 @@ export default function SetUser() {
           call={async () => {
             const userAuth = { id: userId, algorithm: 'hash-md5', secretId, digest: 'test-digest' };
             const parameters = {
-              userAuth,
               ...(multiUser ? { synchronizedUsers: [{ ...userAuth, id: userId + '1' }] } : {}),
               userContext: {
                 attributes: { tier: 'premium' },

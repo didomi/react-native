@@ -1096,8 +1096,12 @@ extension RNDidomi {
     private func buildDidomiUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
         let json = try jsonString.toJSON()
         
-        let userAuthJSON = json["userAuth"] as? [String: Any]
-        let userAuth = try buildUserAuthParams(from: userAuthJSON)
+        let userAuth: UserAuthParams?
+        if let value = json["userAuth"], !(value is NSNull) {
+            userAuth = try buildUserAuthParams(from: value as? [String: Any])
+        } else {
+            userAuth = nil
+        }
         let dcsUserAuthJSON = json["dcsUserAuth"] as? [String: Any]
         let dcsUserAuth = try? buildUserAuthParams(from: dcsUserAuthJSON)
         let isUnderage = json["isUnderage"] as? Bool
