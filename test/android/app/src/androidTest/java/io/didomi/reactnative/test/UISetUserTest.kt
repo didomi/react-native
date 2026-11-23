@@ -169,6 +169,31 @@ class UISetUserTest : BaseUITest() {
     }
 
     @Test
+    fun test_SetUserWithContext() {
+        testUserContextCall("setUserWithContext")
+    }
+
+    @Test
+    fun test_SetUserWithContextAndSetupUI() {
+        testUserContextCall("setUserWithContextAndSetupUI")
+    }
+
+    @Test
+    fun test_SetMultiUserWithContext() {
+        testUserContextCall("setMultiUserWithContext")
+    }
+
+    @Test
+    fun test_SetMultiUserWithContextAndSetupUI() {
+        testUserContextCall("setMultiUserWithContextAndSetupUI")
+    }
+
+    private fun testUserContextCall(method: String) {
+        tapButton(method)
+        scrollToResult("$method-OK")
+    }
+
+    @Test
     fun test_SyncReadyEvent() {
         tapButton("Listen user sync")
         EspressoViewFinder.waitForDisplayed(withText("Listen user sync-OK"))

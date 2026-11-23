@@ -922,6 +922,34 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithParametersAndSetupUI", expected: "setUserWithParametersAndSetupUI-OK")
   } 
   
+  func testSetUserWithContext() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithContext")
+    assertResult(in: app, name: "setUserWithContext", expected: "setUserWithContext-OK")
+  }
+
+  func testSetUserWithContextAndSetupUI() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithContextAndSetupUI")
+    assertResult(in: app, name: "setUserWithContextAndSetupUI", expected: "setUserWithContextAndSetupUI-OK")
+  }
+
+  func testSetMultiUserWithContext() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setMultiUserWithContext")
+    assertResult(in: app, name: "setMultiUserWithContext", expected: "setMultiUserWithContext-OK")
+  }
+
+  func testSetMultiUserWithContextAndSetupUI() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setMultiUserWithContextAndSetupUI")
+    assertResult(in: app, name: "setMultiUserWithContextAndSetupUI", expected: "setMultiUserWithContextAndSetupUI-OK")
+  }
+
   func testSyncReadyEvent() throws {
     let app = initApp()
 
