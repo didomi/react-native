@@ -4,6 +4,7 @@ jest.mock('../specs/NativeDidomi', () => ({
     getUserCountryCode: jest.fn(),
     getUserRegionCode: jest.fn(),
     getApplicableRegulationConfiguration: jest.fn(),
+    getCurrentUserStatus: jest.fn(),
     showWidget: jest.fn(),
     hideWidget: jest.fn(),
     isWidgetVisible: jest.fn(),
@@ -56,6 +57,28 @@ describe('getApplicableRegulationConfiguration', () => {
   it('resolves null when no regulation configuration is provided', async () => {
     RNDidomi.getApplicableRegulationConfiguration.mockResolvedValue(null);
     await expect(Didomi.getApplicableRegulationConfiguration()).resolves.toBeNull();
+  });
+});
+
+describe('getCurrentUserStatus', () => {
+  it('resolves the widget that collected the consent', async () => {
+    const widget = { type: 'notice', id: 'widget-1', version_id: 'v2' };
+    RNDidomi.getCurrentUserStatus.mockResolvedValue({ regulation: 'gdpr', widget });
+    const status = await Didomi.getCurrentUserStatus();
+    expect(status.widget).toEqual(widget);
+  });
+
+  it('resolves a widget without type and version id', async () => {
+    const widget = { type: null, id: 'widget-1', version_id: null };
+    RNDidomi.getCurrentUserStatus.mockResolvedValue({ regulation: 'gdpr', widget });
+    const status = await Didomi.getCurrentUserStatus();
+    expect(status.widget).toEqual(widget);
+  });
+
+  it('resolves no widget when the consent was not collected by a widget', async () => {
+    RNDidomi.getCurrentUserStatus.mockResolvedValue({ regulation: 'gdpr' });
+    const status = await Didomi.getCurrentUserStatus();
+    expect(status.widget).toBeUndefined();
   });
 });
 

@@ -10,6 +10,7 @@ export {
     UserStatusIds,
     CurrentUserStatus,
     RegulationConfiguration,
+    SourceWidget,
     PurposeStatus,
     VendorStatus,
     UserAuthWithEncryptionParams,
