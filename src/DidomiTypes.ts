@@ -184,7 +184,7 @@ export interface CurrentUserStatus {
    */
   regulation_configuration?: RegulationConfiguration | null;
   /**
-   * Privacy Widget that collected the current consent, if available.
+   * Privacy Widget that collected the current consent, or null if not available.
    *
    * **Beta**: this API is in beta and may change in future releases.
    */
