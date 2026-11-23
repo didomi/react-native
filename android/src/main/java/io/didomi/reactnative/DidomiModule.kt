@@ -1015,7 +1015,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             val userParameters = buildDidomiUserParameters(JSONObject(jsonUserParameters))
             Didomi.getInstance().setUser(userParameters)
             promise.resolve(0)
-        } catch (e: JSONException) {
+        } catch (e: Exception) {
             Log.e("setUserWithParameters", "Error while parsing user with parameters", e)
             promise.reject(e)
         }
@@ -1031,7 +1031,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
 
             Didomi.getInstance().setUser(userParameters)
             promise.resolve(0)
-        } catch (e: JSONException) {
+        } catch (e: Exception) {
             Log.e("setUserWithParameters", "Error while parsing user with parameters", e)
             promise.reject(e)
         }
