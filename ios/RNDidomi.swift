@@ -159,6 +159,8 @@ class RNDidomi: RCTEventEmitter {
         // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
         currentUserStatus?["regulation"] = status.regulation.description
         currentUserStatus?["regulation_configuration"] = dictionary(from: status.regulationConfiguration) ?? NSNull()
+        // Same shape as Android (null when the consent was not collected by a widget)
+        currentUserStatus?["widget"] = dictionary(from: status.widget) ?? NSNull()
         resolve(currentUserStatus)
     }
     
@@ -191,6 +193,17 @@ class RNDidomi: RCTEventEmitter {
             "regulationName": configuration.regulationName,
             "tokenStorageName": configuration.tokenStorageName,
             "mixed": configuration.mixed
+        ]
+    }
+
+    private func dictionary(from widget: SourceWidget?) -> [String: Any]? {
+        guard let widget = widget else {
+            return nil
+        }
+        return [
+            "type": widget.type ?? NSNull(),
+            "id": widget.id,
+            "version_id": widget.versionID ?? NSNull()
         ]
     }
 

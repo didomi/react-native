@@ -166,6 +166,7 @@ class UIGettersTest : BaseUITest() {
         assertTextContains("\"didomi_dcs\":\"\"".trim()) // DCS feature is disabled (empty string)
         assertTextContains("\"gpp_string\":\"\"".trim()) // GPP feature is disabled (empty string)
         assertTextContains("\"regulation\":\"gdpr\"".trim())
+        assertTextContains("\"widget\":null".trim()) // Consent not collected by a Privacy Widget
     }
 
     /** Applicable regulation */

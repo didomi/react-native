@@ -183,6 +183,26 @@ export interface CurrentUserStatus {
    * **Beta**: this API is in beta and may change in future releases.
    */
   regulation_configuration?: RegulationConfiguration | null;
+  /**
+   * Privacy Widget that collected the current consent, or null if not available.
+   *
+   * **Beta**: this API is in beta and may change in future releases.
+   */
+  widget?: SourceWidget | null;
+}
+
+/**
+ * Privacy Widget that collected the current consent.
+ *
+ * **Beta**: this API is in beta and may change in future releases.
+ */
+export interface SourceWidget {
+  /** The widget type, if defined in the widget catalog */
+  type: string | null;
+  /** The widget id */
+  id: string;
+  /** The widget version id, if defined in the widget catalog */
+  version_id: string | null;
 }
 
 /**

@@ -461,6 +461,7 @@ class DidomiUITests: XCTestCase {
     XCTAssertTrue(actual.contains("\"didomi_dcs\":\"\"")) // DCS feature is disabled (empty string)
     XCTAssertTrue(actual.contains("\"gpp_string\":\"\"")) // GPP feature is disabled (empty string)
     XCTAssertTrue(actual.contains("\"regulation\":\"gdpr\""))
+    XCTAssertTrue(actual.contains("\"widget\":null")) // Consent not collected by a Privacy Widget
   }
   
   // MARK: GETTERS WITH PARAMS

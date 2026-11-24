@@ -9,6 +9,7 @@ import com.facebook.react.common.MapBuilder
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.didomi.sdk.Didomi
+import io.didomi.sdk.apiEvents.Source
 import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.DidomiMultiUserParameters
 import io.didomi.sdk.DidomiUserParameters
@@ -324,6 +325,16 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         }
     }
 
+    private fun sourceWidgetToWritableMap(widget: Source.Widget?): WritableMap? {
+        widget ?: return null
+
+        return Arguments.createMap().apply {
+            putString("type", widget.type)
+            putString("id", widget.id)
+            putString("version_id", widget.versionId)
+        }
+    }
+
     private fun setOfStringToWritableArray(set: Set<String?>?): WritableArray {
         val array = WritableNativeArray()
 
@@ -607,6 +618,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
             writableMap.putString("regulation", currentUserStatus.regulation.value)
             writableMap.putMap("regulation_configuration", regulationConfigurationToWritableMap(currentUserStatus.regulationConfiguration))
+            // Built field by field: the generic conversion drops null values of nested objects
+            writableMap.putMap("widget", sourceWidgetToWritableMap(currentUserStatus.widget))
             promise.resolve(writableMap)
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
