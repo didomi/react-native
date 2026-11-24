@@ -933,6 +933,10 @@ class DidomiUITests: XCTestCase {
     let app = initApp()
 
     tapButton(in: app, name: "setUserWithContextAndSetupUI")
+    let noticeButton = app.staticTexts["Agree & Close"]
+    noticeButton.wait()
+    noticeButton.tap()
+    testLastEvent(app: app, name: "on_hide_notice")
     assertResult(in: app, name: "setUserWithContextAndSetupUI", expected: "setUserWithContextAndSetupUI-OK")
   }
 
@@ -947,6 +951,10 @@ class DidomiUITests: XCTestCase {
     let app = initApp()
 
     tapButton(in: app, name: "setMultiUserWithContextAndSetupUI")
+    let noticeButton = app.staticTexts["Agree & Close"]
+    noticeButton.wait()
+    noticeButton.tap()
+    testLastEvent(app: app, name: "on_hide_notice")
     assertResult(in: app, name: "setMultiUserWithContextAndSetupUI", expected: "setMultiUserWithContextAndSetupUI-OK")
   }
 

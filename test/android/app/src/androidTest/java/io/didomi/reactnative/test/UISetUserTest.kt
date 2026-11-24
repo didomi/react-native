@@ -1,5 +1,10 @@
 package io.didomi.reactnative.test
 
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ScrollToAction
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
@@ -16,6 +21,7 @@ class UISetUserTest : BaseUITest() {
 
     companion object {
         private const val DELAY = 2_000L
+        private const val DELAY_SHORT = 1_000L
     }
 
     @get:Rule
@@ -115,7 +121,7 @@ class UISetUserTest : BaseUITest() {
         Thread.sleep(DELAY)
         // Prevent random test failure
         scrollToBottomOfList()
-        Thread.sleep(1_000L)
+        Thread.sleep(DELAY_SHORT)
         assertText("setUserWithEncryptionAuthWithExpiration-OK")
     }
 
@@ -189,7 +195,22 @@ class UISetUserTest : BaseUITest() {
     }
 
     private fun testUserContextCall(method: String) {
-        tapButton(method)
+        val matcher = withText(method.uppercase())
+        onView(matcher).perform(ScrollToAction())
+        EspressoViewFinder.waitForDisplayed(matcher)
+        onView(matcher).perform(click())
+
+        if (method.endsWith("AndSetupUI")) {
+            val agreeButtonText = "Agree & Close"
+            Thread.sleep(DELAY_SHORT)
+            EspressoViewFinder.waitForDisplayed(withText(agreeButtonText))
+            val agreeButton = onView(withText(agreeButtonText))
+            agreeButton.check(matches(isDisplayed()))
+            agreeButton.perform(click())
+
+            EspressoViewFinder.waitForDisplayed(withText(containsString("> on_hide_notice")))
+            Thread.sleep(DELAY_SHORT)
+        }
         scrollToResult("$method-OK")
     }
 
