@@ -931,6 +931,9 @@ class DidomiUITests: XCTestCase {
 
   func testSetUserWithContextAndSetupUI() throws {
     let app = initApp()
+    app.staticTexts.matching(identifier: "ready-result")
+      .matching(NSPredicate(format: "label == %@", "SDK STATUS: READY")).firstMatch.wait()
+    resetUserStatus(in: app)
 
     tapButton(in: app, name: "setUserWithContextAndSetupUI")
     let noticeButton = app.staticTexts["Agree & Close"]
@@ -949,6 +952,9 @@ class DidomiUITests: XCTestCase {
 
   func testSetMultiUserWithContextAndSetupUI() throws {
     let app = initApp()
+    app.staticTexts.matching(identifier: "ready-result")
+      .matching(NSPredicate(format: "label == %@", "SDK STATUS: READY")).firstMatch.wait()
+    resetUserStatus(in: app)
 
     tapButton(in: app, name: "setMultiUserWithContextAndSetupUI")
     let noticeButton = app.staticTexts["Agree & Close"]
