@@ -20,6 +20,7 @@ import io.didomi.sdk.exceptions.DidomiNotReadyException
 import io.didomi.sdk.models.CurrentUserStatus
 import io.didomi.sdk.user.model.UserAuthParams
 import io.didomi.sdk.user.model.UserAuth
+import io.didomi.sdk.user.model.UserContext
 import io.didomi.sdk.user.model.UserAuthWithEncryptionParams
 import io.didomi.sdk.user.model.UserAuthWithHashParams
 import org.json.JSONArray
@@ -1027,7 +1028,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
             val userParameters = buildDidomiUserParameters(JSONObject(jsonUserParameters))
             Didomi.getInstance().setUser(userParameters)
             promise.resolve(0)
-        } catch (e: JSONException) {
+        } catch (e: Exception) {
             Log.e("setUserWithParameters", "Error while parsing user with parameters", e)
             promise.reject(e)
         }
@@ -1043,7 +1044,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
 
             Didomi.getInstance().setUser(userParameters)
             promise.resolve(0)
-        } catch (e: JSONException) {
+        } catch (e: Exception) {
             Log.e("setUserWithParameters", "Error while parsing user with parameters", e)
             promise.reject(e)
         }
@@ -1398,7 +1399,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         jsonParameters: JSONObject,
         activity: FragmentActivity? = null
     ): DidomiUserParameters {
-        val userAuth = if (jsonParameters.has("userAuth")) {
+        val userAuth = if (!jsonParameters.isNull("userAuth")) {
             buildUserAuthParams(jsonParameters.getJSONObject("userAuth"))
         } else null
         
@@ -1407,22 +1408,27 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         } else null
 
         val isUnderage = jsonParameters.opt("isUnderage") as? Boolean
+        val userContext = jsonParameters.optJSONObject("userContext")?.let {
+            gson.fromJson(it.toString(), UserContext::class.java)
+        }
 
         if (jsonParameters.has("synchronizedUsers")) {
             val synchronizedUsers = buildUserAuthParamsArray(jsonParameters.getJSONArray("synchronizedUsers"))
             return DidomiMultiUserParameters(
-                userAuth = userAuth as UserAuth,
+                userAuth = userAuth as UserAuth?,
                 dcsUserAuth = dcsUserAuth,
                 synchronizedUsers = synchronizedUsers,
                 activity = activity,
-                isUnderage = isUnderage
+                isUnderage = isUnderage,
+                userContext = userContext
             )
         } else {
             return DidomiUserParameters(
-                userAuth = userAuth as UserAuth,
+                userAuth = userAuth as UserAuth?,
                 dcsUserAuth = dcsUserAuth,
                 activity = activity,
-                isUnderage = isUnderage
+                isUnderage = isUnderage,
+                userContext = userContext
             )
         }
     }

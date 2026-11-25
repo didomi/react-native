@@ -436,6 +436,25 @@ export interface DidomiInitializeParameters {
 }
 
 /**
+ * User context forwarded to the native SDK.
+ * @interface
+ */
+export interface DidomiUserContext {
+  attributes?: Record<string, string>;
+  variables?: Record<string, string>;
+  /**
+   * Age used by rules. Undefined preserves the previous value when setting the user.
+   * @property
+   */
+  age?: number;
+  /**
+   * Login status used by rules. Undefined preserves the previous value or falls back to authentication.
+   * @property
+   */
+  isLoggedIn?: boolean;
+}
+
+/**
  * Object that contains the parameters for the setUser method.
  * @interface
  */
@@ -464,6 +483,11 @@ export interface DidomiUserParameters {
    * @property
    */
   isUnderage?: boolean;
+  /**
+   * Additional user context.
+   * @property
+   */
+  userContext?: DidomiUserContext;
 }
 
 /**

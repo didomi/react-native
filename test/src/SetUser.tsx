@@ -236,7 +236,39 @@ export default function SetUser() {
         test={() => {
           return true;
         }}
-      />  
+      />
+
+      {[
+        { name: 'setUserWithContext', setupUI: false, multiUser: false },
+        { name: 'setUserWithContextAndSetupUI', setupUI: true, multiUser: false },
+        { name: 'setMultiUserWithContext', setupUI: false, multiUser: true },
+        { name: 'setMultiUserWithContextAndSetupUI', setupUI: true, multiUser: true },
+      ].map(({ name, setupUI, multiUser }) => (
+        <Setter
+          key={name}
+          name={name}
+          call={async () => {
+            const userAuth = { id: userId, algorithm: 'hash-md5', secretId, digest: 'test-digest' };
+            const parameters = {
+              ...(multiUser ? { synchronizedUsers: [{ ...userAuth, id: userId + '1' }] } : {}),
+              userContext: {
+                attributes: { tier: 'premium' },
+                variables: { language: 'fr' },
+                age: multiUser ? 0 : 18,
+                isLoggedIn: !multiUser,
+              },
+            };
+
+            if (setupUI) {
+              await Didomi.setUserWithParametersAndSetupUI(parameters);
+            } else {
+              await Didomi.setUserWithParameters(parameters);
+            }
+            return true;
+          }}
+          test={(result) => result === true}
+        />
+      ))}
     </View>
   );
 }

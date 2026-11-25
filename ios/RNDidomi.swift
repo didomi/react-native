@@ -1109,11 +1109,16 @@ extension RNDidomi {
     private func buildDidomiUserParameters(from jsonString: String, containerController: UIViewController? = nil) throws -> DidomiUserParameters {
         let json = try jsonString.toJSON()
         
-        let userAuthJSON = json["userAuth"] as? [String: Any]
-        let userAuth = try buildUserAuthParams(from: userAuthJSON)
+        let userAuth: UserAuthParams?
+        if let value = json["userAuth"], !(value is NSNull) {
+            userAuth = try buildUserAuthParams(from: value as? [String: Any])
+        } else {
+            userAuth = nil
+        }
         let dcsUserAuthJSON = json["dcsUserAuth"] as? [String: Any]
         let dcsUserAuth = try? buildUserAuthParams(from: dcsUserAuthJSON)
         let isUnderage = json["isUnderage"] as? Bool
+        let userContext = buildDidomiUserContext(from: json["userContext"] as? [String: Any])
         
         if let synchronizedUsers = json["synchronizedUsers"] as? [[String: Any]] {
             return DidomiMultiUserParameters(
@@ -1121,18 +1126,31 @@ extension RNDidomi {
                 dcsUserAuth: dcsUserAuth,
                 synchronizedUsers: try synchronizedUsers.map { try buildUserAuthParams(from: $0) },
                 containerController: containerController,
-                isUnderage: isUnderage
+                isUnderage: isUnderage,
+                userContext: userContext
             )
         } else {
             return DidomiUserParameters(
                 userAuth: userAuth,
                 dcsUserAuth: dcsUserAuth,
                 containerController: containerController,
-                isUnderage: isUnderage
+                isUnderage: isUnderage,
+                userContext: userContext
             )
         }
     }
     
+    private func buildDidomiUserContext(from json: [String: Any]?) -> DidomiUserContext? {
+        guard let json = json else { return nil }
+
+        return DidomiUserContext(
+            attributes: json["attributes"] as? [String: String],
+            variables: json["variables"] as? [String: String],
+            age: json["age"] as? Int,
+            isLoggedIn: json["isLoggedIn"] as? Bool
+        )
+    }
+
     /// Build the user auth params from the JSON parameters
     private func buildUserAuthParams(from jsonString: String) throws -> UserAuthParams {
         let json = try jsonString.toJSON()

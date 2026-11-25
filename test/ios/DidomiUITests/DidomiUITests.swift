@@ -923,6 +923,48 @@ class DidomiUITests: XCTestCase {
     assertResult(in: app, name: "setUserWithParametersAndSetupUI", expected: "setUserWithParametersAndSetupUI-OK")
   } 
   
+  func testSetUserWithContext() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setUserWithContext")
+    assertResult(in: app, name: "setUserWithContext", expected: "setUserWithContext-OK")
+  }
+
+  func testSetUserWithContextAndSetupUI() throws {
+    let app = initApp()
+    app.staticTexts.matching(identifier: "ready-result")
+      .matching(NSPredicate(format: "label == %@", "SDK STATUS: READY")).firstMatch.wait()
+    resetUserStatus(in: app)
+
+    tapButton(in: app, name: "setUserWithContextAndSetupUI")
+    let noticeButton = app.staticTexts["Agree & Close"]
+    noticeButton.wait()
+    noticeButton.tap()
+    testLastEvent(app: app, name: "on_hide_notice")
+    assertResult(in: app, name: "setUserWithContextAndSetupUI", expected: "setUserWithContextAndSetupUI-OK")
+  }
+
+  func testSetMultiUserWithContext() throws {
+    let app = initApp()
+
+    tapButton(in: app, name: "setMultiUserWithContext")
+    assertResult(in: app, name: "setMultiUserWithContext", expected: "setMultiUserWithContext-OK")
+  }
+
+  func testSetMultiUserWithContextAndSetupUI() throws {
+    let app = initApp()
+    app.staticTexts.matching(identifier: "ready-result")
+      .matching(NSPredicate(format: "label == %@", "SDK STATUS: READY")).firstMatch.wait()
+    resetUserStatus(in: app)
+
+    tapButton(in: app, name: "setMultiUserWithContextAndSetupUI")
+    let noticeButton = app.staticTexts["Agree & Close"]
+    noticeButton.wait()
+    noticeButton.tap()
+    testLastEvent(app: app, name: "on_hide_notice")
+    assertResult(in: app, name: "setMultiUserWithContextAndSetupUI", expected: "setMultiUserWithContextAndSetupUI-OK")
+  }
+
   func testSyncReadyEvent() throws {
     let app = initApp()
 
