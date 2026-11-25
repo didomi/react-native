@@ -5,6 +5,7 @@ jest.mock('../specs/NativeDidomi', () => ({
     getUserRegionCode: jest.fn(),
     getApplicableRegulationConfiguration: jest.fn(),
     getCurrentUserStatus: jest.fn(),
+    getUserStatus: jest.fn(),
     showWidget: jest.fn(),
     hideWidget: jest.fn(),
     isWidgetVisible: jest.fn(),
@@ -13,6 +14,7 @@ jest.mock('../specs/NativeDidomi', () => ({
 
 import { Didomi } from '../Didomi';
 import NativeDidomi from '../specs/NativeDidomi';
+import type { UserStatus } from '../DidomiTypes';
 
 const RNDidomi = NativeDidomi as any;
 
@@ -79,6 +81,39 @@ describe('getCurrentUserStatus', () => {
     RNDidomi.getCurrentUserStatus.mockResolvedValue({ regulation: 'gdpr' });
     const status = await Didomi.getCurrentUserStatus();
     expect(status.widget).toBeUndefined();
+  });
+});
+
+describe('getUserStatus', () => {
+  it('resolves the keys returned by the native SDKs', async () => {
+    // Payload shape returned by Android (Gson) and iOS (Codable): typed as UserStatus so the type check fails if they drift
+    const nativeUserStatus: UserStatus = {
+      purposes: {
+        global: { enabled: ['cookies'], disabled: [] },
+        consent: { enabled: ['cookies'], disabled: [] },
+        legitimate_interest: { enabled: [], disabled: [] },
+        essential: ['essential_purpose'],
+      },
+      vendors: {
+        global: { enabled: ['vendor-1'], disabled: [] },
+        global_consent: { enabled: ['vendor-1'], disabled: [] },
+        global_li: { enabled: [], disabled: ['vendor-2'] },
+        consent: { enabled: ['vendor-1'], disabled: [] },
+        legitimate_interest: { enabled: [], disabled: [] },
+      },
+      user_id: 'user-id',
+      created: '2026-01-01T00:00:00.000Z',
+      updated: '2026-01-01T00:00:00.000Z',
+      consent_string: 'consent-string',
+      addtl_consent: '1~',
+      didomi_dcs: 'dcs',
+      regulation: 'gdpr',
+    };
+    RNDidomi.getUserStatus.mockResolvedValue(nativeUserStatus);
+    const status = await Didomi.getUserStatus();
+    expect(status.addtl_consent).toBe('1~');
+    expect(status.vendors.global_li.disabled).toEqual(['vendor-2']);
+    expect(status.purposes.essential).toEqual(['essential_purpose']);
   });
 });
 
