@@ -6,10 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import com.facebook.react.bridge.*
 import com.facebook.react.bridge.UiThreadUtil.runOnUiThread
 import com.facebook.react.common.MapBuilder
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import io.didomi.sdk.Didomi
-import io.didomi.sdk.apiEvents.Source
 import io.didomi.sdk.DidomiInitializeParameters
 import io.didomi.sdk.DidomiMultiUserParameters
 import io.didomi.sdk.DidomiUserParameters
@@ -17,10 +14,8 @@ import io.didomi.sdk.DidomiWidgetParameters
 import io.didomi.sdk.Regulation
 import io.didomi.sdk.events.*
 import io.didomi.sdk.exceptions.DidomiNotReadyException
-import io.didomi.sdk.models.CurrentUserStatus
 import io.didomi.sdk.user.model.UserAuthParams
 import io.didomi.sdk.user.model.UserAuth
-import io.didomi.sdk.user.model.UserContext
 import io.didomi.sdk.user.model.UserAuthWithEncryptionParams
 import io.didomi.sdk.user.model.UserAuthWithHashParams
 import org.json.JSONArray
@@ -32,8 +27,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     companion object {
         const val NAME = "Didomi"
     }
-
-    val gson = Gson()
 
     private val reactContext: ReactContext = reactContext
     private val eventListener = object : EventListener() {
@@ -286,16 +279,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         return map
     }
 
-    //convert a data class to a map
-    private fun <T> T.serializeToMap(): Map<String, Any> {
-        return convert()
-    }
-
-    //convert a map to a data class
-    inline fun <reified T> Map<String, Any>.toDataClass(): T {
-        return convert()
-    }
-
     private fun ReadableArray.toSet(): Set<String> {
         val set = mutableSetOf<String>()
 
@@ -306,35 +289,8 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         return set
     }
 
-    //convert an object of type I to type O
-    inline fun <I, reified O> I.convert(): O {
-        val json = gson.toJson(this)
-        return gson.fromJson(json, object : TypeToken<O>() {}.type)
-    }
-
-    private fun regulationConfigurationToWritableMap(configuration: Regulation.Configuration?): WritableMap? {
-        configuration ?: return null
-
-        val numericalId = configuration.numericalId
-        return Arguments.createMap().apply {
-            putString("id", configuration.id)
-            putString("versionId", configuration.versionId)
-            if (numericalId != null) putInt("numericalId", numericalId) else putNull("numericalId")
-            putString("regulationName", configuration.regulationName)
-            putString("tokenStorageName", configuration.tokenStorageName)
-            putBoolean("mixed", configuration.mixed)
-        }
-    }
-
-    private fun sourceWidgetToWritableMap(widget: Source.Widget?): WritableMap? {
-        widget ?: return null
-
-        return Arguments.createMap().apply {
-            putString("type", widget.type)
-            putString("id", widget.id)
-            putString("version_id", widget.versionId)
-        }
-    }
+    private fun regulationConfigurationToWritableMap(configuration: Regulation.Configuration?): WritableMap? =
+        configuration?.let { Arguments.makeNativeMap(EntitiesHelper.toMap(it)) }
 
     private fun setOfStringToWritableArray(set: Set<String?>?): WritableArray {
         val array = WritableNativeArray()
@@ -342,39 +298,6 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         set?.forEach { array.pushString(it) }
 
         return array
-    }
-
-    private fun setToWritableArray(set: Set<Any?>?): WritableArray {
-        val array = WritableNativeArray()
-
-        set?.forEach { array.pushMap(objectToWritableMap(it)) }
-
-        return array
-    }
-
-    private fun objectToWritableMap(obj: Any?): WritableMap {
-        val map = WritableNativeMap()
-        obj?.serializeToMap()?.entries?.forEach { entry ->
-            when (val value = entry.value) {
-                is Map<*, *> -> map.putMap(entry.key, objectToWritableMap(value))
-                is List<*> -> {
-                    if (value.size > 0 && value[0] is String) {
-                        // String values
-                        map.putArray(entry.key, Arguments.fromList(value))
-                    } else {
-                        // Other objects
-                        val listValues = value.map { objectToWritableMap(it) }
-                        map.putArray(entry.key, Arguments.makeNativeArray(listValues))
-                    }
-                }
-
-                is Boolean -> map.putBoolean(entry.key, value)
-                is Int -> map.putInt(entry.key, value)
-                is Double -> map.putDouble(entry.key, value)
-                else -> map.putString(entry.key, value.toString())
-            }
-        }
-        return map
     }
 
     @ReactMethod
@@ -508,7 +431,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     @ReactMethod
     override fun getPurpose(purposeId: String, promise: Promise) {
         try {
-            promise.resolve(objectToWritableMap(Didomi.getInstance().getPurpose(purposeId)))
+            promise.resolve(Arguments.makeNativeMap(Didomi.getInstance().getPurpose(purposeId)?.let { EntitiesHelper.toMap(it) }))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -517,7 +440,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     @ReactMethod
     override fun getRequiredPurposes(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().requiredPurposes))
+            promise.resolve(Arguments.makeNativeArray(EntitiesHelper.toList(Didomi.getInstance().requiredPurposes)))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -535,7 +458,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     @ReactMethod
     override fun getVendor(vendorId: String, promise: Promise) {
         try {
-            promise.resolve(objectToWritableMap(Didomi.getInstance().getVendor(vendorId)))
+            promise.resolve(Arguments.makeNativeMap(Didomi.getInstance().getVendor(vendorId)?.let { EntitiesHelper.toMap(it) }))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -571,7 +494,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     @ReactMethod
     override fun getRequiredVendors(promise: Promise) {
         try {
-            promise.resolve(setToWritableArray(Didomi.getInstance().requiredVendors))
+            promise.resolve(Arguments.makeNativeArray(EntitiesHelper.toList(Didomi.getInstance().requiredVendors)))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -615,13 +538,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     override fun getCurrentUserStatus(promise: Promise) {
         try {
             val currentUserStatus = Didomi.getInstance().currentUserStatus
-            val writableMap = objectToWritableMap(currentUserStatus)
-            // Regulation of the status object ("custom" for a regulation configuration, the JSON contains the regulation name)
-            writableMap.putString("regulation", currentUserStatus.regulation.value)
-            writableMap.putMap("regulation_configuration", regulationConfigurationToWritableMap(currentUserStatus.regulationConfiguration))
-            // Built field by field: the generic conversion drops null values of nested objects
-            writableMap.putMap("widget", sourceWidgetToWritableMap(currentUserStatus.widget))
-            promise.resolve(writableMap)
+            promise.resolve(Arguments.makeNativeMap(EntitiesHelper.toMap(currentUserStatus)))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -630,7 +547,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     @ReactMethod
     override fun getUserStatus(promise: Promise) {
         try {
-            promise.resolve(objectToWritableMap(Didomi.getInstance().userStatus))
+            promise.resolve(Arguments.makeNativeMap(EntitiesHelper.toMap(Didomi.getInstance().userStatus)))
         } catch (e: DidomiNotReadyException) {
             promise.reject(e)
         }
@@ -1124,7 +1041,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         promise: Promise
     ) {
         try {
-            val currentUserStatus = gson.fromJson(currentUserStatusAsString, CurrentUserStatus::class.java)
+            val currentUserStatus = EntitiesHelper.parseCurrentUserStatus(currentUserStatusAsString)
             promise.resolve(
                 Didomi.getInstance().setCurrentUserStatus(currentUserStatus)
             )
@@ -1248,7 +1165,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
     override fun listenToVendorStatus(vendorId: String, promise: Promise) {
         if (!vendorStatusListeners.contains(vendorId)) {
             Didomi.getInstance().addVendorStatusListener(vendorId) { vendorStatus ->
-                val statusAsMap = objectToWritableMap(vendorStatus)
+                val statusAsMap = Arguments.makeNativeMap(EntitiesHelper.toMap(vendorStatus))
                 prepareEvent("${EventTypes.VENDOR_STATUS_CHANGE_PREFIX.event}$vendorId", statusAsMap)
             }
             vendorStatusListeners.add(vendorId)
@@ -1408,9 +1325,7 @@ class DidomiModule(reactContext: ReactApplicationContext) : DidomiModuleSpec(rea
         } else null
 
         val isUnderage = jsonParameters.opt("isUnderage") as? Boolean
-        val userContext = jsonParameters.optJSONObject("userContext")?.let {
-            gson.fromJson(it.toString(), UserContext::class.java)
-        }
+        val userContext = jsonParameters.optJSONObject("userContext")?.let { EntitiesHelper.parseUserContext(it) }
 
         if (jsonParameters.has("synchronizedUsers")) {
             val synchronizedUsers = buildUserAuthParamsArray(jsonParameters.getJSONArray("synchronizedUsers"))
