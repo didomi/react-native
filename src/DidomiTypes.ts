@@ -136,7 +136,11 @@ export interface UserStatus {
   created: string;
   updated: string;
   consent_string: string;
-  additional_consent: string;
+  addtl_consent: string;
+  /**
+   * @deprecated Never populated, use `addtl_consent` instead.
+   */
+  additional_consent?: string;
   didomi_dcs: string;
   regulation: string;
 }
@@ -145,13 +149,17 @@ export interface UserStatusPurposes {
   global: UserStatusIds;
   consent: UserStatusIds;
   legitimate_interest: UserStatusIds;
-  essential: UserStatusIds;
+  essential: string[];
 }
 
 export interface UserStatusVendors {
   global: UserStatusIds;
   global_consent: UserStatusIds;
-  global_legitimate_interest: UserStatusIds;
+  global_li: UserStatusIds;
+  /**
+   * @deprecated Never populated, use `global_li` instead.
+   */
+  global_legitimate_interest?: UserStatusIds;
   consent: UserStatusIds;
   legitimate_interest: UserStatusIds;
 }
